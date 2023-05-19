@@ -5,7 +5,7 @@
     <title>Cadastro de Customer</title>
 </head>
 <body>
-    <g:if test="${!validation.success}">
+    <g:if test="${validation != null}">
         <p>${validation.message}</p>
     </g:if>
     <g:form name="customerForm" url="[controller: 'customer', action: 'register']">
