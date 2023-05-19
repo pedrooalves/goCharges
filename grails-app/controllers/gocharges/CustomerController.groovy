@@ -1,7 +1,6 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
-import org.apache.tomcat.util.scan.NonClosingJarInputStream
 
 class CustomerController {
 
@@ -12,15 +11,17 @@ class CustomerController {
     }
 
     def register() {
+        Map customerParams = params;
 
-        CustomerAdapter customerAdapter = new CustomerAdapter(params)
-        customerService.register(customerAdapter)
+        CustomerAdapter customerAdapter = new CustomerAdapter(customerParams)
+        Map validation = customerService.register(customerAdapter)
 
-        redirect(action: "list")
+
+        render(view: "index", model: [validation : validation])
     }
 
     def list() {
-        def customerList = customerService.list()
+        List<Customer> customerList = customerService.list()
 
         render(view:"list", model: [customers : customerList])
     }

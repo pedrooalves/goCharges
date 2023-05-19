@@ -5,7 +5,9 @@
     <title>Cadastro de Customer</title>
 </head>
 <body>
-    <g:eachError><p><g:message error="${errorMessage}"/></p></g:eachError>
+    <g:if test="${!validation.success}">
+        <p>${validation.message}</p>
+    </g:if>
     <g:form name="customerForm" url="[controller: 'customer', action: 'register']">
         Nome <input type="text" name="name" value="" /><br/>
         Email <input type="email" name="email" value="" /><br/>

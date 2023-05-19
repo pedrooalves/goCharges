@@ -6,36 +6,45 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CustomerService {
 
-    def register(CustomerAdapter customerAdapter) {
-        def erro = validateCustomer(customerAdapter)
+    Map register(CustomerAdapter customerAdapter) {
+        Map validation = validateCustomer(customerAdapter)
 
-        if(!(erro === "sucesso")) {
-            return println(erro)
+        if(!validation.success) {
+            return validation
         }
 
-        Customer customer = customerAdapter.create()
+        Customer customer = new Customer()
+        customer.name = customerAdapter.name;
+        customer.email = customerAdapter.email;
+        customer.mobilePhone = customerAdapter.mobilePhone;
+        customer.cpfCnpj = customerAdapter.cpfCnpj;
+        customer.address = customerAdapter.address;
+
         customer.save(failOnError: true)
+
+        return validation
     }
 
-    def list() {
-        def customerList = Customer.list()
+    List<Customer> list() {
+        List<Customer> customerList = Customer.list()
 
         return customerList;
     }
 
-    def validateCustomer(customerAdapter) {
+    Map validateCustomer(customerAdapter) {
 
-        if(customerAdapter.name.isBlank() or customerAdapter.email.isBlank() or customerAdapter.email.isBlank()) {
-            return "É preciso preencher todos os campos"
+        if(customerAdapter.name.isBlank() || customerAdapter.email.isBlank() || customerAdapter.mobilePhone.isBlank()
+        || customerAdapter.cpfCnpj.isBlank() || customerAdapter.address.isBlank()) {
+            return [success: false, message: "É preciso preencher todos os campos."]
         }
 
         Customer customer = Customer.findByEmail(customerAdapter.email)
 
         if(customer) {
-            return "Email em uso."
+            return [success: false, message: "Email em uso."]
         }
 
-        return "sucesso"
+        return [success: true, message: "Conta criada com sucesso."]
 
     }
 }

@@ -1,7 +1,5 @@
 package gocharges.customer
 
-import gocharges.Customer
-
 class CustomerAdapter {
 
     String name;
@@ -16,18 +14,6 @@ class CustomerAdapter {
         this.mobilePhone = params.mobilePhone;
         this.cpfCnpj = params.cpfCnpj;
         this.address = params.address;
-    }
-
-    Customer create() {
-        Customer customer = new Customer();
-
-        customer.name = this.name;
-        customer.email = this.email;
-        customer.mobilePhone = this.mobilePhone;
-        customer.cpfCnpj = this.cpfCnpj;
-        customer.address = this.address;
-
-        return customer
     }
 
 }
