@@ -7,6 +7,7 @@ class Payer {
     String mobilePhone
     String cpfCnpj
     String address
+
     Date createdAt = new Date()
 
     static constraints = {

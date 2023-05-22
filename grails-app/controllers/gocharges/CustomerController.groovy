@@ -1,14 +1,12 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
-import org.apache.tomcat.util.scan.NonClosingJarInputStream
 
 class CustomerController {
 
     CustomerService customerService
 
     def index() {
-
     }
 
     def register() {

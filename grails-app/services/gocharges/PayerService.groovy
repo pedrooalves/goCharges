@@ -6,42 +6,91 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PayerService {
 
-    public Map<String, String> register(PayerAdapter payerAdapter) {
-        Map<String, String> validated = validatePayer(payerAdapter)
-        if (!validated.success) return validated
+    public Payer save(PayerAdapter adapter) throws RuntimeException {
+
+        validateSave(adapter)
 
         Payer payer = new Payer()
-        payer.name = payerAdapter.name
-        payer.email = payerAdapter.email
-        payer.mobilePhone = payerAdapter.mobilePhone
-        payer.cpfCnpj = payerAdapter.cpfCnpj
-        payer.address = payerAdapter.address
+        payer.name = adapter.name
+        payer.email = adapter.email
+        payer.mobilePhone = adapter.mobilePhone
+        payer.cpfCnpj = adapter.cpfCnpj
+        payer.address = adapter.address
 
-        if(!payer.save(failOnError: true)) return [success: false, message: "saveNotPossible"]
+        if(!payer.save(failOnError:true)){
+            throw new RuntimeException("Erro inesperado")
+        }
 
-        return [success: true, message: "saved"]
+        return payer
     }
 
-    public listPayers() {
+    public Payer delete(Long id) throws RuntimeException {
+        Payer payer = Payer.get(id)
+
+        if(!payer) {
+            throw new RuntimeException("Pagador não encontrado")
+        }
+
+        payer.delete(failOnError: true)
+
+        return payer
+    }
+
+    public list() {
         def payers = Payer.list()
 
         return payers
     }
 
-
-    private Map<String, String> validatePayer(PayerAdapter payerAdapter) {
-        if (payerAdapter.email.isBlank() || payerAdapter.name.isBlank() ||
-            payerAdapter.mobilePhone.isBlank() || payerAdapter.cpfCnpj.isBlank() ||
-            payerAdapter.address.isBlank()) {
-            return [success: false, message:"blank"]
+    private void validateNotNull(PayerAdapter adapter) {
+        if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
+                adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
+            throw new RuntimeException("É preciso preencher todos os campos")
         }
+    }
 
-        Payer payer = Payer.findByEmail(payerAdapter.email)
+    private void validateSave(PayerAdapter adapter) throws RuntimeException {
+        validateNotNull(adapter)
+
+        Payer payer = Payer.findByEmail(adapter.email)
 
         if(payer != null) {
-            return [success: false, message:"emailExists"]
+            throw new RuntimeException("Email já cadastrado")
         }
 
-        return [success: true, message: "validated"]
+        payer = Payer.findByCpfCnpj(adapter.cpfCnpj)
+
+        if(payer != null) {
+            throw new RuntimeException("Cpf ou Cnpj já cadastrado")
+        }
+
+    }
+
+    private void validateUpdate(String emailOriginal, PayerAdapter adapter) throws RuntimeException {
+        validateNotNull(adapter)
+
+        Payer payer = findById(emailOriginal)
+
+        if(payer == null) {
+            throw new RuntimeException("Pagador não encontrado")
+        }
+    }
+
+    public Payer update(String emailOriginal, PayerAdapter adapter) throws RuntimeException {
+        validateUpdate(emailOriginal, adapter)
+
+        Payer payer = findById(emailOriginal)
+
+        payer.name = adapter.name
+        payer.email = adapter.email
+        payer.mobilePhone = adapter.mobilePhone
+        payer.address = adapter.address
+
+        if(!payer.save(failOnError:true)){
+            throw new RuntimeException("Não foi possível salvar")
+        }
+
+        return payer
+
     }
 }

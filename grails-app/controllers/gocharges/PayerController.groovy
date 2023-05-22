@@ -1,40 +1,78 @@
 package gocharges
 
+import gocharges.exception.BusinessException
 import gocharges.payer.adapter.PayerAdapter
 
 class PayerController {
 
     PayerService payerService
-    Map<String, String> registerError
+    private Boolean showNewPayerForm = false
 
-    def index() {
-        if(!registerError) {
-            Map<String, String> error = new HashMap<>()
-            error.put("message", null)
-            render(view: "index", model : [error:error])
+    public index() {
+        def payers = payerService.list()
+
+        if(chainModel) {
+            Map validation = chainModel.validation
+            render(view: "index", model: [payers:payers, validation: validation, showNewPayerForm: showNewPayerForm])
         } else {
-            render(view: "index", model : [error:registerError])
-        }
-
-
-    }
-
-    def register() {
-        PayerAdapter payerAdapter = new PayerAdapter(params)
-        Map<String, String> validation = payerService.register(payerAdapter)
-
-
-        if(validation.success) {
-            redirect(action: "listar")
-        } else {
-            registerError = validation
-            redirect(action: "index?message" + validation.message)
+            render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
         }
     }
 
-    def listar() {
-        def payers = payerService.listPayers()
+    def save() {
+        try {
+            PayerAdapter payerAdapter = new PayerAdapter(params)
+            Payer payer = payerService.save(payerAdapter)
 
-        render(view: "list", model: [payers:payers])
+            Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
+            showNewPayerForm = false
+            chain(action: "index", model:[validation:validation])
+        } catch(BusinessException e) {
+            Map validation = [success:false, message:e.getMessage(), type:"save"]
+            chain(action: "index", model: [validation:validation])
+        }
+    }
+
+
+    public form() {
+        return [:]
+    }
+
+    public delete() {
+        try {
+            println(params)
+            Long id = Long.parseLong(params.id)
+            payerService.delete(id)
+
+            Map validation = [success:true, message:"Pagador excluído com sucesso", type:"delete"]
+            chain(action: "index", model:[validation:validation])
+        } catch(RuntimeException e) {
+            Map validation = [success:false, message:e.getMessage(), type:"delete"]
+            chain(action: "index", model:[validation:validation])
+        }
+    }
+
+    public update() {
+        PayerAdapter adapter = new PayerAdapter(params)
+
+        payerService.update(params.originalEmail, adapter)
+
+        redirect(action: 'index')
+    }
+
+    public showForm() {
+        if(showNewPayerForm) {
+            showNewPayerForm = false
+        } else {
+            showNewPayerForm = true
+        }
+        redirect(action: 'index')
+    }
+
+    public edit() {
+
+        Payer payer = payerService.findById(params.email)
+
+        render(view: 'edit', model: [payer:payer])
     }
 }
