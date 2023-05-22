@@ -7,44 +7,57 @@ import grails.gorm.transactions.Transactional
 class CustomerService {
 
     public Customer save(CustomerAdapter adapter) {
+        validate(adapter)
+        Customer customer = convertAdapterToDomain(adapter)
 
-        try{
-            validate(adapter)
-
-            Customer customer = new Customer()
-            customer.name = adapter.name
-            customer.email = adapter.email
-            customer.mobilePhone = adapter.mobilePhone
-            customer.cpfCnpj = adapter.cpfCnpj
-            customer.address = adapter.address
-
-            customer.save(failOnError: true)
-
-            return customer
-        }catch(RuntimeException exception){
-            throw exception
-        }
-
+        customer.save(failOnError: true)
+        return customer
     }
 
     public List<Customer> list() {
         List<Customer> customerList = Customer.list()
 
-        return customerList;
+        return customerList
+    }
+
+    public void delete(Long id) {
+        Customer customer = Customer.get(id)
+
+        customer.delete()
+    }
+
+    public Customer update(CustomerAdapter adapter) {
+
+    }
+
+    private Customer convertAdapterToDomain(CustomerAdapter adapter) {
+        Customer customer = new Customer()
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.mobilePhone = adapter.mobilePhone
+        customer.cpfCnpj = adapter.cpfCnpj
+        customer.address = adapter.address
+
+        return customer
     }
 
     private void validate(adapter) {
-//        return [success: true, message: "Conta criada com sucesso."]
 
         if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
         || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
             throw new RuntimeException("É preciso preencher todos os campos!")
         }
 
-        Customer customer = Customer.findByEmail(adapter.email)
+        Customer emailValidator = Customer.findByEmail(adapter.email)
 
-        if(customer) {
+        if(emailValidator) {
             throw new RuntimeException("Email em uso!")
+        }
+
+        Customer cpfCnpjValidator = Customer.findByCpfCnpj(adapter.cpfCnpj)
+
+        if(cpfCnpjValidator) {
+            throw new RuntimeException("CPF / CNPJ em uso!")
         }
     }
 }

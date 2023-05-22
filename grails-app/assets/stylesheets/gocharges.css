@@ -1,3 +1,11 @@
 .bg-gogreen {
    background-color: #6b962a;
 }
+
+.custom-list-item {
+    position: relative;
+    display: block;
+    padding: 0.3rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
