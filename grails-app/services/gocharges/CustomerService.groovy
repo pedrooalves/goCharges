@@ -6,45 +6,45 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CustomerService {
 
-    Map register(CustomerAdapter customerAdapter) {
-        Map validation = validateCustomer(customerAdapter)
+    public Customer save(CustomerAdapter adapter) {
 
-        if(!validation.success) {
-            return validation
+        try{
+            validate(adapter)
+
+            Customer customer = new Customer()
+            customer.name = adapter.name
+            customer.email = adapter.email
+            customer.mobilePhone = adapter.mobilePhone
+            customer.cpfCnpj = adapter.cpfCnpj
+            customer.address = adapter.address
+
+            customer.save(failOnError: true)
+
+            return customer
+        }catch(RuntimeException exception){
+            throw exception
         }
 
-        Customer customer = new Customer()
-        customer.name = customerAdapter.name;
-        customer.email = customerAdapter.email;
-        customer.mobilePhone = customerAdapter.mobilePhone;
-        customer.cpfCnpj = customerAdapter.cpfCnpj;
-        customer.address = customerAdapter.address;
-
-        customer.save(failOnError: true)
-
-        return validation
     }
 
-    List<Customer> list() {
+    public List<Customer> list() {
         List<Customer> customerList = Customer.list()
 
         return customerList;
     }
 
-    Map validateCustomer(customerAdapter) {
+    private void validate(adapter) {
+//        return [success: true, message: "Conta criada com sucesso."]
 
-        if(customerAdapter.name.isBlank() || customerAdapter.email.isBlank() || customerAdapter.mobilePhone.isBlank()
-        || customerAdapter.cpfCnpj.isBlank() || customerAdapter.address.isBlank()) {
-            return [success: false, message: "É preciso preencher todos os campos."]
+        if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
+        || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
+            throw new RuntimeException("É preciso preencher todos os campos!")
         }
 
-        Customer customer = Customer.findByEmail(customerAdapter.email)
+        Customer customer = Customer.findByEmail(adapter.email)
 
         if(customer) {
-            return [success: false, message: "Email em uso."]
+            throw new RuntimeException("Email em uso!")
         }
-
-        return [success: true, message: "Conta criada com sucesso."]
-
     }
 }

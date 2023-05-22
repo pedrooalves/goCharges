@@ -1,14 +1,13 @@
 package gocharges
 
-import shared.documentos.DocumentoIdentificador;
 
 class Customer {
 
-    String name;
-    String email;
-    String mobilePhone;
-    String cpfCnpj;
-    String address;
+    String name
+    String email
+    String mobilePhone
+    String cpfCnpj
+    String address
 
     Date created_at = new Date();
 

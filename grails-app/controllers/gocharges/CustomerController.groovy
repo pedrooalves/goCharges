@@ -10,14 +10,25 @@ class CustomerController {
 
     }
 
-    def register() {
-        Map customerParams = params;
+    def signin() {
 
-        CustomerAdapter customerAdapter = new CustomerAdapter(customerParams)
-        Map validation = customerService.register(customerAdapter)
+    }
 
+    def save() {
 
-        render(view: "index", model: [validation : validation])
+        try{
+            Map customerParams = params
+
+            CustomerAdapter customerAdapter = new CustomerAdapter(customerParams)
+            Customer customer = customerService.save(customerAdapter)
+
+            Map validation = [success: true, message: "Conta criada com sucesso!"]
+            render(view: "index", model: [validation : validation])
+        }catch(RuntimeException exception){
+
+            Map validation = [success: false, message: exception.getMessage()]
+            render(view: "index", model: [validation : validation])
+        }
     }
 
     def list() {
@@ -25,4 +36,5 @@ class CustomerController {
 
         render(view:"list", model: [customers : customerList])
     }
+
 }

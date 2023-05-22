@@ -5,18 +5,40 @@
     <title>Cadastro de Customer</title>
 </head>
 <body>
-    <g:if test="${validation != null}">
-        <p>${validation.message}</p>
-    </g:if>
-    <g:form name="customerForm" url="[controller: 'customer', action: 'register']">
-        Nome <input type="text" name="name" value="" /><br/>
-        Email <input type="email" name="email" value="" /><br/>
-        Celular <input type="text" name="mobilePhone" value="" /><br/>
-        CPF / CNPJ <input type="text" name="cpfCnpj" value="" /><br >
-        Endereco <input type="text" name="address" value="" /><br/>
+    <div class="container my-3">
+        <h1 class="display-4">Cadastrar</h1>
 
-        <input type="submit" name="buttonCadastro" value="Cadastrar" />
-        <input type="button" name="buttonCancelar" value="Cancelar" />
-    </g:form>
+        <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'save']">
+
+            <div class="form-group">
+                <label>Nome</label> <input class="form-control" type="text" name="name" value="" />
+            </div>
+
+            <div class="form-group">
+                <label>Email</label> <input class="form-control" type="email" name="email" value="" />
+            </div>
+
+            <div class="form-group">
+                <label>Celular</label> <input class="form-control" type="text" name="mobilePhone" value="" />
+            </div>
+
+            <div class="form-group">
+                <label>CPF / CNPJ</label> <input class="form-control" type="text" name="cpfCnpj" value="" />
+            </div>
+
+            <div class="form-group">
+                <label>Endereço</label> <input class="form-control" type="text" name="address" value="" />
+            </div>
+
+            <g:if test="${validation != null}">
+                <div class="alert alert-danger" role="alert">
+                    ${validation.message}
+                </div>
+            </g:if>
+
+            <input type="submit" name="buttonCadastro" value="Cadastrar" />
+            <input type="button" name="buttonCancelar" value="Cancelar" />
+        </g:form>
+    </div>
 </body>
 </html>
