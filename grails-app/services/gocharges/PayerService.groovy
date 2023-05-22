@@ -66,20 +66,20 @@ class PayerService {
 
     }
 
-    private void validateUpdate(String emailOriginal, PayerAdapter adapter) throws RuntimeException {
+    private void validateUpdate(Long id, PayerAdapter adapter) throws RuntimeException {
         validateNotNull(adapter)
 
-        Payer payer = findById(emailOriginal)
+        Payer payer = findById(id)
 
         if(payer == null) {
             throw new RuntimeException("Pagador não encontrado")
         }
     }
 
-    public Payer update(String emailOriginal, PayerAdapter adapter) throws RuntimeException {
-        validateUpdate(emailOriginal, adapter)
+    public Payer update(Long id, PayerAdapter adapter) throws RuntimeException {
+        validateUpdate(id, adapter)
 
-        Payer payer = findById(emailOriginal)
+        Payer payer = findById(id)
 
         payer.name = adapter.name
         payer.email = adapter.email
@@ -92,5 +92,9 @@ class PayerService {
 
         return payer
 
+    }
+
+    public Payer findById(Long id) {
+        return Payer.get(id)
     }
 }

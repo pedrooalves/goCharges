@@ -40,7 +40,6 @@ class PayerController {
 
     public delete() {
         try {
-            println(params)
             Long id = Long.parseLong(params.id)
             payerService.delete(id)
 
@@ -54,8 +53,8 @@ class PayerController {
 
     public update() {
         PayerAdapter adapter = new PayerAdapter(params)
-
-        payerService.update(params.originalEmail, adapter)
+        Long id = Long.parseLong(params.id)
+        payerService.update(id, adapter)
 
         redirect(action: 'index')
     }
@@ -71,7 +70,8 @@ class PayerController {
 
     public edit() {
 
-        Payer payer = payerService.findById(params.email)
+        Long id = Long.parseLong(params.id)
+        Payer payer = payerService.findById(id)
 
         render(view: 'edit', model: [payer:payer])
     }
