@@ -12,6 +12,12 @@
             <h1 class="display-4">Editar Pagador</h1>
         </div>
 
+        <g:if test="${validation != null && validation.type.equals('save')}">
+            <div class="alert alert-danger" role="alert">
+                ${validation.message}
+            </div>
+        </g:if>
+
         <div class="card">
             <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
                 <div class="form-group mb-3">
@@ -38,12 +44,6 @@
                     <label class="mb-2">Endereco </label>
                     <input class="form-control" type="text" name="address" value="${payer.address}" /><br/>
                 </div>
-
-                <g:if test="${saveValidation !=null}">
-                    <div class="alert alert-danger" role="alert">
-                        ${saveValidation.message}
-                    </div>
-                </g:if>
 
                 <div class="navbar d-flex justify-content-space-between">
                     <a href="/payer"><input href="/payer" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>

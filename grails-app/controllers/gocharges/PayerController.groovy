@@ -9,7 +9,7 @@ class PayerController {
     private Boolean showNewPayerForm = false
 
     public index() {
-        def payers = payerService.list()
+        List<Payer> payers = payerService.list()
 
         if(chainModel) {
             Map validation = chainModel.validation
@@ -52,22 +52,33 @@ class PayerController {
     }
 
     public update() {
-        PayerAdapter adapter = new PayerAdapter(params)
-        Long id = Long.parseLong(params.id)
-        payerService.update(id, adapter)
+        try {
+            PayerAdapter adapter = new PayerAdapter(params)
+            Long id = Long.parseLong(params.id)
+            payerService.update(id, adapter)
 
-        redirect(action: 'index')
+            Map validation = [success:true, message:"Pagador salvo com sucesso", type:"update"]
+            chain(action: "index", model: [validation:validation])
+        } catch (BusinessException e) {
+            Map validation = [success:false, message:e.getMessage(), type:"update"]
+            chain(action: "index", model: [validation:validation])
+        }
     }
 
     public showForm() {
         showNewPayerForm = showNewPayerForm ? false : true
-        redirect(action: 'index')
+        redirect(action: "index")
     }
 
     public edit() {
         Long id = Long.parseLong(params.id)
         Payer payer = payerService.findById(id)
 
-        render(view: 'edit', model: [payer:payer])
+        if(chainModel) {
+            Map validation = chainModel.validation
+            render(view: "edit", model: [payer:payer, validation: validation])
+        } else {
+            render(view: "edit", model: [payer:payer])
+        }
     }
 }

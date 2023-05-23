@@ -52,22 +52,20 @@ class PayerService {
         if(payer) {
             throw new BusinessException("Email já cadastrado")
         }
-
-        payer = Payer.findByCpfCnpj(adapter.cpfCnpj)
-
-        if(payer) {
-            throw new BusinessException("Cpf ou Cnpj já cadastrado")
-        }
-
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
         Payer payer = findById(id)
-
         if (!payer) {
             throw new BusinessException("Pagador não encontrado")
+        }
+
+        payer = Payer.findByEmail(adapter.email)
+
+        if (payer && payer.id != id) {
+            throw new BusinessException("E-mail já em uso")
         }
     }
 
