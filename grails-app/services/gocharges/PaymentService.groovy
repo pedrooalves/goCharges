@@ -9,16 +9,14 @@ import java.text.SimpleDateFormat
 @Transactional
 class PaymentService {
 
-
     public Payment save(PaymentAdapter adapter) {
-        validateSave(adapter)
+        validate(adapter)
 
         Payment payment = new Payment()
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(adapter.dueDate)
         payment.value = new BigDecimal(adapter.value)
-        payment.status = "PENDENTE"
 
         if(!payment.save(failOnError:true)){
             throw new BusinessException("Erro inesperado")
@@ -27,7 +25,38 @@ class PaymentService {
         return payment
     }
 
-    private void validateSave(PaymentAdapter adapter) {
+    public List<Payment> list() {
+        return Payment.list()
+    }
+
+    public Payment update(Long id, PaymentAdapter adapter) {
+        validate(adapter)
+
+        Payment payment = Payment.get(id)
+
+        payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
+        payment.billingType = adapter.billingType
+        payment.dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(adapter.dueDate)
+        payment.value = new BigDecimal(adapter.value)
+
+        return payment
+    }
+
+    public PaymentAdapter createPaymentAndConvertToAdapter(Long id) {
+        Payment payment = findById(id)
+
+        Map<String, String> data = new HashMap<>()
+        data.put("payerCpfCnpj", findPayerById(payment.payer.id).cpfCnpj)
+        data.put("billingType", payment.billingType.toString())
+        data.put("dueDate", payment.dueDate.toString())
+        data.put("value", payment.value.toString())
+
+        PaymentAdapter adapter = new PaymentAdapter(data)
+
+        return adapter
+    }
+
+    private void validate(PaymentAdapter adapter) {
         if (adapter.payerCpfCnpj.isBlank() || adapter.billingType.isBlank() || adapter.dueDate.isBlank() ||
                 adapter.value.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
@@ -43,7 +72,7 @@ class PaymentService {
         return payer
     }
 
-    private Payer findPayerById(Long payerId) {
+    public Payer findPayerById(Long payerId) {
         Payer payer = Payer.findById(payerId)
         if (!payer) {
             throw new BusinessException("Pagador não encontrado")
@@ -52,7 +81,7 @@ class PaymentService {
         return payer
     }
 
-    public List<Payment> list() {
-        return Payment.list()
+    public Payment findById(Long id) {
+        return Payment.get(id)
     }
 }

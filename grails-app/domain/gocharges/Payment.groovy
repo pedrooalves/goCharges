@@ -4,7 +4,7 @@ class Payment {
 
     Payer payer
     String billingType
-    String status
+    String status = "PENDENTE"
     Date dueDate
     BigDecimal value
 
