@@ -60,11 +60,7 @@ class PayerController {
     }
 
     public showForm() {
-        if(showNewPayerForm) {
-            showNewPayerForm = false
-        } else {
-            showNewPayerForm = true
-        }
+        showNewPayerForm = showNewPayerForm ? false : true
         redirect(action: 'index')
     }
 
