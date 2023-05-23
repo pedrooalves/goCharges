@@ -48,13 +48,13 @@ class PayerService {
         validateNotNull(adapter)
 
         Payer payer = Payer.findByEmail(adapter.email)
-        if(payer != null) {
+        if(payer) {
             throw new RuntimeException("Email já cadastrado")
         }
 
         payer = Payer.findByCpfCnpj(adapter.cpfCnpj)
 
-        if(payer != null) {
+        if(payer) {
             throw new RuntimeException("Cpf ou Cnpj já cadastrado")
         }
 
