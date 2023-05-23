@@ -2,17 +2,17 @@ package gocharges.payment.adapter
 
 class PaymentAdapter {
 
-    String name
-    String email
-    String mobilePhone
-    String cpfCnpj
-    String address
+    String payerId
+    String billingType
+    String status
+    String dueDate
+    String value
 
     public PaymentAdapter(Map params) {
-        this.name = params.get("name")
-        this.email = params.email
-        this.mobilePhone = params.mobilePhone
-        this.cpfCnpj  = params.cpfCnpj
-        this.address = params.address
+        this.payerId = params.payerId
+        this.billingType = params.billingType
+        this.status = params.status
+        this.dueDate  = params.dueDate
+        this.value = params.value
     }
 }
