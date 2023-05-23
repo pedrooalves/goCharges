@@ -1,4 +1,11 @@
 package gocharges.domain.base
 
-class BaseEntity {
+public abstract class BaseEntity {
+
+    Boolean deleted = false
+    Date dateCreated = new Date()
+
+    static mapping = {
+        tablePerHierarchy false
+    }
 }

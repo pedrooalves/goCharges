@@ -2,7 +2,6 @@ package gocharges
 
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
-import org.grails.datastore.mapping.model.types.Custom
 
 class CustomerController {
 
@@ -21,7 +20,7 @@ class CustomerController {
     def save() {
         try{
             CustomerAdapter adapter = convertToAdapter(params)
-            Customer customer = customerService.save(customerAdapter)
+            Customer customer = customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
             chain(action: "index", model: [validation : validation])
