@@ -7,7 +7,6 @@ import grails.gorm.transactions.Transactional
 class PayerService {
 
     public Payer save(PayerAdapter adapter) throws RuntimeException {
-
         validateSave(adapter)
 
         Payer payer = new Payer()
@@ -27,9 +26,7 @@ class PayerService {
     public Payer delete(Long id) throws RuntimeException {
         Payer payer = Payer.get(id)
 
-        if(!payer) {
-            throw new RuntimeException("Pagador não encontrado")
-        }
+        if (!payer) throw new RuntimeException("Pagador não encontrado")
 
         payer.delete(failOnError: true)
 
@@ -37,9 +34,7 @@ class PayerService {
     }
 
     public list() {
-        def payers = Payer.list()
-
-        return payers
+        return Payer.list()
     }
 
     private void validateNotNull(PayerAdapter adapter) {
@@ -53,7 +48,6 @@ class PayerService {
         validateNotNull(adapter)
 
         Payer payer = Payer.findByEmail(adapter.email)
-
         if(payer != null) {
             throw new RuntimeException("Email já cadastrado")
         }
@@ -71,7 +65,7 @@ class PayerService {
 
         Payer payer = findById(id)
 
-        if(payer == null) {
+        if (!payer ) {
             throw new RuntimeException("Pagador não encontrado")
         }
     }
@@ -91,7 +85,6 @@ class PayerService {
         }
 
         return payer
-
     }
 
     public Payer findById(Long id) {

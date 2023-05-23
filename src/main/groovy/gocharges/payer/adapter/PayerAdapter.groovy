@@ -11,10 +11,10 @@ class PayerAdapter {
     String address
 
     public PayerAdapter(Map params) {
-        this.name = params.get("name");
-        this.email = params.get("email")
-        this.mobilePhone = params.get("mobilePhone")
-        this.cpfCnpj  = params.get("cpfCnpj")
-        this.address = params.get("address")
+        this.name = params.get("name")
+        this.email = params.email
+        this.mobilePhone = params.mobilePhone
+        this.cpfCnpj  = params.cpfCnpj
+        this.address = params.address
     }
 }

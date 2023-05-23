@@ -44,7 +44,7 @@ class PayerController {
             payerService.delete(id)
 
             Map validation = [success:true, message:"Pagador excluído com sucesso", type:"delete"]
-            chain(action: "index", model:[validation:validation])
+            chain(action: "index", model: [validation:validation])
         } catch(RuntimeException e) {
             Map validation = [success:false, message:e.getMessage(), type:"delete"]
             chain(action: "index", model:[validation:validation])
