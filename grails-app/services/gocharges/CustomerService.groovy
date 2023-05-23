@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
+import gocharges.exception.BusinessException
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -45,19 +46,19 @@ class CustomerService {
 
         if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
         || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new RuntimeException("É preciso preencher todos os campos!")
+            throw new BusinessException("É preciso preencher todos os campos!")
         }
 
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
         if(emailValidator) {
-            throw new RuntimeException("Email em uso!")
+            throw new BusinessException("Email em uso!")
         }
 
         Customer cpfCnpjValidator = Customer.findByCpfCnpj(adapter.cpfCnpj)
 
         if(cpfCnpjValidator) {
-            throw new RuntimeException("CPF / CNPJ em uso!")
+            throw new BusinessException("CPF / CNPJ em uso!")
         }
     }
 }

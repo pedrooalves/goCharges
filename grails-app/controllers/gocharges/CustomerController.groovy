@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
+import gocharges.exception.BusinessException
 
 class CustomerController {
 
@@ -23,7 +24,7 @@ class CustomerController {
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
             chain(action: "index", model: [validation : validation])
-        }catch(RuntimeException exception){
+        }catch(BusinessException exception){
 
             Map validation = [success: false, message: exception.getMessage()]
             chain(action: "index", model: [validation : validation])
@@ -31,8 +32,6 @@ class CustomerController {
     }
 
     def edit() {
-        String email = params.email
-        Customer customer = customerService.get(id)
 
         render(view: "edit", model: [customer:customer])
     }
