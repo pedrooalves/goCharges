@@ -15,6 +15,13 @@
                 <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
                     <h1 class="display-4">Novo Pagador</h1>
                 </div>
+
+                <g:if test="${validation != null && validation.type.equals('save')}">
+                    <div class="alert alert-danger" role="alert">
+                        ${validation.message}
+                    </div>
+                </g:if>
+
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
                     <div class="form-group mb-3">
                         <label class="mb-2 fw-bold">Nome</label>
@@ -40,12 +47,6 @@
                         <label class="mb-2">Endereco </label>
                         <input class="form-control" type="text" name="address" value="" /><br/>
                     </div>
-
-                    <g:if test="${validation != null && validation.type.equals('save')}">
-                        <div class="alert alert-danger" role="alert">
-                            ${validation.message}
-                        </div>
-                    </g:if>
 
                     <div class="navbar d-flex justify-content-space-between">
                         <a href="${createLink(action:'showForm', controller:'payer')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
