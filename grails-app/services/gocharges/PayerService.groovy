@@ -2,11 +2,12 @@ package gocharges
 
 import gocharges.payer.adapter.PayerAdapter
 import grails.gorm.transactions.Transactional
+import gocharges.exception.BusinessException
 
 @Transactional
 class PayerService {
 
-    public Payer save(PayerAdapter adapter) throws RuntimeException {
+    public Payer save(PayerAdapter adapter) {
         validateSave(adapter)
 
         Payer payer = new Payer()
@@ -17,16 +18,16 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new RuntimeException("Erro inesperado")
+            throw new BusinessException("Erro inesperado")
         }
 
         return payer
     }
 
-    public Payer delete(Long id) throws RuntimeException {
+    public Payer delete(Long id) {
         Payer payer = Payer.get(id)
 
-        if (!payer) throw new RuntimeException("Pagador não encontrado")
+        if (!payer) throw new BusinessException("Pagador não encontrado")
 
         payer.delete(failOnError: true)
 
@@ -40,37 +41,37 @@ class PayerService {
     private void validateNotNull(PayerAdapter adapter) {
         if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
                 adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new RuntimeException("É preciso preencher todos os campos")
+            throw new BusinessException("É preciso preencher todos os campos")
         }
     }
 
-    private void validateSave(PayerAdapter adapter) throws RuntimeException {
+    private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
         Payer payer = Payer.findByEmail(adapter.email)
         if(payer) {
-            throw new RuntimeException("Email já cadastrado")
+            throw new BusinessException("Email já cadastrado")
         }
 
         payer = Payer.findByCpfCnpj(adapter.cpfCnpj)
 
         if(payer) {
-            throw new RuntimeException("Cpf ou Cnpj já cadastrado")
+            throw new BusinessException("Cpf ou Cnpj já cadastrado")
         }
 
     }
 
-    private void validateUpdate(Long id, PayerAdapter adapter) throws RuntimeException {
+    private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
         Payer payer = findById(id)
 
-        if (!payer ) {
-            throw new RuntimeException("Pagador não encontrado")
+        if (!payer) {
+            throw new BusinessException("Pagador não encontrado")
         }
     }
 
-    public Payer update(Long id, PayerAdapter adapter) throws RuntimeException {
+    public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
         Payer payer = findById(id)
@@ -81,7 +82,7 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new RuntimeException("Não foi possível salvar")
+            throw new BusinessException("Não foi possível salvar")
         }
 
         return payer
