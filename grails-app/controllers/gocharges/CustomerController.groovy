@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
+import org.grails.datastore.mapping.model.types.Custom
 
 class CustomerController {
 
@@ -19,7 +20,7 @@ class CustomerController {
 
     def save() {
         try{
-            CustomerAdapter customerAdapter = convertToAdapter(params)
+            CustomerAdapter adapter = convertToAdapter(params)
             Customer customer = customerService.save(customerAdapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
@@ -32,16 +33,25 @@ class CustomerController {
     }
 
     def edit() {
+        Long id = Long.parseLong(params.id)
+        Customer customer = customerService.findById(id)
 
         render(view: "edit", model: [customer:customer])
     }
 
     def update() {
-        CustomerAdapter customerAdapter = convertToAdapter(params)
+        try{
+            CustomerAdapter adapter = convertToAdapter(params)
+            Long id = Long.parseLong(params.id)
 
-        customerService.update(customerAdapter)
+            customerService.update(id, adapter)
 
-        redirect(view: "index")
+            Map validation = [success: true, message: "Conta alterada com sucesso!"]
+            chain(action: "index", model: [validation : validation])
+        }catch(BusinessException exception) {
+            Map validation = [success: false, message: exception.getMessage()]
+            chain(action: "index", model: [validation : validation])
+        }
     }
 
     def delete() {
@@ -53,8 +63,8 @@ class CustomerController {
 
     private CustomerAdapter convertToAdapter(Map params) {
         Map customerParams = params
-        CustomerAdapter customerAdapter = new CustomerAdapter(customerParams)
+        CustomerAdapter adapter = new CustomerAdapter(customerParams)
 
-        return customerAdapter
+        return adapter
     }
 }

@@ -9,7 +9,13 @@ class CustomerService {
 
     public Customer save(CustomerAdapter adapter) {
         validate(adapter)
-        Customer customer = convertAdapterToDomain(adapter)
+
+        Customer customer = new Customer()
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.mobilePhone = adapter.mobilePhone
+        customer.cpfCnpj = adapter.cpfCnpj
+        customer.address = adapter.address
 
         customer.save(failOnError: true)
         return customer
@@ -27,27 +33,28 @@ class CustomerService {
         customer.delete()
     }
 
-    public Customer update(CustomerAdapter adapter) {
+    public Customer update(Long id, CustomerAdapter adapter) {
+        validateUpdate(id, adapter)
 
-    }
+        Customer customer = Customer.get(id)
 
-    private Customer convertAdapterToDomain(CustomerAdapter adapter) {
-        Customer customer = new Customer()
         customer.name = adapter.name
         customer.email = adapter.email
         customer.mobilePhone = adapter.mobilePhone
-        customer.cpfCnpj = adapter.cpfCnpj
         customer.address = adapter.address
 
         return customer
     }
 
-    private void validate(adapter) {
+    public Customer findById(Long id) {
+        Customer customer = Customer.get(id)
 
-        if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
-        || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos!")
-        }
+        return customer
+    }
+
+
+    private void validate(CustomerAdapter adapter) {
+        validateNotNull(adapter)
 
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
@@ -59,6 +66,28 @@ class CustomerService {
 
         if(cpfCnpjValidator) {
             throw new BusinessException("CPF / CNPJ em uso!")
+        }
+    }
+
+    private void validateUpdate(Long id, CustomerAdapter adapter) {
+        validateNotNull(adapter)
+
+        Customer customerById = Customer.get(id)
+        Customer customerByEmail = Customer.findByEmail(adapter.email)
+
+        if(!customerByEmail) {
+            return
+        }
+
+        if(customerById != customerByEmail) {
+            throw new BusinessException("Email em uso!")
+        }
+    }
+
+    private void validateNotNull(CustomerAdapter adapter) {
+        if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
+                || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos!")
         }
     }
 }
