@@ -27,8 +27,6 @@ class PaymentController {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter)
 
-            println(payment)
-
             Map validation = [success:true, message:"Cobrança criada com sucesso", type:"save"]
             chain(action: "index", model:[validation:validation])
         } catch(BusinessException e) {

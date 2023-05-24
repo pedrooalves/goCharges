@@ -42,20 +42,6 @@ class PaymentService {
         return payment
     }
 
-    public PaymentAdapter createPaymentAndConvertToAdapter(Long id) {
-        Payment payment = findById(id)
-
-        Map<String, String> data = new HashMap<>()
-        data.put("payerCpfCnpj", findPayerById(payment.payer.id).cpfCnpj)
-        data.put("billingType", payment.billingType.toString())
-        data.put("dueDate", payment.dueDate.toString())
-        data.put("value", payment.value.toString())
-
-        PaymentAdapter adapter = new PaymentAdapter(data)
-
-        return adapter
-    }
-
     private void validate(PaymentAdapter adapter) {
         if (adapter.payerCpfCnpj.isBlank() || adapter.billingType.isBlank() || adapter.dueDate.isBlank() ||
                 adapter.value.isBlank()) {
