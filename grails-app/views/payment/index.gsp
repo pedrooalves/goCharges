@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
-                        <a href="${createLink(action:'showForm', controller:'payment')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
+                        <a href="${createLink(action:'index', controller:'payment')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
                         <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar" />
                     </div>
                 </g:form>
@@ -61,7 +61,8 @@
 
             <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update'))}">
+            <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
+            (validation.type.equals('save') && validation.success))}">
                 <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                     ${validation.message}
                 </div>

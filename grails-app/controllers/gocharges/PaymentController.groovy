@@ -6,13 +6,16 @@ import gocharges.payment.adapter.PaymentAdapter
 class PaymentController {
 
     PaymentService paymentService
-    private Boolean showNewPaymentForm = false
 
     public index() {
         List<Payment> payments = paymentService.list()
+        Boolean showNewPaymentForm = false
         
         if(chainModel) {
             Map validation = chainModel.validation
+            if (chainModel.showNewPaymentForm) {
+                showNewPaymentForm = true
+            }
             render(view: "index", model: [payments:payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
         } else {
             render(view: "index", model: [payments:payments, showNewPaymentForm: showNewPaymentForm])
@@ -30,7 +33,7 @@ class PaymentController {
             chain(action: "index", model:[validation:validation])
         } catch(BusinessException e) {
             Map validation = [success:false, message:e.getMessage(), type:"save"]
-            chain(action: "index", model: [validation:validation])
+            chain(action: "index", model: [validation:validation, showNewPaymentForm: true])
         }
     }
 
@@ -58,7 +61,6 @@ class PaymentController {
     }
 
     public showForm() {
-        showNewPaymentForm = showNewPaymentForm ? false : true
-        redirect(action: "index")
+        chain(action: "index", model: [showNewPaymentForm: true])
     }
 }
