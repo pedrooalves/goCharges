@@ -1,41 +1,93 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
+import gocharges.exception.BusinessException
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class CustomerService {
 
-    def register(CustomerAdapter customerAdapter) {
-        def erro = validateCustomer(customerAdapter)
+    public Customer save(CustomerAdapter adapter) {
+        validate(adapter)
 
-        if(!(erro === "sucesso")) {
-            return println(erro)
-        }
+        Customer customer = new Customer()
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.mobilePhone = adapter.mobilePhone
+        customer.cpfCnpj = adapter.cpfCnpj
+        customer.address = adapter.address
 
-        Customer customer = customerAdapter.create()
         customer.save(failOnError: true)
+        return customer
     }
 
-    def list() {
-        def customerList = Customer.list()
+    public List<Customer> list() {
+        List<Customer> customerList = Customer.list()
 
-        return customerList;
+        return customerList
     }
 
-    def validateCustomer(customerAdapter) {
+    public void delete(Long id) {
+        Customer customer = Customer.get(id)
 
-        if(customerAdapter.name.isBlank() or customerAdapter.email.isBlank() or customerAdapter.email.isBlank()) {
-            return "É preciso preencher todos os campos"
+        customer.delete()
+    }
+
+    public Customer update(Long id, CustomerAdapter adapter) {
+        validateUpdate(id, adapter)
+
+        Customer customer = Customer.get(id)
+
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.mobilePhone = adapter.mobilePhone
+        customer.address = adapter.address
+
+        return customer
+    }
+
+    public Customer findById(Long id) {
+        Customer customer = Customer.get(id)
+
+        return customer
+    }
+
+
+    private void validate(CustomerAdapter adapter) {
+        validateNotNull(adapter)
+
+        Customer emailValidator = Customer.findByEmail(adapter.email)
+
+        if(emailValidator) {
+            throw new BusinessException("Email em uso!")
         }
 
-        Customer customer = Customer.findByEmail(customerAdapter.email)
+        Customer cpfCnpjValidator = Customer.findByCpfCnpj(adapter.cpfCnpj)
 
-        if(customer) {
-            return "Email em uso."
+        if(cpfCnpjValidator) {
+            throw new BusinessException("CPF / CNPJ em uso!")
+        }
+    }
+
+    private void validateUpdate(Long id, CustomerAdapter adapter) {
+        validateNotNull(adapter)
+
+        Customer customerById = Customer.get(id)
+        Customer customerByEmail = Customer.findByEmail(adapter.email)
+
+        if(!customerByEmail) {
+            return
         }
 
-        return "sucesso"
+        if(customerById != customerByEmail) {
+            throw new BusinessException("Email em uso!")
+        }
+    }
 
+    private void validateNotNull(CustomerAdapter adapter) {
+        if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
+                || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos!")
+        }
     }
 }
