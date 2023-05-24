@@ -6,9 +6,9 @@
 </head>
 <body>
 
-    <g:each var="${customer}" in="${customers}" >
-        ${customer.name}
-        ${customer.email}
-    </g:each>
+        <g:each var="${customer}" in="${customers}" >
+            ${customer.name}
+            ${customer.email}
+        </g:each>
 </body>
 </html>

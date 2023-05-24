@@ -1,15 +1,15 @@
 package gocharges
 
+import gocharges.domain.base.BaseEntity
 
-class Customer {
+
+class Customer extends BaseEntity {
 
     String name
     String email
     String mobilePhone
     String cpfCnpj
     String address
-
-    Date created_at = new Date();
 
     static constraints = {
         name(nullable: false)
