@@ -58,4 +58,12 @@ class PaymentController {
     public showForm() {
         chain(action: "index", model: [showNewPaymentForm: true])
     }
+
+    public delete() {
+        Long id = Long.parseLong(params.id)
+        paymentService.delete(id)
+
+        Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
+        redirect(view: "index", model: [validation: validation])
+    }
 }

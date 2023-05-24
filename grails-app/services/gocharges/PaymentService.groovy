@@ -58,16 +58,14 @@ class PaymentService {
         return payer
     }
 
-    public Payer findPayerById(Long payerId) {
-        Payer payer = Payer.findById(payerId)
-        if (!payer) {
-            throw new BusinessException("Pagador não encontrado")
-        }
-
-        return payer
-    }
-
     public Payment findById(Long id) {
         return Payment.get(id)
+    }
+
+    public void delete(Long id) {
+        Payment payment = Payment.get(id)
+        payment.deleted = true
+
+        payment.save()
     }
 }
