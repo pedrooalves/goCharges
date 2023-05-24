@@ -1,6 +1,6 @@
 package gocharges.payment.enums
 
-public enum BillingType {
+public enum PaymentBillingType {
 
     BANK_SLIP,
     DEBIT_CARD,
