@@ -12,7 +12,7 @@
             <h1 class="display-4">Editar Cobrança</h1>
         </div>
 
-        <g:if test="${validation != null}">
+        <g:if test="${validation}">
             <div class="alert alert-danger" role="alert">
                 ${validation.message}
             </div>
