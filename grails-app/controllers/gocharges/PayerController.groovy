@@ -41,16 +41,10 @@ class PayerController {
     }
 
     public delete() {
-        try {
-            Long id = Long.parseLong(params.id)
-            payerService.delete(id)
+        Long id = Long.parseLong(params.id)
+        payerService.delete(id)
 
-            Map validation = [success:true, message:"Pagador excluído com sucesso", type:"delete"]
-            chain(action: "index", model: [validation:validation])
-        } catch(BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"delete"]
-            chain(action: "index", model:[validation:validation])
-        }
+        redirect(view: "index")
     }
 
     public update() {

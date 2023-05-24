@@ -24,18 +24,19 @@ class PayerService {
         return payer
     }
 
-    public Payer delete(Long id) {
-        Payer payer = Payer.get(id)
+    public List<Payer> list() {
+        List<Payer> payerList = Payer.findAll {
+            deleted == false
+        }
 
-        if (!payer) throw new BusinessException("Pagador não encontrado")
-
-        payer.delete(failOnError: true)
-
-        return payer
+        return payerList
     }
 
-    public list() {
-        return Payer.list()
+    public void delete(Long id) {
+        Payer payer = Payer.get(id)
+        payer.deleted = true
+
+        payer.save()
     }
 
     private void validateNotNull(PayerAdapter adapter) {
