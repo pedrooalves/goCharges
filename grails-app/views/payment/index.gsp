@@ -15,7 +15,7 @@
                     <h1 class="display-4">Nova Cobrança</h1>
                 </div>
 
-                <g:if test="${validation != null && validation.type.equals('save')}">
+                <g:if test="${validation && validation.type.equals('save')}">
                     <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                         ${validation.message}
                     </div>
@@ -61,7 +61,7 @@
 
             <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
+            <g:if test="${validation && (validation.type.equals('delete') || validation.type.equals('update') ||
             (validation.type.equals('save') && validation.success))}">
                 <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                     ${validation.message}
