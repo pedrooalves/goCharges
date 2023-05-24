@@ -7,7 +7,7 @@ class Payment {
 
     Payer payer
     BillingType billingType
-    Status status = Status.valueOf("PENDENTE")
+    Status status = Status.PENDING
     Date dueDate
     BigDecimal value
 
