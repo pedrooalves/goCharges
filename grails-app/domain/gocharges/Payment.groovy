@@ -1,13 +1,13 @@
 package gocharges
 
 import gocharges.payment.enums.BillingType
-import gocharges.payment.enums.Status
+import gocharges.payment.enums.PaymentStatus
 
 class Payment {
 
     Payer payer
     BillingType billingType
-    Status status = Status.PENDING
+    PaymentStatus status = PaymentStatus.PENDING
     Date dueDate
     BigDecimal value
 

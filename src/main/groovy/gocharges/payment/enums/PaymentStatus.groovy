@@ -1,6 +1,6 @@
 package gocharges.payment.enums
 
-public enum Status {
+public enum PaymentStatus {
 
     RECEIVED,
     OVERDUE,
