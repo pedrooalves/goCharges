@@ -36,9 +36,8 @@ class PaymentController {
     public edit() {
         Long id = Long.parseLong(params.id)
         Payment payment = paymentService.findById(id)
-        Payer payer = paymentService.findPayerById(payment.payer.id)
 
-        render(view: "edit", model: [payment : payment, payer: payer])
+        render(view: "edit", model: [payment : payment])
     }
 
     public update() {

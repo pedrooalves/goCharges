@@ -22,7 +22,7 @@
             <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                 <div class="form-group mb-3">
                     <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>
-                    <input class="form-control" type="text" name="payerCpfCnpj" value="${payer.CpfCnpj}" /><br/>
+                    <input class="form-control" type="text" name="payerCpfCnpj" value="${payment.payer.CpfCnpj}" /><br/>
                 </div>
 
                 <div class="form-group mb-3">
@@ -43,7 +43,6 @@
                     <label class="mb-2">Valor</label>
                     <input class="form-control" type="text" name="value" value="${payment.value}" /><br/>
                 </div>
-
 
                 <div class="navbar d-flex justify-content-space-between">
                     <a href="/payment"><input href="/payment" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>

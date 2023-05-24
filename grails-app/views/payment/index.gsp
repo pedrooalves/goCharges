@@ -82,7 +82,7 @@
                     <li class="custom-list-item col">${payment.value}</li>
                     <li class="custom-list-item col">${payment.dueDate}</li>
                     <li class="custom-list-item col">${payment.status}</li>
-                    <li class="custom-list-item col">${payment.payerId}</li>
+                    <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
 
                     <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
                         <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
