@@ -56,6 +56,10 @@ class CustomerService {
     private void validate(CustomerAdapter adapter) {
         validateNotNull(adapter)
 
+        if(adapter.cpfCnpj.length() < 11 || adapter.cpfCnpj.length() > 14) {
+            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
+        }
+
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
         if(emailValidator) {

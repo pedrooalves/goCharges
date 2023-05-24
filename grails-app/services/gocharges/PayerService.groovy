@@ -18,7 +18,7 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado")
+            throw new BusinessException("Erro inesperado!")
         }
 
         return payer
@@ -27,7 +27,7 @@ class PayerService {
     public Payer delete(Long id) {
         Payer payer = Payer.get(id)
 
-        if (!payer) throw new BusinessException("Pagador não encontrado")
+        if (!payer) throw new BusinessException("Pagador não encontrado.")
 
         payer.delete(failOnError: true)
 
@@ -41,16 +41,20 @@ class PayerService {
     private void validateNotNull(PayerAdapter adapter) {
         if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
                 adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
+            throw new BusinessException("É preciso preencher todos os campos.")
         }
     }
 
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
+        if(adapter.cpfCnpj.length() < 11 || adapter.cpfCnpj.length() > 14) {
+            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
+        }
+
         Payer payer = Payer.findByEmail(adapter.email)
         if(payer) {
-            throw new BusinessException("Email já cadastrado")
+            throw new BusinessException("Email já cadastrado.")
         }
     }
 
@@ -59,13 +63,13 @@ class PayerService {
 
         Payer payer = findById(id)
         if (!payer) {
-            throw new BusinessException("Pagador não encontrado")
+            throw new BusinessException("Pagador não encontrado.")
         }
 
         payer = Payer.findByEmail(adapter.email)
 
         if (payer && payer.id != id) {
-            throw new BusinessException("E-mail já em uso")
+            throw new BusinessException("E-mail já em uso!")
         }
     }
 
@@ -80,7 +84,7 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new BusinessException("Não foi possível salvar")
+            throw new BusinessException("Não foi possível salvar.")
         }
 
         return payer
