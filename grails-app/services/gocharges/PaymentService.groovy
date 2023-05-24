@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
+import gocharges.payment.enums.BillingType
 import grails.gorm.transactions.Transactional
 
 import java.text.SimpleDateFormat
@@ -14,7 +15,7 @@ class PaymentService {
 
         Payment payment = new Payment()
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
-        payment.billingType = adapter.billingType
+        payment.billingType = BillingType.valueOf(adapter.billingType)
         payment.dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(adapter.dueDate)
         payment.value = new BigDecimal(adapter.value)
 
