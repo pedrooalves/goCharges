@@ -13,9 +13,7 @@ class PaymentController {
         
         if(chainModel) {
             Map validation = chainModel.validation
-            if (chainModel.showNewPaymentForm) {
-                showNewPaymentForm = true
-            }
+            showNewPaymentForm = chainModel.showNewPaymentForm
             render(view: "index", model: [payments:payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
         } else {
             render(view: "index", model: [payments:payments, showNewPaymentForm: showNewPaymentForm])
@@ -28,7 +26,7 @@ class PaymentController {
             Payment payment = paymentService.save(paymentAdapter)
 
             Map validation = [success:true, message:"Cobrança criada com sucesso", type:"save"]
-            chain(action: "index", model:[validation:validation])
+            chain(action: "index", model:[validation:validation, showNewPaymentForm: false])
         } catch(BusinessException e) {
             Map validation = [success:false, message:e.getMessage(), type:"save"]
             chain(action: "index", model: [validation:validation, showNewPaymentForm: true])
@@ -51,10 +49,10 @@ class PaymentController {
             paymentService.update(id, adapter)
 
             Map validation = [success:true, message:"Cobrança editada com sucesso", type:"update"]
-            chain(action: "index", model:[validation:validation])
+            chain(action: "index", model:[validation:validation, showNewPaymentForm: false])
         }catch(BusinessException exception){
             Map validation = [success:false, message:exception.getMessage(), type:"save"]
-            chain(action: "index", model: [validation:validation])
+            chain(action: "index", model: [validation:validation, showNewPaymentForm: false])
         }
     }
 
