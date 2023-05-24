@@ -1,7 +1,6 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
-import org.apache.tomcat.util.scan.NonClosingJarInputStream
 
 class CustomerController {
 
@@ -11,17 +10,31 @@ class CustomerController {
 
     }
 
-    def register() {
+    def signin() {
 
-        CustomerAdapter customerAdapter = new CustomerAdapter(params)
-        customerService.register(customerAdapter)
+    }
 
-        redirect(action: "list")
+    def save() {
+
+        try{
+            Map customerParams = params
+
+            CustomerAdapter customerAdapter = new CustomerAdapter(customerParams)
+            Customer customer = customerService.save(customerAdapter)
+
+            Map validation = [success: true, message: "Conta criada com sucesso!"]
+            render(view: "index", model: [validation : validation])
+        }catch(RuntimeException exception){
+
+            Map validation = [success: false, message: exception.getMessage()]
+            render(view: "index", model: [validation : validation])
+        }
     }
 
     def list() {
-        def customerList = customerService.list()
+        List<Customer> customerList = customerService.list()
 
         render(view:"list", model: [customers : customerList])
     }
+
 }
