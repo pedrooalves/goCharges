@@ -50,7 +50,7 @@ class PaymentController {
             Map validation = [success:true, message:"Cobrança editada com sucesso", type:"update"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
         }catch(BusinessException exception){
-            Map validation = [success:false, message:exception.getMessage(), type:"save"]
+            Map validation = [success:false, message:exception.getMessage(), type:"update"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
         }
     }

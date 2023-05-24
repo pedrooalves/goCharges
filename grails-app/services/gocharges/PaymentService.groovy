@@ -17,7 +17,7 @@ class PaymentService {
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
-        payment.value = new BigDecimal(adapter.value)
+        payment.value = adapter.value
 
         if(!payment.save(failOnError:true)){
             throw new BusinessException("Erro inesperado")
@@ -38,13 +38,13 @@ class PaymentService {
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
-        payment.value = new BigDecimal(adapter.value)
+        payment.value = adapter.value
 
         return payment
     }
 
     private void validate(PaymentAdapter adapter) {
-        if (adapter.payerCpfCnpj.isBlank() || adapter.value.isBlank()) {
+        if (adapter.payerCpfCnpj.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
         }
     }
