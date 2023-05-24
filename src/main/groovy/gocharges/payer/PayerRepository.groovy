@@ -7,7 +7,6 @@ class PayerRepository {
     public static DetachedCriteria<Payer> query(Map search) {
         DetachedCriteria<Payer> query = Payer.where {
             if(search.containsKey("cpfCnpj")) {
-                println("cpfCnpj")
                 eq("cpfCnpj", search.cpfCnpj)
             }
 
