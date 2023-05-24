@@ -16,7 +16,7 @@ class PaymentService {
         Payment payment = new Payment()
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
-        payment.dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(adapter.dueDate)
+        payment.dueDate = adapter.dueDate
         payment.value = new BigDecimal(adapter.value)
 
         if(!payment.save(failOnError:true)){
@@ -37,15 +37,14 @@ class PaymentService {
 
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
-        payment.dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(adapter.dueDate)
+        payment.dueDate = adapter.dueDate
         payment.value = new BigDecimal(adapter.value)
 
         return payment
     }
 
     private void validate(PaymentAdapter adapter) {
-        if (adapter.payerCpfCnpj.isBlank() || adapter.dueDate.isBlank() ||
-                adapter.value.isBlank()) {
+        if (adapter.payerCpfCnpj.isBlank() || adapter.value.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
         }
     }
