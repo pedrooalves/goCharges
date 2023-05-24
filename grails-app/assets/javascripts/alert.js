@@ -8,10 +8,10 @@ function showAlert() {
         } else {
             userMessage = "E-mail já cadastrado"
         }
-        
+
         alert(userMessage)
     }
-    
+
 }
 
 showAlert();

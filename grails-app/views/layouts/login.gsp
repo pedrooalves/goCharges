@@ -18,8 +18,11 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark" role="navigation">
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-between">
+
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="goCharges Logo"/></a>
+
+        <a class="btn btn-lg bg-gogreen" href="/customer">Login</a>
 
     </div>
 </nav>
