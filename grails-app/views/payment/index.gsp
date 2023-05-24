@@ -30,7 +30,7 @@
                     <div class="form-group column mb-3">
                         <label class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
                         <select class="form-select" name="billingType">
-                            <option type="text" value="BOLETO">Boleto</option>
+                            <option type="text" value="BANK_SLIP">Boleto</option>
                             <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
                             <option type="text" value="PIX">Pix</option>
                         </select><br/>

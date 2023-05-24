@@ -27,8 +27,8 @@
 
                 <div class="form-group mb-3">
                     <label class="mb-2">Tipo de Recebimento</label>
-                        <select class="form-select" name="billingType">
-                            <option type="text" value="BOLETO">Boleto</option>
+                        <select class="form-select" name="billingType" value="${payment.billingType}">
+                            <option type="text" value="BANK_SLIP">Boleto</option>
                             <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
                             <option type="text" value="PIX">Pix</option>
                         </select>
