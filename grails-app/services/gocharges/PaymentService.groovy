@@ -27,7 +27,9 @@ class PaymentService {
     }
 
     public List<Payment> list() {
-        return Payment.list()
+        return Payment.findAll {
+            deleted == false
+        }
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
