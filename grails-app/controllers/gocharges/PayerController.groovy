@@ -6,13 +6,16 @@ import gocharges.payer.adapter.PayerAdapter
 class PayerController {
 
     PayerService payerService
-    private Boolean showNewPayerForm = false
 
     public index() {
         List<Payer> payers = payerService.list()
+        Boolean showNewPayerForm = false
 
         if(chainModel) {
             Map validation = chainModel.validation
+            if (chainModel.showNewPayerForm) {
+                showNewPayerForm = true
+            }
             render(view: "index", model: [payers:payers, validation: validation, showNewPayerForm: showNewPayerForm])
         } else {
             render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
@@ -25,11 +28,10 @@ class PayerController {
             Payer payer = payerService.save(payerAdapter)
 
             Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
-            showNewPayerForm = false
             chain(action: "index", model:[validation:validation])
         } catch(BusinessException e) {
             Map validation = [success:false, message:e.getMessage(), type:"save"]
-            chain(action: "index", model: [validation:validation])
+            chain(action: "index", model: [validation:validation, showNewPayerForm: true])
         }
     }
 
@@ -66,8 +68,7 @@ class PayerController {
     }
 
     public showForm() {
-        showNewPayerForm = showNewPayerForm ? false : true
-        redirect(action: "index")
+        chain(action: "index", model: [showNewPayerForm: true])
     }
 
     public edit() {
