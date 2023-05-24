@@ -3,7 +3,6 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 
-
 class PaymentController {
 
     PaymentService paymentService
