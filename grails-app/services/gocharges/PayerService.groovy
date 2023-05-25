@@ -45,12 +45,16 @@ class PayerService {
         }
     }
 
+    private void validateCpfCnpj(String cpfCnpj) {
+        if(cpfCnpj.length() != 11 || cpfCnpj != 14){
+            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
+        }
+    }
+
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
-        if(adapter.cpfCnpj.length() < 11 || adapter.cpfCnpj.length() > 14) {
-            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
-        }
+        validateCpfCnpj(adapter.cpfCnpj)
 
         Payer payer = Payer.findByEmail(adapter.email)
         if(payer) {

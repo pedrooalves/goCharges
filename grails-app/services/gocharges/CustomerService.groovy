@@ -56,9 +56,7 @@ class CustomerService {
     private void validate(CustomerAdapter adapter) {
         validateNotNull(adapter)
 
-        if(adapter.cpfCnpj.length() < 11 || adapter.cpfCnpj.length() > 14) {
-            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
-        }
+        validateCpfCnpj(adapter.cpfCnpj)
 
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
@@ -92,6 +90,12 @@ class CustomerService {
         if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
                 || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos!")
+        }
+    }
+
+    private void validateCpfCnpj(String cpfCnpj) {
+        if(cpfCnpj.length() != 11 || cpfCnpj != 14){
+            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
         }
     }
 }
