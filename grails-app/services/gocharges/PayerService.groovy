@@ -49,7 +49,7 @@ class PayerService {
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
-        Payer payer = PayerRepository.query([email: adapter.email]).get()
+        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
         if(payer) {
             throw new BusinessException("Email já cadastrado")
         }
@@ -63,7 +63,7 @@ class PayerService {
             throw new BusinessException("Pagador não encontrado")
         }
 
-        payer = PayerRepository.query([email: adapter.email]).get()
+        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
 
         if (payer && payer.id != id) {
             throw new BusinessException("E-mail já em uso")

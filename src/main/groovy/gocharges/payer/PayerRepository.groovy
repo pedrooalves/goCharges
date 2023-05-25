@@ -15,8 +15,11 @@ class PayerRepository {
             }
 
             if(!Boolean.valueOf(search.includeDeleted)) {
-                println("includeDeleted")
                 eq("deleted", false)
+            }
+
+            if(search.containsKey("id")) {
+                eq("id", search.id)
             }
         }
         return query
