@@ -74,4 +74,8 @@ class PayerService {
 
         return payer
     }
+
+    public List<Payer> list() {
+        return PayerRepository.query([includeDeleted: false]).list()
+    }
 }

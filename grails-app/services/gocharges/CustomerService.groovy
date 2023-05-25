@@ -74,4 +74,8 @@ class CustomerService {
 
         return customer
     }
+
+    public List<Customer> list() {
+        return CustomerRepository.query([includeDeleted: false]).list()
+    }
 }
