@@ -2,7 +2,7 @@ package gocharges.payment.enums
 
 public enum PaymentStatus {
 
-    RECEIVED,
+    PENDING,
     OVERDUE,
-    PENDING;
+    RECEIVED;
 }
