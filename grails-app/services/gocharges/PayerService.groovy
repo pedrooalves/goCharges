@@ -36,7 +36,7 @@ class PayerService {
         Payer payer = Payer.get(id)
         payer.deleted = true
 
-        payer.save()
+        payer.save(failOnError: true)
     }
 
     private void validateNotNull(PayerAdapter adapter) {
