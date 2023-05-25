@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
@@ -26,17 +27,12 @@ class PayerService {
     }
 
     public Payer delete(Long id) {
-        Payer payer = Payer.get(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
-        if (!payer) throw new BusinessException("Pagador não encontrado.")
+        if (!payer) throw new BusinessException("Pagador não encontrado")
 
-        payer.delete(failOnError: true)
-
-        return payer
-    }
-
-    public list() {
-        return Payer.list()
+        payer.delete = true
+        payer.save(failOnError: true)
     }
 
     private void validateNotNull(PayerAdapter adapter) {
@@ -46,13 +42,12 @@ class PayerService {
         }
     }
 
-
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
-        Payer payer = Payer.findByEmail(adapter.email)
+        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
         if(payer) {
             throw new BusinessException("Email já cadastrado.")
         }
@@ -61,12 +56,12 @@ class PayerService {
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
         if (!payer) {
             throw new BusinessException("Pagador não encontrado.")
         }
 
-        payer = Payer.findByEmail(adapter.email)
+        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
 
         if (payer && payer.id != id) {
             throw new BusinessException("E-mail já em uso!")
@@ -76,7 +71,7 @@ class PayerService {
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
@@ -88,9 +83,5 @@ class PayerService {
         }
 
         return payer
-    }
-
-    public Payer findById(Long id) {
-        return Payer.get(id)
     }
 }
