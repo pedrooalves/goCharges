@@ -35,9 +35,6 @@ class PayerService {
         return payer
     }
 
-    public list() {
-        return Payer.list()
-    }
 
     private void validateNotNull(PayerAdapter adapter) {
         if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
