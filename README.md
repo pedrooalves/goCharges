@@ -22,3 +22,8 @@
 ## Autores
 
 - [Pedro Henrique Alves](https://github.com/pedrooalves)
+- [Gabriel Ferreira do Prado](https://github.com/GabrielPradoAsaas)
+
+## Documentação
+
+- [Documentação do Projeto](https://docs.google.com/document/d/11qYvML5VgBpBsFQDlxInzdxn3R8ymV90CIzGky1cAus/edit)

@@ -13,17 +13,13 @@ import java.text.SimpleDateFormat
 class PaymentService {
 
     public Payment save(PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = new Payment()
         payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if(!payment.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado")
-        }
+        payment.save(failOnError:true)
 
         return payment
     }
@@ -33,10 +29,7 @@ class PaymentService {
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = PaymentRepository.query([id: id]).get()
-
         payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
@@ -45,16 +38,17 @@ class PaymentService {
         return payment
     }
 
-    private void validate(PaymentAdapter adapter) {
-        if (adapter.payerCpfCnpj.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
-    }
-
     public void delete(Long id) {
         Payment payment = PaymentRepository.query([id: id]).get()
         payment.deleted = true
 
         payment.save(failOnError: true)
+    }
+
+    public static void validate(Map params) {
+        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
+                params.value.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos")
+        }
     }
 }

@@ -8,7 +8,7 @@ class PaymentController {
 
     PaymentService paymentService
 
-    public Object index() {
+    public Map index() {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
 
@@ -21,7 +21,7 @@ class PaymentController {
         }
     }
 
-    public Object save() {
+    public Map save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter)
@@ -34,14 +34,14 @@ class PaymentController {
         }
     }
 
-    public Object edit() {
+    public Map edit() {
         Long id = Long.parseLong(params.id)
         Payment payment = PaymentRepository.query([id: id]).get()
 
         render(view: "edit", model: [payment : payment])
     }
 
-    public Object update() {
+    public Map update() {
         try{
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.parseLong(params.id)
@@ -56,11 +56,11 @@ class PaymentController {
         }
     }
 
-    public Object showForm() {
+    public Map showForm() {
         chain(action: "index", model: [showNewPaymentForm: true])
     }
 
-    public Object delete() {
+    public Map delete() {
         Long id = Long.parseLong(params.id)
         paymentService.delete(id)
 
