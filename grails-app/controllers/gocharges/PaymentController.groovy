@@ -7,10 +7,10 @@ class PaymentController {
 
     PaymentService paymentService
 
-    public index() {
+    public Object index() {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
-        
+
         if(chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
@@ -20,7 +20,7 @@ class PaymentController {
         }
     }
 
-    public save() {
+    public Object save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter)
@@ -33,14 +33,14 @@ class PaymentController {
         }
     }
 
-    public edit() {
+    public Object edit() {
         Long id = Long.parseLong(params.id)
         Payment payment = paymentService.findById(id)
 
         render(view: "edit", model: [payment : payment])
     }
 
-    public update() {
+    public Object update() {
         try{
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.parseLong(params.id)
@@ -55,11 +55,11 @@ class PaymentController {
         }
     }
 
-    public showForm() {
+    public Object showForm() {
         chain(action: "index", model: [showNewPaymentForm: true])
     }
 
-    public delete() {
+    public Object delete() {
         Long id = Long.parseLong(params.id)
         paymentService.delete(id)
 
