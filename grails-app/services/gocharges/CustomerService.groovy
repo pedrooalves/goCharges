@@ -3,6 +3,7 @@ package gocharges
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
+import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -30,7 +31,7 @@ class CustomerService {
         Customer customer = CustomerRepository.query([id: id]).get()
 
         customer.deleted = true
-        customer.save()
+        customer.save(failOnError: true)
     }
 
     public Customer update(Long id, CustomerAdapter adapter) {

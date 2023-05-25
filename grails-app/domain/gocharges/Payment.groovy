@@ -1,15 +1,20 @@
 package gocharges
 
-class Payment {
+import gocharges.domain.base.BaseEntity
+import gocharges.payment.enums.PaymentBillingType
+import gocharges.payment.enums.PaymentStatus
 
-    String billingType;
-    String status;
-    Date dueDate;
-    BigDecimal value;
+class Payment extends BaseEntity {
+
+    Payer payer
+    PaymentBillingType billingType
+    PaymentStatus status = PaymentStatus.PENDING
+    Date dueDate
+    BigDecimal value
 
     static constraints = {
-        billingType(inList:["BOLETO","DEBIT_CARD","PIX","DEPOSIT","TRANSFER"])
-        status(inList: ["APROVADA","ATRASADA","PENDENTE"])
+        billingType(blank:false)
+        status(blank:false)
         dueDate(blank: false, nullable: false)
         value(blank:false, nullable: false)
     }
