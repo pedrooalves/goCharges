@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
+import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -59,6 +60,8 @@ class CustomerService {
     private void validate(CustomerAdapter adapter) {
         validateNotNull(adapter)
 
+        CpfCnpjValidator.validate(adapter.cpfCnpj)
+
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
         if(emailValidator) {
@@ -93,4 +96,5 @@ class CustomerService {
             throw new BusinessException("É preciso preencher todos os campos!")
         }
     }
+
 }
