@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.payer.adapter.PayerAdapter
+import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 
@@ -45,16 +46,11 @@ class PayerService {
         }
     }
 
-    private void validateCpfCnpj(String cpfCnpj) {
-        if(cpfCnpj.length() != 11 || cpfCnpj.length() != 14){
-            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
-        }
-    }
 
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
-        validateCpfCnpj(adapter.cpfCnpj)
+        CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Payer payer = Payer.findByEmail(adapter.email)
         if(payer) {

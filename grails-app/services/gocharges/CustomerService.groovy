@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
+import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -59,7 +60,7 @@ class CustomerService {
     private void validate(CustomerAdapter adapter) {
         validateNotNull(adapter)
 
-        validateCpfCnpj(adapter.cpfCnpj)
+        CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Customer emailValidator = Customer.findByEmail(adapter.email)
 
@@ -96,9 +97,4 @@ class CustomerService {
         }
     }
 
-    private void validateCpfCnpj(String cpfCnpj) {
-        if(cpfCnpj.length() != 11 || cpfCnpj.length() != 14){
-            throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
-        }
-    }
 }
