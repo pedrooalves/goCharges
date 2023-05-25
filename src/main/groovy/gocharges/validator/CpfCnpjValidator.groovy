@@ -9,5 +9,4 @@ class CpfCnpjValidator {
             throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
         }
     }
-
 }
