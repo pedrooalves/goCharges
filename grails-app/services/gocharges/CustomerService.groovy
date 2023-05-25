@@ -1,7 +1,9 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
+import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
+import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -22,15 +24,11 @@ class CustomerService {
     }
 
     public List<Customer> list() {
-        List<Customer> customerList = Customer.findAll {
-            deleted == false
-        }
-
-        return customerList
+        return CustomerRepository.query([includeDeleted: false]).list()
     }
 
     public void delete(Long id) {
-        Customer customer = Customer.get(id)
+        Customer customer = CustomerRepository.query([id: id]).get()
 
         customer.deleted = true
         customer.save(failOnError: true)
@@ -39,7 +37,7 @@ class CustomerService {
     public Customer update(Long id, CustomerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Customer customer = Customer.get(id)
+        Customer customer = CustomerRepository.query([id: id]).get()
 
         customer.name = adapter.name
         customer.email = adapter.email
@@ -49,23 +47,16 @@ class CustomerService {
         return customer
     }
 
-    public Customer findById(Long id) {
-        Customer customer = Customer.get(id)
-
-        return customer
-    }
-
-
     private void validate(CustomerAdapter adapter) {
         validateNotNull(adapter)
 
-        Customer emailValidator = Customer.findByEmail(adapter.email)
+        Customer emailValidator = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
 
         if(emailValidator) {
             throw new BusinessException("Email em uso!")
         }
 
-        Customer cpfCnpjValidator = Customer.findByCpfCnpj(adapter.cpfCnpj)
+        Customer cpfCnpjValidator = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
 
         if(cpfCnpjValidator) {
             throw new BusinessException("CPF / CNPJ em uso!")
@@ -75,8 +66,8 @@ class CustomerService {
     private void validateUpdate(Long id, CustomerAdapter adapter) {
         validateNotNull(adapter)
 
-        Customer customerById = Customer.get(id)
-        Customer customerByEmail = Customer.findByEmail(adapter.email)
+        Customer customerById = CustomerRepository.query([id: id, includeDeleted: true]).get()
+        Customer customerByEmail = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
 
         if(!customerByEmail) {
             return
