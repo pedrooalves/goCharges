@@ -1,5 +1,7 @@
 package gocharges
 
+import gocharges.payment.PaymentRepository
+import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
@@ -12,7 +14,7 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter) {
         Payment payment = new Payment()
-        payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -23,14 +25,12 @@ class PaymentService {
     }
 
     public List<Payment> list() {
-        return Payment.findAll {
-            deleted == false
-        }
+        return PaymentRepository.query([includeDeleted: false]).list()
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
-        Payment payment = Payment.get(id)
-        payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
+        Payment payment = PaymentRepository.query([id: id]).get()
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -38,21 +38,8 @@ class PaymentService {
         return payment
     }
 
-    private Payer findPayerByCpfCnpj(String payerCpfCnpj) {
-        Payer payer = Payer.findByCpfCnpj(payerCpfCnpj)
-        if (!payer) {
-            throw new BusinessException("Pagador não encontrado")
-        }
-
-        return payer
-    }
-
-    public Payment findById(Long id) {
-        return Payment.get(id)
-    }
-
     public void delete(Long id) {
-        Payment payment = Payment.get(id)
+        Payment payment = PaymentRepository.query([id: id]).get()
         payment.deleted = true
 
         payment.save(failOnError: true)

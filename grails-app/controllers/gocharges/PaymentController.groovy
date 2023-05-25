@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.exception.BusinessException
+import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
 class PaymentController {
@@ -35,7 +36,7 @@ class PaymentController {
 
     public Map edit() {
         Long id = Long.parseLong(params.id)
-        Payment payment = paymentService.findById(id)
+        Payment payment = PaymentRepository.query([id: id]).get()
 
         render(view: "edit", model: [payment : payment])
     }
