@@ -1,9 +1,10 @@
 package gocharges
 
+import gocharges.domain.base.BaseEntity
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 
-class Payment {
+class Payment extends BaseEntity {
 
     Payer payer
     PaymentBillingType billingType

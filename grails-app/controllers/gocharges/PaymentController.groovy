@@ -7,10 +7,10 @@ class PaymentController {
 
     PaymentService paymentService
 
-    public index() {
+    public Map index() {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
-        
+
         if(chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
@@ -20,7 +20,7 @@ class PaymentController {
         }
     }
 
-    public save() {
+    public Map save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter)
@@ -33,14 +33,14 @@ class PaymentController {
         }
     }
 
-    public edit() {
+    public Map edit() {
         Long id = Long.parseLong(params.id)
         Payment payment = paymentService.findById(id)
 
         render(view: "edit", model: [payment : payment])
     }
 
-    public update() {
+    public Map update() {
         try{
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.parseLong(params.id)
@@ -55,7 +55,15 @@ class PaymentController {
         }
     }
 
-    public showForm() {
+    public Map showForm() {
         chain(action: "index", model: [showNewPaymentForm: true])
+    }
+
+    public Map delete() {
+        Long id = Long.parseLong(params.id)
+        paymentService.delete(id)
+
+        Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
+        redirect(view: "index", model: [validation: validation])
     }
 }

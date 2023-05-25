@@ -23,7 +23,9 @@ class PaymentService {
     }
 
     public List<Payment> list() {
-        return Payment.list()
+        return Payment.findAll {
+            deleted == false
+        }
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
@@ -45,17 +47,15 @@ class PaymentService {
         return payer
     }
 
-    public Payer findPayerById(Long payerId) {
-        Payer payer = Payer.findById(payerId)
-        if (!payer) {
-            throw new BusinessException("Pagador não encontrado")
-        }
-
-        return payer
-    }
-
     public Payment findById(Long id) {
         return Payment.get(id)
+    }
+
+    public void delete(Long id) {
+        Payment payment = Payment.get(id)
+        payment.deleted = true
+
+        payment.save(failOnError: true)
     }
 
     public static void validate(Map params) {
