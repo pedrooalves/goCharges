@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.exception.BusinessException
+import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 
 class PayerController {
@@ -8,7 +9,7 @@ class PayerController {
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list()
+        List<Payer> payers = PayerRepository.query([includeDeleted: false]).list()
         Boolean showNewPayerForm = false
 
         if(chainModel) {
@@ -25,7 +26,7 @@ class PayerController {
     public save() {
         try {
             PayerAdapter payerAdapter = new PayerAdapter(params)
-            Payer payer = payerService.save(payerAdapter)
+            payerService.save(payerAdapter)
 
             Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
             chain(action: "index", model:[validation:validation])
@@ -68,7 +69,7 @@ class PayerController {
 
     public edit() {
         Long id = Long.parseLong(params.id)
-        Payer payer = payerService.findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         if(chainModel) {
             Map validation = chainModel.validation

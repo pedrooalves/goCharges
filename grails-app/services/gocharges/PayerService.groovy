@@ -1,7 +1,7 @@
 package gocharges
 
+import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
-import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 
@@ -19,64 +19,58 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado!")
+            throw new BusinessException("Erro inesperado")
         }
 
         return payer
     }
 
     public Payer delete(Long id) {
-        Payer payer = Payer.get(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
-        if (!payer) throw new BusinessException("Pagador não encontrado.")
+        if (!payer) throw new BusinessException("Pagador não encontrado")
 
         payer.delete(failOnError: true)
 
         return payer
     }
 
-    public list() {
-        return Payer.list()
-    }
 
     private void validateNotNull(PayerAdapter adapter) {
         if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
                 adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos.")
+            throw new BusinessException("É preciso preencher todos os campos")
         }
     }
-
 
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
-
-        Payer payer = Payer.findByEmail(adapter.email)
+        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
         if(payer) {
-            throw new BusinessException("Email já cadastrado.")
+            throw new BusinessException("Email já cadastrado")
         }
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
         if (!payer) {
-            throw new BusinessException("Pagador não encontrado.")
+            throw new BusinessException("Pagador não encontrado")
         }
 
-        payer = Payer.findByEmail(adapter.email)
+        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
 
         if (payer && payer.id != id) {
-            throw new BusinessException("E-mail já em uso!")
+            throw new BusinessException("E-mail já em uso")
         }
     }
 
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
@@ -84,13 +78,9 @@ class PayerService {
         payer.address = adapter.address
 
         if(!payer.save(failOnError:true)){
-            throw new BusinessException("Não foi possível salvar.")
+            throw new BusinessException("Não foi possível salvar")
         }
 
         return payer
-    }
-
-    public Payer findById(Long id) {
-        return Payer.get(id)
     }
 }
