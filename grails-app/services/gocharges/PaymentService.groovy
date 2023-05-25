@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat
 class PaymentService {
 
     public Payment save(PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = new Payment()
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
@@ -43,12 +41,6 @@ class PaymentService {
         return payment
     }
 
-    private void validate(PaymentAdapter adapter) {
-        if (adapter.payerCpfCnpj.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
-    }
-
     private Payer findPayerByCpfCnpj(String payerCpfCnpj) {
         Payer payer = Payer.findByCpfCnpj(payerCpfCnpj)
         if (!payer) {
@@ -69,5 +61,12 @@ class PaymentService {
 
     public Payment findById(Long id) {
         return Payment.get(id)
+    }
+
+    public static void validate(Map params) {
+        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
+                params.value.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos")
+        }
     }
 }
