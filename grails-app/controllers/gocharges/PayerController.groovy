@@ -9,7 +9,7 @@ class PayerController {
     PayerService payerService
 
     public index() {
-        List<Payer> payers = PayerRepository.query([includeDeleted: false]).list()
+        List<Payer> payers = payerService.list()
         Boolean showNewPayerForm = false
 
         if(chainModel) {

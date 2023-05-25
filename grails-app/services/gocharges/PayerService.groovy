@@ -19,10 +19,7 @@ class PayerService {
         payer.cpfCnpj = adapter.cpfCnpj
         payer.address = adapter.address
 
-        if(!payer.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado!")
-        }
-
+        payer.save(failOnError:true)
         return payer
     }
 
@@ -31,7 +28,7 @@ class PayerService {
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
-        payer.delete = true
+        payer.deleted = true
         payer.save(failOnError: true)
     }
 
@@ -44,28 +41,23 @@ class PayerService {
 
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
-
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if(payer) {
-            throw new BusinessException("Email já cadastrado.")
-        }
+        if(payer)  throw new BusinessException("Email já cadastrado.")
+
+        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
+        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
         Payer payer = PayerRepository.query([id: id]).get()
-        if (!payer) {
-            throw new BusinessException("Pagador não encontrado.")
-        }
+        if (!payer) throw new BusinessException("Pagador não encontrado.")
 
         payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
-
-        if (payer && payer.id != id) {
-            throw new BusinessException("E-mail já em uso!")
-        }
+        if (payer && payer.id != id) throw new BusinessException("E-mail já em uso!")
     }
 
     public Payer update(Long id, PayerAdapter adapter) {
@@ -78,10 +70,12 @@ class PayerService {
         payer.mobilePhone = adapter.mobilePhone
         payer.address = adapter.address
 
-        if(!payer.save(failOnError:true)){
-            throw new BusinessException("Não foi possível salvar.")
-        }
+        payer.save(failOnError:true)
 
         return payer
+    }
+
+    public List<Payer> list() {
+        return PayerRepository.query([includeDeleted: false]).list()
     }
 }
