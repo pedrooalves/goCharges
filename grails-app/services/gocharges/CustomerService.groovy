@@ -94,7 +94,7 @@ class CustomerService {
     }
 
     private void validateCpfCnpj(String cpfCnpj) {
-        if(cpfCnpj.length() != 11 || cpfCnpj != 14){
+        if(cpfCnpj.length() != 11 || cpfCnpj.length() != 14){
             throw new BusinessException("Informe um tamanho de CPF / CNPJ correto.")
         }
     }
