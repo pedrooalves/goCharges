@@ -15,6 +15,7 @@ class PaymentRepository {
                 eq("id", search.id)
             }
         }
+
         return query
     }
 }
