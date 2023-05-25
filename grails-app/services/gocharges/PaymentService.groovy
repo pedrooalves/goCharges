@@ -29,10 +29,7 @@ class PaymentService {
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = Payment.get(id)
-
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
