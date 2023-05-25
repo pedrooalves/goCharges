@@ -1,16 +1,15 @@
 package gocharges
 
-import shared.documentos.DocumentoIdentificador;
+import gocharges.domain.base.BaseEntity
 
-class Customer {
 
-    String name;
-    String email;
-    String mobilePhone;
-    String cpfCnpj;
-    String address;
+class Customer extends BaseEntity {
 
-    Date created_at = new Date();
+    String name
+    String email
+    String mobilePhone
+    String cpfCnpj
+    String address
 
     static constraints = {
         name(nullable: false)

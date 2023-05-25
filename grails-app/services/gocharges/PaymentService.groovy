@@ -11,17 +11,13 @@ import java.text.SimpleDateFormat
 class PaymentService {
 
     public Payment save(PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = new Payment()
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if(!payment.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado")
-        }
+        payment.save(failOnError:true)
 
         return payment
     }
@@ -33,22 +29,13 @@ class PaymentService {
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
-        validate(adapter)
-
         Payment payment = Payment.get(id)
-
         payment.payer = findPayerByCpfCnpj(adapter.payerCpfCnpj)
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
         return payment
-    }
-
-    private void validate(PaymentAdapter adapter) {
-        if (adapter.payerCpfCnpj.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
     }
 
     private Payer findPayerByCpfCnpj(String payerCpfCnpj) {
@@ -69,5 +56,12 @@ class PaymentService {
         payment.deleted = true
 
         payment.save(failOnError: true)
+    }
+
+    public static void validate(Map params) {
+        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
+                params.value.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos")
+        }
     }
 }

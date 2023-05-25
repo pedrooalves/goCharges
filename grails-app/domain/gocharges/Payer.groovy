@@ -1,6 +1,8 @@
 package gocharges
 
-class Payer {
+import gocharges.domain.base.BaseEntity
+
+class Payer extends BaseEntity {
 
     String name
     String email
@@ -8,13 +10,11 @@ class Payer {
     String cpfCnpj
     String address
 
-    Date createdAt = new Date()
-
     static constraints = {
         name(blank:false)
         email(email:true, blank:false, unique:true)
         mobilePhone(blank:false)
-        cpfCnpj(blank:false)
+        cpfCnpj(blank:false, unique:true, size: 11..14)
         address(blank:false)
     }
 }

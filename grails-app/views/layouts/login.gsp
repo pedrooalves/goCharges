@@ -17,10 +17,13 @@
 
 <body>
 
-<nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
-    <div class="container-fluid justify-content-space-between">
-        <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
-        <a class="btn btn-lg bg-gogreen" href="/payer">Login</a>
+<nav class="navbar navbar-expand-lg navbar-dark" role="navigation">
+    <div class="container-fluid justify-content-between">
+
+        <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="goCharges Logo"/></a>
+
+        <a class="btn btn-lg bg-gogreen" href="/customer">Login</a>
+
     </div>
 </nav>
 
