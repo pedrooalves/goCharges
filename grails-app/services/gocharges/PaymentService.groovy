@@ -17,9 +17,7 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if(!payment.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado")
-        }
+        payment.save(failOnError:true)
 
         return payment
     }
