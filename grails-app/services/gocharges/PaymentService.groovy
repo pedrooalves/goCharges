@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.payment.PaymentRepository
+import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
