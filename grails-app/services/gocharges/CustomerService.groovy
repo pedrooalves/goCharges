@@ -22,7 +22,9 @@ class CustomerService {
     }
 
     public List<Customer> list() {
-        List<Customer> customerList = Customer.list()
+        List<Customer> customerList = Customer.findAll {
+            deleted == false
+        }
 
         return customerList
     }
@@ -30,7 +32,8 @@ class CustomerService {
     public void delete(Long id) {
         Customer customer = Customer.get(id)
 
-        customer.delete()
+        customer.deleted = true
+        customer.save(failOnError: true)
     }
 
     public Customer update(Long id, CustomerAdapter adapter) {
