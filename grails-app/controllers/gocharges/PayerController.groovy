@@ -44,7 +44,7 @@ class PayerController {
         Long id = Long.parseLong(params.id)
         payerService.delete(id)
 
-        Map validation = [success:true, message:"Pagador excluído com sucesso", type:"save"]
+        Map validation = [success:true, message:"Pagador excluído com sucesso", type:"delete"]
         chain(view: "index", model:[validation: validation])
     }
 
