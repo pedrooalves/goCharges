@@ -26,7 +26,7 @@ class PayerService {
     }
 
     public Payer delete(Long id) {
-        Payer payer = Payer.get(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
@@ -55,7 +55,7 @@ class PayerService {
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = Payer.get(id)
+        Payer payer = PayerRepository.query([id: id]).get()
         if (!payer) {
             throw new BusinessException("Pagador não encontrado")
         }
@@ -70,7 +70,7 @@ class PayerService {
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = Payer.get(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
@@ -82,9 +82,5 @@ class PayerService {
         }
 
         return payer
-    }
-
-    public Payer findById(Long id) {
-        return Payer.get(id)
     }
 }

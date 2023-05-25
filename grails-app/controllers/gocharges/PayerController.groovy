@@ -74,7 +74,7 @@ class PayerController {
 
     public edit() {
         Long id = Long.parseLong(params.id)
-        Payer payer = payerService.findById(id)
+        Payer payer = PayerRepository.query([id: id]).get()
 
         if(chainModel) {
             Map validation = chainModel.validation
