@@ -28,7 +28,7 @@ class PayerService {
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
-        payer.delete = true
+        payer.deleted = true
         payer.save(failOnError: true)
     }
 
