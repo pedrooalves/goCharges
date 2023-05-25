@@ -10,6 +10,10 @@ class PayerRepository {
                 eq("cpfCnpj", search.cpfCnpj)
             }
 
+            if(search.containsKey("email")) {
+                eq("email", search.email)
+            }
+
             if(!Boolean.valueOf(search.includeDeleted)) {
                 println("includeDeleted")
                 eq("deleted", false)

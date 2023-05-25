@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
@@ -48,7 +49,7 @@ class PayerService {
     private void validateSave(PayerAdapter adapter)  {
         validateNotNull(adapter)
 
-        Payer payer = Payer.findByEmail(adapter.email)
+        Payer payer = PayerRepository.query([email: adapter.email]).get()
         if(payer) {
             throw new BusinessException("Email já cadastrado")
         }
@@ -57,12 +58,12 @@ class PayerService {
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = findById(id)
+        Payer payer = Payer.get(id)
         if (!payer) {
             throw new BusinessException("Pagador não encontrado")
         }
 
-        payer = Payer.findByEmail(adapter.email)
+        payer = PayerRepository.query([email: adapter.email]).get()
 
         if (payer && payer.id != id) {
             throw new BusinessException("E-mail já em uso")
@@ -72,7 +73,7 @@ class PayerService {
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = findById(id)
+        Payer payer = Payer.get(id)
 
         payer.name = adapter.name
         payer.email = adapter.email
