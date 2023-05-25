@@ -68,6 +68,6 @@ class PaymentService {
         Payment payment = Payment.get(id)
         payment.deleted = true
 
-        payment.save()
+        payment.save(failOnError: true)
     }
 }
