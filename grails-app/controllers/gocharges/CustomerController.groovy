@@ -9,7 +9,7 @@ class CustomerController {
     CustomerService customerService
 
     def index() {
-        List<Customer> customerList = customerService.list()
+        List<Customer> customerList = CustomerRepository.query([includeDeleted: false]).list()
 
         if(chainModel) {
             render(view:"index", model: [customers : customerList, validation: chainModel.validation])
