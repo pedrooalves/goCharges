@@ -33,7 +33,7 @@ class CustomerService {
         Customer customer = Customer.get(id)
 
         customer.deleted = true
-        customer.save()
+        customer.save(failOnError: true)
     }
 
     public Customer update(Long id, CustomerAdapter adapter) {
