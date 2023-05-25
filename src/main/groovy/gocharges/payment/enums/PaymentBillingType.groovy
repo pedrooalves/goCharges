@@ -4,5 +4,5 @@ public enum PaymentBillingType {
 
     BANK_SLIP,
     DEBIT_CARD,
-    PIX;
+    PIX
 }
