@@ -146,5 +146,4 @@ class CpfCnpjValidator {
             }
         } else return false;
     }
-
 }
