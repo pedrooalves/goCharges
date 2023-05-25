@@ -19,10 +19,7 @@ class PayerService {
         payer.cpfCnpj = adapter.cpfCnpj
         payer.address = adapter.address
 
-        if(!payer.save(failOnError:true)){
-            throw new BusinessException("Erro inesperado!")
-        }
-
+        payer.save(failOnError:true)
         return payer
     }
 

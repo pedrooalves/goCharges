@@ -20,7 +20,6 @@ class PaymentService {
         payment.value = adapter.value
 
         payment.save(failOnError:true)
-
         return payment
     }
 
@@ -40,8 +39,10 @@ class PaymentService {
 
     public void delete(Long id) {
         Payment payment = PaymentRepository.query([id: id]).get()
-        payment.deleted = true
 
+        if (!payment) throw new BusinessException("Cobrança não encontrada")
+
+        payment.deleted = true
         payment.save(failOnError: true)
     }
 
