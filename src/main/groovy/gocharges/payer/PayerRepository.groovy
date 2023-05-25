@@ -22,6 +22,8 @@ class PayerRepository {
                 eq("id", search.id)
             }
         }
+
+
         return query
     }
 }
