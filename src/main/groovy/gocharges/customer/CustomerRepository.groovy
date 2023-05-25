@@ -23,6 +23,7 @@ class CustomerRepository {
                 eq("id", search.id)
             }
         }
+
         return query
     }
 }
