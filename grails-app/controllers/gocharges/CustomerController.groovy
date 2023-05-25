@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
+import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
 
 class CustomerController {
@@ -33,7 +34,7 @@ class CustomerController {
 
     def edit() {
         Long id = Long.parseLong(params.id)
-        Customer customer = customerService.findById(id)
+        Customer customer = CustomerRepository.query([id: id]).get()
 
         render(view: "edit", model: [customer:customer])
     }
