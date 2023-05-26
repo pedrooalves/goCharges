@@ -8,13 +8,13 @@ import grails.gorm.transactions.Transactional
 class PaymentOverdueJob {
 
     static triggers = {
-        cron name: 'cronTrigger', cronExpression: '0 55 13 1/1 * ? *'
+        simple repeatInterval: 5000
     }
 
     def execute() {
 
         Date today = new Date()
-        List<Payment> paymentsOverdue = PaymentRepository.query([today: today, status: PaymentStatus.PENDING]).list()
+        List<Payment> paymentsOverdue = PaymentRepository.query([today: today, status: PaymentStatus.PENDING, includeDeleted: true]).list()
 
         for(Payment payment : paymentsOverdue) {
             PaymentService.setOverdue(payment)
