@@ -1,14 +1,39 @@
 package gocharges
 
+import gocharges.exception.BusinessException
+import gocharges.auth.user.adapter.UserAdapter
+
 class UserController {
 
-    def index() { }
+    UserService userService
+
+    public index() {
+
+    }
 
     public login() {
         render(view: "login")
     }
 
     public signUp() {
-        render(view: "signup")
+        if(chainModel) {
+            Map validation = chainModel.validation
+            render(view: "signup", model: [validation: validation])
+        } else {
+            render(view: "signup")
+        }
+    }
+
+    public save() {
+        try {
+            UserAdapter userAdapter = new UserAdapter(params)
+            userService.save(userAdapter)
+
+            Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
+            chain(action: "signUp", model:[validation:validation])
+        } catch(BusinessException e) {
+            Map validation = [success:false, message:e.getMessage(), type:"save"]
+            chain(action: "signUp", model: [validation:validation])
+        }
     }
 }
