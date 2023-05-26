@@ -8,7 +8,7 @@ import grails.gorm.transactions.Transactional
 class PaymentOverdueJob {
 
     static triggers = {
-        simple repeatInterval: 5000
+        cron name: 'cronTrigger', cronExpression: '0 0 0 1/1 * ? *'
     }
 
     def execute() {
