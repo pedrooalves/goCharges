@@ -53,8 +53,7 @@ class PaymentService {
         }
     }
 
-    public static void setOverdue(Long id) {
-        Payment payment = PaymentRepository.query([id: id]).get()
+    public static void setOverdue(Payment payment) {
         payment.status = PaymentStatus.OVERDUE
 
         payment.save(failOnError: true)

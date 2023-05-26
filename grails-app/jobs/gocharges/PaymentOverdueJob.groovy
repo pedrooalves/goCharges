@@ -1,11 +1,13 @@
 package gocharges
 
 import gocharges.payment.PaymentRepository
+import grails.gorm.transactions.Transactional
 
+@Transactional
 class PaymentOverdueJob {
 
     static triggers = {
-        cron name: 'cronTrigger', cronExpression: '0 05 13 1/1 * ? *'
+        cron name: 'cronTrigger', cronExpression: '0 55 13 1/1 * ? *'
     }
 
     def execute() {
@@ -14,7 +16,7 @@ class PaymentOverdueJob {
         List<Payment> paymentsOverdue = PaymentRepository.query([today: today]).list()
 
         for(Payment payment : paymentsOverdue) {
-            PaymentService.setOverdue(payment.id)
+            PaymentService.setOverdue(payment)
         }
 
     }
