@@ -7,4 +7,8 @@ class UserController {
     public login() {
         render(view: "login")
     }
+
+    public signUp() {
+        render(view: "signup")
+    }
 }
