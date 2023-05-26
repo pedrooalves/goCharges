@@ -53,9 +53,15 @@ class PaymentService {
         }
     }
 
-    public static void setOverdue(Payment payment) {
-        payment.status = PaymentStatus.OVERDUE
+    public void setAsOverdue() {
 
-        payment.save(failOnError: true)
+        Date today = new Date()
+        List<Payment> paymentsOverdue = PaymentRepository.query([today: today, status: PaymentStatus.PENDING, includeDeleted: true]).list()
+
+        for(Payment payment : paymentsOverdue) {
+            payment.status = PaymentStatus.OVERDUE
+            payment.save(failOnError: true)
+        }
+
     }
 }
