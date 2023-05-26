@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.payment.PaymentRepository
+import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -13,7 +14,7 @@ class PaymentOverdueJob {
     def execute() {
 
         Date today = new Date()
-        List<Payment> paymentsOverdue = PaymentRepository.query([today: today]).list()
+        List<Payment> paymentsOverdue = PaymentRepository.query([today: today, status: PaymentStatus.PENDING]).list()
 
         for(Payment payment : paymentsOverdue) {
             PaymentService.setOverdue(payment)
