@@ -5,7 +5,21 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'gocharges.auth.Us
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'gocharges.auth.UserRole'
 grails.plugin.springsecurity.authority.className = 'gocharges.auth.Role'
 
+grails.plugin.springsecurity.auth.loginFormUrl = '/user/login'
+grails.plugin.springsecurity.logout.afterLogoutUrl = '/user/logout'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/user/admin'
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/user/error'
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
+grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
+grails.plugin.springsecurity.adh.errorPage="/logoff"
+grails.plugin.springsecurity.password.algorithm = 'bcrypt'
 
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+
+grails.plugin.springsecurity.interceptUrlMap = [
+		[pattern: '/customer/',               access: ['ROLE_ADMIN']],
+		[pattern: '/**',          access: ['IS_AUTHENTICATED_ANONYMOUSLY']],
+]
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/',               access: ['permitAll']],
