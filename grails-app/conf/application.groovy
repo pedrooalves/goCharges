@@ -7,7 +7,7 @@ grails.plugin.springsecurity.authority.className = 'gocharges.auth.Role'
 
 grails.plugin.springsecurity.auth.loginFormUrl = '/user/login'
 grails.plugin.springsecurity.logout.afterLogoutUrl = '/user/logout'
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/user/admin'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/user/error'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = false
 grails.plugin.springsecurity.dao.hideUserNotFoundExceptions = false
@@ -17,7 +17,9 @@ grails.plugin.springsecurity.password.algorithm = 'bcrypt'
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 
 grails.plugin.springsecurity.interceptUrlMap = [
-		[pattern: '/customer/',               access: ['ROLE_ADMIN']],
+		[pattern: '/customer/**',               access: ['ROLE_ADMIN']],
+		[pattern: '/payer/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
+		[pattern: '/payment/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/**',          access: ['IS_AUTHENTICATED_ANONYMOUSLY']],
 ]
 
