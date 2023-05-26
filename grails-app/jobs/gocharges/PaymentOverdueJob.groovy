@@ -13,8 +13,6 @@ class PaymentOverdueJob {
         Date today = new Date()
         List<Payment> paymentsOverdue = PaymentRepository.query([today: today]).list()
 
-        println(paymentsOverdue)
-
         for(Payment payment : paymentsOverdue) {
             PaymentService.setOverdue(payment.id)
         }

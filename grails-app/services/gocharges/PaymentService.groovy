@@ -57,8 +57,6 @@ class PaymentService {
         Payment payment = PaymentRepository.query([id: id]).get()
         payment.status = PaymentStatus.OVERDUE
 
-        println(id + " " + payment.status)
-
         payment.save(failOnError: true)
     }
 }
