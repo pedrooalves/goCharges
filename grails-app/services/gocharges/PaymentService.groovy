@@ -5,6 +5,7 @@ import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
+import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 
 import java.text.SimpleDateFormat
@@ -50,5 +51,14 @@ class PaymentService {
                 params.value.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
         }
+    }
+
+    public static void setOverdue(Long id) {
+        Payment payment = PaymentRepository.query([id: id]).get()
+        payment.status = PaymentStatus.OVERDUE
+
+        println(id + " " + payment.status)
+
+        payment.save(failOnError: true)
     }
 }
