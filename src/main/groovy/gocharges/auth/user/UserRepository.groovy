@@ -10,6 +10,10 @@ class UserRepository {
             if(search.containsKey("username")) {
                 eq("username", search.username)
             }
+
+            if(search.containsKey("id")) {
+                eq("id", search.id)
+            }
         }
 
         return query

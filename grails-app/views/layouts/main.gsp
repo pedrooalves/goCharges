@@ -28,7 +28,7 @@
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
             <div>
-                <a class="btn btn-lg bg-gogreen mr-3" href="/user/login">Minha Conta</a>
+                <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
                 <a class="btn btn-lg bg-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
             </div>
         </sec:ifLoggedIn>
