@@ -13,8 +13,9 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class UserService {
 
-    public save(UserAdapter adapter) {
+    public void save(UserAdapter adapter) {
         User user = new User()
+        user.customer = new Customer()
         user.username = adapter.username
         user.password = adapter.password
         user.enabled = adapter.enabled
