@@ -22,7 +22,7 @@
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
         <div>
             <a class="btn btn-lg bg-gogreen mr-3" href="/user/login">Login</a>
-            <a class="btn btn-lg bg-gogreen mr-3" href="/user/signUp">Sign Up</a>
+            <a class="btn btn-lg bg-gogreen mr-3" href="/user/signUp">Cadastrar</a>
         </div>
     </div>
 </nav>
