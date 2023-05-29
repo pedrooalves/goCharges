@@ -4,6 +4,7 @@ import gocharges.auth.Role
 import gocharges.auth.User
 import gocharges.auth.UserRole
 import gocharges.auth.role.RoleRepository
+import gocharges.auth.user.UserRepository
 import gocharges.auth.user.adapter.UserAdapter
 import gocharges.auth.userrole.UserRoleRepository
 import gocharges.exception.BusinessException
@@ -42,6 +43,10 @@ class UserService {
     public static void validate(Map params) {
         if(params.username.isBlank() || params.password.isBlank() || params.confirmPassword.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
+        }
+
+        if(UserRepository.query([username: params.username])) {
+            throw new BusinessException("E-mail já cadastrado")
         }
 
         if(!(params.password == params.confirmPassword)) {
