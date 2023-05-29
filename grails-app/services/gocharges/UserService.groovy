@@ -45,7 +45,7 @@ class UserService {
             throw new BusinessException("É preciso preencher todos os campos")
         }
 
-        if(UserRepository.query([username: params.username])) {
+        if(UserRepository.query([username: params.username]).get()) {
             throw new BusinessException("E-mail já cadastrado")
         }
 
