@@ -12,10 +12,10 @@ class Customer extends BaseEntity {
     String address
 
     static constraints = {
-        name(nullable: false)
-        email(email: true, nullable: false, unique: true)
-        mobilePhone(nullable: false)
-        cpfCnpj(nullable: false)
-        address(nullable: false)
+        name(nullable: true, blank: false)
+        email(email: true, nullable: true, blank: false, unique: true)
+        mobilePhone(nullable: true, blank: false)
+        cpfCnpj(nullable: true, blank: false)
+        address(nullable: true, blank: false)
     }
 }
