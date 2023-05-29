@@ -67,4 +67,12 @@ class PaymentController {
         Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
         redirect(view: "index", model: [validation: validation])
     }
+
+    public Map confirm() {
+        Long id = Long.parseLong(params.id)
+        paymentService.confirm(id)
+
+        Map validation = [success:true, message:"Pagamento confirmado com sucesso", type:"edit"]
+        redirect(view: "index", model: [validation: validation])
+    }
 }

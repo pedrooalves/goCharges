@@ -5,6 +5,7 @@ import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
+import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 
 import java.text.SimpleDateFormat
@@ -43,6 +44,15 @@ class PaymentService {
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
         payment.deleted = true
+        payment.save(failOnError: true)
+    }
+
+    public void confirm(Long id) {
+        Payment payment = PaymentRepository.query([id: id]).get()
+
+        if (!payment) throw new BusinessException("Cobrança não encontrada")
+
+        payment.status = PaymentStatus.RECEIVED
         payment.save(failOnError: true)
     }
 
