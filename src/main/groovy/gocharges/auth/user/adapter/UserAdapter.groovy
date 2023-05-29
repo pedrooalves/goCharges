@@ -6,6 +6,7 @@ class UserAdapter {
 
     String username
     String password
+    String oldPassword
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -15,6 +16,10 @@ class UserAdapter {
         UserService.validate(params)
         this.username = params.username
         this.password = params.password
+        if(params.containsKey("currentPassword")) {
+            this.oldPassword = params.currentPassword
+            this.password = this.password.isBlank() ? params.currentPassword : this.password
+        }
         this.accountExpired = false
         this.accountLocked = false
         this.passwordExpired = false
