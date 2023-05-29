@@ -25,7 +25,7 @@
         <input type='password' name='confirmPassword' id='confirmPassword' value="" />
     </p>
     <a href="/"><input class="btn btn-outline-secondary" type="button" name="cancelButton" value="Cancelar" /></a>
-    <input class="btn bg-gogreen text-white" type="submit" value="Entrar" />
+    <input class="btn bg-gogreen text-white" type="submit" value="Cadastrar" />
 </g:form>
 </body>
 </html>
