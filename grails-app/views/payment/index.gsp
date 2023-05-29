@@ -61,7 +61,7 @@
 
             <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation && (validation.type == 'delete' || validation.type == 'update' ||
+            <g:if test="${validation && (validation.type == 'delete' || validation.type == 'update' || validation.type == 'edit' ||
             (validation.type == 'save' && validation.success))}">
                 <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                     ${validation.message}

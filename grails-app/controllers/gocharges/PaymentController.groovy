@@ -65,7 +65,7 @@ class PaymentController {
         paymentService.delete(id)
 
         Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
-        redirect(view: "index", model: [validation: validation])
+        chain(view: "index", model: [validation: validation, showNewPaymentForm: false])
     }
 
     public Map confirm() {
@@ -73,6 +73,6 @@ class PaymentController {
         paymentService.confirm(id)
 
         Map validation = [success:true, message:"Pagamento confirmado com sucesso", type:"edit"]
-        redirect(view: "index", model: [validation: validation])
+        chain(view: "index", model: [validation: validation, showNewPaymentForm: false])
     }
 }
