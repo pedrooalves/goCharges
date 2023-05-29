@@ -54,7 +54,6 @@ class PaymentService {
     }
 
     public void setAsOverdue() {
-
         Date today = new Date()
         List<Payment> paymentsOverdue = PaymentRepository.query([dueDate: today, status: PaymentStatus.PENDING, includeDeleted: true]).list()
 
