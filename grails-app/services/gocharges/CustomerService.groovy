@@ -1,26 +1,31 @@
 package gocharges
 
+import gocharges.auth.User
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
 import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class CustomerService {
 
-    public Customer save(CustomerAdapter adapter) {
+    SpringSecurityService springSecurityService
+
+    public void save(CustomerAdapter adapter) {
         validateSave(adapter)
 
-        Customer customer = new Customer()
+        User currentUser = springSecurityService.loadCurrentUser()
+
+        Customer customer = currentUser.customer
         customer.name = adapter.name
-        customer.email = adapter.email
+        customer.email = currentUser.username
         customer.mobilePhone = adapter.mobilePhone
         customer.cpfCnpj = adapter.cpfCnpj
         customer.address = adapter.address
 
         customer.save(failOnError: true)
-        return customer
     }
 
     public void delete(Long id) {
@@ -33,7 +38,7 @@ class CustomerService {
     }
 
     private void validateNotNull(CustomerAdapter adapter) {
-        if(adapter.name.isBlank() || adapter.email.isBlank() || adapter.mobilePhone.isBlank()
+        if(adapter.name.isBlank() || adapter.mobilePhone.isBlank()
                 || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos!")
         }
@@ -42,9 +47,6 @@ class CustomerService {
     private void validateSave(CustomerAdapter adapter) {
         validateNotNull(adapter)
         CpfCnpjValidator.validate(adapter.cpfCnpj)
-
-        Customer emailExists = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if(emailExists) throw new BusinessException("Email em uso!")
 
         Customer cpfCnpjExists = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
         if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
