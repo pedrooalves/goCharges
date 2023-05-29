@@ -15,8 +15,8 @@ class PaymentRepository {
                 eq("id", search.id)
             }
 
-            if(search.containsKey("today")) {
-                lt("dueDate", search.today)
+            if(search.containsKey("dueDate[lt]")) {
+                lt("dueDate", search.dueDate)
             }
 
             if(search.containsKey("status")) {
