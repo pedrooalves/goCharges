@@ -3,12 +3,10 @@ package gocharges
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
-import grails.plugin.springsecurity.SpringSecurityService
 
 class CustomerController {
 
     CustomerService customerService
-    SpringSecurityService springSecurityService
 
     def index() {
         List<Customer> customerList = customerService.list()
