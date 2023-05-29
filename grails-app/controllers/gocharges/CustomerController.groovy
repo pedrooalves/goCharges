@@ -3,10 +3,12 @@ package gocharges
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
+import grails.plugin.springsecurity.SpringSecurityService
 
 class CustomerController {
 
     CustomerService customerService
+    SpringSecurityService springSecurityService
 
     def index() {
         List<Customer> customerList = customerService.list()
@@ -18,17 +20,21 @@ class CustomerController {
         }
     }
 
+    def create() {
+        render(view: "create")
+    }
+
     def save() {
         try{
             CustomerAdapter adapter = convertToAdapter(params)
-            Customer customer = customerService.save(adapter)
+
+            customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
+            redirect(controller: "dashboard", action: "index")
         }catch(BusinessException exception){
-
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            redirect(controller: "dashboard", action: "index")
         }
     }
 
