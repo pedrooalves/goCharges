@@ -3,6 +3,7 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
+import grails.plugin.springsecurity.SpringSecurityService
 
 class PayerController {
 

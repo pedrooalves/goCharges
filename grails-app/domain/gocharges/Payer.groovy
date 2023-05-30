@@ -10,6 +10,8 @@ class Payer extends BaseEntity {
     String cpfCnpj
     String address
 
+    Customer customer
+
     static constraints = {
         name(blank:false)
         email(email:true, blank:false, unique:true)
