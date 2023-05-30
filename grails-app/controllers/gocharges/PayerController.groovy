@@ -68,7 +68,6 @@ class PayerController {
             flash.message = e.getMessage()
             flash.type = FlashMessageType.ERROR
 
-            chain(action: "index")
         } finally {
             redirect(action: "index")
         }
