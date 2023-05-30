@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.customer.CustomerRepository
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 import gocharges.validator.CpfCnpjValidator
@@ -47,11 +48,17 @@ class PayerService {
         validateNotNull(adapter)
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
-        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+
+        Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if(payer)  throw new BusinessException("Email já cadastrado.")
 
-        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
+        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
         if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+
+        if(adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail!")
+
+        if(adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio Cpf ou Cnpj!")
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
