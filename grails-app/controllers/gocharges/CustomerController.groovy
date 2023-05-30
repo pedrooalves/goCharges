@@ -3,6 +3,7 @@ package gocharges
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
+import shared.FlashMessageType
 
 class CustomerController {
 
@@ -11,11 +12,7 @@ class CustomerController {
     def index() {
         List<Customer> customerList = customerService.list()
 
-        if(chainModel) {
-            render(view:"index", model: [customers : customerList, validation: chainModel.validation])
-        } else {
-            render(view:"index", model: [customers : customerList])
-        }
+        render(view:"index", model: [customers : customerList])
     }
 
     def create() {
@@ -28,11 +25,15 @@ class CustomerController {
 
             customerService.save(adapter)
 
-            Map validation = [success: true, message: "Conta criada com sucesso!"]
+            flash.message = "Conta criada com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+
             redirect(controller: "dashboard", action: "index")
-        }catch(BusinessException exception){
-            Map validation = [success: false, message: exception.getMessage()]
-            redirect(controller: "dashboard", action: "index")
+        }catch(BusinessException e){
+            flash.message = e.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+            redirect(action: "create")
         }
     }
 
@@ -50,11 +51,15 @@ class CustomerController {
 
             customerService.update(id, adapter)
 
-            Map validation = [success: true, message: "Conta alterada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
-        }catch(BusinessException exception) {
-            Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            flash.message = "Conta alterada com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+
+        }catch(BusinessException e) {
+            flash.message = e.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+        }finally {
+            redirect(action: "index")
         }
     }
 
