@@ -18,17 +18,21 @@ class CustomerController {
         }
     }
 
+    def create() {
+        render(view: "create")
+    }
+
     def save() {
         try{
             CustomerAdapter adapter = convertToAdapter(params)
-            Customer customer = customerService.save(adapter)
+
+            customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
+            redirect(controller: "dashboard", action: "index")
         }catch(BusinessException exception){
-
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            redirect(controller: "dashboard", action: "index")
         }
     }
 

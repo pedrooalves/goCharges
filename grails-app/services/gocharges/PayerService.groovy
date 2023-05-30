@@ -5,9 +5,12 @@ import gocharges.payer.adapter.PayerAdapter
 import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
+import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class PayerService {
+
+    SpringSecurityService springSecurityService
 
     public Payer save(PayerAdapter adapter) {
         validateSave(adapter)
@@ -18,13 +21,15 @@ class PayerService {
         payer.mobilePhone = adapter.mobilePhone
         payer.cpfCnpj = adapter.cpfCnpj
         payer.address = adapter.address
+        payer.customer = springSecurityService.getCurrentUser().customer
 
         payer.save(failOnError:true)
         return payer
     }
 
     public Payer delete(Long id) {
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
@@ -43,27 +48,35 @@ class PayerService {
         validateNotNull(adapter)
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
-        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+
+        Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if(payer)  throw new BusinessException("Email já cadastrado.")
 
-        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
+        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
         if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+
+        if(adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail!")
+
+        if(adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio Cpf ou Cnpj!")
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
         if (!payer) throw new BusinessException("Pagador não encontrado.")
 
-        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
+        payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if (payer && payer.id != id) throw new BusinessException("E-mail já em uso!")
     }
 
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
@@ -76,6 +89,7 @@ class PayerService {
     }
 
     public List<Payer> list() {
-        return PayerRepository.query([includeDeleted: false]).list()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        return PayerRepository.query([includeDeleted: false, customer: customer]).list()
     }
 }
