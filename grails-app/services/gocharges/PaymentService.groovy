@@ -40,6 +40,10 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
+        if(!payment.payer) throw new BusinessException("Pagador não encontrado")
+
+        payment.save(failOnError: true)
+
         return payment
     }
 
