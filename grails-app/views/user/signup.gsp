@@ -5,8 +5,11 @@
     <title>Login</title>
 </head>
 <body>
-
-        <g:message code="${flash.message}" class="alert alert-success"/>
+    <g:if test="${flash}">
+        <div class="${flash.type = FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+            ${flash.message}
+        </div>
+    </g:if>
 
     <g:form method='POST' id='signUp' name='signUp' url="[controller: 'user', action: 'save']">
         <p>
