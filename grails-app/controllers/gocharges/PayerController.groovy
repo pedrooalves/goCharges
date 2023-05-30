@@ -3,10 +3,12 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
+import grails.plugin.springsecurity.SpringSecurityService
 
 class PayerController {
 
     PayerService payerService
+    SpringSecurityService springSecurityService
 
     public index() {
         List<Payer> payers = payerService.list()
@@ -69,7 +71,8 @@ class PayerController {
 
     public edit() {
         Long id = Long.parseLong(params.id)
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         if(chainModel) {
             Map validation = chainModel.validation

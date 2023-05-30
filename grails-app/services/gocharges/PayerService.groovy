@@ -28,7 +28,8 @@ class PayerService {
     }
 
     public Payer delete(Long id) {
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
@@ -63,17 +64,19 @@ class PayerService {
     private void validateUpdate(Long id, PayerAdapter adapter) {
         validateNotNull(adapter)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
         if (!payer) throw new BusinessException("Pagador não encontrado.")
 
-        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
+        payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if (payer && payer.id != id) throw new BusinessException("E-mail já em uso!")
     }
 
     public Payer update(Long id, PayerAdapter adapter) {
         validateUpdate(id, adapter)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
