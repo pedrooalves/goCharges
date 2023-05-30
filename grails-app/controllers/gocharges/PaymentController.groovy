@@ -69,10 +69,16 @@ class PaymentController {
     }
 
     public Map confirm() {
-        Long id = Long.parseLong(params.id)
-        paymentService.confirm(id)
+        try{
+            Long id = Long.parseLong(params.id)
+            paymentService.confirm(id)
 
-        Map validation = [success:true, message:"Pagamento confirmado com sucesso", type:"edit"]
-        chain(view: "index", model: [validation: validation, showNewPaymentForm: false])
+            Map validation = [success:true, message:"Pagamento confirmado com sucesso", type:"edit"]
+            chain(view: "index", model: [validation: validation, showNewPaymentForm: false])
+        }catch(BusinessException e){
+            Map validation = [success:false, message:exception.getMessage(), type:"edit"]
+            chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
+        }
+
     }
 }
