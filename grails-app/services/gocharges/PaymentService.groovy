@@ -4,32 +4,38 @@ import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
-import gocharges.payment.enums.PaymentBillingType
 import grails.gorm.transactions.Transactional
-
-import java.text.SimpleDateFormat
+import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class PaymentService {
 
+    SpringSecurityService springSecurityService
+
     public Payment save(PaymentAdapter adapter) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
+        payment.customer = customer
+
+        if(!payment.payer) throw new BusinessException("Pagador não encontrado")
 
         payment.save(failOnError:true)
         return payment
     }
 
     public List<Payment> list() {
-        return PaymentRepository.query([includeDeleted: false]).list()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        return PaymentRepository.query([includeDeleted: false, customer: customer]).list()
     }
 
     public Payment update(Long id, PaymentAdapter adapter) {
-        Payment payment = PaymentRepository.query([id: id]).get()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -38,7 +44,8 @@ class PaymentService {
     }
 
     public void delete(Long id) {
-        Payment payment = PaymentRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
