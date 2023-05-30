@@ -13,13 +13,11 @@ class PayerController {
         List<Payer> payers = payerService.list()
         Boolean showNewPayerForm = false
 
-        if(chainModel) {
-            showNewPayerForm = true
-
-            render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
-        } else {
-            render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
+        if(chainModel?.showNewPayerForm) {
+            showNewPayerForm = chainModel.showNewPayerForm
         }
+
+        render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {

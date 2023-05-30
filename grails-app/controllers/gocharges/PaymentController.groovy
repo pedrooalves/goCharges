@@ -13,13 +13,11 @@ class PaymentController {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
 
-        if(chainModel) {
+        if(chainModel?.showNewPaymentForm) {
             showNewPaymentForm = chainModel.showNewPaymentForm
-
-            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
-        } else {
-            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
         }
+
+        render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
     }
 
     public Map save() {
