@@ -54,8 +54,8 @@
 
             <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${flash.message}">
-                <div class="${flash.type = FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+            <g:if test="${flash?.message}">
+                <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                     ${flash.message}
                 </div>
             </g:if>

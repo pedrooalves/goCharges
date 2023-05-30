@@ -16,7 +16,7 @@
         <div class="card">
 
             <g:if test="${flash?.message}">
-                <div class="${flash.type = FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+                <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
                     ${flash.message}
                 </div>
             </g:if>
