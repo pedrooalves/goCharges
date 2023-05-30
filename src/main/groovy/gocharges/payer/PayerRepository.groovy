@@ -21,6 +21,10 @@ class PayerRepository {
             if(search.containsKey("id")) {
                 eq("id", search.id)
             }
+
+            if(search.containsKey("customer")) {
+                eq("customer", search.customer)
+            }
         }
 
 
