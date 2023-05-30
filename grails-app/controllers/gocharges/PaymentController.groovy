@@ -35,7 +35,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
 
         } finally {
-            chain(action: "index", model: [showNewPaymentForm: false])
+            redirect(action: "index")
         }
     }
 
@@ -61,7 +61,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
 
         } finally {
-            chain(action: "index", model: [showNewPaymentForm: false])
+            redirect(action: "index")
         }
     }
 

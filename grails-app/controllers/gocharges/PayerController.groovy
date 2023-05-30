@@ -14,9 +14,8 @@ class PayerController {
         Boolean showNewPayerForm = false
 
         if(chainModel) {
-            if (chainModel) {
-                showNewPayerForm = true
-            }
+            showNewPayerForm = true
+
             render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
         } else {
             render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
@@ -36,7 +35,7 @@ class PayerController {
             flash.type = FlashMessageType.ERROR
 
         } finally {
-            chain(action: "index", model: [showNewPaymentForm: false])
+            redirect(action: "index")
         }
     }
 
