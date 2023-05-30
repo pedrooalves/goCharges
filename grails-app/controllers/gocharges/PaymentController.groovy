@@ -3,10 +3,12 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
+import grails.plugin.springsecurity.SpringSecurityService
 
 class PaymentController {
 
     PaymentService paymentService
+    SpringSecurityService springSecurityService
 
     public Map index() {
         List<Payment> payments = paymentService.list()
@@ -36,7 +38,8 @@ class PaymentController {
 
     public Map edit() {
         Long id = Long.parseLong(params.id)
-        Payment payment = PaymentRepository.query([id: id]).get()
+        Customer customer = springSecurityService.getCurrentUser().customer
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         render(view: "edit", model: [payment : payment])
     }
