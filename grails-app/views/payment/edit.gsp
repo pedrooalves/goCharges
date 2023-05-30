@@ -7,18 +7,20 @@
 <body>
 
 <div class="container d-flex justify-content-center mb-3">
+
     <div>
         <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
             <h1 class="display-4">Editar Cobrança</h1>
         </div>
 
-        <g:if test="${validation}">
-            <div class="alert alert-danger" role="alert">
-                ${validation.message}
-            </div>
-        </g:if>
-
         <div class="card">
+
+            <g:if test="${flash?.message}">
+                <div class="${flash.type = FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+                    ${flash.message}
+                </div>
+            </g:if>
+
             <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                 <div class="form-group mb-3">
                     <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>

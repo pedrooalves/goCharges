@@ -6,7 +6,6 @@
 </head>
 <body>
 <div class="container col-12">
-
     <div class="card-body row">
 
         <g:if test="${showNewPaymentForm != false}">
@@ -14,12 +13,6 @@
                 <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
                     <h1 class="display-4">Nova Cobrança</h1>
                 </div>
-
-                <g:if test="${validation && validation.type == 'save'}">
-                    <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                        ${validation.message}
-                    </div>
-                </g:if>
 
                 <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
                     <div class="form-group mb-3">
@@ -61,10 +54,9 @@
 
             <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation && (validation.type == 'delete' || validation.type == 'update' ||
-            (validation.type == 'save' && validation.success))}">
-                <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                    ${validation.message}
+            <g:if test="${flash.message}">
+                <div class="${flash.type = FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+                    ${flash.message}
                 </div>
             </g:if>
 
