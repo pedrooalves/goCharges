@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
+import shared.FlashMessageType
 
 class UserController {
 
@@ -29,11 +30,15 @@ class UserController {
             UserAdapter userAdapter = new UserAdapter(params)
             userService.save(userAdapter)
 
-            Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
-            chain(action: "signUp", model:[validation:validation])
+            flash.message = "Conta criada com sucesso."
+            flash.type = FlashMessageType.SUCCESS
+
+            redirect(action: "login")
         } catch(BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"save"]
-            chain(action: "signUp", model: [validation:validation])
+            flash.message = e.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+            redirect(action: "signUp")
         }
     }
 }
