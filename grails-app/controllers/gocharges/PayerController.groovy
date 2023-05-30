@@ -3,6 +3,7 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
+import shared.FlashMessageType
 
 class PayerController {
 
@@ -13,11 +14,10 @@ class PayerController {
         Boolean showNewPayerForm = false
 
         if(chainModel) {
-            Map validation = chainModel.validation
-            if (chainModel.showNewPayerForm) {
+            if (chainModel) {
                 showNewPayerForm = true
             }
-            render(view: "index", model: [payers:payers, validation: validation, showNewPayerForm: showNewPayerForm])
+            render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
         } else {
             render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
         }
@@ -28,11 +28,15 @@ class PayerController {
             PayerAdapter payerAdapter = new PayerAdapter(params)
             payerService.save(payerAdapter)
 
-            Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
-            chain(action: "index", model:[validation:validation])
+            flash.message = "Pagador criado com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+
         } catch(BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"save"]
-            chain(action: "index", model: [validation:validation, showNewPayerForm: true])
+            flash.message = e.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+        } finally {
+            chain(action: "index", model: [showNewPaymentForm: false])
         }
     }
 
@@ -45,8 +49,10 @@ class PayerController {
         Long id = Long.parseLong(params.id)
         payerService.delete(id)
 
-        Map validation = [success:true, message:"Pagador excluído com sucesso", type:"delete"]
-        chain(view: "index", model:[validation: validation])
+        flash.message = "Pagador deletado com sucesso!"
+        flash.type = FlashMessageType.SUCCESS
+
+        redirect(view: "index")
     }
 
     public update() {
@@ -55,11 +61,16 @@ class PayerController {
             Long id = Long.parseLong(params.id)
             payerService.update(id, adapter)
 
-            Map validation = [success:true, message:"Pagador salvo com sucesso", type:"update"]
-            chain(action: "index", model: [validation:validation])
+            flash.message = "Pagador alterado com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+
         } catch (BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"update"]
-            chain(action: "index", model: [validation:validation])
+            flash.message = e.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+            chain(action: "index")
+        } finally {
+            redirect(action: "index")
         }
     }
 
@@ -71,11 +82,6 @@ class PayerController {
         Long id = Long.parseLong(params.id)
         Payer payer = PayerRepository.query([id: id]).get()
 
-        if(chainModel) {
-            Map validation = chainModel.validation
-            render(view: "edit", model: [payer:payer, validation: validation])
-        } else {
-            render(view: "edit", model: [payer:payer])
-        }
+        render(view: "edit", model: [payer:payer])
     }
 }

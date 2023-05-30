@@ -12,9 +12,9 @@
             <h1 class="display-4">Editar Pagador</h1>
         </div>
 
-        <g:if test="${validation != null && validation.type.equals('save')}">
-            <div class="alert alert-danger" role="alert">
-                ${validation.message}
+        <g:if test="${flash?.message}">
+            <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+                ${flash.message}
             </div>
         </g:if>
 

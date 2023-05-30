@@ -16,12 +16,6 @@
                     <h1 class="display-4">Novo Pagador</h1>
                 </div>
 
-                <g:if test="${validation != null && validation.type.equals('save')}">
-                    <div class="alert alert-danger" role="alert">
-                        ${validation.message}
-                    </div>
-                </g:if>
-
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
                     <div class="form-group mb-3">
                         <label class="mb-2 fw-bold">Nome</label>
@@ -62,10 +56,9 @@
             </div>
             <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
-            (validation.type.equals('save') && validation.success))}">
-                <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                    ${validation.message}
+            <g:if test="${flash?.message}">
+                <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+                    ${flash.message}
                 </div>
             </g:if>
 
