@@ -1,6 +1,5 @@
 package gocharges
 
-import gocharges.customer.CustomerRepository
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 import gocharges.validator.CpfCnpjValidator
