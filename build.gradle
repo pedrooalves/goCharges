@@ -60,6 +60,7 @@ dependencies {
     implementation "org.hibernate:hibernate-core:5.6.11.Final"
     implementation "org.grails.plugins:events"
     implementation "org.grails.plugins:gsp"
+    implementation "org.grails.plugins:mail:3.0.0"
     profile "org.grails.profiles:web"
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
