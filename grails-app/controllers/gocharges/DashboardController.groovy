@@ -12,6 +12,7 @@ class DashboardController {
 
     def index() {
         User currentUser = springSecurityService.loadCurrentUser()
+        String userName = currentUser.customer.name
 
         if(!currentUser.customer.name) {
             redirect(controller: "customer", action: "create")
@@ -19,12 +20,11 @@ class DashboardController {
 
         Integer payerCount = payerService.payerCount()
 
-        Map paymentsByStatus = [
-                pending : paymentService.getPaymentsByStatus(PaymentStatus.PENDING),
-                overdue : paymentService.getPaymentsByStatus(PaymentStatus.OVERDUE),
-                received : paymentService.getPaymentsByStatus(PaymentStatus.RECEIVED)
-        ]
+        Map paymentsByStatus = [:]
+        paymentsByStatus.pending = paymentService.getPaymentsByStatus(PaymentStatus.PENDING)
+        paymentsByStatus.overdue = paymentService.getPaymentsByStatus(PaymentStatus.OVERDUE)
+        paymentsByStatus.received = paymentService.getPaymentsByStatus(PaymentStatus.RECEIVED)
 
-        render(view: "index", model: [payerCount: payerCount, paymentsByStatus : paymentsByStatus])
+        render(view: "index", model: [payerCount: payerCount, paymentsByStatus : paymentsByStatus, userName: userName])
     }
 }
