@@ -1,7 +1,5 @@
 package gocharges
 
-import jdk.internal.org.jline.utils.Log
-
 class setPaymentsAsOverdueJob {
 
     PaymentService paymentService
