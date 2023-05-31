@@ -8,11 +8,9 @@ class CpfCnpjValidator {
 
     static final Integer CPF_LENGTH = 11
     static final Integer CNPJ_LENGTH = 14
-
     public static final INVALID_CPF_SEQUENCES = [   "00000000000", "11111111111", "22222222222", "33333333333",
                                                     "44444444444", "55555555555", "66666666666", "77777777777",
                                                     "88888888888", "99999999999"]
-
 
      public static void validate(String cpfCnpj) {
 
