@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.mail.MailTask
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
@@ -9,6 +10,7 @@ class PaymentController extends BaseController {
 
     PaymentService paymentService
     PayerService payerService
+    def mailService
 
     public Map index() {
         Customer customer = getCurrentCustomer()
@@ -29,11 +31,10 @@ class PaymentController extends BaseController {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
-            mailService.sendMail {
-                to payment.payer.email
-                subject "Nova cobrança"
-                text "Uma nova cobrança foi criada"
-            }
+
+            MailTask task = new MailTask(payment.payer, this.mailService)
+            Thread sendMail = new Thread(task)
+            sendMail.start()
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
