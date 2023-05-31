@@ -57,7 +57,7 @@ class PaymentService {
         Date today = new Date()
         List<Payment> paymentList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).list()
 
-        for(Payment payment : paymentList) {
+        for (Payment payment : paymentList) {
             payment.status = PaymentStatus.OVERDUE
             payment.save(failOnError: true)
         }
