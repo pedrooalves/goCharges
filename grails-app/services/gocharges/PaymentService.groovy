@@ -54,13 +54,28 @@ class PaymentService {
     }
 
     public void setAsOverdue() {
+
         Date today = new Date()
         List<Payment> paymentList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).list()
 
+        ArrayList paymentIdList = []
+
         for (Payment payment : paymentList) {
-            payment.status = PaymentStatus.OVERDUE
-            payment.save(failOnError: true)
+            paymentIdList.add(payment.id)
+        }
+
+        Payment.withNewTransaction { status ->
+            try {
+                for (Integer id : paymentIdList) {
+                    Payment payment = Payment.get(id)
+                    payment.status = PaymentStatus.OVERDUE
+                    payment.save(failOnError: true)
+                }
+            }catch (Exception exception) {
+                status.setRollbackOnly()
+            }
         }
 
     }
+
 }
