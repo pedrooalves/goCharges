@@ -15,7 +15,7 @@ class setPaymentsAsOverdueJob {
         try{
             paymentService.setAsOverdue()
         }catch(Exception exception) {
-            Log.info("Ocorreu um erro ao executar a job PaymentOverdueJob")
+            log.info("Ocorreu um erro ao executar a job PaymentOverdueJob")
         }
 
     }
