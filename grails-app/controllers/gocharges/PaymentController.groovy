@@ -29,6 +29,11 @@ class PaymentController extends BaseController {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
+            mailService.sendMail {
+                to payment.payer.email
+                subject "Nova cobrança"
+                text "Uma nova cobrança foi criada"
+            }
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
