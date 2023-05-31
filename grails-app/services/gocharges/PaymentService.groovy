@@ -65,10 +65,10 @@ class PaymentService {
         }
     }
 
-    public List<Payment> getPaymentsByStatus(PaymentStatus status) {
+    public Integer getPaymentsByStatus(PaymentStatus status) {
         Customer customer = springSecurityService.getCurrentUser().customer
 
-        List<Payment> paymentCount = PaymentRepository.query([status: status, customer: customer])
+        List<Payment> paymentCount = PaymentRepository.query([status: status, includeDeleted: false ,customer: customer]).list()
 
         return paymentCount.size()
     }
