@@ -41,8 +41,12 @@ class UserService {
     }
 
     public static void validate(Map params) {
-        if(params.username.isBlank() || params.password.isBlank() || params.confirmPassword.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
+        if(params.username.isBlank()) {
+            throw new BusinessException("O campo e-mail é obrigatório")
+        }
+
+        if(params.password.isBlank()) {
+            throw new BusinessException("O campo senha é obrigatório")
         }
 
         if(UserRepository.query([username: params.username]).get()) {
