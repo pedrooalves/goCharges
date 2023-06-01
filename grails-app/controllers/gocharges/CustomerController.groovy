@@ -46,7 +46,7 @@ class CustomerController {
     def update() {
         try{
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             customerService.update(id, adapter)
 

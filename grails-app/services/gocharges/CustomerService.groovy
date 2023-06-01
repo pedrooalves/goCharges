@@ -3,6 +3,7 @@ package gocharges
 import gocharges.auth.User
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
+import gocharges.customer.enums.CustomerStatus
 import gocharges.exception.BusinessException
 import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
@@ -24,6 +25,7 @@ class CustomerService {
         customer.mobilePhone = adapter.mobilePhone
         customer.cpfCnpj = adapter.cpfCnpj
         customer.address = adapter.address
+        customer.status = CustomerStatus.ACTIVE
 
         customer.save(failOnError: true)
     }
@@ -38,7 +40,7 @@ class CustomerService {
     }
 
     private void validateNotNull(CustomerAdapter adapter) {
-        if(adapter.name.isBlank() || adapter.mobilePhone.isBlank()
+        if (adapter.name.isBlank() || adapter.mobilePhone.isBlank()
                 || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos!")
         }
@@ -49,7 +51,7 @@ class CustomerService {
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Customer cpfCnpjExists = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
-        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
     }
 
     private void validateUpdate(Long id, CustomerAdapter adapter) {
