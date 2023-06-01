@@ -58,8 +58,8 @@ class CustomerService {
         Customer Customer = CustomerRepository.query([id: id]).get()
         if (!Customer) throw new BusinessException("Pagador não encontrado")
 
-        Customer = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if (Customer && Customer.id != id) throw new BusinessException("E-mail já em uso")
+        Boolean hasCustomerWithSameEmail = CustomerRepository.query([email: adapter.email, includeDeleted: true, "id[ne]": id]).get().asBoolean()
+        if (hasCustomerWithSameEmail) throw new BusinessException("E-mail já em uso")
     }
 
     public Customer update(Long id, CustomerAdapter adapter) {
