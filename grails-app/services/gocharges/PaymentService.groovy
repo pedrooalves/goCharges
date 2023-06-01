@@ -53,6 +53,7 @@ class PaymentService {
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
         payment.status = PaymentStatus.RECEIVED
+        payment.paymentDate = new Date()
         payment.save(failOnError: true)
     }
 
