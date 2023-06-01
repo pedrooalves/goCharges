@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.mail.MailBuilder
 import gocharges.mail.MailTask
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
@@ -29,10 +30,12 @@ class PaymentController extends BaseController {
 
     public Map save() {
         try {
+            Customer customer = getCurrentCustomer()
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
+            Payment payment = paymentService.save(paymentAdapter, customer)
 
-            sendMailThread(payment)
+            Map<String, Object> mailParams = MailBuilder.buildNewPaymentMessage(payment, customer)
+            sendMailThread(mailParams)
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
@@ -77,9 +80,8 @@ class PaymentController extends BaseController {
         redirect(view: "index", model: [validation: validation])
     }
 
-    private void sendMailThread(Payment payment) {
-        Customer customer = springSecurityService.getCurrentUser().customer
-        MailTask task = new MailTask(payment, this.mailService, customer)
+    private void sendMailThread(Map<String, Object> mailParams) {
+        MailTask task = new MailTask(mailParams, this.mailService)
         Thread sendMail = new Thread(task)
         sendMail.start()
     }

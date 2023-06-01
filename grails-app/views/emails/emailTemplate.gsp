@@ -139,7 +139,7 @@
     <div class="container d-flex justify-content-center mb-3">
         <div>
             <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
-                <span class="display-4 align-bottom">Nova Cobrança</span>
+                <span class="display-4 align-bottom">${mailSubject}</span>
             </div>
 
             <div class="card">
@@ -151,7 +151,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>${message}</p>
+                                    <p>${mailBody}</p>
                                 </td>
                             </tr>
                         </tbody>
