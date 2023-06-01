@@ -56,9 +56,9 @@ class PayerService {
         Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
         if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
 
-        if(adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail!")
+        if(adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail")
 
-        if(adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio Cpf ou Cnpj!")
+        if(adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio CPF ou CNPJ")
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
