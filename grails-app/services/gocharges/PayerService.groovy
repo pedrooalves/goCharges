@@ -23,7 +23,7 @@ class PayerService {
         payer.address = adapter.address
         payer.customer = springSecurityService.getCurrentUser().customer
 
-        payer.save(failOnError:true)
+        payer.save(failOnError: true)
         return payer
     }
 
@@ -44,21 +44,21 @@ class PayerService {
         }
     }
 
-    private void validateSave(PayerAdapter adapter)  {
+    private void validateSave(PayerAdapter adapter) {
         validateNotNull(adapter)
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Customer customer = springSecurityService.getCurrentUser().customer
 
         Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
-        if(payer)  throw new BusinessException("Email já cadastrado.")
+        if (payer) throw new BusinessException("Email já cadastrado.")
 
         Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
-        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
 
-        if(adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail")
+        if (adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail")
 
-        if(adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio CPF ou CNPJ")
+        if (adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio CPF ou CNPJ")
     }
 
     private void validateUpdate(Long id, PayerAdapter adapter) {
@@ -83,7 +83,7 @@ class PayerService {
         payer.mobilePhone = adapter.mobilePhone
         payer.address = adapter.address
 
-        payer.save(failOnError:true)
+        payer.save(failOnError: true)
 
         return payer
     }
