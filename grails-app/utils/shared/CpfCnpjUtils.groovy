@@ -81,6 +81,7 @@ class CpfCnpjUtils {
         if (strCpf?.trim().isEmpty()) {
             return false
         }
+
         if (INVALID_CPF_SEQUENCES.contains(strCpf) ) {
             return false
         }
