@@ -29,8 +29,8 @@ class CustomerController {
             flash.type = FlashMessageType.SUCCESS
 
             redirect(controller: "dashboard", action: "index")
-        }catch(BusinessException e){
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException){
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
             redirect(action: "create")
@@ -54,8 +54,8 @@ class CustomerController {
             flash.message = "Conta alterada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
 
-        }catch(BusinessException e) {
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
         }finally {
