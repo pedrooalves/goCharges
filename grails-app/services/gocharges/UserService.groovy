@@ -33,7 +33,7 @@ class UserService {
         }
 
         UserRole userRole = UserRoleRepository.query([user: user, role: role]).get()
-        if(!userRole) {
+        if (!userRole) {
             userRole = new UserRole()
             userRole.user = user
             userRole.role = role
@@ -42,15 +42,15 @@ class UserService {
     }
 
     public static void validate(Map params) {
-        if(params.username.isBlank() || params.password.isBlank() || params.confirmPassword.isBlank()) {
+        if (params.username.isBlank() || params.password.isBlank() || params.confirmPassword.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
         }
 
-        if(UserRepository.query([username: params.username]).get()) {
+        if (UserRepository.query([username: params.username]).get()) {
             throw new BusinessException("E-mail já cadastrado")
         }
 
-        if(!(params.password == params.confirmPassword)) {
+        if (!(params.password == params.confirmPassword)) {
             throw new BusinessException("As senhas precisam ser iguais")
         }
     }

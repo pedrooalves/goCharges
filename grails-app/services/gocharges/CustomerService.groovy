@@ -38,9 +38,9 @@ class CustomerService {
     }
 
     private void validateNotNull(CustomerAdapter adapter) {
-        if(adapter.name.isBlank() || adapter.mobilePhone.isBlank()
+        if (adapter.name.isBlank() || adapter.mobilePhone.isBlank()
                 || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos!")
+            throw new BusinessException("É preciso preencher todos os campos")
         }
     }
 
@@ -49,17 +49,17 @@ class CustomerService {
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
         Customer cpfCnpjExists = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
-        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso")
     }
 
     private void validateUpdate(Long id, CustomerAdapter adapter) {
         validateNotNull(adapter)
 
         Customer Customer = CustomerRepository.query([id: id]).get()
-        if (!Customer) throw new BusinessException("Pagador não encontrado.")
+        if (!Customer) throw new BusinessException("Pagador não encontrado")
 
         Customer = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if (Customer && Customer.id != id) throw new BusinessException("E-mail já em uso!")
+        if (Customer && Customer.id != id) throw new BusinessException("E-mail já em uso")
     }
 
     public Customer update(Long id, CustomerAdapter adapter) {
