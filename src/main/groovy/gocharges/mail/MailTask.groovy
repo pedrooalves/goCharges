@@ -24,7 +24,7 @@ class MailTask implements Runnable {
         mailService.sendMail {
             to payment.payer.email
             subject mailSubject
-            html (view: "/emails/emailTemplate", model: [payerName: payerName, mailBody: mailBody, mailSubject: mailSubject])
+            html(view: "/emails/emailTemplate", model: [payerName: payerName, mailBody: mailBody, mailSubject: mailSubject])
         }
     }
 }
