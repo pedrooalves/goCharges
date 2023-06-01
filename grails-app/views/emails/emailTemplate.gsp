@@ -45,13 +45,6 @@
       color: #88B337;
     }
 
-    .card-body {
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      min-height: 1px;
-      padding: 1.25rem;
-    }
-
     .justify-content-center {
       -ms-flex-pack: center !important;
       justify-content: center !important;
@@ -86,9 +79,8 @@
       padding: 3rem !important;
     }
 
-    .p-5-footer {
-      padding-bottom: 3rem !important;
-      padding-left: 3rem !important;
+    .p-3 {
+        padding: 1rem !important;
     }
 
     .display-4 {
@@ -100,11 +92,6 @@
 
     .align-bottom {
       vertical-align: bottom !important;
-    }
-
-    .normal-text {
-        font-weight: lighter;
-        font-size: 1.10rem;
     }
 
     .footer {
@@ -143,7 +130,7 @@
             </div>
 
             <div class="card">
-                <div>
+                <div class="p-3">
                     <div class="text-gogreen">
                         <h2 class="ml-5">Olá, ${payerName}!</h2>
                     </div>
