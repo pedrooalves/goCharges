@@ -27,7 +27,6 @@ class UserService {
 
         Role role = RoleRepository.query([authority: RoleAuthority.ROLE_USER]).get()
         if (!role) {
-            println("Bateu no if")
             role = new Role()
             role.authority = RoleAuthority.ROLE_USER
             role.save(failOnError: true)
