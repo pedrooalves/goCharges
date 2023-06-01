@@ -39,7 +39,7 @@ class UserService {
         }
 
         UserRole userRole = UserRoleRepository.query([user: user, role: role]).get()
-        if(!userRole) {
+        if (!userRole) {
             userRole = new UserRole()
             userRole.user = user
             userRole.role = role
@@ -50,19 +50,19 @@ class UserService {
     public static void validate(Map params) {
         Boolean isUpdate = params.containsKey("id")
 
-        if(params.username.isBlank()) {
+        if (params.username.isBlank()) {
             throw new BusinessException("O campo e-mail é obrigatório")
         }
 
-        if(params.password.isBlank() && !isUpdate) {
+        if (params.password.isBlank() && !isUpdate) {
             throw new BusinessException("O campo senha é obrigatório")
         }
 
-        if(UserRepository.query([username: params.username]).get() && !isUpdate) {
+        if (UserRepository.query([username: params.username]).get() && !isUpdate) {
             throw new BusinessException("E-mail já cadastrado")
         }
 
-        if(!(params.password == params.confirmPassword)) {
+        if (!(params.password == params.confirmPassword)) {
             throw new BusinessException("As senhas precisam ser iguais")
         }
     }
@@ -80,7 +80,7 @@ class UserService {
         validateUpdate(id, adapter)
 
         User user = UserRepository.query([id: id]).get()
-        if(!springSecurityService.passwordEncoder.matches(adapter.oldPassword, user.password)) {
+        if (!springSecurityService.passwordEncoder.matches(adapter.oldPassword, user.password)) {
             throw new BusinessException("Senha incorreta")
         }
 
