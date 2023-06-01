@@ -2,18 +2,16 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <title>Cadastro de Customer</title>
+    <title>Dados comerciais</title>
 </head>
 <body>
     <g:if test="${validation != null}">
         <p>${validation.message}</p>
     </g:if>
     <div class="container my-8 d-flex justify-center w-50">
-
-
             <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'save']">
 
-                <h1 class="display-4">Cadastrar</h1>
+                <h1 class="display-4">Dados Comerciais</h1>
 
                 <div class="form-group">
                     <label>Nome</label> <input class="form-control" type="text" name="name" value="" />
