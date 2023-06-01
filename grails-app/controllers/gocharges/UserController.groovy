@@ -59,8 +59,8 @@ class UserController {
 
             Map validation = [success: true, message: "Informações salvas com sucesso", type: "update"]
             chain(action: "myAccount", model: [validation: validation])
-        } catch (BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"update"]
+        } catch (BusinessException businessException) {
+            Map validation = [success:false, message:businessException.getMessage(), type:"update"]
             chain(action: "myAccount", model: [validation:validation])
         }
     }
