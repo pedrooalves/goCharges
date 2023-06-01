@@ -87,8 +87,6 @@ class UserService {
         user.username = adapter.username
         user.password = adapter.password
 
-        user.save(failOnError: true)
-
-        return user
+        return user.save(failOnError: true)
     }
 }
