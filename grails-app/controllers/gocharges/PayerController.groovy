@@ -10,7 +10,7 @@ class PayerController extends BaseController {
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list(getCurrentCustomer())
+        List<Payer> payers = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 
         if (chainModel) {
@@ -27,7 +27,7 @@ class PayerController extends BaseController {
     public save() {
         try {
             PayerAdapter payerAdapter = new PayerAdapter(params)
-            payerService.save(payerAdapter)
+            payerService.save(payerAdapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation])
@@ -44,7 +44,7 @@ class PayerController extends BaseController {
 
     public delete() {
         Long id = Long.parseLong(params.id)
-        payerService.delete(id)
+        payerService.delete(id, getCurrentCustomer())
 
         Map validation = [success: true, message: "Pagador excluído com sucesso", type: "delete"]
         chain(view: "index", model: [validation: validation])
@@ -54,7 +54,7 @@ class PayerController extends BaseController {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
             Long id = Long.parseLong(params.id)
-            payerService.update(id, adapter)
+            payerService.update(id, adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Pagador salvo com sucesso", type: "update"]
             chain(action: "index", model: [validation: validation])

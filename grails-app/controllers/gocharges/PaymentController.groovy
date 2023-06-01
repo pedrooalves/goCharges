@@ -13,7 +13,7 @@ class PaymentController extends BaseController {
     public Map index() {
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
-        List<Payer> payerList = payerService.list(customer)
+        List<Payer> payerList = payerService.list(params, customer)
         Boolean showNewPaymentForm = false
 
         if (chainModel) {
