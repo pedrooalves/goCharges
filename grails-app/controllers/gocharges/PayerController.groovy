@@ -13,7 +13,7 @@ class PayerController {
         List<Payer> payers = payerService.list()
         Boolean showNewPayerForm = false
 
-        if(chainModel?.showNewPayerForm) {
+        if (chainModel?.showNewPayerForm) {
             showNewPayerForm = chainModel.showNewPayerForm
         }
 
@@ -28,8 +28,8 @@ class PayerController {
             flash.message = "Pagador criado com sucesso!"
             flash.type = FlashMessageType.SUCCESS
 
-        } catch(BusinessException e) {
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
         } finally {
@@ -46,7 +46,7 @@ class PayerController {
         Long id = Long.parseLong(params.id)
         payerService.delete(id)
 
-        flash.message = "Pagador deletado com sucesso!"
+        flash.message = "Pagador removido com sucesso!"
         flash.type = FlashMessageType.SUCCESS
 
         redirect(view: "index")
@@ -61,8 +61,8 @@ class PayerController {
             flash.message = "Pagador alterado com sucesso!"
             flash.type = FlashMessageType.SUCCESS
 
-        } catch (BusinessException e) {
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
         } finally {
