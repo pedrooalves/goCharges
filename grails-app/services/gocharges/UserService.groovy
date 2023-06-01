@@ -4,6 +4,7 @@ import gocharges.auth.Role
 import gocharges.auth.User
 import gocharges.auth.UserRole
 import gocharges.auth.role.RoleRepository
+import gocharges.auth.role.enums.RoleAuthority
 import gocharges.auth.user.UserRepository
 import gocharges.auth.user.adapter.UserAdapter
 import gocharges.auth.userrole.UserRoleRepository
@@ -24,10 +25,11 @@ class UserService {
 
         user.save(failOnError: true)
 
-        Role role = RoleRepository.query([authority: "ROLE_USER"]).get()
+        Role role = RoleRepository.query([authority: RoleAuthority.ROLE_USER]).get()
         if (!role) {
+            println("Bateu no if")
             role = new Role()
-            role.authority = "ROLE_USER"
+            role.authority = RoleAuthority.ROLE_USER
             role.save(failOnError: true)
         }
 
