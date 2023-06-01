@@ -84,7 +84,7 @@
                     <li class="custom-list-item col">${payment.status}</li>
                     <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
 
-                    <g:if test="${payment.status.toString() == 'PENDING'}">
+                    <g:if test="${payment.status == PaymentStatus.PENDING}">
                         <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
                             <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
