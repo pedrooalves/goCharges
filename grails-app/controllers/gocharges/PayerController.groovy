@@ -32,8 +32,8 @@ class PayerController {
 
             Map validation = [success:true, message:"Conta criada com sucesso", type:"save"]
             chain(action: "index", model:[validation:validation])
-        } catch(BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"save"]
+        } catch(BusinessException businessException) {
+            Map validation = [success:false, message:businessException.getMessage(), type:"save"]
             chain(action: "index", model: [validation:validation, showNewPayerForm: true])
         }
     }
@@ -59,8 +59,8 @@ class PayerController {
 
             Map validation = [success:true, message:"Pagador salvo com sucesso", type:"update"]
             chain(action: "index", model: [validation:validation])
-        } catch (BusinessException e) {
-            Map validation = [success:false, message:e.getMessage(), type:"update"]
+        } catch (BusinessException businessException) {
+            Map validation = [success:false, message:businessException.getMessage(), type:"update"]
             chain(action: "index", model: [validation:validation])
         }
     }
