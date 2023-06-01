@@ -13,15 +13,18 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class UserService {
 
+    CustomerService customerService
+
     public void save(UserAdapter adapter) {
         User user = new User()
-        user.customer = new Customer()
         user.username = adapter.username
         user.password = adapter.password
         user.enabled = adapter.enabled
         user.accountExpired = adapter.accountExpired
         user.accountLocked = adapter.accountLocked
         user.passwordExpired = adapter.passwordExpired
+
+        user.customer = customerService.save(user.username)
 
         user.save(failOnError: true)
 
