@@ -5,12 +5,6 @@
     <title>Cadastro de Customer</title>
 </head>
 <body>
-    <g:if test="${flash?.message}">
-        <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-            ${flash.message}
-        </div>
-    </g:if>
-
     <div class="container my-8 d-flex justify-center w-50">
             <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'save']">
 

@@ -5,14 +5,7 @@
     <title>Atualizar Customer</title>
 </head>
 <body>
-    <g:if test="${flash?.message}">
-        <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-            ${flash.message}
-        </div>
-    </g:if>
-
     <div class="container my-8 d-flex justify-center">
-
         <div class="container w-50">
             <h1 class="display-4">Atualizar</h1>
 

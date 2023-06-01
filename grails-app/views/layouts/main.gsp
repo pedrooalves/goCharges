@@ -27,6 +27,12 @@
     </div>
 </nav>
 
+<g:if test="${flash?.message}">
+    <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
+
 <g:layoutBody/>
 
 <div class="footer" role="contentinfo">

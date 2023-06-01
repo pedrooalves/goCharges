@@ -5,12 +5,6 @@
     <title>Login</title>
 </head>
 <body>
-    <g:if test="${flash?.message}">
-        <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-            ${flash.message}
-        </div>
-    </g:if>
-
     <g:form method='POST' id='signUp' name='signUp' url="[controller: 'user', action: 'save']">
         <p>
             E-mail
