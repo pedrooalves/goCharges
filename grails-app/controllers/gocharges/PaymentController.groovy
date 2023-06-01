@@ -32,9 +32,7 @@ class PaymentController extends BaseController {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
 
-            MailTask task = new MailTask(payment.payer, this.mailService)
-            Thread sendMail = new Thread(task)
-            sendMail.start()
+            sendMailThread(payment)
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
@@ -77,5 +75,12 @@ class PaymentController extends BaseController {
 
         Map validation = [success: true, message: "Cobrança excluída com sucesso", type: "delete"]
         redirect(view: "index", model: [validation: validation])
+    }
+
+    private void sendMailThread(Payment payment) {
+        Customer customer = springSecurityService.getCurrentUser().customer
+        MailTask task = new MailTask(payment, this.mailService, customer)
+        Thread sendMail = new Thread(task)
+        sendMail.start()
     }
 }
