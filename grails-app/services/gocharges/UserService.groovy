@@ -48,15 +48,17 @@ class UserService {
     }
 
     public static void validate(Map params) {
+        Boolean isUpdate = params.containsKey("id")
+
         if(params.username.isBlank()) {
             throw new BusinessException("O campo e-mail é obrigatório")
         }
 
-        if(params.password.isBlank()) {
+        if(params.password.isBlank() && !isUpdate) {
             throw new BusinessException("O campo senha é obrigatório")
         }
 
-        if(UserRepository.query([username: params.username]).get() && !params.containsKey("id")) {
+        if(UserRepository.query([username: params.username]).get() && !isUpdate) {
             throw new BusinessException("E-mail já cadastrado")
         }
 
@@ -69,8 +71,9 @@ class UserService {
         User user = UserRepository.query([id: id]).get()
         if (!user) throw new BusinessException("Usuário não encontrado.")
 
-        user = UserRepository.query([username: adapter.username, includeDeleted: true]).get()
-        if (user && user.id != id) throw new BusinessException("E-mail já em uso!")
+        Boolean hasUserWithSameEmail = UserRepository.query([username: adapter.username, includeDeleted: true, "id[ne]": id])
+                .get().asBoolean()
+        if (hasUserWithSameEmail) throw new BusinessException("E-mail já em uso!")
     }
 
     public User update(Long id, UserAdapter adapter) {
