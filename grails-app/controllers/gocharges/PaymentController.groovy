@@ -11,8 +11,9 @@ class PaymentController extends BaseController {
     PayerService payerService
 
     public Map index() {
-        List<Payment> paymentList = paymentService.list()
-        List<Payer> payerList = payerService.list(getCurrentCustomer())
+        Customer customer = getCurrentCustomer()
+        List<Payment> paymentList = paymentService.list(params, customer)
+        List<Payer> payerList = payerService.list(customer)
         Boolean showNewPaymentForm = false
 
         if (chainModel) {
@@ -27,7 +28,7 @@ class PaymentController extends BaseController {
     public Map save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter)
+            Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
@@ -49,7 +50,7 @@ class PaymentController extends BaseController {
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.parseLong(params.id)
 
-            paymentService.update(id, adapter)
+            paymentService.update(id, adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Cobrança editada com sucesso", type: "update"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
@@ -65,7 +66,7 @@ class PaymentController extends BaseController {
 
     public Map delete() {
         Long id = Long.parseLong(params.id)
-        paymentService.delete(id)
+        paymentService.delete(id, getCurrentCustomer())
 
         Map validation = [success: true, message: "Cobrança excluída com sucesso", type: "delete"]
         redirect(view: "index", model: [validation: validation])
