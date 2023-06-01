@@ -24,7 +24,7 @@
                     <label class="mb-2 fw-bold">Pagador</label>
                     <select class="form-select" name="payerCpfCnpj">
                         <option type="text" value="">Nenhum selecionado</option>
-                        <g:each var="payer" in="${payers}">
+                        <g:each var="payer" in="${payerList}">
                             <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
                         </g:each>
                     </select><br/>

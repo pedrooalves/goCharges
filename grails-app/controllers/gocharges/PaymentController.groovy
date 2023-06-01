@@ -40,9 +40,10 @@ class PaymentController extends BaseController {
 
     public Map edit() {
         Long id = Long.parseLong(params.id)
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
         Payment payment = PaymentRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        render(view: "edit", model: [payment: payment])
+        render(view: "edit", model: [payment: payment, payerList: payerList])
     }
 
     public Map update() {

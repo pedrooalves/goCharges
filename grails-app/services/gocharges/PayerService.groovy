@@ -82,6 +82,6 @@ class PayerService {
     }
 
     public List<Payer> list(Map params, Customer customer) {
-        return PayerRepository.query([includeDeleted: false, customer: customer]).list()
+        return PayerRepository.query([customer: customer]).list()
     }
 }
