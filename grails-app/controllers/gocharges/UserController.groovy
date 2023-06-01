@@ -16,7 +16,7 @@ class UserController {
     }
 
     public signUp() {
-        if(chainModel) {
+        if (chainModel) {
             Map validation = chainModel.validation
             render(view: "signup", model: [validation: validation])
         } else {
