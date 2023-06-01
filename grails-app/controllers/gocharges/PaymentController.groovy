@@ -61,11 +61,18 @@ class PaymentController {
     }
 
     public Map delete() {
-        Long id = Long.parseLong(params.id)
-        paymentService.delete(id)
+        try{
+            Long id = Long.valueOf(params.id)
+            paymentService.delete(id)
 
-        Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
-        chain(view: "index", model: [validation: validation, showNewPaymentForm: false])
+            flash.message = "Cobrança removida com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = "Cobrança excluída com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } finally {
+            redirect("view: index")
+        }
     }
 
     public Map confirm() {
@@ -79,6 +86,5 @@ class PaymentController {
             Map validation = [success:false, message:exception.getMessage(), type:"edit"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
         }
-
     }
 }
