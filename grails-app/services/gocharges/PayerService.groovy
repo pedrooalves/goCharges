@@ -38,10 +38,11 @@ class PayerService {
     }
 
     private void validateNotNull(PayerAdapter adapter) {
-        if (adapter.email.isBlank() || adapter.name.isBlank() || adapter.mobilePhone.isBlank() ||
-                adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos.")
-        }
+        if (adapter.name.isBlank()) throw new BusinessException("O campo nome é obrigatório")
+        if (adapter.email.isBlank()) throw new BusinessException("O campo e-mail é obrigatório")
+        if (adapter.mobilePhone.isBlank()) throw new BusinessException("O campo celular é obrigatório")
+        if (adapter.cpfCnpj.isBlank()) throw new BusinessException("O campo CPF/CNPJ é obrigatório")
+        if (adapter.address.isBlank()) throw new BusinessException("O campo endereço é obrigatório")
     }
 
     private void validateSave(PayerAdapter adapter) {
@@ -51,10 +52,10 @@ class PayerService {
         Customer customer = springSecurityService.getCurrentUser().customer
 
         Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
-        if (payer) throw new BusinessException("Email já cadastrado.")
+        if (payer) throw new BusinessException("Email já cadastrado")
 
         Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
-        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso")
 
         if (adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail")
 
@@ -66,10 +67,10 @@ class PayerService {
 
         Customer customer = springSecurityService.getCurrentUser().customer
         Payer payer = PayerRepository.query([id: id, customer: customer]).get()
-        if (!payer) throw new BusinessException("Pagador não encontrado.")
+        if (!payer) throw new BusinessException("Pagador não encontrado")
 
         payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
-        if (payer && payer.id != id) throw new BusinessException("E-mail já em uso!")
+        if (payer && payer.id != id) throw new BusinessException("E-mail já em uso")
     }
 
     public Payer update(Long id, PayerAdapter adapter) {
@@ -88,8 +89,7 @@ class PayerService {
         return payer
     }
 
-    public List<Payer> list() {
-        Customer customer = springSecurityService.getCurrentUser().customer
+    public List<Payer> list(Customer customer) {
         return PayerRepository.query([includeDeleted: false, customer: customer]).list()
     }
 }

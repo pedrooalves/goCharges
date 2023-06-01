@@ -21,8 +21,6 @@ class PaymentService {
         payment.value = adapter.value
         payment.customer = customer
 
-        if(!payment.payer) throw new BusinessException("Pagador não encontrado")
-
         payment.save(failOnError:true)
         return payment
     }
@@ -58,9 +56,9 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
-                params.value.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
+        if (params.payerCpfCnpj.isBlank()) throw new BusinessException("É preciso selecionar um pagador")
+        if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar uma forma de pagamento")
+        if (params.dueDate.isBlank()) throw new BusinessException("É preencher o campo data")
+        if (params.value.isBlank()) throw new BusinessException("É preciso preencher o campo valor")
     }
 }

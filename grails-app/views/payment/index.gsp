@@ -23,13 +23,19 @@
 
                 <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
                     <div class="form-group mb-3">
-                        <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>
-                        <input class="form-control" type="text" name="payerCpfCnpj" value="" /><br/>
+                        <label class="mb-2 fw-bold">Pagador</label>
+                        <select class="form-select" name="payerCpfCnpj">
+                            <option type="text" value="">Nenhum selecionado</option>
+                            <g:each var="payer" in="${payerList}">
+                                <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                            </g:each>
+                        </select><br/>
                     </div>
 
                     <div class="form-group column mb-3">
                         <label class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
                         <select class="form-select" name="billingType">
+                            <option type="text" value="">Nenhum selecionado</option>
                             <option type="text" value="BANK_SLIP">Boleto</option>
                             <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
                             <option type="text" value="PIX">Pix</option>
@@ -76,13 +82,13 @@
                 <h1 class="col fw-bold text-center">Pagador</h1>
             </div>
 
-            <g:each var="payment" in="${payments}">
+            <g:each var="payment" in="${paymentList}">
                 <ul class="list-group list-group-horizontal mb-1 mb-1">
                     <li class="custom-list-item col-3">${payment.billingType}</li>
                     <li class="custom-list-item col">${payment.value}</li>
                     <li class="custom-list-item col">${payment.dueDate}</li>
                     <li class="custom-list-item col">${payment.status}</li>
-                    <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
+                    <li class="custom-list-item col">${payment.payer.name}</li>
 
                     <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
                         <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">

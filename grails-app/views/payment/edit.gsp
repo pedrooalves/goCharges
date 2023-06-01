@@ -21,13 +21,19 @@
         <div class="card">
             <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                 <div class="form-group mb-3">
-                    <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>
-                    <input class="form-control" type="text" name="payerCpfCnpj" value="${payment.payer.CpfCnpj}" /><br/>
+                    <label class="mb-2 fw-bold">Pagador</label>
+                    <select class="form-select" name="payerCpfCnpj">
+                        <option type="text" value="">Nenhum selecionado</option>
+                        <g:each var="payer" in="${payers}">
+                            <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                        </g:each>
+                    </select><br/>
                 </div>
 
                 <div class="form-group mb-3">
                     <label class="mb-2">Tipo de Recebimento</label>
                         <select class="form-select" name="billingType" value="${payment.billingType}">
+                            <option type="text" value="">Nenhum selecionado</option>
                             <option type="text" value="BANK_SLIP">Boleto</option>
                             <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
                             <option type="text" value="PIX">Pix</option>

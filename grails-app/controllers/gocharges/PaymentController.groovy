@@ -8,17 +8,19 @@ import gocharges.payment.adapter.PaymentAdapter
 class PaymentController extends BaseController {
 
     PaymentService paymentService
+    PayerService payerService
 
     public Map index() {
-        List<Payment> payments = paymentService.list()
+        List<Payment> paymentList = paymentService.list()
+        List<Payer> payerList = payerService.list(getCurrentCustomer())
         Boolean showNewPaymentForm = false
 
         if (chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
-            render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [paymentList: paymentList, payerList: payerList, validation: validation, showNewPaymentForm: showNewPaymentForm])
         } else {
-            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [paymentList: paymentList, payerList: payerList, showNewPaymentForm: showNewPaymentForm])
         }
     }
 
@@ -37,8 +39,7 @@ class PaymentController extends BaseController {
 
     public Map edit() {
         Long id = Long.parseLong(params.id)
-        Customer customer = getCurrentCustomer()
-        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
+        Payment payment = PaymentRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
         render(view: "edit", model: [payment: payment])
     }
