@@ -57,7 +57,7 @@ class PaymentService {
 
     public static void validate(Map params) {
         if (params.payerCpfCnpj.isBlank()) throw new BusinessException("É preciso selecionar um pagador")
-        if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar uma forma de pagamento")
+        if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar um tipo de recebimento aceito")
         if (params.dueDate.isBlank()) throw new BusinessException("É preencher o campo data")
         if (params.value.isBlank()) throw new BusinessException("É preciso preencher o campo valor")
     }
