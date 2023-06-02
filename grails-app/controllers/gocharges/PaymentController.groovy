@@ -68,7 +68,7 @@ class PaymentController {
             flash.message = "Cobrança removida com sucesso!"
             flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
-            flash.message = "Cobrança excluída com sucesso!"
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.SUCCESS
         } finally {
             redirect("view: index")
