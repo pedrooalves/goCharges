@@ -7,7 +7,7 @@ class UserRepository {
 
     public static DetachedCriteria<User> query(Map search) {
         DetachedCriteria<User> query = User.where {
-            if(search.containsKey("username")) {
+            if (search.containsKey("username")) {
                 eq("username", search.username)
             }
 

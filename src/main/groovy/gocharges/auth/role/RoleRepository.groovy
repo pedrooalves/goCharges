@@ -8,8 +8,8 @@ class RoleRepository {
 
     public static DetachedCriteria<Role> query(Map search) {
         DetachedCriteria<Role> query = Role.where {
-            if(search.containsKey("authority")) {
-                eq("authority", search.authority.toString())
+            if (search.containsKey("authority")) {
+                eq("authority", RoleAuthority.valueOf(search.authority.toString()))
             }
         }
 
