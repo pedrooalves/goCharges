@@ -9,6 +9,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PaymentService {
 
+    PaymentMessageService paymentMessageService
+
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
         payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
@@ -17,7 +19,9 @@ class PaymentService {
         payment.value = adapter.value
         payment.customer = customer
 
-        return payment.save(failOnError: true)
+
+        paymentMessageService.sendNewPaymentMessage(payment, customer)
+        payment.save(failOnError: true)
     }
 
     public List<Payment> list(Map params, Customer customer) {

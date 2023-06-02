@@ -1,13 +1,16 @@
-package gocharges.mail
+package gocharges
 
-import gocharges.Customer
-import gocharges.Payment
+import gocharges.mail.MailTask
+import grails.gorm.transactions.Transactional
 
 import java.text.SimpleDateFormat
 
-class MailBuilder {
+@Transactional
+class PaymentMessageService {
 
-    public static Map<String, Object> buildNewPaymentMessage(Payment payment, Customer customer) {
+    def mailService
+
+    public void sendNewPaymentMessage(Payment payment, Customer customer) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy")
         String paymentDueDate = simpleDateFormat.format(payment.dueDate)
         String mailSubject = "Nova Cobrança"
@@ -15,6 +18,12 @@ class MailBuilder {
                 ", com data de vencimento no dia " + paymentDueDate + " e a forma de pagamento escolhida foi " +
                 payment.billingType.toString() + "."
 
-        return [payment: payment, mailBody: mailBody, mailSubject: mailSubject]
+        sendMailThread([payment: payment, mailBody: mailBody, mailSubject: mailSubject])
+    }
+
+    private void sendMailThread(Map<String, Object> mailParams) {
+        MailTask task = new MailTask(mailParams, this.mailService)
+        Thread sendMail = new Thread(task)
+        sendMail.start()
     }
 }
