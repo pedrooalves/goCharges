@@ -9,12 +9,10 @@ class SetPaymentsAsOverdueJob {
     }
 
     def execute() {
-
         try {
             paymentService.setAsOverdue()
         } catch (Exception exception) {
             log.info("Ocorreu um erro ao executar a job SetPaymentsAsOverdueJob")
         }
-
     }
 }
