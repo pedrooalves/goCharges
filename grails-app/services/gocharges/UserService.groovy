@@ -76,16 +76,16 @@ class UserService {
         if (hasUserWithSameEmail) throw new BusinessException("E-mail já em uso!")
     }
 
-    public User update(Long id, UserAdapter adapter) {
+    public User update(Long id, UserAdapter adapter, String currentPassword) {
         validateUpdate(id, adapter)
 
         User user = UserRepository.query([id: id]).get()
-        if (!springSecurityService.passwordEncoder.matches(adapter.oldPassword, user.password)) {
+        if (!springSecurityService.passwordEncoder.matches(currentPassword, user.password)) {
             throw new BusinessException("Senha incorreta")
         }
 
         user.username = adapter.username
-        user.password = adapter.password
+        user.password = adapter.password ? adapter.password : currentPassword
 
         return user.save(failOnError: true)
     }

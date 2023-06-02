@@ -55,7 +55,8 @@ class UserController {
         try {
             UserAdapter adapter = new UserAdapter(params)
             Long id = Long.parseLong(params.id)
-            userService.update(id, adapter)
+            String currentPassword = params.currentPassword
+            userService.update(id, adapter, currentPassword)
 
             Map validation = [success: true, message: "Informações salvas com sucesso", type: "update"]
             chain(action: "myAccount", model: [validation: validation])
