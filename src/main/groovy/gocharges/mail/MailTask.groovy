@@ -18,7 +18,6 @@ class MailTask implements Runnable {
 
     @Override
     void run() {
-
         String payerName = payment.payer.name
 
         mailService.sendMail {
