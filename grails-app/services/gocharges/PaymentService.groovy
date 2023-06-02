@@ -4,7 +4,6 @@ import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
-import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.SpringSecurityService
 
@@ -63,13 +62,5 @@ class PaymentService {
                 params.value.isBlank()) {
             throw new BusinessException("É preciso preencher todos os campos")
         }
-    }
-
-    public Integer getPaymentsByStatus(PaymentStatus status) {
-        Customer customer = springSecurityService.getCurrentUser().customer
-
-        List<Payment> paymentCount = PaymentRepository.query([status: status, includeDeleted: false ,customer: customer]).list()
-
-        return paymentCount.size()
     }
 }

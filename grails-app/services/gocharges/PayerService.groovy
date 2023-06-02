@@ -92,12 +92,4 @@ class PayerService {
         Customer customer = springSecurityService.getCurrentUser().customer
         return PayerRepository.query([includeDeleted: false, customer: customer]).list()
     }
-
-    public Integer payerCount() {
-        Customer customer = springSecurityService.getCurrentUser().customer
-
-        List<Payer> payerCount = PayerRepository.query([includeDeleted: false ,customer: customer]).list()
-
-        return payerCount.size()
-    }
 }
