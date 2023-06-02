@@ -78,7 +78,7 @@ class PayerService {
         return payer.save(failOnError: true)
     }
 
-    public List<Payer> list(Customer customer) {
-        return PayerRepository.query([includeDeleted: false, customer: customer]).list()
+    public List<Payer> list(Map params,Customer customer) {
+        return PayerRepository.query(params + [customer: customer]).list()
     }
 }
