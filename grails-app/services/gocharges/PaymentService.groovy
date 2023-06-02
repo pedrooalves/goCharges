@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.mail.MailBuilder
 import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
@@ -20,7 +21,7 @@ class PaymentService {
         payment.customer = customer
 
         payment.save(failOnError: true)
-        paymentMessageService.sendNewPaymentMessage(payment, customer)
+        paymentMessageService.sendMail(MailBuilder.buildNewPaymentMessage(payment, customer))
         return payment
     }
 
