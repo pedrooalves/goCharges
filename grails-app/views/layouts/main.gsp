@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <%@ page import="shared.FlashMessageType" %>
-
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -18,7 +17,6 @@
 </head>
 
 <body>
-
 <nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
     <div class="container-fluid justify-content-space-between">
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
@@ -72,6 +70,5 @@
 </div>
 
 <asset:javascript src="application.js"/>
-
 </body>
 </html>
