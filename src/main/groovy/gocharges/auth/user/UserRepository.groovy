@@ -11,11 +11,11 @@ class UserRepository {
                 eq("username", search.username)
             }
 
-            if(search.containsKey("id")) {
-                eq("id", search.id)
+            if (search.containsKey("id")) {
+                eq("id", Long.valueOf(search.id))
             }
 
-            if(search.containsKey("id[ne]")) {
+            if (search.containsKey("id[ne]")) {
                 ne("id", search.get("id[ne]"))
             }
         }
