@@ -27,11 +27,9 @@ class PaymentController {
 
             flash.message = "Cobrança criada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
-
-        } catch(BusinessException e) {
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
-
         } finally {
             redirect(action: "index")
         }
@@ -45,7 +43,7 @@ class PaymentController {
     }
 
     public Map update() {
-        try{
+        try {
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.parseLong(params.id)
 
@@ -54,8 +52,8 @@ class PaymentController {
             flash.message = "Cobrança alterada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
 
-        }catch(BusinessException e){
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException){
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
         } finally {
