@@ -9,11 +9,9 @@ import gocharges.auth.user.UserRepository
 import gocharges.auth.user.adapter.UserAdapter
 import gocharges.auth.userrole.UserRoleRepository
 import gocharges.exception.BusinessException
-import gocharges.payer.PayerRepository
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.SpringSecurityService
-import org.springframework.security.crypto.bcrypt.BCrypt
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import shared.Utils
 
 @Transactional
 class UserService {
@@ -50,21 +48,13 @@ class UserService {
     public static void validate(Map params) {
         Boolean isUpdate = params.containsKey("id")
 
-        if (!params.username) {
-            throw new BusinessException("O campo e-mail é obrigatório")
-        }
+        if (!params.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
 
-        if (!params.password && !isUpdate) {
-            throw new BusinessException("O campo senha é obrigatório")
-        }
+        if (!params.password && !isUpdate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
 
-        if (UserRepository.query([username: params.username]).get() && !isUpdate) {
-            throw new BusinessException("E-mail já cadastrado")
-        }
+        if (UserRepository.query([username: params.username]).get() && !isUpdate) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
 
-        if (!(params.password == params.confirmPassword)) {
-            throw new BusinessException("As senhas precisam ser iguais")
-        }
+        if (!(params.password == params.confirmPassword)) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
     }
 
     public void validateUpdate(Long id, UserAdapter adapter) {
