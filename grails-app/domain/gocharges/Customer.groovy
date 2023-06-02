@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.customer.enums.CustomerStatus
 import gocharges.domain.base.BaseEntity
 
 
@@ -10,6 +11,8 @@ class Customer extends BaseEntity {
     String mobilePhone
     String cpfCnpj
     String address
+
+    CustomerStatus status = CustomerStatus.PENDING
 
     static constraints = {
         name(nullable: true, blank: false)
