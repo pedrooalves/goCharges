@@ -4,6 +4,7 @@ import gocharges.auth.Role
 import gocharges.auth.User
 import gocharges.auth.UserRole
 import gocharges.auth.role.RoleRepository
+import gocharges.auth.role.enums.RoleAuthority
 import gocharges.auth.user.UserRepository
 import gocharges.auth.user.adapter.UserAdapter
 import gocharges.auth.userrole.UserRoleRepository
@@ -13,9 +14,10 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class UserService {
 
+    CustomerService customerService
+
     public void save(UserAdapter adapter) {
         User user = new User()
-        user.customer = new Customer()
         user.username = adapter.username
         user.password = adapter.password
         user.enabled = adapter.enabled
@@ -23,12 +25,14 @@ class UserService {
         user.accountLocked = adapter.accountLocked
         user.passwordExpired = adapter.passwordExpired
 
+        user.customer = customerService.save(user.username)
+
         user.save(failOnError: true)
 
-        Role role = RoleRepository.query([authority: "ROLE_USER"]).get()
+        Role role = RoleRepository.query([authority: RoleAuthority.ROLE_USER]).get()
         if (!role) {
             role = new Role()
-            role.authority = "ROLE_USER"
+            role.authority = RoleAuthority.ROLE_USER
             role.save(failOnError: true)
         }
 
@@ -42,8 +46,12 @@ class UserService {
     }
 
     public static void validate(Map params) {
-        if (params.username.isBlank() || params.password.isBlank() || params.confirmPassword.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
+        if (params.username.isBlank()) {
+            throw new BusinessException("O campo e-mail é obrigatório")
+        }
+
+        if (params.password.isBlank()) {
+            throw new BusinessException("O campo senha é obrigatório")
         }
 
         if (UserRepository.query([username: params.username]).get()) {
