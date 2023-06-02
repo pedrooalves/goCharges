@@ -29,11 +29,11 @@ class UserController {
             flash.type = FlashMessageType.SUCCESS
 
             redirect(action: "login")
-        } catch(BusinessException e) {
-            flash.message = e.getMessage()
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
-            redirect(action: "signUp")
+            redirect(action: "signup")
         }
     }
 }

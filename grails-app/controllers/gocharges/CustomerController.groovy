@@ -1,26 +1,28 @@
 package gocharges
 
 import gocharges.customer.CustomerAdapter
-import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
 import shared.FlashMessageType
+import grails.plugin.springsecurity.SpringSecurityService
 
 class CustomerController {
 
+    SpringSecurityService springSecurityService
     CustomerService customerService
 
     def index() {
         List<Customer> customerList = customerService.list()
 
-        render(view:"index", model: [customers : customerList])
+        render(view: "index", model: [customers: customerList])
     }
 
     def create() {
-        render(view: "create")
+        String userEmail = springSecurityService.getCurrentUser().username
+        render(view: "create", model: [userEmail: userEmail])
     }
 
     def save() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
 
             customerService.save(adapter)
@@ -29,7 +31,7 @@ class CustomerController {
             flash.type = FlashMessageType.SUCCESS
 
             redirect(controller: "dashboard", action: "index")
-        } catch (BusinessException businessException){
+        } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
@@ -38,18 +40,15 @@ class CustomerController {
     }
 
     def edit() {
-        Long id = Long.parseLong(params.id)
-        Customer customer = CustomerRepository.query([id: id]).get()
+        Customer userCustomer = springSecurityService.getCurrentUser().customer
 
-        render(view: "edit", model: [customer:customer])
+        render(view: "edit", model: [customer: userCustomer])
     }
 
     def update() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.parseLong(params.id)
-
-            customerService.update(id, adapter)
+            customerService.update(adapter)
 
             flash.message = "Conta alterada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
@@ -58,7 +57,7 @@ class CustomerController {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
-        }finally {
+        } finally {
             redirect(action: "index")
         }
     }

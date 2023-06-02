@@ -1,8 +1,8 @@
 package gocharges
 
-import gocharges.auth.User
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
+import gocharges.customer.enums.CustomerStatus
 import gocharges.exception.BusinessException
 import gocharges.validator.CpfCnpjValidator
 import grails.gorm.transactions.Transactional
@@ -13,19 +13,14 @@ class CustomerService {
 
     SpringSecurityService springSecurityService
 
-    public void save(CustomerAdapter adapter) {
-        validateSave(adapter)
+    public Customer save(String email) {
+        Long emailInUseId = CustomerRepository.query([email: email, includeDeleted: true]).property("id").get()
+        if (emailInUseId) throw new BusinessException("E-mail já em uso.")
 
-        User currentUser = springSecurityService.loadCurrentUser()
+        Customer customer = new Customer()
+        customer.email = email
 
-        Customer customer = currentUser.customer
-        customer.name = adapter.name
-        customer.email = currentUser.username
-        customer.mobilePhone = adapter.mobilePhone
-        customer.cpfCnpj = adapter.cpfCnpj
-        customer.address = adapter.address
-
-        customer.save(failOnError: true)
+        return customer
     }
 
     public void delete(Long id) {
@@ -38,43 +33,50 @@ class CustomerService {
     }
 
     private void validateNotNull(CustomerAdapter adapter) {
-        if(adapter.name.isBlank() || adapter.mobilePhone.isBlank()
+        if (adapter.name.isBlank() || adapter.mobilePhone.isBlank()
                 || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos!")
+            throw new BusinessException("É preciso preencher todos os campos.")
         }
     }
 
-    private void validateSave(CustomerAdapter adapter) {
+    private void validateEmailInUse(Long userCustomerId, String emailToValidate) {
+        Long emailInUseId = CustomerRepository.query([email: emailToValidate, includeDeleted: true]).property("id").get()
+        if (emailInUseId && emailInUseId != userCustomerId) throw new BusinessException("E-mail já em uso.")
+    }
+
+    private void validateCpfCnpjInUse(String cpfCnpjToValidate) {
+        Long cpfCnpjInUseId = CustomerRepository.query([cpfCnpj: cpfCnpjToValidate, includeDeleted: true]).property("id").get()
+        if (cpfCnpjInUseId) throw new BusinessException("CPF / CNPJ em uso.")
+    }
+
+    private void validateUpdate(Customer userCustomer, CustomerAdapter adapter) {
         validateNotNull(adapter)
+
         CpfCnpjValidator.validate(adapter.cpfCnpj)
 
-        Customer cpfCnpjExists = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
-        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        validateCpfCnpjInUse(adapter.cpfCnpj)
+
+        validateEmailInUse(userCustomer.id, adapter.email)
     }
 
-    private void validateUpdate(Long id, CustomerAdapter adapter) {
-        validateNotNull(adapter)
+    public Customer update(CustomerAdapter adapter) {
+        Customer userCustomer = springSecurityService.getCurrentUser().customer
 
-        Customer Customer = CustomerRepository.query([id: id]).get()
-        if (!Customer) throw new BusinessException("Pagador não encontrado.")
+        validateUpdate(userCustomer, adapter)
 
-        Customer = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if (Customer && Customer.id != id) throw new BusinessException("E-mail já em uso!")
-    }
+        userCustomer.name = adapter.name
+        userCustomer.email = adapter.email
+        userCustomer.cpfCnpj = adapter.cpfCnpj
+        userCustomer.mobilePhone = adapter.mobilePhone
+        userCustomer.address = adapter.address
 
-    public Customer update(Long id, CustomerAdapter adapter) {
-        validateUpdate(id, adapter)
+        if (userCustomer.status == CustomerStatus.PENDING) {
+            userCustomer.status = CustomerStatus.ACTIVE
+        }
 
-        Customer customer = CustomerRepository.query([id: id]).get()
+        userCustomer.save(failOnError: true)
 
-        customer.name = adapter.name
-        customer.email = adapter.email
-        customer.mobilePhone = adapter.mobilePhone
-        customer.address = adapter.address
-
-        customer.save(failOnError: true)
-
-        return customer
+        return userCustomer
     }
 
     public List<Customer> list() {
