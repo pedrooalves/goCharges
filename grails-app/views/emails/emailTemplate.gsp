@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+</head>
 <style>
-
     @media (max-width: 700px) {
         .container {
             width: 100%;
@@ -24,74 +24,71 @@
     }
 
     .card {
-      position: relative;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      min-width: 0;
-      word-wrap: break-word;
-      background-color: #fff;
-      background-clip: border-box;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      border-radius: 0.25rem;
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
     }
 
     .bg-gogreen {
-      background-color: #88B337;
+        background-color: #88B337;
     }
 
     .text-gogreen {
-      color: #88B337;
+        color: #88B337;
     }
 
     .justify-content-center {
-      -ms-flex-pack: center !important;
-      justify-content: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
     }
 
     .text-white {
-      color: #fff !important;
+        color: #fff !important;
     }
 
     .text-center {
-      text-align: center !important;
+        text-align: center !important;
     }
 
     .d-flex {
-      display: -ms-flexbox !important;
-      display: flex !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
     }
 
     .mb-3 {
-      margin-bottom: 1rem !important;
+        margin-bottom: 1rem !important;
     }
 
     .mt-3 {
-      margin-top: 1rem !important;
+        margin-top: 1rem !important;
     }
 
     .ml-5 {
-      margin-left: 3rem !important;
+        margin-left: 3rem !important;
+        padding-right: 1rem !important;
     }
 
     .p-5 {
-      padding: 3rem !important;
-    }
-
-    .p-3 {
-        padding: 1rem !important;
+        padding: 3rem !important;
     }
 
     .display-4 {
-      font-size: 3.5rem;
-      padding: 1rem;
-      font-weight: 300;
-      line-height: 1.2;
+        font-size: 3.5rem;
+        padding: 1rem;
+        font-weight: 300;
+        line-height: 1.2;
     }
 
     .align-bottom {
-      vertical-align: bottom !important;
+        vertical-align: bottom !important;
     }
 
     .footer {
@@ -110,18 +107,17 @@
 
     table {
         padding-left: 3rem !important;
+        padding-right: 1.5rem !important;
         border-collapse: separate;
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
-        width: 100% !important; }
-        table td {
-          font-family: sans-serif;
-          font-size: 14px;
-          vertical-align: top; 
-      }
+        width: 100% !important;
+    }
 
+    table td {
+        font-family: sans-serif;
+        font-size: 14px;
+        vertical-align: top;
+    }
 </style>
-</head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
         <div>
@@ -130,7 +126,7 @@
             </div>
 
             <div class="card">
-                <div class="p-3">
+                <div>
                     <div class="text-gogreen">
                         <h2 class="ml-5">Olá, ${payerName}!</h2>
                     </div>

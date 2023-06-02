@@ -19,9 +19,9 @@ class PaymentService {
         payment.value = adapter.value
         payment.customer = customer
 
-
-        paymentMessageService.sendNewPaymentMessage(payment, customer)
         payment.save(failOnError: true)
+        paymentMessageService.sendNewPaymentMessage(payment, customer)
+        return payment
     }
 
     public List<Payment> list(Map params, Customer customer) {
