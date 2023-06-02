@@ -25,7 +25,7 @@ class PaymentRepository {
             }
 
             if(search.containsKey("status")) {
-                eq("status", PaymentStatus.valueOf(search.status))
+                eq("status", PaymentStatus.valueOf(search.status.toString()))
             }
         }
 
