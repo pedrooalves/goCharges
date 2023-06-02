@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentStatus" %>
 <html>
 <head>
     <meta name="layout" content="main" />

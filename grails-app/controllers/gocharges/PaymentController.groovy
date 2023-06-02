@@ -3,7 +3,6 @@ package gocharges
 import gocharges.exception.BusinessException
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
-import gocharges.payment.enums.PaymentStatus
 
 class PaymentController {
 
@@ -16,9 +15,9 @@ class PaymentController {
         if(chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
-            render(view: "index", model: [payments: payments, PaymentStatus: PaymentStatus, validation: validation, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
         } else {
-            render(view: "index", model: [payments: payments, PaymentStatus: PaymentStatus, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
         }
     }
 
