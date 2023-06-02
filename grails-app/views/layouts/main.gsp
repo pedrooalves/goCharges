@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page import="shared.FlashMessageType" %>
+
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -28,7 +30,7 @@
 </nav>
 
 <g:if test="${flash?.message}">
-    <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+    <div class="${flash.type == FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
         ${flash.message}
     </div>
 </g:if>
