@@ -16,7 +16,7 @@
                     <h2 class="font-weight-bold">Clientes</h2>
                 </div>
                 <div class="card-body d-flex justify-content-center align-items-center" style="height: 18rem">
-                    <p class="text-center" style="font-size: 5rem;">${payerCount}</p>
+                    <p class="text-center" style="font-size: 5rem;">${info.payerCount}</p>
                 </div>
             </a>
         </div>
@@ -28,19 +28,19 @@
                 <div>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${paymentsByStatus.pending}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.paymentPending}</p>
                             <p>Pendentes</p>
                         </div>
                     </a>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${paymentsByStatus.received}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.paymentReceived}</p>
                             <p>Recebidas</p>
                         </div>
                     </a>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${paymentsByStatus.overdue}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.paymentOverdue}</p>
                             <p>Vencidas</p>
                         </div>
                     </a>
