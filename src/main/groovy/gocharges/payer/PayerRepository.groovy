@@ -18,7 +18,9 @@ class PayerRepository {
                 eq("email", search.email)
             }
 
-            if(!Boolean.valueOf(search.includeDeleted)) {
+            if (Boolean.valueOf(search.deletedOnly)) {
+                eq("deleted", true)
+            } else if(!Boolean.valueOf(search.includeDeleted)) {
                 eq("deleted", false)
             }
 

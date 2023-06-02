@@ -12,7 +12,9 @@ class PaymentRepository {
                 throw new RuntimeException("O atributo customer é obrigatório para executar a consulta.")
             }
 
-            if(!Boolean.valueOf(search.includeDeleted)) {
+            if (Boolean.valueOf(search.deletedOnly)) {
+                eq("deleted", true)
+            } else if(!Boolean.valueOf(search.includeDeleted)) {
                 eq("deleted", false)
             }
 

@@ -22,6 +22,10 @@ class CustomerRepository {
             if(search.containsKey("id")) {
                 eq("id", search.id)
             }
+
+            if(search.containsKey("id[ne]")) {
+                ne("id", search.get("id[ne]"))
+            }
         }
 
         return query

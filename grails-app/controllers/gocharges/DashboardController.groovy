@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.auth.User
+import gocharges.customer.enums.CustomerStatus
 import grails.plugin.springsecurity.SpringSecurityService
 
 class DashboardController {
@@ -12,7 +13,7 @@ class DashboardController {
         User currentUser = springSecurityService.getCurrentUser()
         String userName = currentUser.customer.name
 
-        if (!currentUser.customer.name) {
+        if (currentUser.customer.status == CustomerStatus.PENDING) {
             redirect(controller: "customer", action: "create")
         }
 

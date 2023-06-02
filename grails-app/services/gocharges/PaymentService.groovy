@@ -5,50 +5,38 @@ import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import grails.gorm.transactions.Transactional
-import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class PaymentService {
 
-    SpringSecurityService springSecurityService
-
-    public Payment save(PaymentAdapter adapter) {
+    public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        Customer customer = springSecurityService.getCurrentUser().customer
         payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
         payment.customer = customer
 
-        if(!payment.payer) throw new BusinessException("Pagador não encontrado")
-
-        payment.save(failOnError:true)
-        return payment
+        return payment.save(failOnError: true)
     }
 
-    public List<Payment> list() {
-        Customer customer = springSecurityService.getCurrentUser().customer
-        return PaymentRepository.query([includeDeleted: false, customer: customer]).list()
+    public List<Payment> list(Map params, Customer customer) {
+        return PaymentRepository.query(params + [customer: customer]).list()
     }
 
-    public Payment update(Long id, PaymentAdapter adapter) {
-        Customer customer = springSecurityService.getCurrentUser().customer
+    public Payment update(Long id, PaymentAdapter adapter, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
         payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if(!payment.payer) throw new BusinessException("Pagador não encontrado")
+        if (!payment.payer) throw new BusinessException("Pagador não encontrado")
 
-        payment.save(failOnError: true)
-
-        return payment
+        return payment.save(failOnError: true)
     }
 
-    public void delete(Long id) {
-        Customer customer = springSecurityService.getCurrentUser().customer
+    public void delete(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
@@ -58,9 +46,9 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
-                params.value.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
+        if (params.payerCpfCnpj.isBlank()) throw new BusinessException("É preciso selecionar um pagador")
+        if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar um tipo de recebimento aceito")
+        if (params.dueDate.isBlank()) throw new BusinessException("É preencher o campo data")
+        if (params.value.isBlank()) throw new BusinessException("É preciso preencher o campo valor")
     }
 }

@@ -31,7 +31,7 @@
                     <label>Endereço</label> <input class="form-control" type="text" name="address" value=${customer.address} />
                 </div>
 
-                <button type="submit" name="id" value="${customer.id}" class="btn bg-gogreen text-white ml-3">
+                <button type="submit" name="id" value="Editar" class="btn bg-gogreen text-white ml-3">
                     Editar
                 </button>
                 <input type="button" name="buttonCancelar" value="Cancelar" />
