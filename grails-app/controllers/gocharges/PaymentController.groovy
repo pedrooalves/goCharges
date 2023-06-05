@@ -35,7 +35,7 @@ class PaymentController {
     }
 
     public Map edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.query([id: id]).get()
 
         render(view: "edit", model: [payment : payment])
@@ -44,7 +44,7 @@ class PaymentController {
     public Map update() {
         try{
             PaymentAdapter adapter = new PaymentAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             paymentService.update(id, adapter)
 
@@ -61,7 +61,7 @@ class PaymentController {
     }
 
     public Map delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         paymentService.delete(id)
 
         Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]

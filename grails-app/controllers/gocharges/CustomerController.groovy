@@ -33,7 +33,7 @@ class CustomerController {
     }
 
     def edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.query([id: id]).get()
 
         render(view: "edit", model: [customer:customer])
@@ -42,7 +42,7 @@ class CustomerController {
     def update() {
         try{
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             customerService.update(id, adapter)
 
@@ -55,7 +55,7 @@ class CustomerController {
     }
 
     def delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         customerService.delete(id)
 
         redirect(view: "index")

@@ -56,7 +56,7 @@ class UserController {
         try {
             userService.validateUpdateParams(params)
             UserAdapter adapter = new UserAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
             String currentPassword = params.currentPassword
             userService.update(id, adapter, currentPassword)
 
