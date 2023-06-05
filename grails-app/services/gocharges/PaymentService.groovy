@@ -4,11 +4,8 @@ import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
-import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
-
-import java.text.SimpleDateFormat
 
 @Transactional
 class PaymentService {
@@ -20,7 +17,7 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        payment.save(failOnError:true)
+        payment.save(failOnError: true)
         return payment
     }
 
