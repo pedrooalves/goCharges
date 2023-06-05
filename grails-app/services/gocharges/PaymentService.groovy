@@ -60,4 +60,21 @@ class PaymentService {
             throw new BusinessException("É preciso preencher todos os campos")
         }
     }
+
+    public void setAsOverdue() {
+        Date today = new Date()
+        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).property("id").list()
+
+        for (Long id : paymentIdList) {
+            Payment.withNewTransaction { status ->
+                try {
+                    Payment payment = Payment.get(id)
+                    payment.status = PaymentStatus.OVERDUE
+                    payment.save(failOnError: true)
+                } catch (Exception exception) {
+                    status.setRollbackOnly()
+                }
+            }
+        }
+    }
 }
