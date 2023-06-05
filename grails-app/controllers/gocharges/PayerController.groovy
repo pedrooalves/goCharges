@@ -17,7 +17,7 @@ class PayerController {
             showNewPayerForm = chainModel.showNewPayerForm
         }
 
-        render(view: "index", model: [payers:payers, showNewPayerForm: showNewPayerForm])
+        render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {
@@ -43,7 +43,7 @@ class PayerController {
     }
 
     public delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         payerService.delete(id)
 
         flash.message = "Pagador removido com sucesso!"
@@ -55,7 +55,7 @@ class PayerController {
     public update() {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
             payerService.update(id, adapter)
 
             flash.message = "Pagador alterado com sucesso!"
@@ -75,9 +75,9 @@ class PayerController {
     }
 
     public edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id]).get()
 
-        render(view: "edit", model: [payer:payer])
+        render(view: "edit", model: [payer: payer])
     }
 }

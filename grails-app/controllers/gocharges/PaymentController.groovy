@@ -13,7 +13,7 @@ class PaymentController {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
 
-        if(chainModel?.showNewPaymentForm) {
+        if (chainModel?.showNewPaymentForm) {
             showNewPaymentForm = chainModel.showNewPaymentForm
         }
 
@@ -36,23 +36,23 @@ class PaymentController {
     }
 
     public Map edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.query([id: id]).get()
 
-        render(view: "edit", model: [payment : payment])
+        render(view: "edit", model: [payment: payment])
     }
 
     public Map update() {
         try {
             PaymentAdapter adapter = new PaymentAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             paymentService.update(id, adapter)
 
             flash.message = "Cobrança alterada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
 
-        } catch (BusinessException businessException){
+        } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
 
@@ -66,7 +66,7 @@ class PaymentController {
     }
 
     public Map delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         paymentService.delete(id)
 
         flash.message = "Cobrança excluída com sucesso!"

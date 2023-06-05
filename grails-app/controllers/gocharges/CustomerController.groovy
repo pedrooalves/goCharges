@@ -63,7 +63,7 @@ class CustomerController {
     }
 
     def delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         customerService.delete(id)
 
         redirect(view: "index")
