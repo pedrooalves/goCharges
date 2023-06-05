@@ -12,7 +12,7 @@ class PaymentController {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
 
-        if(chainModel) {
+        if (chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
             render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
@@ -28,7 +28,7 @@ class PaymentController {
 
             Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
-        } catch(BusinessException e) {
+        } catch (BusinessException e) {
             Map validation = [success: false, message: e.getMessage(), type: "save"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: true])
         }
@@ -38,20 +38,20 @@ class PaymentController {
         Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.query([id: id]).get()
 
-        render(view: "edit", model: [payment : payment])
+        render(view: "edit", model: [payment: payment])
     }
 
     public Map update() {
-        try{
+        try {
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.valueOf(params.id)
 
             paymentService.update(id, adapter)
 
-            Map validation = [success:true, message:"Cobrança editada com sucesso", type:"update"]
+            Map validation = [success: true, message: "Cobrança editada com sucesso", type: "update"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
-        }catch(BusinessException exception){
-            Map validation = [success:false, message:exception.getMessage(), type:"update"]
+        } catch (BusinessException exception) {
+            Map validation = [success: false, message: exception.getMessage(), type: "update"]
             chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
         }
     }
@@ -64,7 +64,7 @@ class PaymentController {
         Long id = Long.valueOf(params.id)
         paymentService.delete(id)
 
-        Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
+        Map validation = [success: true, message: "Cobrança excluída com sucesso", type: "delete"]
         redirect(view: "index", model: [validation: validation])
     }
 }
