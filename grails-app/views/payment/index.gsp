@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <html>
 <head>
     <meta name="layout" content="main" />
