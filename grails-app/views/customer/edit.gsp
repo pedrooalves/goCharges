@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="main"/>
     <title>Atualizar Customer</title>
 </head>
 <body>
@@ -9,7 +9,7 @@
         <div class="container w-50">
             <h1 class="display-4">Atualizar</h1>
 
-            <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']" method="PUT">
+        <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']" method="PUT">
 
                 <div class="form-group">
                     <label>Nome</label> <input class="form-control" type="text" name="name" value=${customer.name} />

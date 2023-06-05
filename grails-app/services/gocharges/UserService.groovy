@@ -46,11 +46,11 @@ class UserService {
     }
 
     public static void validate(Map params) {
-        if (params.username.isBlank()) {
+        if (!params.username) {
             throw new BusinessException("O campo e-mail é obrigatório")
         }
 
-        if (params.password.isBlank()) {
+        if (!params.password) {
             throw new BusinessException("O campo senha é obrigatório")
         }
 
