@@ -12,6 +12,12 @@ class Customer extends BasePerson {
         email(email: true, nullable: true, blank: false, unique: true)
         mobilePhone(nullable: true, blank: false)
         cpfCnpj(nullable: true, blank: false)
+        postalCode(nullable: true, blank: false)
         address(nullable: true, blank: false)
+        addressNumber(nullable: true, blank: false)
+        complement(nullable: true, blank: false)
+        province(nullable: true, blank: false)
+        city(nullable: true, blank: false)
+        state(nullable: true, blank: false)
     }
 }

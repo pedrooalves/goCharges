@@ -9,7 +9,13 @@ public abstract class BasePerson extends BaseEntity {
     String email
     String mobilePhone
     String cpfCnpj
+    String postalCode
     String address
+    String addressNumber
+    String complement
+    String province
+    String city
+    String state
 
     static mapping = {
         tablePerHierarchy false
