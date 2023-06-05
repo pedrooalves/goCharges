@@ -38,6 +38,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly "io.micronaut:micronaut-inject-groovy"
     console "org.grails:grails-console"
+    implementation 'org.grails.plugins:spring-security-core:5.0.0-RC1'
     implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.springframework.boot:spring-boot-autoconfigure"
@@ -59,6 +60,10 @@ dependencies {
     implementation "org.hibernate:hibernate-core:5.6.11.Final"
     implementation "org.grails.plugins:events"
     implementation "org.grails.plugins:gsp"
+    implementation("org.quartz-scheduler:quartz:2.2.3") {
+        exclude group: 'slf4j-api', module: 'c3p0'
+    }
+    implementation ('org.grails.plugins:quartz:2.0.13')
     profile "org.grails.profiles:web"
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
