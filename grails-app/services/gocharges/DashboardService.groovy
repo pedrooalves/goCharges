@@ -16,9 +16,9 @@ class DashboardService {
 
         Map info = [:]
         info.payerCount = PayerRepository.query([customer: userCustomer]).count()
-        info.paymentPending = PaymentRepository.query([status: PaymentStatus.PENDING, customer: userCustomer]).count()
-        info.paymentOverdue = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: userCustomer]).count()
-        info.paymentReceived = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: userCustomer]).count()
+        info.pendingPaymentCount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: userCustomer]).count()
+        info.overduePaymentCount = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: userCustomer]).count()
+        info.receivedPaymentCount = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: userCustomer]).count()
 
         return info
     }

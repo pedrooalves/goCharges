@@ -28,19 +28,19 @@
                 <div>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${info.paymentPending}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.pendingPaymentCount}</p>
                             <p>Pendentes</p>
                         </div>
                     </a>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${info.paymentReceived}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.receivedPaymentCount}</p>
                             <p>Recebidas</p>
                         </div>
                     </a>
                     <a href="/payment/index" class="text-decoration-none text-reset">
                         <div class="card-body text-center border m-2" style="height: 6rem;">
-                            <p class="mb-3" style="font-size: 3rem;">${info.paymentOverdue}</p>
+                            <p class="mb-3" style="font-size: 3rem;">${info.overduePaymentCount}</p>
                             <p>Vencidas</p>
                         </div>
                     </a>
