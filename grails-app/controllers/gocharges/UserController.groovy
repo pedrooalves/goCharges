@@ -29,6 +29,7 @@ class UserController {
 
     public save() {
         try {
+            userService.validateSaveParams(params)
             UserAdapter userAdapter = new UserAdapter(params)
             userService.save(userAdapter)
 
@@ -53,6 +54,7 @@ class UserController {
 
     public update() {
         try {
+            userService.validateUpdateParams(params)
             UserAdapter adapter = new UserAdapter(params)
             Long id = Long.parseLong(params.id)
             String currentPassword = params.currentPassword

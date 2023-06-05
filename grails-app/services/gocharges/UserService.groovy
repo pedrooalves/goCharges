@@ -45,19 +45,22 @@ class UserService {
         }
     }
 
-    public static void validate(Map params) {
-        Boolean isUpdate = params.containsKey("id")
+    public void validateSaveParams(Map params) {
+        validateParams(params)
+        if (!params.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
+        if (UserRepository.query([username: params.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
+    }
 
+    public void validateUpdateParams(Map params) {
+        validateParams(params)
+    }
+
+    private void validateParams(Map params) {
         if (!params.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
-
-        if (!params.password && !isUpdate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
-
-        if (UserRepository.query([username: params.username]).get() && !isUpdate) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
-
         if (!(params.password == params.confirmPassword)) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
     }
 
-    public void validateUpdate(Long id, UserAdapter adapter) {
+    private void validateUpdate(Long id, UserAdapter adapter) {
         User user = UserRepository.query([id: id]).get()
         if (!user) throw new BusinessException("Usuário não encontrado.")
 

@@ -12,7 +12,6 @@ class UserAdapter {
     boolean passwordExpired
 
     public UserAdapter(Map params) {
-        UserService.validate(params)
         this.username = params.username
         this.password = params.password
         this.accountExpired = false
