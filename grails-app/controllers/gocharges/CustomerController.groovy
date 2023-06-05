@@ -27,13 +27,19 @@ class CustomerController {
 
             customerService.save(adapter)
 
-            flash.message = "Conta criada com sucesso!"
+            flash.message = "Conta criada com sucesso"
             flash.type = FlashMessageType.SUCCESS
 
             redirect(controller: "dashboard", action: "index")
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
+
+            redirect(action: "create")
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução da action Save do CustomerController com os seguintes dados: ${params}")
 
             redirect(action: "create")
         }
@@ -50,21 +56,37 @@ class CustomerController {
             CustomerAdapter adapter = convertToAdapter(params)
             customerService.update(adapter)
 
-            flash.message = "Conta alterada com sucesso!"
+            flash.message = "Conta alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flass.type = FlashMessageType.ERROR
+            log.info("Erro na execução da action Update do CustomerController com os seguintes dados: ${params}")
         } finally {
             redirect(action: "index")
         }
     }
 
     def delete() {
-        Long id = Long.valueOf(params.id)
-        customerService.delete(id)
+        try {
+            Long id = Long.valueOf(params.id)
+            customerService.delete(id)
 
-        redirect(view: "index")
+            flash.message = "Conta removida com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flass.type = FlashMessageType.ERROR
+            log.info("Erro na execução da action Delete do CustomerController com o seguinte id: ${params.id}")
+        } finally {
+            redirect(view: "index")
+        }
     }
 
     private CustomerAdapter convertToAdapter(Map params) {
