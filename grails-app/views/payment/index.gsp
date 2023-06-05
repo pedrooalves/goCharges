@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <html>
 <head>
     <meta name="layout" content="main" />
@@ -38,7 +39,7 @@
 
                     <div class="form-group mb-3">
                         <label class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" type="text" name="dueDate" value="" placeholder="dd/mm/aaaa" /><br >
+                        <input class="form-control" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa" /><br >
                     </div>
 
                     <div class="form-group mb-3">
@@ -80,7 +81,7 @@
                 <ul class="list-group list-group-horizontal mb-1 mb-1">
                     <li class="custom-list-item col-3">${payment.billingType}</li>
                     <li class="custom-list-item col">${payment.value}</li>
-                    <li class="custom-list-item col">${payment.dueDate}</li>
+                    <li class="custom-list-item col">${payment.dueDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))}</li>
                     <li class="custom-list-item col">${payment.status}</li>
                     <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
 

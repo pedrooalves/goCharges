@@ -4,12 +4,14 @@ import gocharges.domain.base.BaseEntity
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 
+import java.time.LocalDate
+
 class Payment extends BaseEntity {
 
     Payer payer
     PaymentBillingType billingType
     PaymentStatus status = PaymentStatus.PENDING
-    Date dueDate
+    LocalDate dueDate
     BigDecimal value
 
     static constraints = {
