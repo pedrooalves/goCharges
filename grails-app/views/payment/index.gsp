@@ -7,7 +7,6 @@
 <body>
 <div class="container col-12">
     <div class="card-body row">
-
         <g:if test="${showNewPaymentForm != false}">
             <div class="col-3">
                 <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
