@@ -1,0 +1,4 @@
+package gocharges
+
+class PaymentReceiptService {
+}
