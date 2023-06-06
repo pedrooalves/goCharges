@@ -21,12 +21,12 @@
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
                     <div class="form-group mb-3">
                         <label class="mb-2 fw-bold">Nome</label>
-                        <input class="form-control" type="text" name="name" value="${payer.name}" /><br/>
+                        <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value="${payer.name}" /><br/>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="mb-2">E-mail</label>
-                        <input class="form-control" type="email" name="email" value="${payer.email}" /><br/>
+                        <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="${payer.email}" /><br/>
                     </div>
 
                     <div class="form-group mb-3">
@@ -36,7 +36,7 @@
 
                     <div class="form-group mb-3">
                         <label class="mb-2">Celular</label>
-                        <input class="form-control" type="text" name="mobilePhone" value="${payer.mobilePhone}" /><br/>
+                        <input class="form-control" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value="${payer.mobilePhone}" /><br/>
                     </div>
 
                     <h4 class="font-weight-bold mb-2">Endereço</h4>

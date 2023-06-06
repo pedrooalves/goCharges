@@ -22,23 +22,24 @@
                     <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
                         <div class="form-group mb-3">
                             <label class="mb-2 fw-bold">Nome</label>
-                            <input class="form-control" type="text" name="name" value="" /><br/>
+                            <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value="" /><br/>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mb-2">E-mail</label>
-                            <input class="form-control" type="email" name="email" value="" /><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">Celular</label>
-                            <input class="form-control" type="text" name="mobilePhone" value="" /><br/>
+                            <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="" /><br/>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mb-2">CPF / CNPJ </label>
-                            <input class="form-control" type="text" name="cpfCnpj" value="" /><br >
+                            <input class="form-control" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="" /><br >
                         </div>
+
+                        <div class="form-group mb-3">
+                            <label class="mb-2">Celular</label>
+                            <input class="form-control" type="text" name="mobilePhone" pattern="(?\d{2})? ?\d{4-5}-?\d{3}-?\d{2}" placeholder="(00) 00000-0000" value="" /><br/>
+                        </div>
+
 
                         <h4 class="font-weight-bold mb-2">Endereço</h4>
 
