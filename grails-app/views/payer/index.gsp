@@ -19,72 +19,74 @@
                         </div>
                     </g:if>
 
-                    <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
-                        <div class="form-group mb-3">
-                            <label class="mb-2 fw-bold">Nome</label>
-                            <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value="" /><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">E-mail</label>
-                            <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="" /><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">CPF / CNPJ </label>
-                            <input class="form-control" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="" /><br >
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">Celular</label>
-                            <input class="form-control" type="text" name="mobilePhone" pattern="(?\d{2})? ?\d{4-5}-?\d{3}-?\d{2}" placeholder="(00) 00000-0000" value="" /><br/>
-                        </div>
-
-                        <h4 class="font-weight-bold mb-2">Endereço</h4>
-
-                        <div class="form-group">
-                            <label class="mb-1">CEP</label>
-                            <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}"  name="postalCode" placeholder="00000-000" value="" />
-                        </div>
-
-                        <div class="form-row mb-3">
-                            <div class="col">
-                                <label class="mb-1">Rua</label>
-                                <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                    <div class="card">
+                        <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
+                            <div class="form-group mb-3">
+                                <label class="mb-2 fw-bold">Nome</label>
+                                <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value="" /><br/>
                             </div>
-                            <div class="col">
-                                <label class="mb-1">Número</label>
-                                <input class="form-control" type="text" name="addressNumber" placeholder="00000" value="" />
-                            </div>
-                        </div>
 
-                        <div class="form-row mb-3">
-                            <div class="col">
-                                <label class="mb-1">Complemento</label>
-                                <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00" value="" />
+                            <div class="form-group mb-3">
+                                <label class="mb-2">E-mail</label>
+                                <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="" /><br/>
                             </div>
-                            <div class="col">
-                                <label class="mb-1">Bairro</label>
-                                <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
-                            </div>
-                        </div>
 
-                        <div class="form-row mb-3">
-                            <div class="col">
-                                <label class="mb-1">Cidade</label>
-                                <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="" />
+                            <div class="form-group mb-3">
+                                <label class="mb-2">CPF / CNPJ </label>
+                                <input class="form-control" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="" /><br >
                             </div>
-                            <div class="col">
-                                <label class="mb-1">Estado</label>
-                                <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="" />
-                            </div>
-                        </div>
 
-                        <div class="navbar d-flex justify-content-space-between">
-                            <a href="${createLink(action:'index', controller:'payer')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
-                            <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar" />
-                        </div>
-                    </g:form>
+                            <div class="form-group mb-3">
+                                <label class="mb-2">Celular</label>
+                                <input class="form-control" type="text" name="mobilePhone" pattern="(?\d{2})? ?\d{4-5}-?\d{3}-?\d{2}" placeholder="(00) 00000-0000" value="" /><br/>
+                            </div>
+
+                            <h4 class="font-weight-bold mb-2">Endereço</h4>
+
+                            <div class="form-group">
+                                <label class="mb-1">CEP</label>
+                                <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}"  name="postalCode" placeholder="00000-000" value="" />
+                            </div>
+
+                            <div class="form-row mb-3">
+                                <div class="col">
+                                    <label class="mb-1">Rua</label>
+                                    <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                                </div>
+                                <div class="col">
+                                    <label class="mb-1">Número</label>
+                                    <input class="form-control" type="text" name="addressNumber" placeholder="00000" value="" />
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-3">
+                                <div class="col">
+                                    <label class="mb-1">Complemento</label>
+                                    <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00" value="" />
+                                </div>
+                                <div class="col">
+                                    <label class="mb-1">Bairro</label>
+                                    <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-3">
+                                <div class="col">
+                                    <label class="mb-1">Cidade</label>
+                                    <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="" />
+                                </div>
+                                <div class="col">
+                                    <label class="mb-1">Estado</label>
+                                    <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="" />
+                                </div>
+                            </div>
+
+                            <div class="navbar d-flex justify-content-space-between">
+                                <a href="${createLink(action:'index', controller:'payer')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
+                                <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar" />
+                            </div>
+                        </g:form>
+                    </div>
                 </div>
             </g:if>
 
