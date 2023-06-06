@@ -57,16 +57,13 @@ class CustomerService {
 
     private void validateUpdate(Customer userCustomer, CustomerAdapter adapter) {
         validateNotNull(adapter)
-
         CpfCnpjValidator.validate(adapter.cpfCnpj)
-
         validateCpfCnpjInUse(adapter.cpfCnpj)
-
         validateEmailInUse(userCustomer.id, adapter.email)
     }
 
-    public Customer update(CustomerAdapter adapter) {
-        Customer userCustomer = springSecurityService.getCurrentUser().customer
+    public Customer update(CustomerAdapter adapter, Customer customer) {
+        Customer userCustomer = customer
 
         validateUpdate(userCustomer, adapter)
 

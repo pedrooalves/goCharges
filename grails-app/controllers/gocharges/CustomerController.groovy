@@ -1,12 +1,11 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
-import grails.plugin.springsecurity.SpringSecurityService
 
-class CustomerController {
+class CustomerController extends BaseController {
 
-    SpringSecurityService springSecurityService
     CustomerService customerService
 
     def index() {
@@ -20,7 +19,7 @@ class CustomerController {
     }
 
     def create() {
-        String userEmail = springSecurityService.getCurrentUser().username
+        String userEmail = getCurrentUser().username
         render(view: "create", model: [userEmail: userEmail])
     }
 
@@ -39,7 +38,7 @@ class CustomerController {
     }
 
     def edit() {
-        Customer userCustomer = springSecurityService.getCurrentUser().customer
+        Customer userCustomer = getCurrentCustomer()
 
         render(view: "edit", model: [customer: userCustomer])
     }
@@ -48,7 +47,7 @@ class CustomerController {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
 
-            customerService.update(adapter)
+            customerService.update(adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta alterada com sucesso!"]
             chain(action: "index", model: [validation: validation])
