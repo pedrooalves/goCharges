@@ -12,7 +12,7 @@ class PaymentController {
         List<Payment> payments = paymentService.list()
         Boolean showNewPaymentForm = false
 
-        if(chainModel) {
+        if (chainModel) {
             Map validation = chainModel.validation
             showNewPaymentForm = chainModel.showNewPaymentForm
             render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
@@ -26,33 +26,45 @@ class PaymentController {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter)
 
-            Map validation = [success: true, message: "Cobrança criada com sucesso", type: "save"]
-            chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
-        } catch(BusinessException e) {
-            Map validation = [success: false, message: e.getMessage(), type: "save"]
-            chain(action: "index", model: [validation: validation, showNewPaymentForm: true])
+            flash.message = "Cobrança criada com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde."
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução do método Save do PaymentController com os seguintes dados: ${params}")
+        } finally {
+            redirect("view: index")
         }
     }
 
     public Map edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Payment payment = PaymentRepository.query([id: id]).get()
 
-        render(view: "edit", model: [payment : payment])
+        render(view: "edit", model: [payment: payment])
     }
 
     public Map update() {
-        try{
+        try {
             PaymentAdapter adapter = new PaymentAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             paymentService.update(id, adapter)
 
-            Map validation = [success:true, message:"Cobrança editada com sucesso", type:"update"]
-            chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
-        }catch(BusinessException exception){
-            Map validation = [success:false, message:exception.getMessage(), type:"update"]
-            chain(action: "index", model: [validation: validation, showNewPaymentForm: false])
+            flash.message = "Cobrança editada com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde."
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução do método Update do PaymentController com o seguinte id: ${params.id}")
+        } finally {
+            redirect("view: index")
         }
     }
 
@@ -61,10 +73,40 @@ class PaymentController {
     }
 
     public Map delete() {
-        Long id = Long.parseLong(params.id)
-        paymentService.delete(id)
+        try {
+            Long id = Long.valueOf(params.id)
+            paymentService.delete(id)
 
-        Map validation = [success:true, message:"Cobrança excluída com sucesso", type:"delete"]
-        redirect(view: "index", model: [validation: validation])
+            flash.message = "Cobrança removida com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde."
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução do método Delete do PaymentController com o seguinte id: ${params.id}")
+        } finally {
+            redirect("view: index")
+        }
+    }
+
+    public Map confirm() {
+        try {
+            Long id = Long.valueOf(params.id)
+            paymentService.confirm(id)
+
+            flash.message = "Cobrança confirmada com sucesso!"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde."
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução do método Confirm do PaymentController com o seguinte id: ${params.id}")
+        } finally {
+            redirect("view: index")
+        }
     }
 }
