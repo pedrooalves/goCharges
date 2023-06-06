@@ -5,10 +5,10 @@
     <title>Listagem de Payer</title>
 </head>
 <body>
-    <div class="container col-12" style="height: 69.5vh">
+    <div class="container col-12" style="height: 100%">
         <div class="card-body row">
             <g:if test="${showNewPayerForm != false}">
-                <div class="col-4 overflow-auto" style="height: 66.5vh">
+                <div class="col-4 overflow-auto" style="height: 85vh">
                     <div class="card mb-3 mt-3 p-2 bg-gogreen text-center text-white">
                         <h1 class="display-4">Novo Pagador</h1>
                     </div>
