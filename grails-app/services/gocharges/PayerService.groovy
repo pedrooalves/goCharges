@@ -2,7 +2,7 @@ package gocharges
 
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 import grails.plugin.springsecurity.SpringSecurityService
@@ -46,7 +46,7 @@ class PayerService {
 
     private void validateSave(PayerAdapter adapter) {
         validateNotNull(adapter)
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
 
         Customer customer = springSecurityService.getCurrentUser().customer
 
