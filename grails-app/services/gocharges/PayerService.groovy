@@ -2,7 +2,7 @@ package gocharges
 
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 import grails.plugin.springsecurity.SpringSecurityService
@@ -45,7 +45,7 @@ class PayerService {
 
     private void validateSave(PayerAdapter adapter, Customer customer) {
         validateNotNull(adapter)
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
 
         Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if (payer) throw new BusinessException("Email já cadastrado")
