@@ -40,7 +40,6 @@
                             <input class="form-control" type="text" name="mobilePhone" pattern="(?\d{2})? ?\d{4-5}-?\d{3}-?\d{2}" placeholder="(00) 00000-0000" value="" /><br/>
                         </div>
 
-
                         <h4 class="font-weight-bold mb-2">Endereço</h4>
 
                         <div class="form-group">
