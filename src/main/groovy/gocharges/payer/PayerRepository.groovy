@@ -28,12 +28,14 @@ class PayerRepository {
                 eq("id", search.id)
             }
 
+            if(search.containsKey("id[ne]")) {
+                ne("id", search.get("id[ne]"))
+            }
+
             if(search.containsKey("customer")) {
                 eq("customer", search.customer)
             }
         }
-
-
         return query
     }
 }

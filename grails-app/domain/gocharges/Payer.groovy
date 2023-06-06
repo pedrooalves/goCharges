@@ -14,7 +14,7 @@ class Payer extends BasePerson {
         postalCode(nullable: false, blank: false)
         address(nullable: false, blank: false)
         addressNumber(nullable: false, blank: false)
-        complement(nullable: false, blank: false)
+        complement(nullable: true, blank: true)
         province(nullable: false, blank: false)
         city(nullable: false, blank: false)
         state(nullable: false, blank: false)
