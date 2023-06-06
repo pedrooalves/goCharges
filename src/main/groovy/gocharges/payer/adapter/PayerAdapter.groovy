@@ -1,6 +1,7 @@
 package gocharges.payer.adapter
 
 import gocharges.Payer
+import shared.Utils
 
 class PayerAdapter {
 
@@ -19,9 +20,9 @@ class PayerAdapter {
     public PayerAdapter(Map params) {
         this.name = params.get("name")
         this.email = params.email
-        this.mobilePhone = params.mobilePhone
-        this.cpfCnpj = params.cpfCnpj
-        this.postalCode = params.postalCode
+        this.mobilePhone = Utils.removeNonNumeric(params.mobilePhone)
+        this.cpfCnpj = Utils.removeNonNumeric(params.cpfCnpj)
+        this.postalCode = Utils.removeNonNumeric(params.postalCode)
         this.address = params.address
         this.addressNumber = params.addressNumber
         this.complement = params.complement
