@@ -47,7 +47,7 @@ class PaymentService {
     }
 
     public void confirm(Long id) {
-        Payment payment = PaymentRepository.query([id: id]).get()
+        Payment payment = PaymentRepository.query([id: id, ignoreCustomer: true]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
