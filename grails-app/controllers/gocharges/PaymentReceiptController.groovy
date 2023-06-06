@@ -1,14 +1,13 @@
 package gocharges
 
 import gocharges.controller.base.BaseController
+import gocharges.payment.PaymentRepository
 
 class PaymentReceiptController extends BaseController {
 
-    PaymentReceiptService paymentReceiptService
-
     def index() {
-        Map info = paymentReceiptService.create(params.publicId, getCurrentCustomer())
+        Payment payment = PaymentRepository.query([publicId: params.publicId, ignoreCustomer: true]).get()
 
-        render(view: "index", params: [publidId: params.publicId], model: [info: info])
+        render(view: "index", model: [payment: payment])
     }
 }
