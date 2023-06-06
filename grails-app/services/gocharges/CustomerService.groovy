@@ -4,7 +4,7 @@ import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.customer.enums.CustomerStatus
 import gocharges.exception.BusinessException
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import grails.plugin.springsecurity.SpringSecurityService
 import shared.Utils
@@ -57,7 +57,7 @@ class CustomerService {
 
     private void validateUpdate(Customer userCustomer, CustomerAdapter adapter) {
         validateNotNull(adapter)
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
         validateCpfCnpjInUse(adapter.cpfCnpj)
         validateEmailInUse(userCustomer.id, adapter.email)
     }

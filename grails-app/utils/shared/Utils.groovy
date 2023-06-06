@@ -2,7 +2,7 @@ package shared
 
 import grails.util.Holders
 
-class Utils {
+public class Utils {
 
     static def messageSource = Holders.grailsApplication.mainContext.getBean("messageSource")
 

@@ -2,7 +2,7 @@ package gocharges
 
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 import shared.Utils
@@ -72,7 +72,7 @@ class PayerService {
 
     private void validateSave(PayerAdapter adapter, Customer customer) {
         validateNotNull(adapter)
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
         validateCpfCnpjInUse(adapter, customer)
         validateEmailInUseSave(adapter, customer)
 
