@@ -15,7 +15,7 @@ class Customer extends BasePerson {
         postalCode(nullable: true, blank: false)
         address(nullable: true, blank: false)
         addressNumber(nullable: true, blank: false)
-        complement(nullable: true, blank: false)
+        complement(nullable: true, blank: true)
         province(nullable: true, blank: false)
         city(nullable: true, blank: false)
         state(nullable: true, blank: false)
