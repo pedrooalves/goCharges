@@ -3,7 +3,7 @@ package gocharges
 import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -41,7 +41,7 @@ class CustomerService {
 
     private void validateSave(CustomerAdapter adapter) {
         validateNotNull(adapter)
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
 
         Customer emailExists = CustomerRepository.query([email: adapter.email, includeDeleted: true]).get()
         if(emailExists) throw new BusinessException("Email em uso!")

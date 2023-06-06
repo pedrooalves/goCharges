@@ -27,3 +27,7 @@
 ## Documentação
 
 - [Documentação do Projeto](https://docs.google.com/document/d/11qYvML5VgBpBsFQDlxInzdxn3R8ymV90CIzGky1cAus/edit)
+
+## Quadro de Tasks
+
+- [goCharges | Trello](https://trello.com/b/kly7LadD/gocharges)

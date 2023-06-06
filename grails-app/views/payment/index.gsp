@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentStatus" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -7,7 +8,6 @@
 <body>
     <div class="container col-12">
         <div class="card-body row">
-
             <g:if test="${showNewPaymentForm != false}">
                 <div class="col-3">
                     <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
@@ -86,6 +86,17 @@
                         <li class="custom-list-item col">${format.brazilDateNotation([date: payment.dueDate])}</li>
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
+
+                        <g:if test="${payment.status == PaymentStatus.PENDING}">
+                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                </button>
+                            </g:form>
+                        </g:if>
 
                         <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
                             <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
