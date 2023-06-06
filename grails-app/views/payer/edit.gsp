@@ -5,90 +5,89 @@
     <title>Listagem de Payer</title>
 </head>
 <body>
-
-<div class="container d-flex justify-content-center mb-3 col-12" style="height: 69.5vh">
-    <div class="overflow-auto col-4">
-        <div class="card mb-3 mt-3 p-3 bg-gogreen text-center text-white">
-            <h1 class="display-4">Editar Pagador</h1>
-        </div>
-
-        <g:if test="${validation != null && validation.type.equals('save')}">
-            <div class="alert alert-danger" role="alert">
-                ${validation.message}
+    <div class="container d-flex justify-content-center mb-3 col-12" style="height: 69.5vh">
+        <div class="overflow-auto col-4">
+            <div class="card mb-3 mt-3 p-3 bg-gogreen text-center text-white">
+                <h1 class="display-4">Editar Pagador</h1>
             </div>
-        </g:if>
 
-        <div class="card">
-            <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
-                <div class="form-group mb-3">
-                    <label class="mb-2 fw-bold">Nome</label>
-                    <input class="form-control" type="text" name="name" value="${payer.name}" /><br/>
+            <g:if test="${validation != null && validation.type.equals('save')}">
+                <div class="alert alert-danger" role="alert">
+                    ${validation.message}
                 </div>
+            </g:if>
 
-                <div class="form-group mb-3">
-                    <label class="mb-2">E-mail</label>
-                    <input class="form-control" type="email" name="email" value="${payer.email}" /><br/>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label class="mb-2">CPF / CNPJ </label>
-                    <input class="form-control" type="text" readonly name="cpfCnpj" value="${payer.cpfCnpj}" /><br >
-                </div>
-
-                <div class="form-group mb-3">
-                    <label class="mb-2">Celular</label>
-                    <input class="form-control" type="text" name="mobilePhone" value="${payer.mobilePhone}" /><br/>
-                </div>
-
-                <h4 class="font-weight-bold mb-2">Endereço</h4>
-
-                <div class="form-group">
-                    <label class="mb-1">CEP</label>
-                    <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}"  name="postalCode" placeholder="00000-000" value="${payer.postalCode}" />
-                </div>
-
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Rua</label>
-                        <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="${payer.address}" />
+            <div class="card">
+                <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
+                    <div class="form-group mb-3">
+                        <label class="mb-2 fw-bold">Nome</label>
+                        <input class="form-control" type="text" name="name" value="${payer.name}" /><br/>
                     </div>
-                    <div class="col">
-                        <label class="mb-1">Número</label>
-                        <input class="form-control" type="text" name="addressNumber" placeholder="00000" value="${payer.addressNumber}" />
-                    </div>
-                </div>
 
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Complemento</label>
-                        <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00" value="${payer.complement}" />
+                    <div class="form-group mb-3">
+                        <label class="mb-2">E-mail</label>
+                        <input class="form-control" type="email" name="email" value="${payer.email}" /><br/>
                     </div>
-                    <div class="col">
-                        <label class="mb-1">Bairro</label>
-                        <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="${payer.province}" />
-                    </div>
-                </div>
 
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Cidade</label>
-                        <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="${payer.city}" />
+                    <div class="form-group mb-3">
+                        <label class="mb-2">CPF / CNPJ </label>
+                        <input class="form-control" type="text" readonly name="cpfCnpj" value="${payer.cpfCnpj}" /><br >
                     </div>
-                    <div class="col">
-                        <label class="mb-1">Estado</label>
-                        <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="${payer.state}" />
-                    </div>
-                </div>
 
-                <div class="navbar d-flex justify-content-space-between">
-                    <a href="/payer"><input href="/payer" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
-                    <button type="submit" name="id" value="${payer.id}" class="btn bg-gogreen text-white ml-3">
-                        Salvar
-                    </button>
-                </div>
-            </g:form>
+                    <div class="form-group mb-3">
+                        <label class="mb-2">Celular</label>
+                        <input class="form-control" type="text" name="mobilePhone" value="${payer.mobilePhone}" /><br/>
+                    </div>
+
+                    <h4 class="font-weight-bold mb-2">Endereço</h4>
+
+                    <div class="form-group">
+                        <label class="mb-1">CEP</label>
+                        <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}"  name="postalCode" placeholder="00000-000" value="${payer.postalCode}" />
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <label class="mb-1">Rua</label>
+                            <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="${payer.address}" />
+                        </div>
+                        <div class="col">
+                            <label class="mb-1">Número</label>
+                            <input class="form-control" type="text" name="addressNumber" placeholder="00000" value="${payer.addressNumber}" />
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <label class="mb-1">Complemento</label>
+                            <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00" value="${payer.complement}" />
+                        </div>
+                        <div class="col">
+                            <label class="mb-1">Bairro</label>
+                            <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="${payer.province}" />
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <label class="mb-1">Cidade</label>
+                            <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="${payer.city}" />
+                        </div>
+                        <div class="col">
+                            <label class="mb-1">Estado</label>
+                            <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="${payer.state}" />
+                        </div>
+                    </div>
+
+                    <div class="navbar d-flex justify-content-space-between">
+                        <a href="/payer"><input href="/payer" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
+                        <button type="submit" name="id" value="${payer.id}" class="btn bg-gogreen text-white ml-3">
+                            Salvar
+                        </button>
+                    </div>
+                </g:form>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
