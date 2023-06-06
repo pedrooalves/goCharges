@@ -57,7 +57,7 @@ class UserService {
 
     private void validateParams(Map params) {
         if (!params.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
-        if (!(params.password == params.confirmPassword)) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
+        if (params.password != params.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
     }
 
     private void validateUpdate(Long id, UserAdapter adapter) {
