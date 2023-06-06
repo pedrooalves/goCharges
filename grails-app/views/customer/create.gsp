@@ -6,7 +6,6 @@
 </head>
 <body>
     <div class="container my-8 d-flex justify-center w-50">
-
         <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
             <h1 class="display-4">Dados Comerciais</h1>
 
