@@ -3,9 +3,9 @@ package gocharges
 import java.sql.Date
 import java.sql.Timestamp
 
-class GoChargesFormatTagLib {
+class FormatTagLib {
 
-    static namespace = "format"
+    static namespace = "formatTagLib"
 
     def brazilDateNotation = { Map attrs ->
         out << dateNotation("dd/MM/yyyy", attrs.date)
