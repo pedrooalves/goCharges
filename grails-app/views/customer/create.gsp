@@ -45,7 +45,7 @@
             <div class="form-row mb-3">
                 <div class="col">
                     <label class="mb-1">Rua</label>
-                    <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                    <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
                 </div>
                 <div class="col">
                     <label class="mb-1">Número</label>
@@ -60,18 +60,18 @@
                 </div>
                 <div class="col">
                     <label class="mb-1">Bairro</label>
-                    <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
+                    <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
                 </div>
             </div>
 
             <div class="form-row mb-3">
                 <div class="col">
                     <label class="mb-1">Cidade</label>
-                    <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="" />
+                    <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
                 </div>
                 <div class="col">
                     <label class="mb-1">Estado</label>
-                    <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="" />
+                    <input class="form-control" type="text" name="state" id="state" placeholder="Ex: Bahia" value="" />
                 </div>
             </div>
 
