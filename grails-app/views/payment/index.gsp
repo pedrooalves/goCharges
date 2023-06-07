@@ -82,8 +82,7 @@
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
-                        <format:brazilDateNotation/>
-                        <li class="custom-list-item col">${format.brazilDateNotation([date: payment.dueDate])}</li>
+                        <li class="custom-list-item col"><formatTagLib:brazilDateNotation date="${payment.dueDate}"/></li>
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
 
