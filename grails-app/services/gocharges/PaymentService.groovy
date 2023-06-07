@@ -46,6 +46,16 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
+    public void confirm(Long id) {
+        Payment payment = PaymentRepository.query([id: id]).get()
+
+        if (!payment) throw new BusinessException("Cobrança não encontrada")
+
+        payment.status = PaymentStatus.RECEIVED
+        payment.paymentDate = new Date()
+        payment.save(failOnError: true)
+    }
+
     public static void validate(Map params) {
         if (params.payerCpfCnpj.isBlank()) throw new BusinessException("É preciso selecionar um pagador")
         if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar um tipo de recebimento aceito")
@@ -54,10 +64,8 @@ class PaymentService {
     }
 
     public void setAsOverdue() {
-
         Date today = new Date()
         List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).property("id").list()
-
 
         for (Long id : paymentIdList) {
             Payment.withNewTransaction { status ->
