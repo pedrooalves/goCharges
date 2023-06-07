@@ -17,14 +17,13 @@
             </div>
             <div class="border-top border-bottom p-3">
                 <p class="font-weight-bold mr-2">Método de pagamento:</p>
-                <p class="mb-2">${payment.billingType}</p>
+                <p class="mb-2"><FormatTagLib:billingTypeNotation billingType="${payment.billingType}"/></p>
 
                 <p class="font-weight-bold mr-2">Valor:</p>
                 <p class="mb-2">${payment.value}</p>
 
                 <p class="font-weight-bold mr-2">Data de vencimento:</p>
-                <format:brazilDateNotation/>
-                <p class="mb-2"><format:brazilDateNotation date="${payment.dueDate}"/></p>
+                <p class="mb-2"><FormatTagLib:brazilDateNotation date="${payment.dueDate}"/></p>
 
                 <p class="font-weight-bold mr-2">Data de pagamento:</p>
                 <p class="mb-2"></p>
@@ -37,7 +36,7 @@
                 <p class="mb-2">${payment.payer.name}</p>
 
                 <p class="font-weight-bold mr-2">CPF / CNPJ:</p>
-                <p><format:cpfCnpjNotation cpfCnpj="${payment.payer.cpfCnpj}"/></p>
+                <p><FormatTagLib:cpfCnpjNotation cpfCnpj="${payment.payer.cpfCnpj}"/></p>
             </div>
 
             <div class="border-top border-bottom p-3">
@@ -47,7 +46,7 @@
                 <p class="mb-2">${payment.customer.name}</p>
 
                 <p class="font-weight-bold mr-2">CPF / CNPJ:</p>
-                <p><format:cpfCnpjNotation cpfCnpj="${payment.customer.cpfCnpj}"/></p>
+                <p><FormatTagLib:cpfCnpjNotation cpfCnpj="${payment.customer.cpfCnpj}"/></p>
             </div>
             </div>
         </div>
