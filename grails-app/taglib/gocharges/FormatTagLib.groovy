@@ -1,10 +1,12 @@
 package gocharges
 
+import gocharges.payment.enums.PaymentBillingType
+
 import java.sql.Timestamp
 
-class GoChargesFormatTagLib {
+class FormatTagLib {
 
-    static namespace = "format"
+    static namespace = "FormatTagLib"
 
     Integer CPF_LENGTH = 11
     Integer CNPJ_LENGTH = 14
@@ -22,6 +24,20 @@ class GoChargesFormatTagLib {
         if (attrs.cpfCnpj.length() == CNPJ_LENGTH) {
             out << attrs.cpfCnpj.substring(0, 2) + "." + attrs.cpfCnpj.substring(2, 5) + "." + attrs.cpfCnpj.substring(5, 8) + "/" +
                     attrs.cpfCnpj.substring(8, 12) + "-" + attrs.cpfCnpj.substring(12, 14)
+        }
+    }
+
+    def billingTypeNotation = { Map attrs ->
+        if (attrs.billingType == PaymentBillingType.BANK_SLIP) {
+            out << "Boleto"
+        }
+
+        if (attrs.billingType == PaymentBillingType.DEBIT_CARD) {
+            out << "Cartão de Débito"
+        }
+
+        if (attrs.billingType == PaymentBillingType.PIX) {
+            out << "Pix"
         }
     }
 
