@@ -133,7 +133,6 @@
                             </button>
                         </g:form>
                     </ul>
-
                 </ul>
             </g:each>
         </div>
