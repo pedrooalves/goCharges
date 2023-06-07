@@ -71,4 +71,12 @@ class PaymentService {
             }
         }
     }
+
+    public Payment getReceipt(String publicId) {
+        Payment payment = PaymentRepository.query([publicId: publicId, ignoreCustomer: true]).get()
+
+        if (!payment) throw new BusinessException("Cobrança não encontrada")
+
+        return payment
+    }
 }
