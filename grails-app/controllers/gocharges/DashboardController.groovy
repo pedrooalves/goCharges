@@ -5,7 +5,6 @@ import gocharges.customer.enums.CustomerStatus
 
 class DashboardController extends BaseController {
 
-
     def index() {
         Customer userCustomer = getCurrentCustomer()
 
