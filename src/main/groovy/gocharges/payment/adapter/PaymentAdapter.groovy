@@ -3,8 +3,7 @@ package gocharges.payment.adapter
 import gocharges.PaymentService
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
-
-import java.text.SimpleDateFormat
+import shared.CustomDateUtils
 
 class PaymentAdapter {
 
@@ -18,7 +17,7 @@ class PaymentAdapter {
         PaymentService.validate(params)
         this.payerCpfCnpj = params.payerCpfCnpj
         this.billingType = PaymentBillingType.valueOf(params.billingType)
-        this.dueDate = new SimpleDateFormat("yyyy-MM-dd").parse(params.dueDate)
+        this.dueDate = CustomDateUtils.fromString(params.dueDate)
         this.value = new BigDecimal(params.value)
     }
 }
