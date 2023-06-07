@@ -6,6 +6,7 @@ class UserAdapter {
 
     String username
     String password
+    String confirmPassword
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -14,6 +15,7 @@ class UserAdapter {
     public UserAdapter(Map params) {
         this.username = params.username
         this.password = params.password
+        this.confirmPassword = params.confirmPassword
         this.accountExpired = false
         this.accountLocked = false
         this.passwordExpired = false

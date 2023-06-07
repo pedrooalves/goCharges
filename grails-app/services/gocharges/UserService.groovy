@@ -19,6 +19,8 @@ class UserService {
     SpringSecurityService springSecurityService
 
     public save(UserAdapter adapter) {
+        validateSave(adapter)
+
         User user = new User()
         user.username = adapter.username
         user.password = adapter.password
@@ -45,22 +47,19 @@ class UserService {
         }
     }
 
-    public void validateSaveParams(Map params) {
-        validateParams(params)
-        if (!params.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
-        if (UserRepository.query([username: params.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
+    private void validateSave(UserAdapter adapter) {
+        validateUsernameAndPassword(adapter)
+        if (!adapter.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
+        if (UserRepository.query([username: adapter.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
     }
 
-    public void validateUpdateParams(Map params) {
-        validateParams(params)
-    }
-
-    private void validateParams(Map params) {
-        if (!params.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
-        if (params.password != params.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
+    private void validateUsernameAndPassword(UserAdapter adapter) {
+        if (!adapter.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
+        if (adapter.password != adapter.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
     }
 
     private void validateUpdate(Long id, UserAdapter adapter) {
+        validateUsernameAndPassword(adapter)
         User user = UserRepository.query([id: id]).get()
         if (!user) throw new BusinessException("Usuário não encontrado.")
 
