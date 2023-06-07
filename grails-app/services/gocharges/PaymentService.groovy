@@ -6,6 +6,7 @@ import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
+import shared.Utils
 
 @Transactional
 class PaymentService {
@@ -83,7 +84,7 @@ class PaymentService {
     public Payment getReceipt(String publicId) {
         Payment payment = PaymentRepository.query([publicId: publicId, status: PaymentStatus.RECEIVED, ignoreCustomer: true]).get()
 
-        if (!payment) throw new BusinessException("Cobrança não encontrada")
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
 
         return payment
     }
