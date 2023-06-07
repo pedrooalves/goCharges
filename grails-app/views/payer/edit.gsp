@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main" />
     <title>Listagem de Payer</title>
+    <asset:javascript src="cepFinder.js" />
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3 col-12" style="height: 100%">
@@ -41,15 +42,21 @@
 
                     <h4 class="font-weight-bold mb-2">Endereço</h4>
 
-                    <div class="form-group">
-                        <label class="mb-1">CEP</label>
-                        <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}"  name="postalCode" placeholder="00000-000" value="${payer.postalCode}" />
+                    <div class="form-row mb-2">
+                        <div class="col">
+                            <label class="mb-1">CEP</label>
+                            <input class="form-control" type="text" pattern="\d{5}-?\d{3}" onblur="searchCep(this.value)"
+                                   name="postalCode" placeholder="00000-000" value="${payer.postalCode}"/>
+                        </div>
+                        <div class="d-flex align-items-end col">
+                            <a href="https://buscacepinter.correios.com.br/" class="btn btn-outline-dark" style="text-decoration: none;"> Não sei meu CEP </a>
+                        </div>
                     </div>
 
                     <div class="form-row mb-3">
                         <div class="col">
                             <label class="mb-1">Rua</label>
-                            <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="${payer.address}" />
+                            <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="${payer.address}" />
                         </div>
                         <div class="col">
                             <label class="mb-1">Número</label>
@@ -64,18 +71,18 @@
                         </div>
                         <div class="col">
                             <label class="mb-1">Bairro</label>
-                            <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos" value="${payer.province}" />
+                            <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="${payer.province}" />
                         </div>
                     </div>
 
                     <div class="form-row mb-3">
                         <div class="col">
                             <label class="mb-1">Cidade</label>
-                            <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="${payer.city}" />
+                            <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="${payer.state}" />
                         </div>
                         <div class="col">
                             <label class="mb-1">Estado</label>
-                            <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="${payer.state}" />
+                            <input class="form-control" type="text" name="state" id="state" placeholder="Ex: Bahia" value="${payer.city}" />
                         </div>
                     </div>
 
