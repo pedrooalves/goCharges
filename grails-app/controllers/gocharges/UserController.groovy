@@ -40,7 +40,7 @@ class UserController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Save do UserController com os seguintes dados: ${params}")
+            log.info("UserController.save >> Erro em criar user com os seguintes dados: ${params}")
 
             redirect(action: "signUp")
         }
@@ -72,7 +72,7 @@ class UserController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Update do UserController com os seguintes dados: ${params}")
+            log.info("UserController.update >> Erro em atualizar user com os seguintes dados: ${params}")
         } finally {
             redirect(action: "myAccount")
         }

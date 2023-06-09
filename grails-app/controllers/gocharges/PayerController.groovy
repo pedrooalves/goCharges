@@ -11,11 +11,7 @@ class PayerController {
 
     public index() {
         List<Payer> payers = payerService.list()
-        Boolean showNewPayerForm = false
-
-        if (chainModel?.showNewPayerForm) {
-            showNewPayerForm = chainModel.showNewPayerForm
-        }
+        Boolean showNewPayerForm = Boolean.valueOf(chainModel?.showNewPayerForm)
 
         render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
     }
@@ -33,14 +29,14 @@ class PayerController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Save do PayerController com os seguintes dados: ${params}")
+            log.info("PayerController.save >> Erro em criar pagador com os seguintes dados: ${params}")
         } finally {
             redirect(action: "index")
         }
     }
 
-    public form() {
-        return [:]
+    public showForm() {
+        chain(action: "index", model: [showNewPayerForm: true])
     }
 
     public delete() {
@@ -56,7 +52,7 @@ class PayerController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Delete do PayerController com o seguinte id: ${params.id}")
+            log.info("PayerController.delete >> Erro em remover pagador com o seguinte id: ${params.id}")
         } finally {
             redirect(view: "index")
         }
@@ -76,7 +72,7 @@ class PayerController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Update do PayerController com o seguinte id: ${params.id}")
+            log.info("PayerController.update >> Erro em atualizar pagador com os seguintes dados: ${params}")
         } finally {
             redirect(action: "index")
         }

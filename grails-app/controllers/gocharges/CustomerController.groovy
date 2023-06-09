@@ -37,7 +37,7 @@ class CustomerController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Save do CustomerController com os seguintes dados: ${params}")
+            log.info("CustomerController.save >> Erro em criar customer com os seguintes dados: ${params}")
 
             redirect(action: "create")
         }
@@ -63,7 +63,7 @@ class CustomerController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flass.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Update do CustomerController com os seguintes dados: ${params}")
+            log.info("CustomerController.update >> Erro em atualizar customer com os seguintes dados: ${params}")
         } finally {
             redirect(controller: "dashboard", action: "index")
         }
@@ -82,7 +82,7 @@ class CustomerController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flass.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Delete do CustomerController com o seguinte id: ${params.id}")
+            log.info("CustomerController.delete >> Erro em remover customer com o seguinte id: ${params.id}")
         } finally {
             redirect(view: "index")
         }

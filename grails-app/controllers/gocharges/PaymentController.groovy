@@ -33,7 +33,7 @@ class PaymentController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Save do PaymentController com os seguintes dados: ${params}")
+            log.info("PaymentController.save >> Erro em criar cobrança com os seguintes dados: ${params}")
         } finally {
             redirect(action: "index")
         }
@@ -61,7 +61,7 @@ class PaymentController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Update do PaymentController com o seguinte id: ${id}")
+            log.info("PaymentController.update >> Erro em atualizar cobrança com os seguintes dados: ${params}")
         } finally {
             redirect(action: "index")
         }
@@ -84,7 +84,7 @@ class PaymentController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Delete do PaymentController com o seguinte id: ${id}")
+            log.info("PaymentController.delete >> Erro em remover cobrança com o seguinte id: ${params.id}")
         } finally {
             redirect(view: "index")
         }
@@ -103,7 +103,7 @@ class PaymentController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução da action Confirm do PaymentController com o seguinte id: ${params.id}")
+            log.info("PaymentController.confirm >> Erro em confirmar cobrança com o seguinte id: ${params.id}")
         } finally {
             redirect(action: "index")
         }
