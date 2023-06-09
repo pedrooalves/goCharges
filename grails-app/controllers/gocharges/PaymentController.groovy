@@ -36,7 +36,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Save do PaymentController com os seguintes dados: ${params}")
         } finally {
-            redirect("view: index")
+            redirect(action: "index")
         }
     }
 
@@ -64,7 +64,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Update do PaymentController com o seguinte id: ${params.id}")
         } finally {
-            redirect("view: index")
+            redirect(action: "index")
         }
     }
 
@@ -87,7 +87,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Delete do PaymentController com o seguinte id: ${params.id}")
         } finally {
-            redirect("view: index")
+            redirect(action: "index")
         }
     }
 
@@ -106,7 +106,7 @@ class PaymentController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Confirm do PaymentController com o seguinte id: ${params.id}")
         } finally {
-            redirect("view: index")
+            redirect(action: "index")
         }
     }
 }
