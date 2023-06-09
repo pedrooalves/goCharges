@@ -10,13 +10,18 @@ import gocharges.auth.user.adapter.UserAdapter
 import gocharges.auth.userrole.UserRoleRepository
 import gocharges.exception.BusinessException
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.SpringSecurityService
+import shared.Utils
 
 @Transactional
 class UserService {
 
+    SpringSecurityService springSecurityService
     CustomerService customerService
 
     public void save(UserAdapter adapter) {
+        validateSave(adapter)
+
         User user = new User()
         user.username = adapter.username
         user.password = adapter.password
@@ -45,21 +50,38 @@ class UserService {
         }
     }
 
-    public static void validate(Map params) {
-        if (!params.username) {
-            throw new BusinessException("O campo e-mail é obrigatório")
+    private void validateSave(UserAdapter adapter) {
+        validateUsernameAndPassword(adapter)
+        if (!adapter.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
+        if (UserRepository.query([username: adapter.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
+    }
+
+    private void validateUsernameAndPassword(UserAdapter adapter) {
+        if (!adapter.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
+        if (adapter.password != adapter.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
+    }
+
+    private void validateUpdate(Long id, UserAdapter adapter) {
+        validateUsernameAndPassword(adapter)
+        User user = UserRepository.query([id: id]).get()
+        if (!user) throw new BusinessException("Usuário não encontrado.")
+
+        Boolean hasUserWithSameEmail = UserRepository.query([username: adapter.username, includeDeleted: true, "id[ne]": id])
+                .get().asBoolean()
+        if (hasUserWithSameEmail) throw new BusinessException("E-mail já em uso!")
+    }
+
+    public User update(Long id, UserAdapter adapter, String currentPassword) {
+        validateUpdate(id, adapter)
+
+        User user = UserRepository.query([id: id]).get()
+        if (!springSecurityService.passwordEncoder.matches(currentPassword, user.password)) {
+            throw new BusinessException("Senha incorreta")
         }
 
-        if (!params.password) {
-            throw new BusinessException("O campo senha é obrigatório")
-        }
+        user.username = adapter.username
+        user.password = adapter.password ? adapter.password : currentPassword
 
-        if (UserRepository.query([username: params.username]).get()) {
-            throw new BusinessException("E-mail já cadastrado")
-        }
-
-        if (!(params.password == params.confirmPassword)) {
-            throw new BusinessException("As senhas precisam ser iguais")
-        }
+        return user.save(failOnError: true)
     }
 }

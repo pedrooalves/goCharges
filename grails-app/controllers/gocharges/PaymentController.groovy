@@ -53,7 +53,7 @@ class PaymentController {
 
             paymentService.update(id, adapter)
 
-            flash.message = "Cobrança alterada com sucesso!"
+            flash.message = "Cobrança alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
@@ -76,7 +76,7 @@ class PaymentController {
             Long id = Long.valueOf(params.id)
             paymentService.delete(id)
 
-            flash.message = "Cobrança excluída com sucesso!"
+            flash.message = "Cobrança removida com sucesso"
             flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
@@ -87,6 +87,25 @@ class PaymentController {
             log.info("Erro na execução da action Delete do PaymentController com o seguinte id: ${id}")
         } finally {
             redirect(view: "index")
+        }
+    }
+
+    public Map confirm() {
+        try {
+            Long id = Long.valueOf(params.id)
+            paymentService.confirm(id)
+
+            flash.message = "Cobrança confirmada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde."
+            flash.type = FlashMessageType.ERROR
+            log.info("Erro na execução da action Confirm do PaymentController com o seguinte id: ${params.id}")
+        } finally {
+            redirect(action: "index")
         }
     }
 }

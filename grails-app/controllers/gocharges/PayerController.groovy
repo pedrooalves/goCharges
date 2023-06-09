@@ -39,7 +39,6 @@ class PayerController {
         }
     }
 
-
     public form() {
         return [:]
     }

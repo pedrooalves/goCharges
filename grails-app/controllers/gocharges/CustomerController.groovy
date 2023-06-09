@@ -1,13 +1,12 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
 import shared.FlashMessageType
-import grails.plugin.springsecurity.SpringSecurityService
 
-class CustomerController {
+class CustomerController extends BaseController {
 
-    SpringSecurityService springSecurityService
     CustomerService customerService
 
     def index() {
@@ -17,14 +16,13 @@ class CustomerController {
     }
 
     def create() {
-        String userEmail = springSecurityService.getCurrentUser().username
+        String userEmail = getCurrentCustomer().email
         render(view: "create", model: [userEmail: userEmail])
     }
 
     def save() {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
-
             customerService.save(adapter)
 
             flash.message = "Conta criada com sucesso"
@@ -46,15 +44,16 @@ class CustomerController {
     }
 
     def edit() {
-        Customer userCustomer = springSecurityService.getCurrentUser().customer
+        Customer customer = getCurrentCustomer()
 
-        render(view: "edit", model: [customer: userCustomer])
+        render(view: "edit", model: [customer: customer])
     }
 
     def update() {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
-            customerService.update(adapter)
+
+            customerService.update(adapter, getCurrentCustomer())
 
             flash.message = "Conta alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
@@ -66,7 +65,7 @@ class CustomerController {
             flass.type = FlashMessageType.ERROR
             log.info("Erro na execução da action Update do CustomerController com os seguintes dados: ${params}")
         } finally {
-            redirect(action: "index")
+            redirect(controller: "dashboard", action: "index")
         }
     }
 
