@@ -1,17 +1,14 @@
 package gocharges
 
-import gocharges.auth.User
+import gocharges.controller.base.BaseController
 import gocharges.customer.enums.CustomerStatus
-import grails.plugin.springsecurity.SpringSecurityService
 
-class DashboardController {
-
-    SpringSecurityService springSecurityService
+class DashboardController extends BaseController {
 
     def index() {
-        User currentUser = springSecurityService.loadCurrentUser()
+        Customer userCustomer = getCurrentCustomer()
 
-        if (currentUser.customer.status == CustomerStatus.PENDING) {
+        if (userCustomer.status == CustomerStatus.PENDING) {
             redirect(controller: "customer", action: "create")
         }
 

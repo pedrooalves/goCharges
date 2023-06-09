@@ -17,7 +17,7 @@ public abstract class BasePersonAdapter {
     String state
 
     public BasePersonAdapter(Map params) {
-        this.name = params.get("name")
+        this.name = params.name
         this.email = params.email
         this.mobilePhone = Utils.removeNonNumeric(params.mobilePhone)
         this.cpfCnpj = Utils.removeNonNumeric(params.cpfCnpj)

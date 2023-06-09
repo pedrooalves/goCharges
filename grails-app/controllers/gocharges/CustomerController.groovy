@@ -23,20 +23,6 @@ class CustomerController extends BaseController {
         render(view: "create", model: [userEmail: userEmail])
     }
 
-    def save() {
-        try {
-            CustomerAdapter adapter = convertToAdapter(params)
-
-            customerService.save(adapter)
-
-            Map validation = [success: true, message: "Conta criada com sucesso!"]
-            redirect(controller: "dashboard", action: "index")
-        } catch (BusinessException exception) {
-            Map validation = [success: false, message: exception.getMessage()]
-            redirect(controller: "dashboard", action: "index")
-        }
-    }
-
     def edit() {
         Customer userCustomer = getCurrentCustomer()
 
