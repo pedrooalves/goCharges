@@ -11,6 +11,7 @@ class Payment extends BaseEntity {
     PaymentStatus status = PaymentStatus.PENDING
     Date dueDate
     BigDecimal value
+    Date paymentDate
 
     Customer customer
 
@@ -19,5 +20,6 @@ class Payment extends BaseEntity {
         status(blank:false)
         dueDate(blank: false, nullable: false)
         value(blank:false, nullable: false)
+        paymentDate(nullable: true)
     }
 }

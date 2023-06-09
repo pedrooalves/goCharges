@@ -1,0 +1,26 @@
+version: 2
+mergeable:
+  - when: pull_request.opened, pull_request.edited
+    validate:
+      - do: baseRef
+        must_exclude:
+          regex: "master|release"
+      - do: description
+        must_exclude:
+          regex: "https://github.com/asaasdev/asaas/pull/|#[0-9]"
+    pass:
+      - do: comment
+        payload:
+          body: Adicione um link para o PR Predecessora na descrição do PR
+
+  - when: pull_request.opened, pull_request.edited
+    validate:
+      - do: baseRef
+        must_include:
+          regex: "master|release"
+    pass:
+      - do: labels
+        delete: "aguardando outro PR"
+    fail:
+      - do: labels
+        add: "aguardando outro PR"
