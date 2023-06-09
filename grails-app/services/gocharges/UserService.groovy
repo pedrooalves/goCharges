@@ -17,8 +17,9 @@ import shared.Utils
 class UserService {
 
     SpringSecurityService springSecurityService
+    CustomerService customerService
 
-    public save(UserAdapter adapter) {
+    public void save(UserAdapter adapter) {
         validateSave(adapter)
 
         User user = new User()
@@ -28,6 +29,8 @@ class UserService {
         user.accountExpired = adapter.accountExpired
         user.accountLocked = adapter.accountLocked
         user.passwordExpired = adapter.passwordExpired
+
+        user.customer = customerService.save(user.username)
 
         user.save(failOnError: true)
 

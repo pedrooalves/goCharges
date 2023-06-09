@@ -1,10 +1,10 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
-import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
 
-class CustomerController {
+class CustomerController extends BaseController {
 
     CustomerService customerService
 
@@ -18,33 +18,35 @@ class CustomerController {
         }
     }
 
+    def create() {
+        String userEmail = getCurrentCustomer().email
+        render(view: "create", model: [userEmail: userEmail])
+    }
+
     def save() {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Customer customer = customerService.save(adapter)
+            customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
-            chain(action: "index", model: [validation: validation])
+            redirect(controller: "dashboard", action: "index")
         } catch (BusinessException exception) {
-
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation: validation])
+            redirect(controller: "dashboard", action: "index")
         }
     }
 
     def edit() {
-        Long id = Long.valueOf(params.id)
-        Customer customer = CustomerRepository.query([id: id]).get()
+        Customer userCustomer = getCurrentCustomer()
 
-        render(view: "edit", model: [customer: customer])
+        render(view: "edit", model: [customer: userCustomer])
     }
 
     def update() {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.valueOf(params.id)
 
-            customerService.update(id, adapter)
+            customerService.update(adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta alterada com sucesso!"]
             chain(action: "index", model: [validation: validation])
