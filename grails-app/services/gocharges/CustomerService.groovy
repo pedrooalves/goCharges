@@ -6,13 +6,10 @@ import gocharges.customer.enums.CustomerStatus
 import gocharges.exception.BusinessException
 import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
-import grails.plugin.springsecurity.SpringSecurityService
 import shared.Utils
 
 @Transactional
 class CustomerService {
-
-    SpringSecurityService springSecurityService
 
     public Customer save(String email) {
         Long emailInUseId = CustomerRepository.query([email: email, includeDeleted: true]).property("id").get()
@@ -45,8 +42,8 @@ class CustomerService {
         if (!adapter.state) throw new BusinessException(Utils.getMessageProperty("default.null.message", "estado"))
     }
 
-    private void validateEmailInUse(Long userCustomerId, String emailToValidate) {
-        Boolean emailInUse = CustomerRepository.query([email: emailToValidate, includeDeleted: true, "id[ne]": userCustomerId]).get().asBoolean()
+    private void validateEmailInUse(Long customerId, String emailToValidate) {
+        Boolean emailInUse = CustomerRepository.query([email: emailToValidate, includeDeleted: true, "id[ne]": customerId]).get().asBoolean()
         if (emailInUse) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
     }
 
@@ -55,35 +52,35 @@ class CustomerService {
         if (cpfCnpjInUse) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "CPF/CNPJ"))
     }
 
-    private void validateUpdate(Customer userCustomer, CustomerAdapter adapter) {
+    private void validateUpdate(Customer customer, CustomerAdapter adapter) {
         validateNotNull(adapter)
         CpfCnpjUtils.validate(adapter.cpfCnpj)
         validateCpfCnpjInUse(adapter.cpfCnpj)
-        validateEmailInUse(userCustomer.id, adapter.email)
+        validateEmailInUse(customer.id, adapter.email)
     }
 
     public Customer update(CustomerAdapter adapter, Customer customer) {
-        Customer userCustomer = customer
+        validateUpdate(customer, adapter)
 
-        validateUpdate(userCustomer, adapter)
+        validateUpdate(customer, adapter)
 
-        userCustomer.name = adapter.name
-        userCustomer.email = adapter.email
-        userCustomer.cpfCnpj = adapter.cpfCnpj
-        userCustomer.mobilePhone = adapter.mobilePhone
-        userCustomer.postalCode = adapter.postalCode
-        userCustomer.address = adapter.address
-        userCustomer.addressNumber = adapter.addressNumber
-        userCustomer.complement = adapter.complement
-        userCustomer.province = adapter.province
-        userCustomer.city = adapter.city
-        userCustomer.state = adapter.state
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.cpfCnpj = adapter.cpfCnpj
+        customer.mobilePhone = adapter.mobilePhone
+        customer.postalCode = adapter.postalCode
+        customer.address = adapter.address
+        customer.addressNumber = adapter.addressNumber
+        customer.complement = adapter.complement
+        customer.province = adapter.province
+        customer.city = adapter.city
+        customer.state = adapter.state
 
-        if (userCustomer.status == CustomerStatus.PENDING) {
-            userCustomer.status = CustomerStatus.ACTIVE
+        if (customer.status == CustomerStatus.PENDING) {
+            customer.status = CustomerStatus.ACTIVE
         }
 
-        return userCustomer.save(failOnError: true)
+        return customer.save(failOnError: true)
     }
 
     public List<Customer> list() {

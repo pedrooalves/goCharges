@@ -33,7 +33,7 @@ class PayerRepository {
                 ne("id", search.get("id[ne]"))
             }
 
-            if (search.containsKey("customer")) {
+            if(search.containsKey("customer")) {
                 eq("customer", search.customer)
             }
         }

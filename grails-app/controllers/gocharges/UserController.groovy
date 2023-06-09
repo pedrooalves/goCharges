@@ -1,11 +1,14 @@
 package gocharges
 
+import gocharges.auth.User
 import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
+import grails.plugin.springsecurity.SpringSecurityService
 
 class UserController {
 
     UserService userService
+    SpringSecurityService springSecurityService
 
     public index() {
 
@@ -26,14 +29,40 @@ class UserController {
 
     public save() {
         try {
-            UserAdapter userAdapter = new UserAdapter(params)
-            userService.save(userAdapter)
+            UserAdapter adapter = new UserAdapter(params)
+            userService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso", type: "save"]
             chain(action: "signUp", model: [validation: validation])
         } catch (BusinessException businessException) {
             Map validation = [success: false, message: businessException.getMessage(), type: "save"]
             chain(action: "signUp", model: [validation: validation])
+        }
+    }
+
+    public myAccount() {
+        User user = springSecurityService.getCurrentUser()
+
+        if (chainModel) {
+            Map validation = chainModel.validation
+            render(view: "myaccount", model: [user: user, validation: validation])
+        } else {
+            render(view: "myaccount", model: [user: user])
+        }
+    }
+
+    public update() {
+        try {
+            UserAdapter adapter = new UserAdapter(params)
+            Long id = Long.valueOf(params.id)
+            String currentPassword = params.currentPassword
+            userService.update(id, adapter, currentPassword)
+
+            Map validation = [success: true, message: "Informações salvas com sucesso", type: "update"]
+            chain(action: "myAccount", model: [validation: validation])
+        } catch (BusinessException businessException) {
+            Map validation = [success: false, message: businessException.getMessage(), type: "update"]
+            chain(action: "myAccount", model: [validation: validation])
         }
     }
 }
