@@ -9,7 +9,6 @@ import grails.gorm.transactions.Transactional
 class DashboardService {
 
     public Map info(Customer customer) {
-
         Map info = [:]
         info.payerCount = PayerRepository.query([customer: customer]).count()
         info.pendingPaymentCount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: userCustomer]).count()
