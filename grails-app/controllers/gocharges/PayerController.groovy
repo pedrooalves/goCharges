@@ -34,6 +34,9 @@ class PayerController extends BaseController {
         } catch (BusinessException businessException) {
             Map validation = [success: false, message: businessException.getMessage(), type: "save"]
             chain(action: "index", model: [validation: validation, showNewPayerForm: true])
+        } catch (Exception exception) {
+            Map validation = [success: false, message: exception.getMessage(), type: "save"]
+            chain(action: "index", model: [validation: validation])
         }
     }
 
@@ -43,23 +46,34 @@ class PayerController extends BaseController {
     }
 
     public delete() {
-        Long id = Long.parseLong(params.id)
-        payerService.delete(id, getCurrentCustomer())
+        try {
+            Long id = Long.valueOf(params.id)
+            payerService.delete(id, getCurrentCustomer())
 
-        Map validation = [success: true, message: "Pagador excluído com sucesso", type: "delete"]
-        chain(view: "index", model: [validation: validation])
+            Map validation = [success: true, message: "Pagador excluído com sucesso", type: "delete"]
+            chain(view: "index", model: [validation: validation])
+        } catch (BusinessException businessException) {
+            Map validation = [success: false, message: businessException.getMessage(), type: "delete"]
+            chain(action: "index", model: [validation: validation])
+        } catch (Exception exception) {
+            Map validation = [success: false, message: exception.getMessage(), type: "delete"]
+            chain(action: "index", model: [validation: validation])
+        }
     }
 
     public update() {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
             payerService.update(id, adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Pagador salvo com sucesso", type: "update"]
             chain(action: "index", model: [validation: validation])
         } catch (BusinessException businessException) {
             Map validation = [success: false, message: businessException.getMessage(), type: "update"]
+            chain(action: "index", model: [validation: validation])
+        } catch (Exception exception) {
+            Map validation = [success: false, message: exception.getMessage(), type: "update"]
             chain(action: "index", model: [validation: validation])
         }
     }
@@ -69,15 +83,30 @@ class PayerController extends BaseController {
     }
 
     public edit() {
-        Long id = Long.parseLong(params.id)
-        Customer customer = getCurrentCustomer()
-        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
+        Long id = Long.valueOf(params.id)
+        Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
         if (chainModel) {
             Map validation = chainModel.validation
             render(view: "edit", model: [payer: payer, validation: validation])
         } else {
             render(view: "edit", model: [payer: payer])
+        }
+    }
+
+    public restore() {
+        try {
+            Long id = Long.valueOf(params.id)
+            payerService.restore(id, getCurrentCustomer())
+
+            Map validation = [success: true, message: "Pagador restaurado com sucesso", type: "restore"]
+            chain(action: "index", model: [validation: validation])
+        } catch (BusinessException businessException) {
+            Map validation = [success: false, message: exception.getMessage(), type: "restore"]
+            chain(action: "index", model: [validation: validation])
+        } catch (Exception exception) {
+            Map validation = [success: false, message: exception.getMessage(), type: "restore"]
+            chain(action: "index", model: [validation: validation])
         }
     }
 }
