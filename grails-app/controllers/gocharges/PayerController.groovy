@@ -27,7 +27,7 @@ class PayerController extends BaseController {
     public save() {
         try {
             PayerAdapter payerAdapter = new PayerAdapter(params)
-            payerService.save(payerAdapter,  getCurrentCustomer())
+            payerService.save(payerAdapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation])
