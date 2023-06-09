@@ -20,7 +20,7 @@ class UserController {
     }
 
     public signUp() {
-        render(view: "signUp")
+        render(view: "signup")
     }
 
     public save() {

@@ -12,13 +12,6 @@
             </div>
 
             <div class="card">
-                <g:if test="${flash?.message}">
-                    <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}"
-                         role="alert">
-                        ${flash.message}
-                    </div>
-                </g:if>
-
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
                         <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>
