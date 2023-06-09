@@ -26,7 +26,6 @@ class CustomerController extends BaseController {
     def save() {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
-
             customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
