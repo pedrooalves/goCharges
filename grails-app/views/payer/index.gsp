@@ -4,6 +4,7 @@
     <meta name="layout" content="main" />
     <title>Listagem de Payer</title>
     <asset:javascript src="cepFinder.js" />
+    <asset:javascript src="goCharges.js" />
 </head>
 <body>
     <div class="container col-12" style="height: 100%">
@@ -100,7 +101,15 @@
                 <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
                     <h1>Pagadores</h1>
                 </div>
-                <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
+
+                <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
+                    <a class="col-4" href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
+                        <g:form class="d-flex justify-content-center col-4" name="status" url="[controller: 'payer', action: 'index']" method="POST">
+                            <button class="nav-button m-3" type="submit" name="includeDeleted" value=${true}>Todos</button></a>
+                            <button class="nav-button m-3" type="submit">Ativos</button></a>
+                            <button class="nav-button m-3" type="submit" name="deletedOnly" value=${true}>Excluídos</button></a>
+                        </g:form>
+                </nav>
 
                 <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
                 (validation.type.equals('save') && validation.success))}">
@@ -115,7 +124,6 @@
                     <h1 class="col fw-bold text-center">Cpf ou Cnpj</h1>
                     <h1 class="col fw-bold text-center">Celular</h1>
                     <h1 class="col fw-bold text-center">Endereço</h1>
-
                 </div>
 
                 <g:each var="payer" in="${payers}">

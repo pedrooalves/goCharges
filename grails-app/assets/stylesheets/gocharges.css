@@ -13,3 +13,15 @@ html, body {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
+
+.nav-button {
+    all: unset;
+    cursor: pointer;
+    color: grey;
+}
+
+.nav-button.active {
+    all: unset;
+    cursor: pointer;
+    font-weight: bolder;
+}
