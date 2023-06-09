@@ -4,6 +4,7 @@ import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
+import shared.FlashMessageType
 
 class PaymentController extends BaseController {
 
