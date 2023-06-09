@@ -36,7 +36,7 @@
                 <p class="mb-2">${payment.payer.name}</p>
 
                 <p class="font-weight-bold mr-2">CPF / CNPJ:</p>
-                <p><FormatTagLib:cpfCnpjNotation cpfCnpj="${payment.payer.cpfCnpj}"/></p>
+                <p>${payment.payer.cpfCnpj}</p>
             </div>
 
             <div class="border-top border-bottom p-3">
@@ -46,7 +46,7 @@
                 <p class="mb-2">${payment.customer.name}</p>
 
                 <p class="font-weight-bold mr-2">CPF / CNPJ:</p>
-                <p><FormatTagLib:cpfCnpjNotation cpfCnpj="${payment.customer.cpfCnpj}"/></p>
+                <p>${payment.customer.cpfCnpj}</p>
             </div>
             </div>
         </div>
