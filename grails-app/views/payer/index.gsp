@@ -151,8 +151,7 @@
                                 </button>
                             </g:form>
                         </g:if>
-
-                        <g:if test="${payer.deleted == true}">
+                        <g:else>
                             <g:form name="deleteButton" url="[controller: 'payer', action: 'restore']" method="POST">
                                 <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
@@ -161,7 +160,7 @@
                                     </svg>
                                 </button>
                             </g:form>
-                        </g:if>
+                        </g:else>
                     </ul>
                 </g:each>
             </div>
