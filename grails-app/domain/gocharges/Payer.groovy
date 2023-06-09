@@ -13,10 +13,10 @@ class Payer extends BaseEntity {
     Customer customer
 
     static constraints = {
-        name(blank:false)
-        email(email:true, blank:false, unique:'customer')
-        mobilePhone(blank:false)
-        cpfCnpj(blank:false, unique:'customer', size: 11..14)
-        address(blank:false)
+        name(blank: false)
+        email(email: true, blank: false, unique: 'customer')
+        mobilePhone(blank: false)
+        cpfCnpj(blank: false, unique: 'customer', size: 11..14)
+        address(blank: false)
     }
 }

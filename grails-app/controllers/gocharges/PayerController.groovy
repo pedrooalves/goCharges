@@ -43,7 +43,7 @@ class PayerController extends BaseController {
     }
 
     public delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         payerService.delete(id, getCurrentCustomer())
 
         Map validation = [success: true, message: "Pagador excluído com sucesso", type: "delete"]
@@ -53,7 +53,7 @@ class PayerController extends BaseController {
     public update() {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
             payerService.update(id, adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Pagador salvo com sucesso", type: "update"]
@@ -69,9 +69,8 @@ class PayerController extends BaseController {
     }
 
     public edit() {
-        Long id = Long.parseLong(params.id)
-        Customer customer = getCurrentCustomer()
-        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
+        Long id = Long.valueOf(params.id)
+        Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
         if (chainModel) {
             Map validation = chainModel.validation

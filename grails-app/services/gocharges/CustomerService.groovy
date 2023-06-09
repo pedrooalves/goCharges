@@ -4,14 +4,11 @@ import gocharges.customer.CustomerAdapter
 import gocharges.customer.CustomerRepository
 import gocharges.customer.enums.CustomerStatus
 import gocharges.exception.BusinessException
-import gocharges.validator.CpfCnpjValidator
+import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
-import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class CustomerService {
-
-    SpringSecurityService springSecurityService
 
     public Customer save(String email) {
         Long emailInUseId = CustomerRepository.query([email: email, includeDeleted: true]).property("id").get()
@@ -48,34 +45,31 @@ class CustomerService {
         if (cpfCnpjInUseId) throw new BusinessException("CPF / CNPJ em uso.")
     }
 
-    private void validateUpdate(Customer userCustomer, CustomerAdapter adapter) {
+    private void validateUpdate(Customer customer, CustomerAdapter adapter) {
         validateNotNull(adapter)
-
-        CpfCnpjValidator.validate(adapter.cpfCnpj)
+        CpfCnpjUtils.validate(adapter.cpfCnpj)
 
         validateCpfCnpjInUse(adapter.cpfCnpj)
 
-        validateEmailInUse(userCustomer.id, adapter.email)
+        validateEmailInUse(customer.id, adapter.email)
     }
 
-    public Customer update(CustomerAdapter adapter) {
-        Customer userCustomer = springSecurityService.getCurrentUser().customer
+    public Customer update(CustomerAdapter adapter, Customer customer) {
+        validateUpdate(customer, adapter)
 
-        validateUpdate(userCustomer, adapter)
+        customer.name = adapter.name
+        customer.email = adapter.email
+        customer.cpfCnpj = adapter.cpfCnpj
+        customer.mobilePhone = adapter.mobilePhone
+        customer.address = adapter.address
 
-        userCustomer.name = adapter.name
-        userCustomer.email = adapter.email
-        userCustomer.cpfCnpj = adapter.cpfCnpj
-        userCustomer.mobilePhone = adapter.mobilePhone
-        userCustomer.address = adapter.address
-
-        if (userCustomer.status == CustomerStatus.PENDING) {
-            userCustomer.status = CustomerStatus.ACTIVE
+        if (customer.status == CustomerStatus.PENDING) {
+            customer.status = CustomerStatus.ACTIVE
         }
 
-        userCustomer.save(failOnError: true)
+        customer.save(failOnError: true)
 
-        return userCustomer
+        return customer
     }
 
     public List<Customer> list() {

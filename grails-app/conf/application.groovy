@@ -22,6 +22,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/payer/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/payment/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/dashboard/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
+		[pattern: '/user/myAccount',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/**',          access: ['IS_AUTHENTICATED_ANONYMOUSLY']],
 ]
 
