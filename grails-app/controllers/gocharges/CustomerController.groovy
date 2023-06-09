@@ -11,51 +11,51 @@ class CustomerController {
     def index() {
         List<Customer> customerList = customerService.list()
 
-        if(chainModel) {
-            render(view:"index", model: [customers : customerList, validation: chainModel.validation])
+        if (chainModel) {
+            render(view: "index", model: [customers: customerList, validation: chainModel.validation])
         } else {
-            render(view:"index", model: [customers : customerList])
+            render(view: "index", model: [customers: customerList])
         }
     }
 
     def save() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
             Customer customer = customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
-        }catch(BusinessException exception){
+            chain(action: "index", model: [validation: validation])
+        } catch (BusinessException exception) {
 
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            chain(action: "index", model: [validation: validation])
         }
     }
 
     def edit() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         Customer customer = CustomerRepository.query([id: id]).get()
 
-        render(view: "edit", model: [customer:customer])
+        render(view: "edit", model: [customer: customer])
     }
 
     def update() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.parseLong(params.id)
+            Long id = Long.valueOf(params.id)
 
             customerService.update(id, adapter)
 
             Map validation = [success: true, message: "Conta alterada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
-        }catch(BusinessException exception) {
+            chain(action: "index", model: [validation: validation])
+        } catch (BusinessException exception) {
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            chain(action: "index", model: [validation: validation])
         }
     }
 
     def delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         customerService.delete(id)
 
         redirect(view: "index")
