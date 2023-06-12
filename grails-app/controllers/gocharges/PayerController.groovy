@@ -39,11 +39,6 @@ class PayerController extends BaseController {
         }
     }
 
-
-    public form() {
-        return [:]
-    }
-
     public delete() {
         try {
             Long id = Long.valueOf(params.id)
