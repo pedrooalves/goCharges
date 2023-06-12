@@ -11,21 +11,13 @@ class PayerController extends BaseController {
 
     public index() {
         String deletedOnly = params.deletedOnly
-        if(deletedOnly && !Boolean.valueOf(deletedOnly)) {
+        if (deletedOnly && !Boolean.valueOf(deletedOnly)) {
             params.put("includeDeleted", true)
         }
         List<Payer> payers = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            if (chainModel.showNewPayerForm) {
-                showNewPayerForm = true
-            }
-            render(view: "index", model: [payers: payers, validation: validation, showNewPayerForm: showNewPayerForm])
-        } else {
-            render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
-        }
+        render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {
@@ -99,12 +91,7 @@ class PayerController extends BaseController {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "edit", model: [payer: payer, validation: validation])
-        } else {
-            render(view: "edit", model: [payer: payer])
-        }
+        render(view: "edit", model: [payer: payer])
     }
 
     public restore() {
