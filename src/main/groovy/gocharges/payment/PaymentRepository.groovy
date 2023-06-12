@@ -1,6 +1,7 @@
 package gocharges.payment
 
 import gocharges.Payment
+import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.DetachedCriteria
 
@@ -24,6 +25,10 @@ class PaymentRepository {
 
             if(search.containsKey("dueDate[le]")) {
                 le("dueDate", search."dueDate[le]")
+            }
+
+            if(search.containsKey("billingType")) {
+                eq("billingType", PaymentBillingType.valueOf(search.billingType.toString()))
             }
 
             if(search.containsKey("status")) {
