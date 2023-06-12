@@ -109,7 +109,7 @@
                                 <option type="text" value="deletedOnly">Exibir somente pagadores inativos</option>
                                 <option type="text" value="includeDeleted">Exibir todos os pagadores</option>
                             </select><br/>
-                            <button class="btn btn-outline-primary">Buscar</button></a>
+                            <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                         </g:form>
                 </nav>
 
