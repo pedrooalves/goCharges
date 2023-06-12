@@ -12,6 +12,7 @@
                 ${validation.message}
             </div>
         </g:if>
+
         <div>
             <label>E-mail</label>
             <input type='email' name='username' id='username' value=""/>
@@ -31,7 +32,6 @@
             <a href="/"><input class="btn btn-outline-secondary" type="button" name="cancelButton" value="Cancelar"/></a>
             <input class="btn bg-gogreen text-white" type="submit" value="Cadastrar"/>
         </div>
-
     </g:form>
 </body>
 </html>
