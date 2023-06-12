@@ -114,7 +114,7 @@
                 </nav>
 
                 <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
+                    <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Adicionar pagador</button></a>
                 </div>
 
                 <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
