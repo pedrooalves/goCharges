@@ -13,7 +13,7 @@
                     <h1>Cobranças</h1>
 
                     <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payment', action:'create')}">
-                        <button class="btn btn-primary">Nova</button>
+                        <button class="btn btn-primary">Nova Cobrança</button>
                     </a>
                 </div>
 
