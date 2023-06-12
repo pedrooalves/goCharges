@@ -102,9 +102,15 @@
                     <h1>Pagadores</h1>
                 </div>
 
-                <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                        <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payer', action: 'index']" method="POST">
-                            <select name="deletedOnly">
+                <nav class="navbar navbar-expand navbar-light bg-light col-12 mb-3">
+                        <g:form class="d-flex justify-content-center col-12" name="status" url="[controller: 'payer', action: 'index']" method="POST">
+                            <input class="col" name="name[ilike]" value="" placeholder="Nome">
+                            <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
+                            <input class="col ml-3" name="cpfCnpj[ilike]" value="" placeholder="CPF / CNPJ">
+                            <input class="col ml-3" name="mobilePhone[ilike]" value="" placeholder="Celular">
+                            <input class="col ml-3" name="city[ilike]" value="" placeholder="Cidade">
+                            <input class="col ml-3" name="state[ilike]" value="" placeholder="Estado">
+                            <select class="ml-3" name="deletedOnly">
                                 <option type="text" value="">Exibir somente pagadores ativos</option>
                                 <option type="text" value="true">Exibir somente pagadores inativos</option>
                                 <option type="text" value="false">Exibir todos os pagadores</option>

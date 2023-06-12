@@ -15,8 +15,17 @@ class PayerRepository {
                 eq("cpfCnpj", search.cpfCnpj)
             }
 
+            if(search.containsKey("cpfCnpj[ilike]")) {
+                ilike("cpfCnpj", "%${search.get("cpfCnpj[ilike]")}%")
+            }
+
+
             if (search.containsKey("email")) {
                 eq("email", search.email)
+            }
+
+            if(search.containsKey("email[ilike]")) {
+                ilike("email", "%${search.get("email[ilike]")}%")
             }
 
             if (Boolean.valueOf(search.deletedOnly)) {
@@ -35,6 +44,22 @@ class PayerRepository {
 
             if(search.containsKey("customer")) {
                 eq("customer", search.customer)
+            }
+
+            if(search.containsKey("name[ilike]")) {
+                ilike("name", "%${search.get("name[ilike]")}%")
+            }
+
+            if(search.containsKey("mobilePhone[ilike]")) {
+                ilike("mobilePhone", "%${search.get("mobilePhone[ilike]")}%")
+            }
+
+            if(search.containsKey("city[ilike]")) {
+                ilike("city", "%${search.get("city[ilike]")}%")
+            }
+
+            if(search.containsKey("state[ilike]")) {
+                ilike("state", "%${search.get("state[ilike]")}%")
             }
         }
         return query
