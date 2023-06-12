@@ -29,6 +29,10 @@ class PaymentRepository {
                 eq("status", search.status)
             }
 
+            if(search.containsKey("payer")) {
+                eq("payer", search.payer)
+            }
+
             if(search.containsKey("customer")) {
                 eq("customer", search.customer)
             }

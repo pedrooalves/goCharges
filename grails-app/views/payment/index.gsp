@@ -67,12 +67,18 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select name="deletedOnly">
-                            <option type="text" value="">Exibir somente cobranças ativas</option>
-                            <option type="text" value="true">Exibir somente cobranças inativas</option>
-                            <option type="text" value="false">Exibir todas as cobranças</option>
+                        <select name="payerId">
+                            <option value="">Nenhum selecionado</option>
+                            <g:each var="payer" in="${payerList}">
+                                <option value="${payer.id}">${payer.name}</option>
+                            </g:each>
                         </select><br/>
-                        <button class="btn btn-outline-primary ml-3">Buscar</button></a>
+                        <select class="ml-3" name="deletedOnly">
+                            <option value="">Exibir somente cobranças ativas</option>
+                            <option value="true">Exibir somente cobranças inativas</option>
+                            <option value="false">Exibir todas as cobranças</option>
+                        </select><br/>
+                        <button class="btn btn-outline-primary ml-3">Buscar</button>
                     </g:form>
                 </nav>
 
