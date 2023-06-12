@@ -7,67 +7,13 @@
 <body>
 
 <div class="container col-12">
-
     <div class="card-body row">
-
-        <g:if test="${showNewPayerForm != false}">
-            <div class="col-3">
-                <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
-                    <h1 class="display-4">Novo Pagador</h1>
-                </div>
-
-                <g:if test="${validation != null && validation.type.equals('save')}">
-                    <div class="alert alert-danger" role="alert">
-                        ${validation.message}
-                    </div>
-                </g:if>
-
-                <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
-                    <div class="form-group mb-3">
-                        <label class="mb-2 fw-bold">Nome</label>
-                        <input class="form-control" type="text" name="name" value="" /><br/>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">E-mail</label>
-                        <input class="form-control" type="email" name="email" value="" /><br/>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Celular</label>
-                        <input class="form-control" type="text" name="mobilePhone" value="" /><br/>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">CPF / CNPJ </label>
-                        <input class="form-control" type="text" name="cpfCnpj" value="" /><br >
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Endereco </label>
-                        <input class="form-control" type="text" name="address" value="" /><br/>
-                    </div>
-
-                    <div class="navbar d-flex justify-content-space-between">
-                        <a href="${createLink(action:'index', controller:'payer')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
-                        <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar" />
-                    </div>
-                </g:form>
-            </div>
-        </g:if>
-
         <div class="col 6">
-            <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
+            <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
                 <h1>Pagadores</h1>
-            </div>
-            <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
 
-            <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
-            (validation.type.equals('save') && validation.success))}">
-                <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                    ${validation.message}
-                </div>
-            </g:if>
+                <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}"><button class="btn btn-primary">Novo</button></a>
+            </div>
 
             <div class="row col-11">
                 <h1 class="col-3 fw-bold text-center">Nome</h1>
@@ -75,7 +21,6 @@
                 <h1 class="col fw-bold text-center">Cpf ou Cnpj</h1>
                 <h1 class="col fw-bold text-center">Celular</h1>
                 <h1 class="col fw-bold text-center">Endereço</h1>
-
             </div>
 
             <g:each var="payer" in="${payers}">
@@ -104,9 +49,6 @@
                 </ul>
             </g:each>
         </div>
-
-
-
     </div>
 </div>
 </body>
