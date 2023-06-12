@@ -158,7 +158,7 @@
                             </g:form>
                         </g:if>
                         <g:else>
-                            <g:form name="deleteButton" url="[controller: 'payer', action: 'restore']" method="POST">
+                            <g:form name="restoreButton" url="[controller: 'payer', action: 'restore']" method="POST">
                                 <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
