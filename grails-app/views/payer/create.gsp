@@ -5,7 +5,7 @@
     <title>Novo Pagador</title>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center w-50">
+    <div class="container my-8 d-flex justify-center w-25">
         <g:form class="card-body" name="payerForm" url="[controller: 'payer', action: 'save']">
             <h1 class="display-4">Novo Pagador</h1>
 
@@ -29,8 +29,10 @@
                 <label>Endereço</label> <input class="form-control" type="text" name="address" value=""/>
             </div>
 
-            <input type="submit" name="buttonCadastro" value="Cadastrar"/>
-            <input type="button" name="buttonCancelar" value="Cancelar"/>
+            <input class="btn btn-primary" type="submit" name="buttonCadastro" value="Cadastrar"/>
+            <a class="text-decoration-none btn btn-primary" href="${createLink(controller:'payer', action:'index')}">
+                Cancelar
+            </a>
         </g:form>
     </div>
 </body>
