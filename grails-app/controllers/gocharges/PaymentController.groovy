@@ -1,10 +1,12 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
-class PaymentController {
+class PaymentController extends BaseController{
 
     PaymentService paymentService
 
@@ -20,7 +22,9 @@ class PaymentController {
     }
 
     public Map create() {
-        render(view: "create")
+        List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
+
+        render(view: "create", model: [payerList: payerList])
     }
 
     public Map save() {
