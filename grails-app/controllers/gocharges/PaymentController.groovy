@@ -11,7 +11,11 @@ class PaymentController extends BaseController {
     PaymentService paymentService
     PayerService payerService
 
-    public Map index() {
+    public index() {
+        String deletedOnly = params.deletedOnly
+        if(deletedOnly && !Boolean.valueOf(deletedOnly)) {
+            params.put("includeDeleted", true)
+        }
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
         List<Payer> payerList = payerService.list(params, customer)

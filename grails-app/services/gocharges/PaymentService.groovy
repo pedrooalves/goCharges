@@ -23,10 +23,6 @@ class PaymentService {
     }
 
     public List<Payment> list(Map params, Customer customer) {
-        if(params.deletedFilter) {
-            params += ["${params.deletedFilter.toString()}": true]
-            params.remove("deletedFilter")
-        }
         return PaymentRepository.query(params + [customer: customer]).list()
     }
 

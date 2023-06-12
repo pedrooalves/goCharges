@@ -67,10 +67,10 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select name="deletedFilter">
+                        <select name="deletedOnly">
                             <option type="text" value="">Exibir somente cobranças ativas</option>
-                            <option type="text" value="deletedOnly">Exibir somente cobranças inativas</option>
-                            <option type="text" value="includeDeleted">Exibir todas as cobranças</option>
+                            <option type="text" value="true">Exibir somente cobranças inativas</option>
+                            <option type="text" value="false">Exibir todas as cobranças</option>
                         </select><br/>
                         <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                     </g:form>
