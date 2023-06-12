@@ -67,13 +67,13 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select class="ml-3" name="billingTypeStr">
+                        <select class="ml-3" name="billingType">
                             <option value="">Selecione um tipo de recebimento</option>
                             <option value="BANK_SLIP">Boleto</option>
                             <option value="DEBIT_CARD">Cartão de Débito</option>
                             <option value="PIX">Pix</option>
                         </select><br/>
-                        <select class="ml-3" name="statusStr">
+                        <select class="ml-3" name="status">
                             <option value="">Selecione um status</option>
                             <option value="PENDING">Pendente</option>
                             <option value="OVERDUE">Vencida</option>

@@ -14,8 +14,8 @@ class PaymentController extends BaseController {
     public index() {
         String deletedOnly = params.deletedOnly
         if (deletedOnly && !Boolean.valueOf(deletedOnly)) params.put("includeDeleted", true)
-        if (params.statusStr) params.put("status", params.statusStr)
-        if (params.billingTypeStr) params.put("billingType", params.billingTypeStr)
+
+        while(params.values().remove(""));
 
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
