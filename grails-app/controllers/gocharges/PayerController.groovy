@@ -4,24 +4,21 @@ import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
+import shared.FlashMessageType
 
 class PayerController extends BaseController {
 
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list(params, getCurrentCustomer())
+        String deletedOnly = params.deletedOnly
+        if (deletedOnly && !Boolean.valueOf(deletedOnly)) {
+            params.put("includeDeleted", true)
+        }
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            if (chainModel.showNewPayerForm) {
-                showNewPayerForm = true
-            }
-            render(view: "index", model: [payers: payers, validation: validation, showNewPayerForm: showNewPayerForm])
-        } else {
-            render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
-        }
+        render(view: "index", model: [payerList: payerList, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {
@@ -43,11 +40,6 @@ class PayerController extends BaseController {
         }
     }
 
-
-    public form() {
-        return [:]
-    }
-
     public delete() {
         try {
             Long id = Long.valueOf(params.id)
@@ -63,7 +55,7 @@ class PayerController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("PayerController.delete >> Erro em remover pagador com o seguinte id: ${params.id}")
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
     }
 
@@ -95,12 +87,7 @@ class PayerController extends BaseController {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "edit", model: [payer: payer, validation: validation])
-        } else {
-            render(view: "edit", model: [payer: payer])
-        }
+        render(view: "edit", model: [payer: payer])
     }
 
     public restore() {
@@ -118,7 +105,7 @@ class PayerController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("PayerController.restore >> Erro ao restaurar pagador com o seguinte id: ${params.id}")
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
     }
 }

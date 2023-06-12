@@ -108,10 +108,6 @@ class PayerService {
     }
 
     public List<Payer> list(Map params, Customer customer) {
-        if(params.deletedFilter) {
-            params += ["${params.deletedFilter.toString()}": true]
-            params.remove("deletedFilter")
-        }
         return PayerRepository.query(params + [customer: customer]).list()
     }
 

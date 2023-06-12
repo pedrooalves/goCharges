@@ -104,10 +104,10 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                         <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payer', action: 'index']" method="POST">
-                            <select name="deletedFilter">
+                            <select name="deletedOnly">
                                 <option type="text" value="">Exibir somente pagadores ativos</option>
-                                <option type="text" value="deletedOnly">Exibir somente pagadores inativos</option>
-                                <option type="text" value="includeDeleted">Exibir todos os pagadores</option>
+                                <option type="text" value="true">Exibir somente pagadores inativos</option>
+                                <option type="text" value="false">Exibir todos os pagadores</option>
                             </select><br/>
                             <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                         </g:form>
@@ -132,7 +132,7 @@
                     <h1 class="col fw-bold text-center">Endereço</h1>
                 </div>
 
-                <g:each var="payer" in="${payers}">
+                <g:each var="payer" in="${payerList}">
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payer.name}</li>
                         <li class="custom-list-item col">${payer.email}</li>
