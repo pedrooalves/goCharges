@@ -63,7 +63,7 @@ class PayerController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("PayerController.delete >> Erro em remover pagador com o seguinte id: ${params.id}")
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
     }
 
@@ -118,7 +118,7 @@ class PayerController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("PayerController.restore >> Erro ao restaurar pagador com o seguinte id: ${params.id}")
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
     }
 }
