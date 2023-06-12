@@ -102,7 +102,7 @@ class PayerController extends BaseController {
             Map validation = [success: true, message: "Pagador restaurado com sucesso", type: "restore"]
             chain(action: "index", model: [validation: validation])
         } catch (BusinessException businessException) {
-            Map validation = [success: false, message: exception.getMessage(), type: "restore"]
+            Map validation = [success: false, message: businessException.getMessage(), type: "restore"]
             chain(action: "index", model: [validation: validation])
         } catch (Exception exception) {
             Map validation = [success: false, message: exception.getMessage(), type: "restore"]
