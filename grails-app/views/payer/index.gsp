@@ -103,13 +103,19 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <a class="col-4" href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
-                        <g:form class="d-flex justify-content-center col-4" name="status" url="[controller: 'payer', action: 'index']" method="POST">
-                            <button class="nav-button m-3" type="submit" name="includeDeleted" value=${true}>Todos</button></a>
-                            <button class="nav-button m-3" type="submit">Ativos</button></a>
-                            <button class="nav-button m-3" type="submit" name="deletedOnly" value=${true}>Excluídos</button></a>
+                        <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payer', action: 'index']" method="POST">
+                            <select name="deletedFilter">
+                                <option type="text" value="">Exibir somente pagadores ativos</option>
+                                <option type="text" value="deletedOnly">Exibir somente pagadores inativos</option>
+                                <option type="text" value="includeDeleted">Exibir todos os pagadores</option>
+                            </select><br/>
+                            <button class="btn btn-outline-primary">Buscar</button></a>
                         </g:form>
                 </nav>
+
+                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
+                    <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Novo</button></a>
+                </div>
 
                 <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
                 (validation.type.equals('save') && validation.success))}">
