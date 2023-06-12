@@ -13,7 +13,7 @@ class PaymentController extends BaseController {
 
     public index() {
         String deletedOnly = params.deletedOnly
-        if(deletedOnly && !Boolean.valueOf(deletedOnly)) {
+        if (deletedOnly && !Boolean.valueOf(deletedOnly)) {
             params.put("includeDeleted", true)
         }
         Customer customer = getCurrentCustomer()
