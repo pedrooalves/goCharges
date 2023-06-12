@@ -10,6 +10,10 @@ class PayerController extends BaseController {
     PayerService payerService
 
     public index() {
+        String deletedOnly = params.deletedOnly
+        if(deletedOnly && !Boolean.valueOf(deletedOnly)) {
+            params.put("includeDeleted", true)
+        }
         List<Payer> payers = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 

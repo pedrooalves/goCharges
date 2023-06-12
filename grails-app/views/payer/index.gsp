@@ -104,10 +104,10 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                         <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payer', action: 'index']" method="POST">
-                            <select name="deletedFilter">
+                            <select name="deletedOnly">
                                 <option type="text" value="">Exibir somente pagadores ativos</option>
-                                <option type="text" value="deletedOnly">Exibir somente pagadores inativos</option>
-                                <option type="text" value="includeDeleted">Exibir todos os pagadores</option>
+                                <option type="text" value="true">Exibir somente pagadores inativos</option>
+                                <option type="text" value="false">Exibir todos os pagadores</option>
                             </select><br/>
                             <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                         </g:form>
