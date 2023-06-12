@@ -12,7 +12,7 @@ class FormatTagLib {
     }
 
     def billingTypeNotation = { Map attrs ->
-        String messageCode = "PaymentType." + attrs.billingType.toString()
+        String messageCode = "BillingType." + attrs.billingType.toString()
         out << Utils.getMessageProperty(messageCode, null)
     }
 
