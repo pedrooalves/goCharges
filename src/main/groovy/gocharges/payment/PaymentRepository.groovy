@@ -1,6 +1,7 @@
 package gocharges.payment
 
 import gocharges.Payment
+import gocharges.payment.enums.PaymentStatus
 import grails.gorm.DetachedCriteria
 
 class PaymentRepository {
@@ -26,7 +27,7 @@ class PaymentRepository {
             }
 
             if(search.containsKey("status")) {
-                eq("status", search.status)
+                eq("status", PaymentStatus.valueOf(search.status.toString()))
             }
 
             if(search.containsKey("payer")) {

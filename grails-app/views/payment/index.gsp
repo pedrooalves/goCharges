@@ -67,8 +67,14 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select name="payerId">
-                            <option value="">Nenhum selecionado</option>
+                        <select name="status">
+                            <option value="">Selecione um status</option>
+                            <option value="PENDING">Pendente</option>
+                            <option value="OVERDUE">Vencida</option>
+                            <option value="RECEIVED">Paga</option>
+                        </select><br/>
+                        <select class="ml-3" name="payerId">
+                            <option value="">Selecione um pagador</option>
                             <g:each var="payer" in="${payerList}">
                                 <option value="${payer.id}">${payer.name}</option>
                             </g:each>
