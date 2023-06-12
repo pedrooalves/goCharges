@@ -1,61 +1,63 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
-import gocharges.customer.CustomerRepository
 import gocharges.exception.BusinessException
 
-class CustomerController {
+class CustomerController extends BaseController {
 
     CustomerService customerService
 
     def index() {
         List<Customer> customerList = customerService.list()
 
-        if(chainModel) {
-            render(view:"index", model: [customers : customerList, validation: chainModel.validation])
+        if (chainModel) {
+            render(view: "index", model: [customers: customerList, validation: chainModel.validation])
         } else {
-            render(view:"index", model: [customers : customerList])
+            render(view: "index", model: [customers: customerList])
         }
     }
 
+    def create() {
+        String userEmail = getCurrentCustomer().email
+        render(view: "create", model: [userEmail: userEmail])
+    }
+
     def save() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Customer customer = customerService.save(adapter)
+            customerService.save(adapter)
 
             Map validation = [success: true, message: "Conta criada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
-        }catch(BusinessException exception){
-
+            redirect(controller: "dashboard", action: "index")
+        } catch (BusinessException exception) {
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            redirect(controller: "dashboard", action: "index")
         }
     }
 
     def edit() {
-        Long id = Long.parseLong(params.id)
-        Customer customer = CustomerRepository.query([id: id]).get()
+        Customer userCustomer = getCurrentCustomer()
 
-        render(view: "edit", model: [customer:customer])
+        render(view: "edit", model: [customer: userCustomer])
     }
 
     def update() {
-        try{
+        try {
             CustomerAdapter adapter = convertToAdapter(params)
-            Long id = Long.parseLong(params.id)
 
-            customerService.update(id, adapter)
+            customerService.update(adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta alterada com sucesso!"]
-            chain(action: "index", model: [validation : validation])
-        }catch(BusinessException exception) {
+            chain(action: "index", model: [validation: validation])
+        } catch (BusinessException exception) {
             Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation : validation])
+            chain(action: "index", model: [validation: validation])
         }
     }
 
     def delete() {
-        Long id = Long.parseLong(params.id)
+        Long id = Long.valueOf(params.id)
         customerService.delete(id)
 
         redirect(view: "index")
