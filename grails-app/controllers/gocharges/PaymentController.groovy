@@ -91,10 +91,10 @@ class PaymentController {
         }
     }
 
-    public Map confirm() {
+    public Map confirmReceivedInCash() {
         try {
             Long id = Long.valueOf(params.id)
-            paymentService.confirm(id)
+            paymentService.confirmReceivedInCash(id)
 
             flash.message = "Cobrança confirmada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
@@ -104,7 +104,7 @@ class PaymentController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução do método Confirm do PaymentController com o seguinte id: ${params.id}")
+            log.info("PaymentController.confirmReceivedInCash >> Erro em confirmar pagamento em dinheiro com o seguinte id: ${params.id}")
         } finally {
             redirect(action: "index")
         }
