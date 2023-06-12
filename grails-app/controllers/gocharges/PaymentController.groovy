@@ -10,15 +10,17 @@ class PaymentController {
 
     public Map index() {
         List<Payment> payments = paymentService.list()
-        Boolean showNewPaymentForm = false
 
         if (chainModel) {
             Map validation = chainModel.validation
-            showNewPaymentForm = chainModel.showNewPaymentForm
-            render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [payments: payments, validation: validation])
         } else {
-            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
+            render(view: "index", model: [payments: payments])
         }
+    }
+
+    public Map create() {
+        render(view: "create")
     }
 
     public Map save() {
@@ -66,10 +68,6 @@ class PaymentController {
         } finally {
             redirect(action: "index")
         }
-    }
-
-    public Map showForm() {
-        chain(action: "index", model: [showNewPaymentForm: true])
     }
 
     public Map delete() {
