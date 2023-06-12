@@ -14,10 +14,10 @@ class PayerController extends BaseController {
         if (deletedOnly && !Boolean.valueOf(deletedOnly)) {
             params.put("includeDeleted", true)
         }
-        List<Payer> payers = payerService.list(params, getCurrentCustomer())
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 
-        render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
+        render(view: "index", model: [payers: payerList, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {

@@ -132,7 +132,7 @@
                     <h1 class="col fw-bold text-center">Endereço</h1>
                 </div>
 
-                <g:each var="payer" in="${payers}">
+                <g:each var="payer" in="${payerList}">
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payer.name}</li>
                         <li class="custom-list-item col">${payer.email}</li>
