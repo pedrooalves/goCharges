@@ -12,7 +12,9 @@
             <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
                 <h1>Pagadores</h1>
 
-                <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}"><button class="btn btn-primary">Novo</button></a>
+                <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
+                    <button class="btn btn-primary">Novo Pagador</button>
+                </a>
             </div>
 
             <div class="row col-11">
