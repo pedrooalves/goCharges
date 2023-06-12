@@ -37,7 +37,7 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução do método Save do PaymentController com os seguintes dados: ${params}")
+            log.info("PaymentController.save >> Erro ao salvar cobrança com os seguintes dados: ${params}")
         } finally {
             Boolean showNewPaymentForm = (flash.type == FlashMessageType.ERROR)
             chain(action: "index", model: [showNewPaymentForm: showNewPaymentForm])
@@ -67,7 +67,7 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução do método Update do PaymentController com os seguintes dados: ${params}")
+            log.info("PaymentController.update >> Erro ao atualizar cobrança com os seguintes dados: ${params}")
         } finally {
             String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "edit"
             chain(action: action, model: [paramsId: params.id])
@@ -91,7 +91,7 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução do método Delete do PaymentController com o seguinte id: ${params.id}")
+            log.info("PaymentController.restore >> Erro ao deletar cobrança com o seguinte id: ${params.id}")
         } finally {
             redirect(action: "index")
         }
@@ -110,7 +110,7 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("Erro na execução do método Confirm do PaymentController com o seguinte id: ${params.id}")
+            log.info("PaymentController.confirm >> Erro ao confirmar cobrança com o seguinte id: ${params.id}")
         } finally {
             redirect(action: "index")
         }
