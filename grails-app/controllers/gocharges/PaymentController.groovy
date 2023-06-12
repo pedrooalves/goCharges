@@ -111,4 +111,23 @@ class PaymentController extends BaseController {
             redirect(action: "index")
         }
     }
+
+    public restore() {
+        try {
+            Long id = Long.valueOf(params.id)
+            paymentService.restore(id, getCurrentCustomer())
+
+            flash.message = "Cobrança restaurada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("PaymentController.restore >> Erro ao restaurar cobrança com o seguinte id: ${params.id}")
+        } finally {
+            redirect(view: "index")
+        }
+    }
 }

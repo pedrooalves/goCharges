@@ -6,6 +6,7 @@ import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
+import shared.Utils
 
 @Transactional
 class PaymentService {
@@ -22,6 +23,10 @@ class PaymentService {
     }
 
     public List<Payment> list(Map params, Customer customer) {
+        if(params.deletedFilter) {
+            params += ["${params.deletedFilter.toString()}": true]
+            params.remove("deletedFilter")
+        }
         return PaymentRepository.query(params + [customer: customer]).list()
     }
 
@@ -78,5 +83,14 @@ class PaymentService {
                 }
             }
         }
+    }
+
+    public Payment restore(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer, deletedOnly: true]).get()
+
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message.feminine", "Cobrança"))
+
+        payment.deleted = false
+        return payment.save(failOnError: true)
     }
 }
