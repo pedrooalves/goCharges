@@ -23,7 +23,7 @@ class PaymentService {
     }
 
     public List<Payment> list(Map params, Customer customer) {
-        if (params.containsKey("payerId")) {
+        if (params.payerId) {
             params.put("payer", PayerRepository.query([id: Long.valueOf(params.payerId), customer: customer]).get())
             params.remove("payerId")
         }
