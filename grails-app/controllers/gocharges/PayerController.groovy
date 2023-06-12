@@ -17,7 +17,7 @@ class PayerController extends BaseController {
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
         Boolean showNewPayerForm = false
 
-        render(view: "index", model: [payers: payerList, showNewPayerForm: showNewPayerForm])
+        render(view: "index", model: [payerList: payerList, showNewPayerForm: showNewPayerForm])
     }
 
     public save() {
