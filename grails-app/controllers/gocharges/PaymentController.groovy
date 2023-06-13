@@ -6,7 +6,7 @@ import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
-class PaymentController extends BaseController{
+class PaymentController extends BaseController {
 
     PaymentService paymentService
 
