@@ -11,6 +11,10 @@ class FormatTagLib {
         out << dateNotation("dd/MM/yyyy", attrs.date)
     }
 
+    def isoDateNotation = { Map attrs ->
+        out << dateNotation("yyyy-MM-dd", attrs.date)
+    }
+
     def billingTypeNotation = { Map attrs ->
         String messageCode = "BillingType." + attrs.billingType.toString()
         out << Utils.getMessageProperty(messageCode, null)
