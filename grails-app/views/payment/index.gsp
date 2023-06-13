@@ -31,7 +31,7 @@
                         <li class="custom-list-item col">${payment.value}</li>
                         <li class="custom-list-item col"><formatTagLib:brazilDateNotation date="${payment.dueDate}"/></li>
                         <li class="custom-list-item col">${payment.status}</li>
-                        <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
+                        <li class="custom-list-item col">${payment.payer.name}</li>
 
                     <g:if test="${payment.status == PaymentStatus.PENDING}">
                         <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="PUT">

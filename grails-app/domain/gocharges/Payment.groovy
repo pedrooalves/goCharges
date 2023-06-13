@@ -13,6 +13,8 @@ class Payment extends BaseEntity {
     BigDecimal value
     Date paymentDate
 
+    Customer customer
+
     static constraints = {
         billingType(blank: false)
         status(blank: false)

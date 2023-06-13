@@ -18,12 +18,18 @@ class PayerRepository {
                 eq("email", search.email)
             }
 
-            if (!Boolean.valueOf(search.includeDeleted)) {
+            if (Boolean.valueOf(search.deletedOnly)) {
+                eq("deleted", true)
+            } else if(!Boolean.valueOf(search.includeDeleted)) {
                 eq("deleted", false)
             }
 
             if (search.containsKey("id")) {
-                eq("id", search.id)
+                eq("id", Long.valueOf(search.id))
+            }
+
+            if (search.containsKey("id[ne]")) {
+                ne("id", Long.valueOf(search."id[ne]"))
             }
 
             if (search.containsKey("customer")) {

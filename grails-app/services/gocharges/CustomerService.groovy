@@ -30,9 +30,8 @@ class CustomerService {
     }
 
     private void validateNotNull(CustomerAdapter adapter) {
-        if (adapter.name.isBlank() || adapter.mobilePhone.isBlank()
-                || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos.")
+        if (adapter.name.isBlank() || adapter.mobilePhone.isBlank() || adapter.cpfCnpj.isBlank() || adapter.address.isBlank()) {
+            throw new BusinessException("É preciso preencher todos os campos")
         }
     }
 

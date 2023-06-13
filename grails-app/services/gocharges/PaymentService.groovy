@@ -13,31 +13,33 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([id: adapter.payerId]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
+        payment.customer = customer
 
-        payment.save(failOnError: true)
-        return payment
+        return payment.save(failOnError: true)
     }
 
-    public List<Payment> list() {
-        return PaymentRepository.query([includeDeleted: false]).list()
+    public List<Payment> list(Map params, Customer customer) {
+        return PaymentRepository.query(params + [customer: customer]).list()
     }
 
     public Payment update(Long id, PaymentAdapter adapter, Customer customer) {
-        Payment payment = PaymentRepository.query([id: id]).get()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        return payment
+        if (!payment.payer) throw new BusinessException("Pagador não encontrado")
+
+        return payment.save(failOnError: true)
     }
 
-    public void delete(Long id) {
-        Payment payment = PaymentRepository.query([id: id]).get()
+    public void delete(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
@@ -64,7 +66,7 @@ class PaymentService {
 
     public void setAsOverdue() {
         Date today = new Date()
-        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).property("id").list()
+        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true, ignoreCustomer: true]).property("id").list()
 
         for (Long id : paymentIdList) {
             Payment.withNewTransaction { status ->
