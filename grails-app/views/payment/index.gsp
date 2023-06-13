@@ -22,33 +22,33 @@
 
                     <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
                         <div class="form-group mb-3">
-                            <label class="mb-2 fw-bold">Pagador</label>
-                            <select class="form-select" name="payerCpfCnpj">
-                                <option type="text" value="">Nenhum selecionado</option>
+                            <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
+                            <select class="form-select" id="payer-select" name="payerCpfCnpj">
+                                <option value="">Nenhum selecionado</option>
                                 <g:each var="payer" in="${payerList}">
-                                    <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                                    <option value="${payer.cpfCnpj}">${payer.name}</option>
                                 </g:each>
                             </select><br/>
                         </div>
 
                         <div class="form-group column mb-3">
-                            <label class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
-                            <select class="form-select" name="billingType">
-                                <option type="text" value="">Nenhum selecionado</option>
-                                <option type="text" value="BANK_SLIP">Boleto</option>
-                                <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
-                                <option type="text" value="PIX">Pix</option>
+                            <label for="billingType-select" class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
+                            <select class="form-select" id="billingType-select" name="billingType">
+                                <option value="">Nenhum selecionado</option>
+                                <option value="BANK_SLIP">Boleto</option>
+                                <option value="DEBIT_CARD">Cartão de Débito</option>
+                                <option value="PIX">Pix</option>
                             </select><br/>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mb-2">Data de Vencimento</label>
-                            <input class="form-control" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
+                            <label for="dueDate" class="mb-2">Data de Vencimento</label>
+                            <input class="form-control" id="dueDate" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mb-2">Valor </label>
-                            <input class="form-control" type="text" name="value" value=""/><br/>
+                            <label for="value" class="mb-2">Valor </label>
+                            <input class="form-control" id="value" type="text" name="value" value=""/><br/>
                         </div>
 
                         <div class="navbar d-flex justify-content-space-between">
@@ -87,7 +87,7 @@
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
-                        <li class="custom-list-item col">${payment.dueDate}</li>
+                        <li class="custom-list-item col"><FormatTagLib:brazilDateNotation date="${payment.dueDate}"/></li>
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 

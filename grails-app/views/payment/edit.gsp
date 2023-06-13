@@ -22,9 +22,9 @@
                     <div class="form-group mb-3">
                         <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
                         <select class="form-select" id="payer-select" name="payerCpfCnpj">
-                            <option type="text" value="">Nenhum selecionado</option>
+                            <option value="">Nenhum selecionado</option>
                             <g:each var="payer" in="${payerList}">
-                                <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                                <option value="${payer.cpfCnpj}">${payer.name}</option>
                             </g:each>
                         </select><br/>
                     </div>
@@ -41,8 +41,8 @@
 
                     <div class="form-group mb-3">
                         <label for="dueDate" class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" id="dueDate" type="text" name="dueDate"
-                               value='<formatTagLib:isoDateNotation date="${payment.dueDate}"/>'/><br>
+                        <input class="form-control" id="dueDate" type="date" name="dueDate"
+                               value='<FormatTagLib:isoDateNotation date="${payment.dueDate}"/>'/><br>
                     </div>
 
                     <div class="form-group mb-3">
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
-                        <a href="/payment"><input href="/payment" class="btn btn-outline-secondary" type="button"
+                        <a href="/payment"><input class="btn btn-outline-secondary" type="button"
                                                   name="buttonCancelar" value="Cancelar"/></a>
                         <button type="submit" name="id" value="${payment.id}" class="btn bg-gogreen text-white ml-3">
                             Editar
