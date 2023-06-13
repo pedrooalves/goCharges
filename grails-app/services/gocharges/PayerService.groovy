@@ -9,8 +9,8 @@ import gocharges.exception.BusinessException
 @Transactional
 class PayerService {
 
-    public Payer save(PayerAdapter adapter) {
-        validateSave(adapter)
+    public Payer save(PayerAdapter adapter, Customer customer) {
+        validateSave(adapter, customer)
 
         Payer payer = new Payer()
         payer.name = adapter.name
@@ -18,13 +18,13 @@ class PayerService {
         payer.mobilePhone = adapter.mobilePhone
         payer.cpfCnpj = adapter.cpfCnpj
         payer.address = adapter.address
+        payer.customer = customer
 
-        payer.save(failOnError:true)
-        return payer
+        return payer.save(failOnError: true)
     }
 
-    public Payer delete(Long id) {
-        Payer payer = PayerRepository.query([id: id]).get()
+    public Payer delete(Long id, Customer customer) {
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
@@ -39,43 +39,47 @@ class PayerService {
         }
     }
 
-    private void validateSave(PayerAdapter adapter)  {
+    private void validateSave(PayerAdapter adapter, Customer customer) {
         validateNotNull(adapter)
         CpfCnpjUtils.validate(adapter.cpfCnpj)
 
-        Payer payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
-        if(payer)  throw new BusinessException("Email já cadastrado.")
+        Payer payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
+        if (payer) throw new BusinessException("Email já cadastrado.")
 
-        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true]).get()
-        if(cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+        Payer cpfCnpjExists = PayerRepository.query([cpfCnpj: adapter.cpfCnpj, customer: customer, includeDeleted: true]).get()
+        if (cpfCnpjExists) throw new BusinessException("CPF / CNPJ em uso!")
+
+        if (adapter.email == customer.email) throw new BusinessException("Você não pode cadastrar seu próprio e-mail")
+
+        if (adapter.cpfCnpj == customer.cpfCnpj) throw new BusinessException("Você não pode cadastrar seu próprio CPF ou CNPJ")
     }
 
-    private void validateUpdate(Long id, PayerAdapter adapter) {
+    private void validateUpdate(Long id, PayerAdapter adapter, Customer customer) {
         validateNotNull(adapter)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
         if (!payer) throw new BusinessException("Pagador não encontrado.")
 
-        payer = PayerRepository.query([email: adapter.email, includeDeleted: true]).get()
+        payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
         if (payer && payer.id != id) throw new BusinessException("E-mail já em uso!")
     }
 
-    public Payer update(Long id, PayerAdapter adapter) {
-        validateUpdate(id, adapter)
+    public Payer update(Long id, PayerAdapter adapter, Customer customer) {
+        validateUpdate(id, adapter, customer)
 
-        Payer payer = PayerRepository.query([id: id]).get()
+        Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
         payer.name = adapter.name
         payer.email = adapter.email
         payer.mobilePhone = adapter.mobilePhone
         payer.address = adapter.address
 
-        payer.save(failOnError:true)
+        payer.save(failOnError: true)
 
         return payer
     }
 
-    public List<Payer> list() {
-        return PayerRepository.query([includeDeleted: false]).list()
+    public List<Payer> list(Map params, Customer customer) {
+        return PayerRepository.query(params + [customer: customer]).list()
     }
 }
