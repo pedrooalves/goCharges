@@ -10,9 +10,9 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PaymentService {
 
-    public Payment save(PaymentAdapter adapter) {
+    public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -25,9 +25,9 @@ class PaymentService {
         return PaymentRepository.query([includeDeleted: false]).list()
     }
 
-    public Payment update(Long id, PaymentAdapter adapter) {
+    public Payment update(Long id, PaymentAdapter adapter, Customer customer) {
         Payment payment = PaymentRepository.query([id: id]).get()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
