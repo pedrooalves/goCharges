@@ -1,16 +1,9 @@
 package gocharges
 
 import gocharges.customer.enums.CustomerStatus
-import gocharges.domain.base.BaseEntity
+import gocharges.domain.base.BasePerson
 
-
-class Customer extends BaseEntity {
-
-    String name
-    String email
-    String mobilePhone
-    String cpfCnpj
-    String address
+class Customer extends BasePerson {
 
     CustomerStatus status = CustomerStatus.PENDING
 

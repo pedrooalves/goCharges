@@ -1,14 +1,8 @@
 package gocharges
 
-import gocharges.domain.base.BaseEntity
+import gocharges.domain.base.BasePerson
 
-class Payer extends BaseEntity {
-
-    String name
-    String email
-    String mobilePhone
-    String cpfCnpj
-    String address
+class Payer extends BasePerson {
 
     Customer customer
 
