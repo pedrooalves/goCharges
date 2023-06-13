@@ -6,13 +6,14 @@ import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
+import shared.Utils
 
 @Transactional
 class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -57,10 +58,10 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (params.payerCpfCnpj.isBlank()) throw new BusinessException("É preciso selecionar um pagador")
-        if (params.billingType.isBlank()) throw new BusinessException("É preciso selecionar um tipo de recebimento aceito")
-        if (params.dueDate.isBlank()) throw new BusinessException("É preencher o campo data")
-        if (params.value.isBlank()) throw new BusinessException("É preciso preencher o campo valor")
+        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Pagador"))
+        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Método de pagamento"))
+        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Data de vencimento"))
+        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Valor"))
     }
 
     public void setAsOverdue() {

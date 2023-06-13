@@ -8,72 +8,14 @@
 <body>
     <div class="container col-12">
         <div class="card-body row">
-            <g:if test="${showNewPaymentForm == true}">
-                <div class="col-3">
-                    <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
-                        <h1 class="display-4">Nova Cobrança</h1>
-                    </div>
-
-                    <g:if test="${flash?.message}">
-                        <div class="alert alert-danger" role="alert">
-                            ${flash.message}
-                        </div>
-                    </g:if>
-
-                    <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
-                        <div class="form-group mb-3">
-                            <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
-                            <select class="form-select" id="payer-select" name="payerCpfCnpj">
-                                <option value="">Nenhum selecionado</option>
-                                <g:each var="payer" in="${payerList}">
-                                    <option value="${payer.cpfCnpj}">${payer.name}</option>
-                                </g:each>
-                            </select><br/>
-                        </div>
-
-                        <div class="form-group column mb-3">
-                            <label for="billingType-select" class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
-                            <select class="form-select" id="billingType-select" name="billingType">
-                                <option value="">Nenhum selecionado</option>
-                                <option value="BANK_SLIP">Boleto</option>
-                                <option value="DEBIT_CARD">Cartão de Débito</option>
-                                <option value="PIX">Pix</option>
-                            </select><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="dueDate" class="mb-2">Data de Vencimento</label>
-                            <input class="form-control" id="dueDate" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="value" class="mb-2">Valor </label>
-                            <input class="form-control" id="value" type="text" name="value" value=""/><br/>
-                        </div>
-
-                        <div class="navbar d-flex justify-content-space-between">
-                            <a href="${createLink(action:'index', controller:'payment')}"><input
-                                    class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                            <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
-                        </div>
-                    </g:form>
-                </div>
-            </g:if>
-
-            <div class="col 6">
-                <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
+            <div class="col">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
+
+                    <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payment', action:'create')}">
+                        <button class="btn btn-primary">Nova Cobrança</button>
+                    </a>
                 </div>
-
-                <a href="${createLink(action:'showForm', controller:'payment')}">
-                    <button class="btn btn-outline-primary mb-2">Novo</button>
-                </a>
-
-                <g:if test="${flash?.message && showNewPaymentForm == false}">
-                    <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                        ${flash.message}
-                    </div>
-                </g:if>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>

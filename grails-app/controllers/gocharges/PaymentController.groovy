@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 import shared.FlashMessageType
@@ -17,7 +18,13 @@ class PaymentController extends BaseController {
         List<Payer> payerList = payerService.list(params, customer)
         Boolean showNewPaymentForm = Boolean.valueOf(chainModel?.showNewPaymentForm)
 
-        render(view: "index", model: [paymentList: paymentList, payerList: payerList, showNewPaymentForm: showNewPaymentForm])
+        render(view: "index", model: [paymentList: paymentList, payerList: payerList])
+    }
+
+    public Map create() {
+        List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
+
+        render(view: "create", model: [payerList: payerList])
     }
 
     public save() {
@@ -35,8 +42,7 @@ class PaymentController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Save do PaymentController com os seguintes dados: ${params}")
         } finally {
-            Boolean showNewPaymentForm = (flash.type == FlashMessageType.ERROR)
-            chain(action: "index", model: [showNewPaymentForm: showNewPaymentForm])
+            redirect(action: "index")
         }
     }
 
@@ -70,11 +76,7 @@ class PaymentController extends BaseController {
         }
     }
 
-    public showForm() {
-        chain(action: "index", model: [showNewPaymentForm: true])
-    }
-
-    public delete() {
+    public Map delete() {
         try {
             Long id = Long.valueOf(params.id)
             paymentService.delete(id, getCurrentCustomer())

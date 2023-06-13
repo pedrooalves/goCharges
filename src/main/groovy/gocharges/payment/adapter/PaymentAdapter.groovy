@@ -7,7 +7,7 @@ import shared.CustomDateUtils
 
 class PaymentAdapter {
 
-    String payerCpfCnpj
+    Long payerId
     PaymentBillingType billingType
     PaymentStatus status
     Date dueDate
@@ -15,7 +15,7 @@ class PaymentAdapter {
 
     public PaymentAdapter(Map params) {
         PaymentService.validate(params)
-        this.payerCpfCnpj = params.payerCpfCnpj
+        this.payerId = Long.valueOf(params.payerId)
         this.billingType = PaymentBillingType.valueOf(params.billingType)
         this.dueDate = CustomDateUtils.fromString(params.dueDate)
         this.value = new BigDecimal(params.value)
