@@ -45,7 +45,7 @@
                 <input class="form-control" type="text" name="value" value=""/><br/>
             </div>
 
-            <input class="btn btn-primary" type="submit" name="buttonCadastro" value="Cadastrar"/>
+            <input class="btn btn-primary" type="submit" value="Cadastrar"/>
             <a class="text-decoration-none btn btn-primary" href="${createLink(controller:'payment', action:'index')}">
                 Cancelar
             </a>
