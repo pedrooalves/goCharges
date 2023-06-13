@@ -29,7 +29,7 @@
                 <label>Endereço</label> <input class="form-control" type="text" name="address" value=""/>
             </div>
 
-            <input class="btn btn-primary" type="submit" name="buttonCadastro" value="Cadastrar"/>
+            <input class="btn btn-primary" type="submit" value="Cadastrar"/>
             <a class="text-decoration-none btn btn-primary" href="${createLink(controller:'payer', action:'index')}">
                 Cancelar
             </a>
