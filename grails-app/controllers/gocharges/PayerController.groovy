@@ -1,22 +1,18 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 
-class PayerController {
+class PayerController extends BaseController {
 
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list()
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "index", model: [payers: payers, validation: validation])
-        } else {
-            render(view: "index", model: [payers: payers])
-        }
+        render(view: "index", model: [payerList: payerList])
     }
 
     public create() {
@@ -26,19 +22,19 @@ class PayerController {
     public save() {
         try {
             PayerAdapter payerAdapter = new PayerAdapter(params)
-            payerService.save(payerAdapter)
+            payerService.save(payerAdapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Conta criada com sucesso", type: "save"]
             chain(action: "index", model: [validation: validation])
-        } catch (BusinessException e) {
-            Map validation = [success: false, message: e.getMessage(), type: "save"]
-            chain(action: "index", model: [validation: validation])
+        } catch (BusinessException businessException) {
+            Map validation = [success: false, message: businessException.getMessage(), type: "save"]
+            chain(action: "index", model: [validation: validation, showNewPayerForm: true])
         }
     }
 
     public delete() {
         Long id = Long.valueOf(params.id)
-        payerService.delete(id)
+        payerService.delete(id, getCurrentCustomer())
 
         Map validation = [success: true, message: "Pagador excluído com sucesso", type: "delete"]
         chain(view: "index", model: [validation: validation])
@@ -48,25 +44,20 @@ class PayerController {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
             Long id = Long.valueOf(params.id)
-            payerService.update(id, adapter)
+            payerService.update(id, adapter, getCurrentCustomer())
 
             Map validation = [success: true, message: "Pagador salvo com sucesso", type: "update"]
             chain(action: "index", model: [validation: validation])
-        } catch (BusinessException e) {
-            Map validation = [success: false, message: e.getMessage(), type: "update"]
+        } catch (BusinessException businessException) {
+            Map validation = [success: false, message: businessException.getMessage(), type: "update"]
             chain(action: "index", model: [validation: validation])
         }
     }
 
     public edit() {
         Long id = Long.valueOf(params.id)
-        Payer payer = PayerRepository.query([id: id]).get()
+        Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "edit", model: [payer: payer, validation: validation])
-        } else {
-            render(view: "edit", model: [payer: payer])
-        }
+        render(view: "edit", model: [payer: payer])
     }
 }

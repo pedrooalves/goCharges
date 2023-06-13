@@ -1,11 +1,11 @@
 package gocharges
 
-import java.sql.Date
+import shared.Utils
 import java.sql.Timestamp
 
 class FormatTagLib {
 
-    static namespace = "formatTagLib"
+    static namespace = "FormatTagLib"
 
     def brazilDateNotation = { Map attrs ->
         out << dateNotation("dd/MM/yyyy", attrs.date)
@@ -13,6 +13,11 @@ class FormatTagLib {
 
     def isoDateNotation = { Map attrs ->
         out << dateNotation("yyyy-MM-dd", attrs.date)
+    }
+
+    def billingTypeNotation = { Map attrs ->
+        String messageCode = "BillingType." + attrs.billingType.toString()
+        out << Utils.getMessageProperty(messageCode, null)
     }
 
     private String dateNotation(String format, Timestamp date) {
