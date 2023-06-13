@@ -7,7 +7,6 @@ import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
-import jdk.jshell.execution.Util
 import shared.Utils
 
 @Transactional
@@ -15,7 +14,7 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -28,9 +27,9 @@ class PaymentService {
         return PaymentRepository.query([includeDeleted: false]).list()
     }
 
-    public Payment update(Long id, PaymentAdapter adapter) {
+    public Payment update(Long id, PaymentAdapter adapter, Customer customer) {
         Payment payment = PaymentRepository.query([id: id]).get()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj]).get()
+        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -60,10 +59,10 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (params.payerCpfCnpj.isBlank() || params.billingType.isBlank() || params.dueDate.isBlank() ||
-                params.value.isBlank()) {
-            throw new BusinessException("É preciso preencher todos os campos")
-        }
+        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Pagador"))
+        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Método de pagamento"))
+        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Data de vencimento"))
+        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Valor"))
     }
 
     public void setAsOverdue() {
