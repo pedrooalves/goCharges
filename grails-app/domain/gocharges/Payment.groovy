@@ -14,10 +14,10 @@ class Payment extends BaseEntity {
     Date paymentDate
 
     static constraints = {
-        billingType(blank:false)
-        status(blank:false)
+        billingType(blank: false)
+        status(blank: false)
         dueDate(blank: false, nullable: false)
-        value(blank:false, nullable: false)
+        value(blank: false, nullable: false)
         paymentDate(nullable: true)
     }
 }
