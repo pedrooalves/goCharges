@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 import shared.FlashMessageType
@@ -11,14 +12,15 @@ class PaymentController extends BaseController {
     PaymentService paymentService
 
     public index() {
-        List<Payment> payments = paymentService.list()
-        Boolean showNewPaymentForm = false
+        List<Payment> paymentList = paymentService.list()
 
-        if (chainModel?.showNewPaymentForm) {
-            showNewPaymentForm = chainModel.showNewPaymentForm
-        }
+        render(view: "index", model: [paymentList: paymentList])
+    }
 
-        render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
+    public Map create() {
+        List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
+
+        render(view: "create", model: [payerList: payerList])
     }
 
     public save() {
@@ -68,11 +70,7 @@ class PaymentController extends BaseController {
         }
     }
 
-    public showForm() {
-        chain(action: "index", model: [showNewPaymentForm: true])
-    }
-
-    public delete() {
+    public Map delete() {
         try {
             Long id = Long.valueOf(params.id)
             paymentService.delete(id)
