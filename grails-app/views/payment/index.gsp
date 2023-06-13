@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Cadastro de Payment</title>
-    <asset:javascript src="customAlert.js" />
+    <asset:javascript src="customAlert.js"/>
 </head>
 <body>
 <div class="container col-12">
@@ -38,7 +38,7 @@
 
                     <div class="form-group mb-3">
                         <label class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" type="text" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
+                        <input class="form-control" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
                     </div>
 
                     <div class="form-group mb-3">
@@ -67,13 +67,6 @@
                 <button class="btn btn-outline-primary mb-2">Novo</button>
             </a>
 
-            <g:if test="${validation && (validation.type == 'delete' || validation.type == 'update' || validation.type == 'edit' ||
-            (validation.type == 'save' && validation.success))}">
-                <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                    ${validation.message}
-                </div>
-            </g:if>
-
             <div class="row col-11">
                 <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>
                 <h1 class="col fw-bold text-center">Valor</h1>
@@ -83,10 +76,10 @@
             </div>
 
             <g:each var="payment" in="${payments}">
-                <ul class="list-group list-group-horizontal mb-1 mb-1 justify-content-between">
+                <ul class="list-group list-group-horizontal mb-1 mb-1">
                     <li class="custom-list-item col-3">${payment.billingType}</li>
                     <li class="custom-list-item col">${payment.value}</li>
-                    <li class="custom-list-item col">${payment.dueDate}</li>
+                    <li class="custom-list-item col"><formatTagLib:brazilDateNotation date="${payment.dueDate}"/></li>
                     <li class="custom-list-item col">${payment.status}</li>
                     <li class="custom-list-item col">${payment.payer.cpfCnpj}</li>
 
@@ -122,7 +115,6 @@
                     </g:form>
                 </ul>
             </g:each>
-
         </div>
     </div>
 </div>
