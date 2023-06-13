@@ -11,10 +11,13 @@ class PayerController extends BaseController {
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list(params, getCurrentCustomer())
-        Boolean showNewPayerForm = Boolean.valueOf(chainModel?.showNewPayerForm)
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
-        render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
+        render(view: "index", model: [payerList: payerList])
+    }
+
+    public create() {
+        render(view: "create")
     }
 
     public save() {
@@ -34,10 +37,6 @@ class PayerController extends BaseController {
         } finally {
             redirect(action: "index")
         }
-    }
-
-    public showForm() {
-        chain(action: "index", model: [showNewPayerForm: true])
     }
 
     public delete() {
