@@ -11,12 +11,6 @@
                 <h1 class="display-4">Editar Pagador</h1>
             </div>
 
-            <g:if test="${validation != null && validation.type.equals('save')}">
-                <div class="alert alert-danger" role="alert">
-                    ${validation.message}
-                </div>
-            </g:if>
-
             <div class="card">
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
                     <div class="form-group mb-3">
