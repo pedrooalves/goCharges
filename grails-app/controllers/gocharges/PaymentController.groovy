@@ -1,24 +1,25 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
+import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
-class PaymentController {
+class PaymentController extends BaseController {
 
     PaymentService paymentService
 
     public Map index() {
-        List<Payment> payments = paymentService.list()
-        Boolean showNewPaymentForm = false
+        List<Payment> paymentList = paymentService.list()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            showNewPaymentForm = chainModel.showNewPaymentForm
-            render(view: "index", model: [payments: payments, validation: validation, showNewPaymentForm: showNewPaymentForm])
-        } else {
-            render(view: "index", model: [payments: payments, showNewPaymentForm: showNewPaymentForm])
-        }
+        render(view: "index", model: [paymentList: paymentList])
+    }
+
+    public Map create() {
+        List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
+
+        render(view: "create", model: [payerList: payerList])
     }
 
     public Map save() {
@@ -66,10 +67,6 @@ class PaymentController {
         } finally {
             redirect(action: "index")
         }
-    }
-
-    public Map showForm() {
-        chain(action: "index", model: [showNewPaymentForm: true])
     }
 
     public Map delete() {

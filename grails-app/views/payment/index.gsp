@@ -8,67 +8,14 @@
 <body>
     <div class="container col-12">
         <div class="card-body row">
-            <g:if test="${showNewPaymentForm != false}">
-                <div class="col-3">
-                    <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
-                        <h1 class="display-4">Nova Cobrança</h1>
-                    </div>
-
-                    <g:if test="${validation && validation.type == 'save'}">
-                        <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                            ${validation.message}
-                        </div>
-                    </g:if>
-
-                    <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
-                        <div class="form-group mb-3">
-                            <label class="mb-2 fw-bold">CPF/CNPJ do Pagador</label>
-                            <input class="form-control" type="text" name="payerCpfCnpj" value=""/><br/>
-                        </div>
-
-                        <div class="form-group column mb-3">
-                            <label class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
-                            <select class="form-select" name="billingType">
-                                <option type="text" value="BANK_SLIP">Boleto</option>
-                                <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
-                                <option type="text" value="PIX">Pix</option>
-                            </select><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">Data de Vencimento</label>
-                            <input class="form-control" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="mb-2">Valor </label>
-                            <input class="form-control" type="text" name="value" value=""/><br/>
-                        </div>
-
-                        <div class="navbar d-flex justify-content-space-between">
-                            <a href="${createLink(action:'index', controller:'payment')}"><input
-                                    class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                            <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
-                        </div>
-                    </g:form>
-                </div>
-            </g:if>
-
-            <div class="col 6">
-                <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
+            <div class="col">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
+
+                    <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payment', action:'create')}">
+                        <button class="btn btn-primary">Nova Cobrança</button>
+                    </a>
                 </div>
-
-                <a href="${createLink(action:'showForm', controller:'payment')}">
-                    <button class="btn btn-outline-primary mb-2">Novo</button>
-                </a>
-
-                <g:if test="${validation && (validation.type == 'delete' || validation.type == 'update' ||
-                    (validation.type == 'save' && validation.success))}">
-                    <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                        ${validation.message}
-                    </div>
-                </g:if>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>
@@ -78,7 +25,7 @@
                     <h1 class="col fw-bold text-center">Pagador</h1>
                 </div>
 
-                <g:each var="payment" in="${payments}">
+                <g:each var="payment" in="${paymentList}">
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
