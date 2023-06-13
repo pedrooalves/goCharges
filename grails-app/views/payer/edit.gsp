@@ -5,18 +5,11 @@
     <title>Listagem de Payer</title>
 </head>
 <body>
-
 <div class="container d-flex justify-content-center mb-3">
     <div>
         <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
             <h1 class="display-4">Editar Pagador</h1>
         </div>
-
-        <g:if test="${validation != null && validation.type.equals('save')}">
-            <div class="alert alert-danger" role="alert">
-                ${validation.message}
-            </div>
-        </g:if>
 
         <div class="card">
             <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'update']">
