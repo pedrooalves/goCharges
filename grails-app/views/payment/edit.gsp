@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payer</title>
+    <title>Listagem de Payment</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
@@ -32,9 +32,9 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="dueDate" class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" id="dueDate" type="date" name="dueDate"
-                               value='<FormatTagLib:isoDateNotation date="${payment.dueDate}"/>'/><br>
+                        <label class="mb-2">Data de Vencimento</label>
+                        <input class="form-control" type="date" name="dueDate"
+                               value="${formatTagLib.isoDateNotation(date: payment.dueDate)}"/><br>
                     </div>
 
                     <div class="form-group mb-3">
