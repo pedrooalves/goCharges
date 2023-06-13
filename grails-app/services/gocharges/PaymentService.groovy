@@ -7,6 +7,7 @@ import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
+import shared.Utils
 
 @Transactional
 class PaymentService {
@@ -49,6 +50,7 @@ class PaymentService {
         Payment payment = PaymentRepository.query([id: id]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
+        if (payment.status != PaymentStatus.PENDING) throw new BusinessException(Utils.getMessageProperty("default.not.pending.payment.message", null))
 
         payment.status = PaymentStatus.RECEIVED
         payment.billingType = PaymentBillingType.CASH
