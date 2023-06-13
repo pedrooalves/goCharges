@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label>E-mail</label>
-                <input class="form-control" readonly type="email" name="email" value=${userEmail}/>
+                <input class="form-control" readonly type="email" name="email" value="${userEmail}"/>
             </div>
 
             <div class="form-group">

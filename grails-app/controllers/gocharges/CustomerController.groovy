@@ -39,7 +39,7 @@ class CustomerController extends BaseController {
             flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
-            flass.type = FlashMessageType.ERROR
+            flash.type = FlashMessageType.ERROR
             log.info("CustomerController.update >> Erro em atualizar customer com os seguintes dados: ${params}")
         } finally {
             redirect(controller: "dashboard", action: "index")
@@ -58,7 +58,7 @@ class CustomerController extends BaseController {
             flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
-            flass.type = FlashMessageType.ERROR
+            flash.type = FlashMessageType.ERROR
             log.info("CustomerController.delete >> Erro em remover customer com o seguinte id: ${params.id}")
         } finally {
             redirect(view: "index")
