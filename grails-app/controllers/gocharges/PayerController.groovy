@@ -10,18 +10,13 @@ class PayerController extends BaseController {
     PayerService payerService
 
     public index() {
-        List<Payer> payers = payerService.list(params, getCurrentCustomer())
-        Boolean showNewPayerForm = false
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            if (chainModel.showNewPayerForm) {
-                showNewPayerForm = true
-            }
-            render(view: "index", model: [payers: payers, validation: validation, showNewPayerForm: showNewPayerForm])
-        } else {
-            render(view: "index", model: [payers: payers, showNewPayerForm: showNewPayerForm])
-        }
+        render(view: "index", model: [payerList: payerList])
+    }
+
+    public create() {
+        render(view: "create")
     }
 
     public save() {
@@ -35,11 +30,6 @@ class PayerController extends BaseController {
             Map validation = [success: false, message: businessException.getMessage(), type: "save"]
             chain(action: "index", model: [validation: validation, showNewPayerForm: true])
         }
-    }
-
-
-    public form() {
-        return [:]
     }
 
     public delete() {
@@ -64,19 +54,10 @@ class PayerController extends BaseController {
         }
     }
 
-    public showForm() {
-        chain(action: "index", model: [showNewPayerForm: true])
-    }
-
     public edit() {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "edit", model: [payer: payer, validation: validation])
-        } else {
-            render(view: "edit", model: [payer: payer])
-        }
+        render(view: "edit", model: [payer: payer])
     }
 }
