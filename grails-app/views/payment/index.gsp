@@ -43,7 +43,7 @@
 
                         <div class="form-group mb-3">
                             <label class="mb-2">Data de Vencimento</label>
-                            <input class="form-control" type="text" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
+                            <input class="form-control" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
                         </div>
 
                         <div class="form-group mb-3">
