@@ -20,7 +20,7 @@ class CustomerRepository {
             }
 
             if (search.containsKey("id")) {
-                eq("id", search.id)
+                eq("id", Long.valueOf(search.id))
             }
 
             if (search.containsKey("id[ne]")) {
