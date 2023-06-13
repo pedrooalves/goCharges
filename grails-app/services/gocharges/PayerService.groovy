@@ -61,8 +61,8 @@ class PayerService {
         Payer payer = PayerRepository.query([id: id, customer: customer]).get()
         if (!payer) throw new BusinessException("Pagador não encontrado")
 
-        payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true]).get()
-        if (payer && payer.id != id) throw new BusinessException("E-mail já em uso")
+        payer = PayerRepository.query([email: adapter.email, customer: customer, includeDeleted: true, "id[ne]": payer.id]).get()
+        if (payer) throw new BusinessException("E-mail já em uso")
     }
 
     public Payer update(Long id, PayerAdapter adapter, Customer customer) {

@@ -3,6 +3,7 @@ package gocharges
 import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
+import shared.FlashMessageType
 
 class CustomerController extends BaseController {
 
@@ -11,11 +12,7 @@ class CustomerController extends BaseController {
     def index() {
         List<Customer> customerList = customerService.list()
 
-        if (chainModel) {
-            render(view: "index", model: [customers: customerList, validation: chainModel.validation])
-        } else {
-            render(view: "index", model: [customers: customerList])
-        }
+        render(view: "index", model: [customers: customerList])
     }
 
     def create() {
@@ -28,18 +25,28 @@ class CustomerController extends BaseController {
             CustomerAdapter adapter = convertToAdapter(params)
             customerService.save(adapter)
 
-            Map validation = [success: true, message: "Conta criada com sucesso!"]
+            flash.message = "Conta criada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+
             redirect(controller: "dashboard", action: "index")
-        } catch (BusinessException exception) {
-            Map validation = [success: false, message: exception.getMessage()]
-            redirect(controller: "dashboard", action: "index")
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+            redirect(action: "create")
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("CustomerController.save >> Erro em criar customer com os seguintes dados: ${params}")
+
+            redirect(action: "create")
         }
     }
 
     def edit() {
-        Customer userCustomer = getCurrentCustomer()
+        Customer customer = getCurrentCustomer()
 
-        render(view: "edit", model: [customer: userCustomer])
+        render(view: "edit", model: [customer: customer])
     }
 
     def update() {
@@ -48,19 +55,37 @@ class CustomerController extends BaseController {
 
             customerService.update(adapter, getCurrentCustomer())
 
-            Map validation = [success: true, message: "Conta alterada com sucesso!"]
-            chain(action: "index", model: [validation: validation])
-        } catch (BusinessException exception) {
-            Map validation = [success: false, message: exception.getMessage()]
-            chain(action: "index", model: [validation: validation])
+            flash.message = "Conta alterada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flass.type = FlashMessageType.ERROR
+            log.info("CustomerController.update >> Erro em atualizar customer com os seguintes dados: ${params}")
+        } finally {
+            redirect(controller: "dashboard", action: "index")
         }
     }
 
     def delete() {
-        Long id = Long.valueOf(params.id)
-        customerService.delete(id)
+        try {
+            Long id = Long.valueOf(params.id)
+            customerService.delete(id)
 
-        redirect(view: "index")
+            flash.message = "Conta removida com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flass.type = FlashMessageType.ERROR
+            log.info("CustomerController.delete >> Erro em remover customer com o seguinte id: ${params.id}")
+        } finally {
+            redirect(view: "index")
+        }
     }
 
     private CustomerAdapter convertToAdapter(Map params) {

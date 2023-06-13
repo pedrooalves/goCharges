@@ -58,3 +58,9 @@ grails {
 				 "mail.smtp.socketFactory.fallback":"false"]
 	}
 }
+
+grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'gocharges.auth.PersistentLogin'
+grails.plugin.springsecurity.rememberMe.cookieName = 'gocharges_remember_me'
+grails.plugin.springsecurity.rememberMe.alwaysRemember = true
+grails.plugin.springsecurity.rememberMe.persistent = true
+

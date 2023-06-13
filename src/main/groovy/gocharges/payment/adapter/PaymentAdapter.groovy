@@ -1,15 +1,13 @@
 package gocharges.payment.adapter
 
 import gocharges.PaymentService
-import gocharges.exception.BusinessException
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
-
-import java.text.SimpleDateFormat
+import shared.CustomDateUtils
 
 class PaymentAdapter {
 
-    String payerCpfCnpj
+    Long payerId
     PaymentBillingType billingType
     PaymentStatus status
     Date dueDate
@@ -17,9 +15,9 @@ class PaymentAdapter {
 
     public PaymentAdapter(Map params) {
         PaymentService.validate(params)
-        this.payerCpfCnpj = params.payerCpfCnpj
+        this.payerId = Long.valueOf(params.payerId)
         this.billingType = PaymentBillingType.valueOf(params.billingType)
-        this.dueDate  = new SimpleDateFormat("dd/MM/yyyy").parse(params.dueDate)
+        this.dueDate = CustomDateUtils.fromString(params.dueDate)
         this.value = new BigDecimal(params.value)
     }
 }
