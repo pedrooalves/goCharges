@@ -21,10 +21,10 @@
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
                         <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
-                        <select class="form-select" id="payer-select" name="payerCpfCnpj">
+                        <select class="form-select" id="payer-select" name="payerId">
                             <option value="">Nenhum selecionado</option>
                             <g:each var="payer" in="${payerList}">
-                                <option value="${payer.cpfCnpj}">${payer.name}</option>
+                                <option value="${payer.id}">${payer.name}</option>
                             </g:each>
                         </select><br/>
                     </div>

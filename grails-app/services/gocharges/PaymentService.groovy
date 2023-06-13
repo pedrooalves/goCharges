@@ -13,7 +13,7 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
-        payment.payer = PayerRepository.query([id: adapter.payerId]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -28,7 +28,7 @@ class PaymentService {
 
     public Payment update(Long id, PaymentAdapter adapter, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
-        payment.payer = PayerRepository.query([cpfCnpj: adapter.payerCpfCnpj, customer: customer]).get()
+        payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
@@ -66,7 +66,7 @@ class PaymentService {
 
     public void setAsOverdue() {
         Date today = new Date()
-        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true]).property("id").list()
+        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true, ignoreCustomer: true]).property("id").list()
 
         for (Long id : paymentIdList) {
             Payment.withNewTransaction { status ->

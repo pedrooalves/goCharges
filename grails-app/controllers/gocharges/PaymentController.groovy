@@ -42,13 +42,15 @@ class PaymentController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("Erro na execução do método Save do PaymentController com os seguintes dados: ${params}")
         } finally {
-            redirect(action: "index")
+            String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "create"
+            chain(action: action, model: [paramsId: params.id])
         }
     }
 
     public edit() {
         String paramsId = params.id ? params.id : chainModel?.paramsId
         Long id = Long.valueOf(paramsId)
+        params.remove("id")
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
         Payment payment = PaymentRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
@@ -57,6 +59,7 @@ class PaymentController extends BaseController {
 
     public update() {
         try {
+            println(params)
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.valueOf(params.id)
             paymentService.update(id, adapter, getCurrentCustomer())
