@@ -11,12 +11,6 @@
                 <h1 class="display-4">Editar Cobrança</h1>
             </div>
 
-            <g:if test="${flash?.message}">
-                <div class="alert alert-danger" role="alert">
-                    ${flash.message}
-                </div>
-            </g:if>
-
             <div class="card">
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
