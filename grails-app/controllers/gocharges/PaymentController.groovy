@@ -1,10 +1,11 @@
 package gocharges
 
+import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
 
-class PaymentController {
+class PaymentController extends BaseController {
 
     PaymentService paymentService
 
@@ -24,7 +25,7 @@ class PaymentController {
     public Map save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter)
+            Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
 
             flash.message = "Cobrança criada com sucesso!"
             flash.type = FlashMessageType.SUCCESS
