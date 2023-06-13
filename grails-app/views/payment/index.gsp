@@ -65,9 +65,38 @@
                     <h1>Cobranças</h1>
                 </div>
 
-                <a href="${createLink(action:'showForm', controller:'payment')}">
-                    <button class="btn btn-outline-primary mb-2">Novo</button>
-                </a>
+                <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
+                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
+                        <select class="ml-3" name="billingType">
+                            <option value="">Selecione um tipo de recebimento</option>
+                            <option value="BANK_SLIP">Boleto</option>
+                            <option value="DEBIT_CARD">Cartão de Débito</option>
+                            <option value="PIX">Pix</option>
+                        </select><br/>
+                        <select class="ml-3" name="status">
+                            <option value="">Selecione um status</option>
+                            <option value="PENDING">Pendente</option>
+                            <option value="OVERDUE">Vencida</option>
+                            <option value="RECEIVED">Recebida</option>
+                        </select><br/>
+                        <select class="ml-3" name="payerId">
+                            <option value="">Selecione um pagador</option>
+                            <g:each var="payer" in="${payerList}">
+                                <option value="${payer.id}">${payer.name}</option>
+                            </g:each>
+                        </select><br/>
+                        <select class="ml-3" name="deletedOnly">
+                            <option value="">Exibir somente cobranças ativas</option>
+                            <option value="true">Exibir somente cobranças inativas</option>
+                            <option value="false">Exibir todas as cobranças</option>
+                        </select><br/>
+                        <button class="btn btn-outline-primary ml-3">Buscar</button>
+                    </g:form>
+                </nav>
+
+                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
+                    <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
+                </div>
 
                 <g:if test="${flash?.message && showNewPaymentForm == false}">
                     <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
@@ -91,7 +120,7 @@
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
-                        <g:if test="${payment.status == PaymentStatus.PENDING}">
+                        <g:if test="${payment.status == PaymentStatus.PENDING && !payment.deleted}">
                             <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -111,14 +140,25 @@
                             </button>
                         </g:form>
 
-                        <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
-                            <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                </svg>
-                            </button>
-                        </g:form>
+                        <g:if test="${payment.deleted == false}">
+                            <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                    </svg>
+                                </button>
+                            </g:form>
+                        </g:if>
+                        <g:else>
+                            <g:form name="restoreButton" url="[controller: 'payment', action: 'restore']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-primary ml-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                                    </svg>
+                                </button>
+                            </g:form>
+                        </g:else>
                     </ul>
                 </g:each>
             </div>
