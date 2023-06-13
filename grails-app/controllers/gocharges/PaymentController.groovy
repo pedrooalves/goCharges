@@ -23,7 +23,6 @@ class PaymentController extends BaseController {
 
     public save() {
         try {
-            println(params)
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
 
@@ -33,7 +32,6 @@ class PaymentController extends BaseController {
             flash.message = businessException.getMessage()
             flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            println(exception.getMessage())
             flash.message = "Erro inesperado, tente novamente mais tarde"
             flash.type = FlashMessageType.ERROR
             log.info("PaymentController.save >> Erro em criar cobrança com os seguintes dados: ${params}")
