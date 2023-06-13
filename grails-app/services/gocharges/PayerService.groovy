@@ -5,12 +5,9 @@ import gocharges.payer.adapter.PayerAdapter
 import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
-import grails.plugin.springsecurity.SpringSecurityService
 
 @Transactional
 class PayerService {
-
-    SpringSecurityService springSecurityService
 
     public Payer save(PayerAdapter adapter, Customer customer) {
         validateSave(adapter, customer)
@@ -82,6 +79,6 @@ class PayerService {
     }
 
     public List<Payer> list(Map params, Customer customer) {
-        return PayerRepository.query(params +  [customer: customer]).list()
+        return PayerRepository.query(params + [customer: customer]).list()
     }
 }

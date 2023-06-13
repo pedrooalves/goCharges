@@ -22,6 +22,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/paymentReceipt/**',               access: ['permitAll']],
 		[pattern: '/payer/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/payment/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
+		[pattern: '/user/myAccount',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/**',          access: ['IS_AUTHENTICATED_ANONYMOUSLY']],
 ]
 
@@ -46,4 +47,9 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
+
+grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'gocharges.auth.PersistentLogin'
+grails.plugin.springsecurity.rememberMe.cookieName = 'gocharges_remember_me'
+grails.plugin.springsecurity.rememberMe.alwaysRemember = true
+grails.plugin.springsecurity.rememberMe.persistent = true
 

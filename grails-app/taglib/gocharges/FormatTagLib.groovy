@@ -1,7 +1,6 @@
 package gocharges
 
 import shared.Utils
-
 import java.sql.Timestamp
 
 class FormatTagLib {
@@ -12,8 +11,12 @@ class FormatTagLib {
         out << dateNotation("dd/MM/yyyy", attrs.date)
     }
 
+    def isoDateNotation = { Map attrs ->
+        out << dateNotation("yyyy-MM-dd", attrs.date)
+    }
+
     def billingTypeNotation = { Map attrs ->
-        String messageCode = "PaymentType." + attrs.billingType.toString()
+        String messageCode = "BillingType." + attrs.billingType.toString()
         out << Utils.getMessageProperty(messageCode, null)
     }
 
