@@ -11,14 +11,9 @@ class PaymentController extends BaseController {
     PaymentService paymentService
 
     public Map index() {
-        List<Payment> payments = paymentService.list()
+        List<Payment> paymentList = paymentService.list()
 
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "index", model: [payments: payments, validation: validation])
-        } else {
-            render(view: "index", model: [payments: payments])
-        }
+        render(view: "index", model: [paymentList: paymentList])
     }
 
     public Map create() {

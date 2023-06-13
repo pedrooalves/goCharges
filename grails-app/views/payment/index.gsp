@@ -25,7 +25,7 @@
                     <h1 class="col fw-bold text-center">Pagador</h1>
                 </div>
 
-                <g:each var="payment" in="${payments}">
+                <g:each var="payment" in="${paymentList}">
                     <ul class="list-group list-group-horizontal mb-1 mb-1">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
