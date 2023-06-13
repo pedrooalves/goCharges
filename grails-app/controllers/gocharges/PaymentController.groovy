@@ -28,8 +28,9 @@ class PaymentController extends BaseController {
 
     public save() {
         try {
+            Customer customer = getCurrentCustomer()
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
+            Payment payment = paymentService.save(paymentAdapter, customer)
 
             flash.message = "Cobrança criada com sucesso"
             flash.type = FlashMessageType.SUCCESS

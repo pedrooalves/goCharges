@@ -1,5 +1,6 @@
 package gocharges
 
+import gocharges.mail.MailBuilder
 import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
@@ -11,6 +12,8 @@ import shared.Utils
 @Transactional
 class PaymentService {
 
+    PaymentMessageService paymentMessageService
+
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
         payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
@@ -19,7 +22,9 @@ class PaymentService {
         payment.value = adapter.value
         payment.customer = customer
 
-        return payment.save(failOnError: true)
+        payment.save(failOnError: true)
+        paymentMessageService.sendMail(MailBuilder.buildNewPaymentMessage(payment, customer))
+        return payment
     }
 
     public List<Payment> list(Map params, Customer customer) {
