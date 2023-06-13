@@ -28,9 +28,9 @@
             </div>
 
             <div class="form-group column my-4">
-                <label class="mb-2 fw-bold">Tipo de recebimento aceito</label>
+                <label class="mb-2 fw-bold">Forma de pagamento</label>
                 <g:select name="billingType" class="form-select" data-constraint="select"
-                          from="${PaymentBillingType.values()}" noSelection="${['': 'Métodos da pagamento']}"
+                          from="${PaymentBillingType.values()}" noSelection="${['': 'Formas de pagamento']}"
                           valueMessagePrefix="BillingType"
                 />
             </div>
