@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentBillingType"%>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -23,14 +24,11 @@
                         </select><br/>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="billingType-select" class="mb-2">Tipo de Recebimento</label>
-                        <select class="form-select" id="billingType-select" name="billingType">
-                            <option value="">Nenhum selecionado</option>
-                            <option value="BANK_SLIP">Boleto</option>
-                            <option value="DEBIT_CARD">Cartão de Débito</option>
-                            <option value="PIX">Pix</option>
-                        </select>
+                    <div class="form-group column my-4">
+                        <label class="mb-2 fw-bold">Forma de pagamento</label>
+                        <g:select name="billingType" class="form-select" data-constraint="select"
+                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Formas de pagamento']}"
+                                  valueMessagePrefix="BillingType"/>
                     </div>
 
                     <div class="form-group mb-3">
