@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="main"/>
     <title>Listagem de Payer</title>
 </head>
 <body>
@@ -20,37 +20,39 @@
             <div class="card">
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
-                        <label class="mb-2 fw-bold">Pagador</label>
-                        <select class="form-select" name="payerCpfCnpj">
-                            <option type="text" value="">Nenhum selecionado</option>
+                        <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
+                        <select class="form-select" id="payer-select" name="payerCpfCnpj">
+                            <option value="">Nenhum selecionado</option>
                             <g:each var="payer" in="${payerList}">
-                                <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                                <option value="${payer.cpfCnpj}">${payer.name}</option>
                             </g:each>
                         </select><br/>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="mb-2">Tipo de Recebimento</label>
-                            <select class="form-select" name="billingType" value="${payment.billingType}">
-                                <option type="text" value="">Nenhum selecionado</option>
-                                <option type="text" value="BANK_SLIP">Boleto</option>
-                                <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
-                                <option type="text" value="PIX">Pix</option>
-                            </select>
+                        <label for="billingType-select" class="mb-2">Tipo de Recebimento</label>
+                        <select class="form-select" id="billingType-select" name="billingType">
+                            <option value="">Nenhum selecionado</option>
+                            <option value="BANK_SLIP">Boleto</option>
+                            <option value="DEBIT_CARD">Cartão de Débito</option>
+                            <option value="PIX">Pix</option>
+                        </select>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" type="text" name="dueDate" value="${payment.dueDate}" /><br >
+                        <label for="dueDate" class="mb-2">Data de Vencimento</label>
+                        <input class="form-control" id="dueDate" type="date" name="dueDate"
+                               value='<FormatTagLib:isoDateNotation date="${payment.dueDate}"/>'/><br>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="mb-2">Valor</label>
-                        <input class="form-control" type="text" name="value" value="${payment.value}" /><br/>
+                        <label for="value" class="mb-2">Valor</label>
+                        <input class="form-control" id="value" type="text" name="value" value="${payment.value}"/><br/>
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
-                        <a href="/payment"><input href="/payment" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
+                        <a href="/payment"><input class="btn btn-outline-secondary" type="button"
+                                                  name="buttonCancelar" value="Cancelar"/></a>
                         <button type="submit" name="id" value="${payment.id}" class="btn bg-gogreen text-white ml-3">
                             Editar
                         </button>
