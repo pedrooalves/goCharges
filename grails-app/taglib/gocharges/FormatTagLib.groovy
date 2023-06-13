@@ -5,7 +5,7 @@ import java.sql.Timestamp
 
 class FormatTagLib {
 
-    static namespace = "FormatTagLib"
+    static namespace = "formatTagLib"
 
     def brazilDateNotation = { Map attrs ->
         out << dateNotation("dd/MM/yyyy", attrs.date)
