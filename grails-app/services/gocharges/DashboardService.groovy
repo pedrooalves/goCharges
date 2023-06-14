@@ -10,8 +10,8 @@ class DashboardService {
 
     public Map buildAccountInfo(Customer customer) {
         Map accountInfo = [:]
-        accountInfo.activePayerCount = PayerRepository.query([customer: customer]).count()
-        accountInfo.overduePayerCount = PaymentRepository.query(status: PaymentStatus.OVERDUE, customer: customer).count()
+        accountInfo.overduePayerCount = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: customer, countDistinct: "payer"]).get()
+        accountInfo.compliantPayerCount = PayerRepository.query([customer: customer]).count() - accountInfo.overduePayerCount
 
         accountInfo.pendingPaymentCount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: customer]).count()
         accountInfo.overduePaymentCount = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: customer]).count()
