@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="shared.enums.State"%>
 <html>
 <head>
     <meta name="layout" content="main" />
@@ -68,8 +69,10 @@
                             <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value="${payer.city}" />
                         </div>
                         <div class="col">
-                            <label class="mb-1">Estado</label>
-                            <input class="form-control" type="text" name="state" placeholder="Ex: Bahia" value="${payer.state}" />
+                            <label for="state-select" class="mb-1">Estado</label> <br/>
+                            <g:select name="state" id="state-select" class="form-select" data-constraint="select"
+                                      from="${State.values()}" value="${payer.state}" noSelection="${['': 'Selecione um estado']}"
+                                      optionValue="name"/>
                         </div>
                     </div>
 
