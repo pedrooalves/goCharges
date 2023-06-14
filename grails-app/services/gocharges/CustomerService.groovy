@@ -7,6 +7,7 @@ import gocharges.exception.BusinessException
 import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import shared.Utils
+import shared.enums.State
 
 @Transactional
 class CustomerService {
@@ -74,7 +75,7 @@ class CustomerService {
         customer.complement = adapter.complement
         customer.province = adapter.province
         customer.city = adapter.city
-        customer.state = adapter.state
+        customer.state = State.valueOf(adapter.state)
 
         if (customer.status == CustomerStatus.PENDING) {
             customer.status = CustomerStatus.ACTIVE
