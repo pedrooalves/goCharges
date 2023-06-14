@@ -18,6 +18,7 @@ class DashboardService {
         accountInfo.receivedPaymentCount = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: customer]).count()
 
         accountInfo.pendingRevenueAmount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: customer]).property("value").sum()
+        accountInfo.confirmedRevenueAmount = PaymentRepository.query([status: PaymentStatus.CONFIRMED, customer: customer]).property("value").sum()
         accountInfo.receivedRevenueAmount = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: customer]).property("value").sum()
 
         return accountInfo
