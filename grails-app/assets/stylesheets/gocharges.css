@@ -1,5 +1,9 @@
+html, body {
+    height: 100vh;
+}
+
 .bg-gogreen {
-    background-color: #88B337
+    background-color: #88B337;
 }
 
 .custom-list-item {
