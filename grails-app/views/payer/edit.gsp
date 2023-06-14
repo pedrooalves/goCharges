@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de Payer</title>
-    <asset:javascript src="cepFinder.js" />
+    <asset:javascript src="postalCodeUtils.js" />
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3 col-12">
@@ -83,8 +83,8 @@
                                    value="${payer.city}" />
                         </div>
                         <div class="col">
-                            <label for="state-select" class="mb-1">Estado</label> <br/>
-                            <g:select name="state" id="state-select" class="form-select" data-constraint="select"
+                            <label for="state" class="mb-1">Estado</label> <br/>
+                            <g:select name="state" id="state" class="form-select" data-constraint="select"
                                       from="${State.values()}" value="${payer.state}"
                                       noSelection="${['': 'Selecione um estado']}"
                                       optionValue="name"/>
