@@ -40,13 +40,13 @@
                     <h2 class="font-weight-bold">Clientes</h2>
                 </div>
                 <a href="/payer/index" class="text-decoration-none text-reset">
-                    <div class="card-body d-flex flex-column justify-content-center text-center border m-2" style="height: 9rem">
-                        <p class="mb-3 text-primary" style="font-size: 3rem;">${accountInfo.activePayerCount}</p>
-                        <p>Ativos</p>
+                    <div class="card-body d-flex flex-column justify-content-end text-center border m-2" style="height: 9rem">
+                        <p class="mb-3 text-primary" style="font-size: 3rem;">${accountInfo.compliantPayerCount}</p>
+                        <p>Em dia</p>
                     </div>
                 </a>
                 <a href="/payer/index" class="text-decoration-none text-reset">
-                    <div class="card-body d-flex flex-column    justify-content-center text-center border m-2" style="height: 9rem">
+                    <div class="card-body d-flex flex-column justify-content-end text-center border m-2" style="height: 9rem">
                         <p class="mb-3 text-danger" style="font-size: 3rem;">${accountInfo.overduePayerCount}</p>
                         <p>Inadimplentes</p>
                     </div>
