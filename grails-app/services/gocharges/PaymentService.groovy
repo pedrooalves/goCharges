@@ -87,7 +87,7 @@ class PaymentService {
         }
     }
 
-    public Payment getReceipt(String publicId) {
+    public Payment buildReceipt(String publicId) {
         Payment payment = PaymentRepository.query([publicId: publicId, ignoreCustomer: true]).get()
 
         if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
