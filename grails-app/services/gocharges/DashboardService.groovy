@@ -8,13 +8,13 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class DashboardService {
 
-    public Map info(Customer customer) {
-        Map info = [:]
-        info.payerCount = PayerRepository.query([customer: customer]).count()
-        info.pendingPaymentCount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: customer]).count()
-        info.overduePaymentCount = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: customer]).count()
-        info.receivedPaymentCount = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: customer]).count()
+    public Map buildAccountInfo(Customer customer) {
+        Map accountInfo = [:]
+        accountInfo.payerCount = PayerRepository.query([customer: customer]).count()
+        accountInfo.pendingPaymentCount = PaymentRepository.query([status: PaymentStatus.PENDING, customer: customer]).count()
+        accountInfo.overduePaymentCount = PaymentRepository.query([status: PaymentStatus.OVERDUE, customer: customer]).count()
+        accountInfo.receivedPaymentCount = PaymentRepository.query([status: PaymentStatus.RECEIVED, customer: customer]).count()
 
-        return info
+        return accountInfo
     }
 }

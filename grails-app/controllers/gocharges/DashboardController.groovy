@@ -14,8 +14,8 @@ class DashboardController extends BaseController {
             redirect(controller: "customer", action: "create")
         }
 
-        Map info = dashboardService.info(getCurrentCustomer())
+        Map accountInfo = dashboardService.buildAccountInfo(getCurrentCustomer())
 
-        render(view: "index", model: [info: info, userName: customer.name])
+        render(view: "index", model: [accountInfo: accountInfo, userName: customer.name])
     }
 }
