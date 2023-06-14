@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Dados comerciais</title>
-    <asset:javascript src="cepFinder.js" />
+    <asset:javascript src="postalCodeUtils.js" />
 </head>
 <body>
     <div class="container my-8 d-flex justify-center w-50">
@@ -74,8 +74,8 @@
                         <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
                     </div>
                     <div class="col">
-                        <label for="state-select" class="mb-1">Estado</label> <br/>
-                        <g:select name="state" id="state-select" class="form-select" data-constraint="select"
+                        <label for="state" class="mb-1">Estado</label> <br/>
+                        <g:select name="state" id="state" class="form-select" data-constraint="select"
                                   from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
                                   optionValue="name"/>
                     </div>
