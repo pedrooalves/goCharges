@@ -12,18 +12,24 @@
     <div class="container d-flex justify-content-center mt-5">
         <div class="border bg-light w-50">
             <div class="d-flex justify-content-between px-4 m-4">
-                <asset:image src="gocharges.png" alt="goCharges Logo"/></a>
+                <asset:image src="gocharges.png" alt="goCharges Logo"/>
+                </a>
                 <h1 class="font-weight-bold"> Comprovante de pagamento </h1>
             </div>
+
             <div class="border-top border-bottom p-3">
                 <p class="font-weight-bold mr-2">Método de pagamento:</p>
-                <p class="mb-2"><FormatTagLib:billingType billingType="${payment.billingType}"/></p>
+                <p class="mb-2">
+                    <formatTagLib:billingType billingType="${payment.billingType}"/>
+                </p>
 
                 <p class="font-weight-bold mr-2">Valor:</p>
                 <p class="mb-2">${payment.value}</p>
 
                 <p class="font-weight-bold mr-2">Data de vencimento:</p>
-                <p class="mb-2"><FormatTagLib:brazilDate date="${payment.dueDate}"/></p>
+                <p class="mb-2">
+                    <formatTagLib:brazilDate date="${payment.dueDate}"/>
+                </p>
 
                 <p class="font-weight-bold mr-2">Data de pagamento:</p>
                 <p class="mb-2"></p>
@@ -47,7 +53,6 @@
 
                 <p class="font-weight-bold mr-2">CPF / CNPJ:</p>
                 <p>${payment.customer.cpfCnpj}</p>
-            </div>
             </div>
         </div>
     </div>
