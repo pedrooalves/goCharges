@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentBillingType"%>
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payer</title>
+    <title>Listagem de Payment</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
@@ -11,38 +12,29 @@
                 <h1 class="display-4">Editar Cobrança</h1>
             </div>
 
-            <g:if test="${flash?.message}">
-                <div class="alert alert-danger" role="alert">
-                    ${flash.message}
-                </div>
-            </g:if>
-
             <div class="card">
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
                         <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
-                        <select class="form-select" id="payer-select" name="payerCpfCnpj">
+                        <select class="form-select" id="payer-select" name="payerId">
                             <option value="">Nenhum selecionado</option>
                             <g:each var="payer" in="${payerList}">
-                                <option value="${payer.cpfCnpj}">${payer.name}</option>
+                                <option value="${payer.id}">${payer.name}</option>
                             </g:each>
                         </select><br/>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="billingType-select" class="mb-2">Tipo de Recebimento</label>
-                        <select class="form-select" id="billingType-select" name="billingType">
-                            <option value="">Nenhum selecionado</option>
-                            <option value="BANK_SLIP">Boleto</option>
-                            <option value="DEBIT_CARD">Cartão de Débito</option>
-                            <option value="PIX">Pix</option>
-                        </select>
+                    <div class="form-group column my-4">
+                        <label class="mb-2 fw-bold">Forma de pagamento</label>
+                        <g:select name="billingType" class="form-select" data-constraint="select"
+                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Formas de pagamento']}"
+                                  valueMessagePrefix="BillingType"/>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="dueDate" class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" id="dueDate" type="date" name="dueDate"
-                               value='<FormatTagLib:isoDateNotation date="${payment.dueDate}"/>'/><br>
+                        <label class="mb-2">Data de Vencimento</label>
+                        <input class="form-control" type="date" name="dueDate"
+                               value="${formatTagLib.isoDateNotation(date: payment.dueDate)}"/><br>
                     </div>
 
                     <div class="form-group mb-3">

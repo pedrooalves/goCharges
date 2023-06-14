@@ -3,32 +3,32 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Dados comerciais</title>
+    <title>Novo Pagador</title>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center w-50">
-        <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
-            <h1 class="display-4">Dados Comerciais</h1>
+    <div class="container my-8 d-flex justify-content-center col">
+        <g:form class="card-body col-6" name="payerForm" url="[controller: 'payer', action: 'save']">
+            <h1 class="display-4">Novo Pagador</h1>
 
             <div class="form-group">
-                <label>Nome</label>
-                <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value=""/>
+                <label>Nome</label> <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva"
+                                           value=""/>
             </div>
 
             <div class="form-group">
-                <label>E-mail</label>
-                <input class="form-control" readonly type="email" name="email" value="${userEmail}"/>
+                <label>Email</label> <input class="form-control" type="email" name="email"
+                                            placeholder="Ex: joao.silva@email.com" value="">
             </div>
 
             <div class="form-group">
-                <label>Celular</label>
-                <input class="form-control" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value=""/>
+                <label>CPF / CNPJ</label> <input class="form-control" type="text" name="cpfCnpj"
+                                                 pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" placeholder="000.000.000-00"
+                                                 value=""/>
             </div>
 
             <div class="form-group">
-                <label>CPF / CNPJ</label>
-                <input class="form-control" type="text" pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" name="cpfCnpj"
-                       placeholder="000.000.000-00" value=""/>
+                <label>Celular</label> <input class="form-control" type="text" name="mobilePhone"
+                                              placeholder="(00) 00000-0000" value=""/>
             </div>
 
             <h4 class="font-weight-bold mb-2">Endereço</h4>
@@ -42,7 +42,7 @@
             <div class="form-row mb-3">
                 <div class="col">
                     <label class="mb-1">Rua</label>
-                    <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                    <input class="form-control" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value=""/>
                 </div>
                 <div class="col">
                     <label class="mb-1">Número</label>
@@ -58,14 +58,15 @@
                 </div>
                 <div class="col">
                     <label class="mb-1">Bairro</label>
-                    <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
+                    <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
+                           value=""/>
                 </div>
             </div>
 
             <div class="form-row mb-3">
                 <div class="col">
                     <label class="mb-1">Cidade</label>
-                    <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
+                    <input class="form-control" type="text" name="city" placeholder="Ex: Salvador" value=""/>
                 </div>
                 <div class="col">
                     <label for="state-select" class="mb-1">Estado</label> <br/>
@@ -75,9 +76,10 @@
                 </div>
             </div>
 
-            <div class="navbar d-flex justify-content-space-between">
-                <a href="/"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
+            <div class="row d-flex justify-content-between mt-5">
+                <a class="text-decoration-none btn btn-outline-secondary" type="button"
+                   href="${createLink(controller:'payer', action:'index')}">Cancelar</a>
+                <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
     </div>
