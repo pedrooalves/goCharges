@@ -100,7 +100,7 @@ class PaymentController extends BaseController {
     public confirm() {
         try {
             Long id = Long.valueOf(params.id)
-            paymentService.confirm(id)
+            paymentService.confirm(id, getCurrentCustomer())
 
             flash.message = "Cobrança confirmada com sucesso"
             flash.type = FlashMessageType.SUCCESS

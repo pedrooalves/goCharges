@@ -16,6 +16,7 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
+        payment.publicId = UUID.randomUUID().toString().replace("-", "")
         payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
@@ -52,8 +53,8 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
-    public void confirm(Long id) {
-        Payment payment = PaymentRepository.query([id: id, ignoreCustomer: true]).get()
+    public void confirm(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException("Cobrança não encontrada")
 
@@ -84,5 +85,13 @@ class PaymentService {
                 }
             }
         }
+    }
+
+    public Payment buildReceipt(String publicId) {
+        Payment payment = PaymentRepository.query([publicId: publicId, ignoreCustomer: true]).get()
+
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
+
+        return payment
     }
 }

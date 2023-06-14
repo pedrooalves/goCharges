@@ -34,6 +34,10 @@ class PaymentRepository {
                 eq("status", PaymentStatus.valueOf(search.status.toString()))
             }
 
+            if (search.containsKey("publicId")) {
+                eq("publicId", search.publicId)
+            }
+
             if (search.containsKey("countDistinct")) {
                 projections {
                     countDistinct(search.countDistinct)
