@@ -9,11 +9,13 @@
     <div class="container col-12" style="height: 100%">
         <div class="card-body row">
             <div class="col 6">
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center align-items-center">
                     <h1>Pagadores</h1>
+                </div>
 
-                    <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-primary">Novo Pagador</button>
+                <div class="navbar navbar-light d-flex justify-content-end">
+                    <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
+                        <button class="btn btn-primary">Adicionar Pagador</button>
                     </a>
                 </div>
 
