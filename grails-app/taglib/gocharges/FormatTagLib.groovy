@@ -7,15 +7,15 @@ class FormatTagLib {
 
     static namespace = "formatTagLib"
 
-    def brazilDateNotation = { Map attrs ->
+    def brazilDate = { Map attrs ->
         out << dateNotation("dd/MM/yyyy", attrs.date)
     }
 
-    def isoDateNotation = { Map attrs ->
+    def isoDate = { Map attrs ->
         out << dateNotation("yyyy-MM-dd", attrs.date)
     }
 
-    def billingTypeNotation = { Map attrs ->
+    def billingType = { Map attrs ->
         String messageCode = "BillingType." + attrs.billingType.toString()
         out << Utils.getMessageProperty(messageCode, null)
     }
