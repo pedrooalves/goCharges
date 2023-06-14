@@ -31,47 +31,49 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <h4 class="font-weight-bold mb-2">Endereço</h4>
+            <div id="addressForm">
+                <h4 class="font-weight-bold mb-2">Endereço</h4>
 
-            <div class="form-group">
-                <label class="mb-1">CEP</label>
-                <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
-                       placeholder="00000-000" value=""/>
-            </div>
+                <div class="form-group">
+                    <label class="mb-1">CEP</label>
+                    <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
+                           placeholder="00000-000" value=""/>
+                </div>
 
-            <div class="form-row mb-3">
-                <div class="col">
-                    <label class="mb-1">Rua</label>
-                    <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                <div class="form-row mb-3">
+                    <div class="col">
+                        <label class="mb-1">Rua</label>
+                        <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                    </div>
+                    <div class="col">
+                        <label class="mb-1">Número</label>
+                        <input class="form-control" type="text" name="addressNumber" placeholder="00000" value=""/>
+                    </div>
                 </div>
-                <div class="col">
-                    <label class="mb-1">Número</label>
-                    <input class="form-control" type="text" name="addressNumber" placeholder="00000" value=""/>
-                </div>
-            </div>
 
-            <div class="form-row mb-3">
-                <div class="col">
-                    <label class="mb-1">Complemento</label>
-                    <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
-                           value=""/>
+                <div class="form-row mb-3">
+                    <div class="col">
+                        <label class="mb-1">Complemento</label>
+                        <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
+                               value=""/>
+                    </div>
+                    <div class="col">
+                        <label class="mb-1">Bairro</label>
+                        <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
+                    </div>
                 </div>
-                <div class="col">
-                    <label class="mb-1">Bairro</label>
-                    <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
-                </div>
-            </div>
 
-            <div class="form-row mb-3">
-                <div class="col">
-                    <label class="mb-1">Cidade</label>
-                    <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
-                </div>
-                <div class="col">
-                    <label for="state-select" class="mb-1">Estado</label> <br/>
-                    <g:select name="state" id="state-select" class="form-select" data-constraint="select"
-                              from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
-                              optionValue="name"/>
+                <div class="form-row mb-3">
+                    <div class="col">
+                        <label class="mb-1">Cidade</label>
+                        <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
+                    </div>
+                    <div class="col">
+                        <label for="state-select" class="mb-1">Estado</label> <br/>
+                        <g:select name="state" id="state-select" class="form-select" data-constraint="select"
+                                  from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
+                                  optionValue="name"/>
+                    </div>
                 </div>
             </div>
 
