@@ -16,6 +16,7 @@ class PaymentService {
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
+        payment.publicId = UUID.randomUUID().toString().replace("-", "")
         payment.payer = PayerRepository.query([id: adapter.payerId, customer: customer]).get()
         payment.billingType = adapter.billingType
         payment.dueDate = adapter.dueDate
