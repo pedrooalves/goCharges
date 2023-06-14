@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentBillingType"%>
 <html>
 <head>
-    <meta name="layout" content="main" />
-    <title>Listagem de Payer</title>
+    <meta name="layout" content="main"/>
+    <title>Listagem de Payment</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
@@ -11,46 +12,39 @@
                 <h1 class="display-4">Editar Cobrança</h1>
             </div>
 
-            <g:if test="${flash?.message}">
-                <div class="alert alert-danger" role="alert">
-                    ${flash.message}
-                </div>
-            </g:if>
-
             <div class="card">
                 <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payment', action: 'update']">
                     <div class="form-group mb-3">
-                        <label class="mb-2 fw-bold">Pagador</label>
-                        <select class="form-select" name="payerCpfCnpj">
-                            <option type="text" value="">Nenhum selecionado</option>
+                        <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
+                        <select class="form-select" id="payer-select" name="payerId">
+                            <option value="">Nenhum selecionado</option>
                             <g:each var="payer" in="${payerList}">
-                                <option type="text" value="${payer.cpfCnpj}">${payer.name}</option>
+                                <option value="${payer.id}">${payer.name}</option>
                             </g:each>
                         </select><br/>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Tipo de Recebimento</label>
-                            <select class="form-select" name="billingType" value="${payment.billingType}">
-                                <option type="text" value="">Nenhum selecionado</option>
-                                <option type="text" value="BANK_SLIP">Boleto</option>
-                                <option type="text" value="DEBIT_CARD">Cartão de Débito</option>
-                                <option type="text" value="PIX">Pix</option>
-                            </select>
+                    <div class="form-group column my-4">
+                        <label class="mb-2 fw-bold">Forma de pagamento</label>
+                        <g:select name="billingType" class="form-select" data-constraint="select"
+                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Formas de pagamento']}"
+                                  valueMessagePrefix="BillingType"/>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="mb-2">Data de Vencimento</label>
-                        <input class="form-control" type="text" name="dueDate" value="${payment.dueDate}" /><br >
+                        <input class="form-control" type="date" name="dueDate"
+                               value="${formatTagLib.isoDateNotation(date: payment.dueDate)}"/><br>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="mb-2">Valor</label>
-                        <input class="form-control" type="text" name="value" value="${payment.value}" /><br/>
+                        <label for="value" class="mb-2">Valor</label>
+                        <input class="form-control" id="value" type="text" name="value" value="${payment.value}"/><br/>
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
-                        <a href="/payment"><input href="/payment" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
+                        <a href="/payment"><input class="btn btn-outline-secondary" type="button"
+                                                  name="buttonCancelar" value="Cancelar"/></a>
                         <button type="submit" name="id" value="${payment.id}" class="btn bg-gogreen text-white ml-3">
                             Editar
                         </button>

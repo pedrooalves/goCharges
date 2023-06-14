@@ -64,6 +64,7 @@ dependencies {
         exclude group: 'slf4j-api', module: 'c3p0'
     }
     implementation ('org.grails.plugins:quartz:2.0.13')
+    implementation "org.grails.plugins:mail:3.0.0"
     profile "org.grails.profiles:web"
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
     runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
