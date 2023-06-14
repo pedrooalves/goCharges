@@ -18,13 +18,13 @@
             </div>
 
             <div class="border-top border-bottom p-3">
-                <p class="font-weight-bold mr-2">Método de pagamento:</p>
+                <p class="font-weight-bold mr-2">Forma de pagamento:</p>
                 <p class="mb-2">
                     <formatTagLib:billingType billingType="${payment.billingType}"/>
                 </p>
 
                 <p class="font-weight-bold mr-2">Valor:</p>
-                <p class="mb-2">${payment.value}</p>
+                <p class="mb-2">R$ <formatTagLib:currencyWithoutMonetarySimbol value="${payment.value}"/></p>
 
                 <p class="font-weight-bold mr-2">Data de vencimento:</p>
                 <p class="mb-2">
@@ -32,7 +32,7 @@
                 </p>
 
                 <p class="font-weight-bold mr-2">Data de pagamento:</p>
-                <p class="mb-2"></p>
+                <p class="mb-2"><formatTagLib:brazilDate date="${payment.paymentDate}"/></p>
             </div>
 
             <div class="border-top border-bottom p-3">
