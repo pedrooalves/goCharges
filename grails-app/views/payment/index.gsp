@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<%@ page import="gocharges.payment.enums.PaymentStatus" %>
+<%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <html>
 <head>
     <meta name="layout" content="main"/>
     <title>Cadastro de Payment</title>
-    <asset:javascript src="customAlert.js"/>
+    <asset:javascript src="modalController.js"/>
 </head>
 <body>
-    <div class="container col-12">
+    <div class="container col-12 js-payment-list-container">
         <div class="card-body row">
             <div class="col">
-                <div id="customAlert">
-                </div>
+                <g:render template="/modal/templates/confirmReceivedInCashModal"/>
 
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
@@ -39,9 +38,7 @@
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
                         <g:if test="${payment.status == PaymentStatus.PENDING}">
-                            <button class="btn btn-outline-dark ml-3" type="button"
-                                    onclick="receivedInCashAlert(${payment.id})" data-toggle="modal"
-                                    data-target="#receivedInCashAlert"
+                            <button class="btn btn-outline-dark ml-3 js-btn-confirm-received-in-cash" type="button" value="${payment.id}"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
@@ -51,15 +48,6 @@
                                 </svg>
                             </button>
                         </g:if>
-
-                        <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="PUT">
-                            <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pencil" viewBox="0 0 16 16">
-                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                </svg>
-                            </button>
-                        </g:form>
 
                         <g:if test="${payment.status == PaymentStatus.RECEIVED}">
                             <g:form name="receiptButton" url="[controller: 'paymentReceipt', action: 'index']" method="GET">
@@ -73,6 +61,15 @@
                                 </button>
                             </g:form>
                         </g:if>
+
+                        <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="PUT">
+                            <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                </svg>
+                            </button>
+                        </g:form>
 
                         <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="DELETE">
                             <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
