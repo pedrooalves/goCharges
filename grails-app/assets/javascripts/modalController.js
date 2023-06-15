@@ -5,13 +5,14 @@ function ModalController() {
 
 
     _this.init = function() {
-        console.log(_this.confirmReceivedInCashButton)
-        _this.setConfirmReceivedInCashModal()
         _this.setConfirmReceivedInCashButton()
+        _this.setConfirmReceivedInCashModalAnchor()
     };
 
-    _this.setConfirmReceivedInCashModal = function() {
-        _this.reference.find(".js-confirm-received-in-cash-anchor").attr("href", `/payment/confirmReceivedInCash/${_this.confirmReceivedInCashButton.val()}`);
+    _this.setConfirmReceivedInCashModalAnchor = function(id) {
+        _this.confirmReceivedInCashButton.on("click", function() {
+           _this.reference.find(".js-confirm-received-in-cash-anchor").attr("href", `/payment/confirmReceivedInCash/${this.value}`);
+        });
     };
 
     _this.setConfirmReceivedInCashButton = function() {
