@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Nova cobrança</title>
+    <title>Adicionar cobrança</title>
 </head>
 <body>
     <div class="container my-8 d-flex justify-center w-25">

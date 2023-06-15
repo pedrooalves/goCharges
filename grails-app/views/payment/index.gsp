@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cadastro de Payment</title>
+    <title>Listagem de cobranças</title>
 </head>
 <body>
     <div class="container col-12">
