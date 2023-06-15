@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="gocharges.payment.enums.PaymentStatus" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -15,6 +14,7 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" url="[controller: 'payment', action: 'index']" method="POST">
+                        <select name="deletedOnly">
                         <select name="deletedOnly">
                             <option type="text" value="">Exibir somente cobranças ativas</option>
                             <option type="text" value="true">Exibir somente cobranças inativas</option>
@@ -44,7 +44,7 @@
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
-                        <g:if test="${payment.status == PaymentStatus.PENDING && !payment.deleted}">
+                        <g:if test="${payment.canConfirm()}">
                             <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -64,7 +64,7 @@
                             </button>
                         </g:form>
 
-                        <g:if test="${payment.deleted == false}">
+                        <g:if test="${payment.canDelete()}">
                             <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
