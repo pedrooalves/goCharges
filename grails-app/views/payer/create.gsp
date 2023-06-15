@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Novo Pagador</title>
+    <title>Adicionar pagador</title>
 </head>
 <body>
     <div class="container my-8 d-flex justify-content-center col">

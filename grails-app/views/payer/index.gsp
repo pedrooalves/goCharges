@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payer</title>
+    <title>Listagem de pagadores</title>
     <asset:javascript src="goCharges.js" />
 </head>
 <body>
