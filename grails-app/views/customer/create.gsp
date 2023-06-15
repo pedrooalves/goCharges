@@ -4,7 +4,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Dados comerciais</title>
-    <asset:javascript src="postalCodeUtils.js" />
 </head>
 <body>
     <div class="container my-8 d-flex justify-center w-50">
