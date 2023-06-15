@@ -15,9 +15,12 @@ class PayerController extends BaseController {
         if (deletedOnly && !Boolean.valueOf(deletedOnly)) params.put("includeDeleted", true)
 
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
-        Boolean showNewPayerForm = Boolean.valueOf(chainModel?.showNewPaymentForm)
 
-        render(view: "index", model: [payerList: payerList, showNewPayerForm: showNewPayerForm])
+        render(view: "index", model: [payerList: payerList])
+    }
+
+    public create() {
+        render(view: "create")
     }
 
     public save() {
@@ -76,10 +79,6 @@ class PayerController extends BaseController {
         } finally {
             redirect(action: "index")
         }
-    }
-
-    public showForm() {
-        chain(action: "index", model: [showNewPayerForm: true])
     }
 
     public edit() {

@@ -3,12 +3,13 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Dados comerciais</title>
+    <title>Novo Pagador</title>
+    <asset:javascript src="postalCodeUtils.js"/>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center w-50">
-        <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
-            <h1 class="display-4">Dados Comerciais</h1>
+    <div class="container my-8 d-flex justify-content-center col">
+        <g:form class="card-body col-6" name="payerForm" url="[controller: 'payer', action: 'save']">
+            <h1 class="display-4">Novo Pagador</h1>
 
             <div class="form-group">
                 <label>Nome</label>
@@ -16,19 +17,19 @@
             </div>
 
             <div class="form-group">
-                <label>E-mail</label>
-                <input class="form-control" readonly type="email" name="email" value="${userEmail}"/>
+                <label>Email</label>
+                <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="">
+            </div>
+
+            <div class="form-group">
+                <label>CPF / CNPJ</label>
+                <input class="form-control" type="text" name="cpfCnpj" pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" placeholder="000.000.000-00"
+                       value=""/>
             </div>
 
             <div class="form-group">
                 <label>Celular</label>
                 <input class="form-control" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value=""/>
-            </div>
-
-            <div class="form-group">
-                <label>CPF / CNPJ</label>
-                <input class="form-control" type="text" pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" name="cpfCnpj"
-                       placeholder="000.000.000-00" value=""/>
             </div>
 
             <div class="js-person-address-form">
@@ -87,8 +88,8 @@
                 </div>
             </div>
 
-            <div class="navbar d-flex justify-content-space-between">
-                <a href="/" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
+            <div class="row d-flex justify-content-between mt-5">
+                <a href="/payer" class="text-decoration-none btn btn-outline-secondary" type="button">Cancelar</a>
                 <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
