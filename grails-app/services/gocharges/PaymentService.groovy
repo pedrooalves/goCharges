@@ -39,7 +39,7 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if (!payment.payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+        if (!payment.payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
 
         return payment.save(failOnError: true)
     }
@@ -47,7 +47,7 @@ class PaymentService {
     public void delete(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message.feminine", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
         payment.deleted = true
         payment.save(failOnError: true)
@@ -56,7 +56,7 @@ class PaymentService {
     public void confirm(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message.feminine", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
         payment.status = PaymentStatus.RECEIVED
         payment.paymentDate = new Date()
@@ -98,7 +98,7 @@ class PaymentService {
     public Payment restore(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer, deletedOnly: true]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message.feminine", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
         payment.deleted = false
         return payment.save(failOnError: true)
