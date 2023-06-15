@@ -88,7 +88,7 @@
             </div>
 
             <div class="navbar d-flex justify-content-space-between">
-                <a href="/" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
+                <a href="/dashboard" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
                 <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
