@@ -64,10 +64,10 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Pagador"))
-        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Método de pagamento"))
-        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Data de vencimento"))
-        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Valor"))
+        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "pagador"))
+        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "forma de pagamento"))
+        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "data de vencimento"))
+        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "valor"))
     }
 
     public void setAsOverdue() {
