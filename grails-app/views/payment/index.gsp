@@ -14,7 +14,7 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
+                    <g:form class="d-flex justify-content-center col" url="[controller: 'payment', action: 'index']" method="POST">
                         <select name="deletedOnly">
                             <option type="text" value="">Exibir somente cobranças ativas</option>
                             <option type="text" value="true">Exibir somente cobranças inativas</option>
