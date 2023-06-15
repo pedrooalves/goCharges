@@ -2,7 +2,6 @@ function PostalCodeUtils() {
     var _this = this;
     _this.reference = $(".js-person-address-form");
     _this.postalCodeInput = _this.reference.find(".js-postal-code");
-    _this.postalCodeWarning = _this.reference.find(".js-postal-code-warning");
     _this.address = _this.reference.find(".js-address");
     _this.province = _this.reference.find(".js-province");
     _this.city = _this.reference.find(".js-city");
@@ -55,7 +54,7 @@ function PostalCodeUtils() {
     }
 
     var setWarningMessage = function(string) {
-        _this.postalCodeWarning.text(string);
+        _this.reference.find(".js-postal-code-warning").text(string);
     }
 }
 
