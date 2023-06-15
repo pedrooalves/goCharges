@@ -32,23 +32,29 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <div id="addressForm">
+            <div class="js-person-address-form">
                 <h4 class="font-weight-bold mb-2">Endereço</h4>
 
-            <div class="form-row mb-2">
-                <div class="col">
-                    <label class="mb-1">CEP</label>
-                    <input class="form-control" type="text" pattern="\d{5}-?\d{3}" onblur="searchCep(this.value)" name="postalCode" placeholder="00000-000" value="" />
+                <div class="form-row mb-2">
+                    <div class="col">
+                        <label class="mb-1">CEP</label>
+                        <input class="form-control js-postal-code" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
+                               placeholder="00000-000" value=""/>
+                    </div>
+                    <div class="d-flex align-items-end col">
+                        <a href="https://buscacepinter.correios.com.br/" target="_blank" class="btn btn-outline-dark"
+                           style="text-decoration: none;"> Não sei meu CEP </a>
+                    </div>
                 </div>
-                <div class="d-flex align-items-end col">
-                    <a href="https://buscacepinter.correios.com.br/" class="btn btn-outline-dark" style="text-decoration: none;"> Não sei meu CEP </a>
+
+                <div class="form-row ml-1">
+                    <span class="form-row js-postal-code-warning text-danger"></span>
                 </div>
-            </div>
 
                 <div class="form-row mb-3">
                     <div class="col">
                         <label class="mb-1">Rua</label>
-                        <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
+                        <input class="form-control js-address js-set" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value=""/>
                     </div>
                     <div class="col">
                         <label class="mb-1">Número</label>
@@ -64,29 +70,30 @@
                     </div>
                     <div class="col">
                         <label class="mb-1">Bairro</label>
-                        <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
+                        <input class="form-control js-province js-set" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
+                               value=""/>
                     </div>
                 </div>
 
                 <div class="form-row mb-3">
                     <div class="col">
                         <label class="mb-1">Cidade</label>
-                        <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
+                        <input class="form-control js-city js-set" type="text" name="city" placeholder="Ex: Salvador" value=""/>
                     </div>
                     <div class="col">
-                        <label for="state" class="mb-1">Estado</label> <br/>
-                        <g:select name="state" id="state" class="form-select" data-constraint="select"
-                                  from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
-                                  optionValue="name"/>
+                        <label class="mb-1">Estado</label> <br/>
+                        <g:select class="form-select js-state js-set" name="state" data-constraint="select"
+                                  from="${State.values()}" noSelection="${['': 'Selecione um estado']}" optionValue="name"/>
                     </div>
                 </div>
             </div>
 
             <div class="navbar d-flex justify-content-space-between">
-                <a href="/"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
+                <a href="/" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
+                <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
     </div>
+    <asset:javascript src="postal-code-utils.js"/>
 </body>
 </html>

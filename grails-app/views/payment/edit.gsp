@@ -34,7 +34,7 @@
                     <div class="form-group mb-3">
                         <label class="mb-2">Data de Vencimento</label>
                         <input class="form-control" type="date" name="dueDate"
-                               value="${formatTagLib.isoDateNotation(date: payment.dueDate)}"/><br>
+                               value="${formatTagLib.isoDate(date: payment.dueDate)}"/><br>
                     </div>
 
                     <div class="form-group mb-3">

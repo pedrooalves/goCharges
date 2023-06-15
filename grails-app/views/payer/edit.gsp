@@ -92,8 +92,7 @@
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
-                        <a href="/payer"><input href="/payer" class="btn btn-outline-secondary" type="button"
-                                                name="buttonCancelar" value="Cancelar"/></a>
+                        <a href="/payer" class="btn btn-outline-secondary" style="text-decoration:none" type="button">Cancelar</a>
                         <button type="submit" name="id" value="${payer.id}" class="btn bg-gogreen text-white ml-3">
                             Salvar
                         </button>

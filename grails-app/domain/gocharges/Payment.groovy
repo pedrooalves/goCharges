@@ -6,6 +6,7 @@ import gocharges.payment.enums.PaymentStatus
 
 class Payment extends BaseEntity {
 
+    String publicId
     Payer payer
     PaymentBillingType billingType
     PaymentStatus status = PaymentStatus.PENDING
@@ -16,6 +17,7 @@ class Payment extends BaseEntity {
     Customer customer
 
     static constraints = {
+        publicId(blank: false, unique: true)
         billingType(blank: false)
         status(blank: false)
         dueDate(blank: false, nullable: false)
