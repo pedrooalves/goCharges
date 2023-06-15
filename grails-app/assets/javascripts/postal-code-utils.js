@@ -1,15 +1,15 @@
 function PostalCodeUtils() {
     var _this = this;
     _this.reference = $(".js-postal-code-container");
-    _this.postalCodeInput = _this.reference.find(".js-postal-code");
+    _this.postalCode = _this.reference.find(".js-postal-code");
     _this.address = _this.reference.find(".js-address");
     _this.province = _this.reference.find(".js-province");
     _this.city = _this.reference.find(".js-city");
     _this.state = _this.reference.find(".js-state");
 
     _this.init = function() {
-        _this.postalCodeInput.on("blur", function() {
-            _this.postalCode = _this.postalCodeInput.val().replace(/\D/g, '');
+        _this.postalCode.on("blur", function() {
+            _this.postalCodeValue = _this.postalCode.val().replace(/\D/g, '');
             _this.searchCep();
         });
     }
@@ -21,11 +21,11 @@ function PostalCodeUtils() {
     }
 
     var getUrl = function() {
-        if (validateCep()) {
+        if (validatePostalCode()) {
             setWarningMessage("");
             setInputs('...');
 
-            return 'https://viacep.com.br/ws/'+ _this.postalCode + '/json/?callback=?';
+            return 'https://viacep.com.br/ws/'+ _this.postalCodeValue + '/json/?callback=?';
         } else {
             setInputs("");
             setWarningMessage("CEP inválido.");
@@ -48,9 +48,9 @@ function PostalCodeUtils() {
         _this.reference.find('.js-set').val(string);
     }
 
-    var validateCep = function() {
+    var validatePostalCode = function() {
         var validatePattern = /^[0-9]{8}$/;
-        return validatePattern.test(_this.postalCode) ? true : false;
+        return validatePattern.test(_this.postalCodeValue) ? true : false;
     }
 
     var setWarningMessage = function(string) {
