@@ -99,7 +99,7 @@ class PaymentController extends BaseController {
     public confirmReceivedInCash() {
         try {
             Long id = Long.valueOf(params.id)
-            paymentService.confirmReceivedInCash(id)
+            paymentService.confirmReceivedInCash(id, getCurrentCustomer())
 
             flash.message = "Pagamento confirmado com sucesso"
             flash.type = FlashMessageType.SUCCESS

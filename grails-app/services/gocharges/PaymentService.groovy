@@ -54,8 +54,8 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
-    public void confirmReceivedInCash(Long id) {
-        Payment payment = PaymentRepository.query([id: id]).get()
+    public void confirmReceivedInCash(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
         if (payment.status != PaymentStatus.PENDING) throw new BusinessException(Utils.getMessageProperty("default.not.pending.payment.message", null))
