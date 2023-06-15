@@ -20,29 +20,6 @@ class CustomerController extends BaseController {
         render(view: "create", model: [userEmail: userEmail])
     }
 
-    def save() {
-        try {
-            CustomerAdapter adapter = convertToAdapter(params)
-            customerService.save(adapter)
-
-            flash.message = "Conta criada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-
-            redirect(controller: "dashboard", action: "index")
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
-
-            redirect(action: "create")
-        } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("CustomerController.save >> Erro em criar customer com os seguintes dados: ${params}")
-
-            redirect(action: "create")
-        }
-    }
-
     def edit() {
         Customer customer = getCurrentCustomer()
 
@@ -62,7 +39,7 @@ class CustomerController extends BaseController {
             flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
-            flass.type = FlashMessageType.ERROR
+            flash.type = FlashMessageType.ERROR
             log.info("CustomerController.update >> Erro em atualizar customer com os seguintes dados: ${params}")
         } finally {
             redirect(controller: "dashboard", action: "index")
@@ -81,7 +58,7 @@ class CustomerController extends BaseController {
             flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde"
-            flass.type = FlashMessageType.ERROR
+            flash.type = FlashMessageType.ERROR
             log.info("CustomerController.delete >> Erro em remover customer com o seguinte id: ${params.id}")
         } finally {
             redirect(view: "index")

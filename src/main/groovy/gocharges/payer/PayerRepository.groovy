@@ -4,6 +4,7 @@ import gocharges.Payer
 import grails.gorm.DetachedCriteria
 
 class PayerRepository {
+
     public static DetachedCriteria<Payer> query(Map search) {
         DetachedCriteria<Payer> query = Payer.where {
             if (!Boolean.valueOf(search.ignoreCustomer) && !search.containsKey("customer")) {
@@ -18,20 +19,24 @@ class PayerRepository {
                 eq("email", search.email)
             }
 
-            if (!Boolean.valueOf(search.includeDeleted)) {
+            if (Boolean.valueOf(search.deletedOnly)) {
+                eq("deleted", true)
+            } else if (!Boolean.valueOf(search.includeDeleted)) {
                 eq("deleted", false)
             }
 
             if (search.containsKey("id")) {
-                eq("id", search.id)
+                eq("id", Long.valueOf(search.id))
+            }
+
+            if (search.containsKey("id[ne]")) {
+                ne("id", Long.valueOf(search."id[ne]"))
             }
 
             if (search.containsKey("customer")) {
                 eq("customer", search.customer)
             }
         }
-
-
         return query
     }
 }

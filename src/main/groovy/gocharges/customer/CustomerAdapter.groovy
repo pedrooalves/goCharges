@@ -1,19 +1,10 @@
 package gocharges.customer
 
-class CustomerAdapter {
+import gocharges.adapter.base.BasePersonAdapter
 
-    String name
-    String email
-    String mobilePhone
-    String cpfCnpj
-    String address
+class CustomerAdapter extends BasePersonAdapter {
 
-    CustomerAdapter(Map params) {
-        this.name = params.name
-        this.email = params.email
-        this.mobilePhone = params.mobilePhone
-        this.cpfCnpj = params.cpfCnpj
-        this.address = params.address
+    public CustomerAdapter(Map params) {
+        super(params)
     }
-
 }

@@ -1,6 +1,7 @@
 package gocharges.controller.base
 
 import gocharges.Customer
+import gocharges.auth.User
 import grails.plugin.springsecurity.SpringSecurityService
 
 public abstract class BaseController {
@@ -9,5 +10,9 @@ public abstract class BaseController {
 
     public Customer getCurrentCustomer() {
         return springSecurityService.getCurrentUser().customer
+    }
+
+    public User getCurrentUser() {
+        return (User) springSecurityService.getCurrentUser()
     }
 }
