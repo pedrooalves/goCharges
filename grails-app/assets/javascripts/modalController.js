@@ -9,7 +9,7 @@ function ModalController() {
         _this.setConfirmReceivedInCashModalAnchor()
     };
 
-    _this.setConfirmReceivedInCashModalAnchor = function(id) {
+    _this.setConfirmReceivedInCashModalAnchor = function() {
         _this.confirmReceivedInCashButton.on("click", function() {
            _this.reference.find(".js-confirm-received-in-cash-anchor").attr("href", `/payment/confirmReceivedInCash/${this.value}`);
         });
