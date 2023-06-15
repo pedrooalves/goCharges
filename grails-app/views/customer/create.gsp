@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container my-8 d-flex justify-center w-50">
-        <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
+        <g:form class="card-body js-person-create-form" name="customerForm" url="[controller: 'customer', action: 'update']">
             <h1 class="display-4">Dados Comerciais</h1>
 
             <div class="form-group">
@@ -31,49 +31,58 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <div id="addressForm">
-                <h4 class="font-weight-bold mb-2">Endereço</h4>
+            <h4 class="font-weight-bold mb-2">Endereço</h4>
 
-                <div class="form-group">
+            <div class="form-row mb-2">
+                <div class="col">
                     <label class="mb-1">CEP</label>
-                    <input class="form-control col-6" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
+                    <input class="form-control js-postal-code" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
                            placeholder="00000-000" value=""/>
                 </div>
-
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Rua</label>
-                        <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
-                    </div>
-                    <div class="col">
-                        <label class="mb-1">Número</label>
-                        <input class="form-control" type="text" name="addressNumber" placeholder="00000" value=""/>
-                    </div>
+                <div class="d-flex align-items-end col">
+                    <a href="https://buscacepinter.correios.com.br/" target="_blank" class="btn btn-outline-dark"
+                       style="text-decoration: none;"> Não sei meu CEP </a>
                 </div>
+            </div>
 
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Complemento</label>
-                        <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
-                               value=""/>
-                    </div>
-                    <div class="col">
-                        <label class="mb-1">Bairro</label>
-                        <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
-                    </div>
+            <div class="form-row ml-1">
+                <span class="form-row js-postal-code-warning text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <div class="col">
+                    <label class="mb-1">Rua</label>
+                    <input class="form-control js-address" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value=""/>
                 </div>
+                <div class="col">
+                    <label class="mb-1">Número</label>
+                    <input class="form-control" type="text" name="addressNumber" placeholder="00000" value=""/>
+                </div>
+            </div>
 
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label class="mb-1">Cidade</label>
-                        <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
-                    </div>
-                    <div class="col">
-                        <label for="state-select" class="mb-1">Estado</label> <br/>
-                        <g:select name="state" id="state-select" class="form-select" data-constraint="select"
-                                  from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
-                                  optionValue="name"/>
-                    </div>
+            <div class="form-row mb-3">
+                <div class="col">
+                    <label class="mb-1">Complemento</label>
+                    <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
+                           value=""/>
+                </div>
+                <div class="col">
+                    <label class="mb-1">Bairro</label>
+                    <input class="form-control js-province" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
+                           value=""/>
+                </div>
+            </div>
+
+            <div class="form-row mb-3">
+                <div class="col">
+                    <label class="mb-1">Cidade</label>
+                    <input class="form-control js-city" type="text" name="city" placeholder="Ex: Salvador" value=""/>
+                </div>
+                <div class="col">
+                    <label class="mb-1">Estado</label> <br/>
+                    <g:select class="form-select js-state" name="state" data-constraint="select"
+                              from="${State.values()}" noSelection="${['': 'Selecione um estado']}"
+                              optionValue="name"/>
                 </div>
             </div>
 
@@ -83,5 +92,6 @@
             </div>
         </g:form>
     </div>
+    <asset:javascript src="postalCodeUtils.js"/>
 </body>
 </html>
