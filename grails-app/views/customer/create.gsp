@@ -31,7 +31,7 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <div class="js-person-address-form">
+            <div class="js-postal-code-container">
                 <h4 class="font-weight-bold mb-2">Endereço</h4>
 
                 <div class="form-row mb-2">
@@ -88,7 +88,7 @@
             </div>
 
             <div class="navbar d-flex justify-content-space-between">
-                <a href="/" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
+                <a href="/dashboard" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
                 <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>

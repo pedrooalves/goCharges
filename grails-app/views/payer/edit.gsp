@@ -3,8 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payer</title>
-    <asset:javascript src="postalCodeUtils.js" />
+    <title>Atualizar pagador</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3 col-12">
