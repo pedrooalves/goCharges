@@ -5,13 +5,17 @@ import gocharges.customer.enums.CustomerStatus
 
 class DashboardController extends BaseController {
 
-    def index() {
-        Customer userCustomer = getCurrentCustomer()
+    DashboardService dashboardService
 
-        if (userCustomer.status == CustomerStatus.PENDING) {
+    def index() {
+        Customer customer = getCurrentCustomer()
+
+        if (customer.status == CustomerStatus.PENDING) {
             redirect(controller: "customer", action: "create")
         }
 
-        render(view: "index")
+        Map accountInfo = dashboardService.buildAccountInfo(getCurrentCustomer())
+
+        render(view: "index", model: [accountInfo: accountInfo, userName: customer.name])
     }
 }

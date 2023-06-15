@@ -19,11 +19,15 @@ class PaymentRepository {
             }
 
             if (search.containsKey("id")) {
-                eq("id", search.id)
+                eq("id", Long.valueOf(search.id))
             }
 
             if (search.containsKey("dueDate[le]")) {
                 le("dueDate", search."dueDate[le]")
+            }
+
+            if (search.containsKey("customer")) {
+                eq("customer", search.customer)
             }
 
             if (search.containsKey("status")) {
@@ -34,8 +38,10 @@ class PaymentRepository {
                 eq("publicId", search.publicId)
             }
 
-            if (search.containsKey("customer")) {
-                eq("customer", search.customer)
+            if (search.containsKey("countDistinct")) {
+                projections {
+                    countDistinct(search.countDistinct)
+                }
             }
         }
 

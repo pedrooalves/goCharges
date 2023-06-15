@@ -3,6 +3,7 @@ package gocharges
 import gocharges.auth.User
 import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
+import shared.FlashMessageType
 import grails.plugin.springsecurity.SpringSecurityService
 
 class UserController {
@@ -19,12 +20,7 @@ class UserController {
     }
 
     public signUp() {
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "signup", model: [validation: validation])
-        } else {
-            render(view: "signup")
-        }
+        render(view: "signup")
     }
 
     public save() {
@@ -32,11 +28,21 @@ class UserController {
             UserAdapter adapter = new UserAdapter(params)
             userService.save(adapter)
 
-            Map validation = [success: true, message: "Conta criada com sucesso", type: "save"]
-            chain(action: "signUp", model: [validation: validation])
+            flash.message = "Conta criada com sucesso."
+            flash.type = FlashMessageType.SUCCESS
+
+            redirect(action: "login")
         } catch (BusinessException businessException) {
-            Map validation = [success: false, message: businessException.getMessage(), type: "save"]
-            chain(action: "signUp", model: [validation: validation])
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+
+            redirect(action: "signUp")
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("UserController.save >> Erro em criar user com os seguintes dados: ${params}")
+
+            redirect(action: "signUp")
         }
     }
 
@@ -58,11 +64,17 @@ class UserController {
             String currentPassword = params.currentPassword
             userService.update(id, adapter, currentPassword)
 
-            Map validation = [success: true, message: "Informações salvas com sucesso", type: "update"]
-            chain(action: "myAccount", model: [validation: validation])
+            flash.message = "Informações salvas com sucesso"
+            flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
-            Map validation = [success: false, message: businessException.getMessage(), type: "update"]
-            chain(action: "myAccount", model: [validation: validation])
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("UserController.update >> Erro em atualizar user com os seguintes dados: ${params}")
+        } finally {
+            redirect(action: "myAccount")
         }
     }
 }

@@ -9,9 +9,7 @@ class PaymentReceiptController extends BaseController {
 
     def index() {
         try {
-            Payment payment = paymentService.getReceipt(params.publicId)
-
-            render(view: "index", model: [payment: payment])
+            render(view: "index", model: [payment: paymentService.buildReceipt(params.publicId)])
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
             flash.type = FlashMessage.ERROR

@@ -1,20 +1,10 @@
 package gocharges.payer.adapter
 
-import gocharges.Payer
+import gocharges.adapter.base.BasePersonAdapter
 
-class PayerAdapter {
-
-    String name
-    String email
-    String mobilePhone
-    String cpfCnpj
-    String address
+class PayerAdapter extends BasePersonAdapter {
 
     public PayerAdapter(Map params) {
-        this.name = params.get("name")
-        this.email = params.email
-        this.mobilePhone = params.mobilePhone
-        this.cpfCnpj  = params.cpfCnpj
-        this.address = params.address
+        super(params)
     }
 }

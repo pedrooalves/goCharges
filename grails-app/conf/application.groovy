@@ -22,6 +22,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/paymentReceipt/**',               access: ['permitAll']],
 		[pattern: '/payer/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/payment/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
+		[pattern: '/dashboard/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/user/myAccount',               access: ['ROLE_ADMIN', 'ROLE_USER']],
 		[pattern: '/**',          access: ['IS_AUTHENTICATED_ANONYMOUSLY']],
 ]
@@ -47,6 +48,18 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**/favicon.ico', filters: 'none'],
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
+grails {
+	mail {
+		host = "smtp.gmail.com"
+		port = 465
+		username = "blueenergydrink47@gmail.com"
+		password = "swbokzritutdvrbe"
+		props = ["mail.smtp.auth":"true",
+				 "mail.smtp.socketFactory.port":"465",
+				 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+				 "mail.smtp.socketFactory.fallback":"false"]
+	}
+}
 
 grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'gocharges.auth.PersistentLogin'
 grails.plugin.springsecurity.rememberMe.cookieName = 'gocharges_remember_me'
