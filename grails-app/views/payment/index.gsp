@@ -1,67 +1,14 @@
 <!DOCTYPE html>
-<%@ page import="gocharges.payment.enums.PaymentStatus" %>
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cadastro de Payment</title>
+    <title>Listagem de cobranças</title>
 </head>
 <body>
     <div class="container col-12">
         <div class="card-body row">
-            <g:if test="${showNewPaymentForm == true}">
-                <div class="col-3">
-                    <div class="card mb-3 mt-3 p-1 bg-gogreen text-center text-white">
-                        <h1 class="display-4">Nova Cobrança</h1>
-                    </div>
-
-                    <g:if test="${flash?.message}">
-                        <div class="alert alert-danger" role="alert">
-                            ${flash.message}
-                        </div>
-                    </g:if>
-
-                    <g:form class="card-body mb-3" name="paymentForm" url="[controller: 'payment', action: 'save']">
-                        <div class="form-group mb-3">
-                            <label for="payer-select" class="mb-2 fw-bold">Pagador</label>
-                            <select class="form-select" id="payer-select" name="payerCpfCnpj">
-                                <option value="">Nenhum selecionado</option>
-                                <g:each var="payer" in="${payerList}">
-                                    <option value="${payer.cpfCnpj}">${payer.name}</option>
-                                </g:each>
-                            </select><br/>
-                        </div>
-
-                        <div class="form-group column mb-3">
-                            <label for="billingType-select" class="mb-2 fw-bold">Tipo de Recebimento Aceito</label>
-                            <select class="form-select" id="billingType-select" name="billingType">
-                                <option value="">Nenhum selecionado</option>
-                                <option value="BANK_SLIP">Boleto</option>
-                                <option value="DEBIT_CARD">Cartão de Débito</option>
-                                <option value="PIX">Pix</option>
-                            </select><br/>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="dueDate" class="mb-2">Data de Vencimento</label>
-                            <input class="form-control" id="dueDate" type="date" name="dueDate" value="" placeholder="dd/mm/aaaa"/><br>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="value" class="mb-2">Valor </label>
-                            <input class="form-control" id="value" type="text" name="value" value=""/><br/>
-                        </div>
-
-                        <div class="navbar d-flex justify-content-space-between">
-                            <a href="${createLink(action:'index', controller:'payment')}"><input
-                                    class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                            <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
-                        </div>
-                    </g:form>
-                </div>
-            </g:if>
-
-            <div class="col 6">
-                <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
+            <div class="col">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
                     <h1>Cobranças</h1>
                 </div>
 
@@ -95,14 +42,8 @@
                 </nav>
 
                 <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'showForm', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
+                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
                 </div>
-
-                <g:if test="${flash?.message && showNewPaymentForm == false}">
-                    <div class="${flash.type.toString() == 'SUCCESS' ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                        ${flash.message}
-                    </div>
-                </g:if>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>
@@ -113,14 +54,14 @@
                 </div>
 
                 <g:each var="payment" in="${paymentList}">
-                    <ul class="list-group list-group-horizontal mb-1 mb-1">
+                    <ul class="list-group list-group-horizontal mb-1 mb-1 justify-content-between">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
-                        <li class="custom-list-item col"><FormatTagLib:brazilDateNotation date="${payment.dueDate}"/></li>
+                        <li class="custom-list-item col"><formatTagLib:brazilDate date="${payment.dueDate}"/></li>
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
-                        <g:if test="${payment.status == PaymentStatus.PENDING && !payment.deleted}">
+                        <g:if test="${payment.canConfirm()}">
                             <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -140,7 +81,7 @@
                             </button>
                         </g:form>
 
-                        <g:if test="${payment.deleted == false}">
+                        <g:if test="${payment.canDelete()}">
                             <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">

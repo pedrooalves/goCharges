@@ -6,6 +6,7 @@ import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 import shared.Utils
+import shared.enums.State
 
 @Transactional
 class PayerService {
@@ -24,7 +25,7 @@ class PayerService {
         payer.complement = adapter.complement
         payer.province = adapter.province
         payer.city = adapter.city
-        payer.state = adapter.state
+        payer.state = State.valueOf(adapter.state)
         payer.customer = customer
 
         return payer.save(failOnError: true)
@@ -33,7 +34,7 @@ class PayerService {
     public Payer delete(Long id, Customer customer) {
         Payer payer = PayerRepository.query([id: id, customer: customer]).get()
 
-        if (!payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+        if (!payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
 
         payer.deleted = true
         return payer.save(failOnError: true)
@@ -85,7 +86,7 @@ class PayerService {
         validateEmailInUseUpdate(id, adapter, customer)
 
         Payer payer = PayerRepository.query([id: id, customer: customer]).get()
-        if (!payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+        if (!payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
     }
 
     public Payer update(Long id, PayerAdapter adapter, Customer customer) {
@@ -102,7 +103,7 @@ class PayerService {
         payer.complement = adapter.complement
         payer.province = adapter.province
         payer.city = adapter.city
-        payer.state = adapter.state
+        payer.state = State.valueOf(adapter.state)
 
         return payer.save(failOnError: true)
     }
@@ -114,7 +115,7 @@ class PayerService {
     public Payer restore(Long id, Customer customer) {
         Payer payer = PayerRepository.query([id: id, customer: customer, deletedOnly: true]).get()
 
-        if (!payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+        if (!payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
 
         payer.deleted = false
         return payer.save(failOnError: true)
