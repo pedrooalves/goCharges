@@ -31,9 +31,9 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <h4 class="font-weight-bold mb-2">Endereço</h4>
-
             <div class="js-person-address-form">
+                <h4 class="font-weight-bold mb-2">Endereço</h4>
+
                 <div class="form-row mb-2">
                     <div class="col">
                         <label class="mb-1">CEP</label>
