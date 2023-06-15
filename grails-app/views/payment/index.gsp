@@ -8,13 +8,12 @@
     <div class="container col-12">
         <div class="card-body row">
             <div class="col">
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
                     <h1>Cobranças</h1>
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select name="deletedOnly">
                         <select name="deletedOnly">
                             <option type="text" value="">Exibir somente cobranças ativas</option>
                             <option type="text" value="true">Exibir somente cobranças inativas</option>
