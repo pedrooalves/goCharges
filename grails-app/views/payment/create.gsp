@@ -45,10 +45,10 @@
                 <input class="form-control" type="text" name="value" value=""/><br/>
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Cadastrar"/>
-            <a class="text-decoration-none btn btn-primary" href="${createLink(controller:'payment', action:'index')}">
-                Cancelar
-            </a>
+            <div class="navbar d-flex justify-content-space-between">
+                <a href="/payment" class="text-decoration-none btn btn-outline-secondary" type="button">Cancelar</a>
+                <button type="submit" class="btn bg-gogreen text-white ml-3">Cadastrar</button>
+            </div>
         </g:form>
     </div>
 </body>
