@@ -25,12 +25,8 @@
                 </nav>
 
                 <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Adicionar pagador</button></a>
-                </div>
-
-                <div class="navbar navbar-light d-flex justify-content-end">
-                    <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-primary">Adicionar Pagador</button>
+                    <a href="${createLink(action:'create', controller:'payer')}">
+                        <button class="btn btn-outline-primary mb-2">Adicionar pagador</button>
                     </a>
                 </div>
 
