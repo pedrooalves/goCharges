@@ -1,6 +1,7 @@
 package gocharges.domain.base
 
 import grails.gorm.dirty.checking.DirtyCheck
+import shared.enums.State
 
 @DirtyCheck
 public abstract class BasePerson extends BaseEntity {
@@ -15,7 +16,7 @@ public abstract class BasePerson extends BaseEntity {
     String complement
     String province
     String city
-    String state
+    State state
 
     static mapping = {
         tablePerHierarchy false

@@ -6,6 +6,7 @@ import shared.CpfCnpjUtils
 import grails.gorm.transactions.Transactional
 import gocharges.exception.BusinessException
 import shared.Utils
+import shared.enums.State
 
 @Transactional
 class PayerService {
@@ -24,7 +25,7 @@ class PayerService {
         payer.complement = adapter.complement
         payer.province = adapter.province
         payer.city = adapter.city
-        payer.state = adapter.state
+        payer.state = State.valueOf(adapter.state)
         payer.customer = customer
 
         return payer.save(failOnError: true)
@@ -102,7 +103,7 @@ class PayerService {
         payer.complement = adapter.complement
         payer.province = adapter.province
         payer.city = adapter.city
-        payer.state = adapter.state
+        payer.state = State.valueOf(adapter.state)
 
         return payer.save(failOnError: true)
     }

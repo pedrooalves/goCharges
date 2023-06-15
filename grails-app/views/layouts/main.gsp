@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ page import="shared.FlashMessageType" %>
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
+    <asset:javascript src="jquery-3.5.1.js"/>
     <asset:stylesheet src="application.css"/>
     <asset:stylesheet src="gocharges.css"/>
 
@@ -16,7 +18,6 @@
 </head>
 
 <body>
-
 <nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
     <div class="container-fluid justify-content-space-between">
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
@@ -34,6 +35,12 @@
         </sec:ifLoggedIn>
     </div>
 </nav>
+
+<g:if test="${flash?.message}">
+    <div class="${flash.type == FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
 
 <g:layoutBody/>
 
@@ -72,6 +79,5 @@
 </div>
 
 <asset:javascript src="application.js"/>
-
 </body>
 </html>

@@ -1,104 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="main"/>
     <title>Listagem de Payer</title>
-    <asset:javascript src="cepFinder.js" />
     <asset:javascript src="goCharges.js" />
 </head>
 <body>
     <div class="container col-12" style="height: 100%">
         <div class="card-body row">
-            <g:if test="${showNewPayerForm != false}">
-                <div class="col-4 overflow-auto" style="height: 85vh">
-                    <div class="card mb-3 mt-3 p-2 bg-gogreen text-center text-white">
-                        <h1 class="display-4">Novo Pagador</h1>
-                    </div>
-
-                    <g:if test="${validation != null && validation.type.equals('save')}">
-                        <div class="alert alert-danger" role="alert">
-                            ${validation.message}
-                        </div>
-                    </g:if>
-
-                    <div class="card">
-                        <g:form class="card-body mb-3" name="payerForm" url="[controller: 'payer', action: 'save']">
-                            <div class="form-group mb-3">
-                                <label class="mb-2 fw-bold">Nome</label>
-                                <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value="" /><br/>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-2">E-mail</label>
-                                <input class="form-control" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="" /><br/>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-2">CPF / CNPJ </label>
-                                <input class="form-control" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="" /><br >
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="mb-2">Celular</label>
-                                <input class="form-control" type="text" name="mobilePhone" pattern="(?\d{2})? ?\d{4-5}-?\d{3}-?\d{2}" placeholder="(00) 00000-0000" value="" /><br/>
-                            </div>
-
-                            <h4 class="font-weight-bold mb-2">Endereço</h4>
-
-                            <div class="form-row mb-2">
-                                <div class="col">
-                                    <label class="mb-1">CEP</label>
-                                    <input class="form-control" type="text" pattern="\d{5}-?\d{3}" onblur="searchCep(this.value)" name="postalCode" placeholder="00000-000" value="" />
-                                </div>
-                                <div class="d-flex align-items-end col">
-                                    <a href="https://buscacepinter.correios.com.br/" class="btn btn-outline-dark" style="text-decoration: none;"> Não sei meu CEP </a>
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-3">
-                                <div class="col">
-                                    <label class="mb-1">Rua</label>
-                                    <input class="form-control" type="text" name="address" id="address" placeholder="Ex: Rua Maria de Souza" value="" />
-                                </div>
-                                <div class="col">
-                                    <label class="mb-1">Número</label>
-                                    <input class="form-control" type="text" name="addressNumber" placeholder="00000" value="" />
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-3">
-                                <div class="col">
-                                    <label class="mb-1">Complemento</label>
-                                    <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00" value="" />
-                                </div>
-                                <div class="col">
-                                    <label class="mb-1">Bairro</label>
-                                    <input class="form-control" type="text" name="province" id="province" placeholder="Ex: Jardim Campos Elíseos" value="" />
-                                </div>
-                            </div>
-
-                            <div class="form-row mb-3">
-                                <div class="col">
-                                    <label class="mb-1">Cidade</label>
-                                    <input class="form-control" type="text" name="city" id="city" placeholder="Ex: Salvador" value="" />
-                                </div>
-                                <div class="col">
-                                    <label class="mb-1">Estado</label>
-                                    <input class="form-control" type="text" name="state" id="state" placeholder="Ex: Bahia" value="" />
-                                </div>
-                            </div>
-
-                            <div class="navbar d-flex justify-content-space-between">
-                                <a href="${createLink(action:'index', controller:'payer')}"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
-                                <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar" />
-                            </div>
-                        </g:form>
-                    </div>
-                </div>
-            </g:if>
-
             <div class="col 6">
-                <div class="mt-3 mb-1 p-2 bg-secondary text-center text-white rounded">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center align-items-center">
                     <h1>Pagadores</h1>
                 </div>
 
@@ -114,15 +25,10 @@
                 </nav>
 
                 <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'showForm', controller:'payer')}"><button class="btn btn-outline-primary mb-2">Adicionar pagador</button></a>
+                    <a href="${createLink(action:'create', controller:'payer')}">
+                        <button class="btn btn-outline-primary mb-2">Adicionar pagador</button>
+                    </a>
                 </div>
-
-                <g:if test="${validation != null && (validation.type.equals('delete') || validation.type.equals('update') ||
-                (validation.type.equals('save') && validation.success))}">
-                    <div class="${validation.success ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-                        ${validation.message}
-                    </div>
-                </g:if>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Nome</h1>
