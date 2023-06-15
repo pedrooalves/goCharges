@@ -4,7 +4,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Novo Pagador</title>
-    <asset:javascript src="postalCodeUtils.js"/>
 </head>
 <body>
     <div class="container my-8 d-flex justify-content-center col">
