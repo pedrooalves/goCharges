@@ -1,45 +1,68 @@
-function searchCep(cep) {
-    cep = cep.replace(/\D/g, '');
-    if (validateCep(cep)) {
-        loadingAutoComplete('...');
+function PostalCodeUtils() {
+    var _this = this;
+    _this.reference = $(".js-person-create-form");
+    _this.postalCodeInput = _this.reference.find(".js-postal-code");
+    _this.postalCodeWarning = _this.reference.find(".js-postalcode-warning");
+    _this.address = _this.reference.find(".js-address");
+    _this.province = _this.reference.find(".js-province");
+    _this.city = _this.reference.find(".js-city");
+    _this.state = _this.reference.find(".js-state");
 
-        var script = document.createElement('script');
-        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=fillInputs';
+    _this.init = function() {
+        _this.postalCodeInput.on("blur", function() {
+            _this.postalCode = _this.postalCodeInput.val().replace(/\D/g, '');
+            _this.searchCep();
+        });
+    }
 
-        document.body.appendChild(script);
-    } else {
-        clearInputs();
-        alert("Formato de CEP inválido.");
+    _this.searchCep = function() {
+        $.getJSON(getUrl(), function(json) {
+            fillInputs(json);
+        });
+    }
+
+    var getUrl = function() {
+        if (validateCep()) {
+            setWarningMessage("");
+            setInputs('...');
+
+            return 'https://viacep.com.br/ws/'+ _this.postalCode + '/json/?callback=?';
+        } else {
+            setInputs("");
+            setWarningMessage("CEP inválido.");
+        }
+    }
+
+    var fillInputs = function(json) {
+        if (!("erro" in json)) {
+            _this.address.val(json.logradouro);
+            _this.province.val(json.bairro);
+            _this.city.val(json.localidade);
+            _this.state.val(json.uf);
+        } else {
+            setInputs("");
+            setWarningMessage("CEP não encontrado.");
+        }
+    }
+
+    var setInputs = function(string) {
+        _this.address.val(string);
+        _this.province.val(string);
+        _this.city.val(string);
+        _this.state.val(string);
+    }
+
+    var validateCep = function() {
+        var validatePattern = /^[0-9]{8}$/;
+        return validatePattern.test(_this.postalCode) ? true : false;
+    }
+
+    var setWarningMessage = function(string) {
+        _this.postalCodeWarning.text(string);
     }
 }
 
-function clearInputs() {
-    document.getElementById('address').value=("");
-    document.getElementById('province').value=("");
-    document.getElementById('city').value=("");
-    document.getElementById('state').value=("");
-}
-
-function fillInputs(json) {
-    if (!("erro" in json)) {
-        document.getElementById('address').value=(json.logradouro);
-        document.getElementById('province').value=(json.bairro);
-        document.getElementById('city').value=(json.localidade);
-        document.getElementById('state').value=(json.uf);
-    } else {
-        clearInputs();
-        alert("CEP não encontrado.");
-    }
-}
-
-function validateCep(cep) {
-    var validatePattern = /^[0-9]{8}$/;
-    return validatePattern.test(cep) ? true : false
-}
-
-function loadingAutoComplete(string) {
-    document.getElementById('address').value=string;
-    document.getElementById('province').value=string;
-    document.getElementById('city').value=string;
-    document.getElementById('state').value=string;
-}
+$(document).ready(function(){
+    var postalCodeUtils = new PostalCodeUtils();
+    postalCodeUtils.init();
+});
