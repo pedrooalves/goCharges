@@ -1,6 +1,6 @@
 function PostalCodeUtils() {
     var _this = this;
-    _this.reference = $(".js-person-address-form");
+    _this.reference = $(".js-postal-code-container");
     _this.postalCodeInput = _this.reference.find(".js-postal-code");
     _this.address = _this.reference.find(".js-address");
     _this.province = _this.reference.find(".js-province");

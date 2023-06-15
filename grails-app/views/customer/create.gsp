@@ -31,7 +31,7 @@
                        placeholder="000.000.000-00" value=""/>
             </div>
 
-            <div class="js-person-address-form">
+            <div class="js-postal-code-container">
                 <h4 class="font-weight-bold mb-2">Endereço</h4>
 
                 <div class="form-row mb-2">
