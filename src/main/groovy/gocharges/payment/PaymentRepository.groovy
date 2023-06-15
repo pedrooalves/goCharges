@@ -1,6 +1,7 @@
 package gocharges.payment
 
 import gocharges.Payment
+import gocharges.payment.enums.PaymentStatus
 import grails.gorm.DetachedCriteria
 
 class PaymentRepository {
@@ -18,19 +19,29 @@ class PaymentRepository {
             }
 
             if (search.containsKey("id")) {
-                eq("id", search.id)
+                eq("id", Long.valueOf(search.id))
             }
 
             if (search.containsKey("dueDate[le]")) {
                 le("dueDate", search."dueDate[le]")
             }
 
-            if (search.containsKey("status")) {
-                eq("status", search.status)
-            }
-
             if (search.containsKey("customer")) {
                 eq("customer", search.customer)
+            }
+
+            if (search.containsKey("status")) {
+                eq("status", PaymentStatus.valueOf(search.status.toString()))
+            }
+
+            if (search.containsKey("publicId")) {
+                eq("publicId", search.publicId)
+            }
+
+            if (search.containsKey("countDistinct")) {
+                projections {
+                    countDistinct(search.countDistinct)
+                }
             }
         }
 
