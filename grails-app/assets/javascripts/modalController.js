@@ -1,22 +1,25 @@
-function receivedInCashAlert(paymentId) {
-    document.getElementById("customAlert").innerHTML = `
-                <div class="modal fade" id="receivedInCashAlert" tabindex="-1" role="dialog" aria-labelledby="receivedInCashAlert">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <h2 class="font-weight-bold">Confirmar Pagamento</h2>
-                                <h2 class="text-center">Deseja confirmar que o pagamento desta cobrança foi feito em dinheiro?</h2>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Cancelar
-                                </button>
-                                <a href="/payment/confirmReceivedInCash/${paymentId}" class="btn btn-primary text-decoration-none" role="button">
-                                    Confirmar
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    `;
-}
+function ModalController() {
+    var _this = this;
+    _this.reference = $(".js-payment-list-container");
+    _this.confirmReceivedInCashButton = _this.reference.find(".js-btn-confirm-received-in-cash");
+
+
+    _this.init = function() {
+        console.log(_this.confirmReceivedInCashButton)
+        _this.setConfirmReceivedInCashModal()
+        _this.setConfirmReceivedInCashButton()
+    };
+
+    _this.setConfirmReceivedInCashModal = function() {
+        _this.reference.find(".js-confirm-received-in-cash-anchor").attr("href", `/payment/confirmReceivedInCash/${_this.confirmReceivedInCashButton.val()}`);
+    };
+
+    _this.setConfirmReceivedInCashButton = function() {
+        _this.confirmReceivedInCashButton.attr("data-toggle", "modal").attr("data-target", "#receivedInCashModal");
+    };
+};
+
+$(document).ready(function() {
+    var modalController = new ModalController();
+    modalController.init();
+});
