@@ -10,42 +10,43 @@ function PostalCodeUtils() {
     _this.init = function() {
         _this.postalCode.on("blur", function() {
             _this.postalCodeValue = _this.postalCode.val().replace(/\D/g, '');
-            _this.searchCep();
+            _this.searchPostalCode();
         });
     }
 
-    _this.searchCep = function() {
+    _this.searchPostalCode = function() {
         $.getJSON(getUrl(), function(json) {
             fillInputs(json);
         });
     }
 
     var getUrl = function() {
-        if (validatePostalCode()) {
-            setWarningMessage("");
-            setInputs('...');
-
-            return 'https://viacep.com.br/ws/'+ _this.postalCodeValue + '/json/?callback=?';
-        } else {
-            setInputs("");
+        if (!validatePostalCode()) {
             setWarningMessage("CEP inválido.");
+            return;
         }
+        setLoading();
+        return 'https://viacep.com.br/ws/'+ _this.postalCodeValue + '/json/?callback=?';
     }
 
     var fillInputs = function(json) {
-        if (!("erro" in json)) {
-            _this.address.val(json.logradouro);
-            _this.province.val(json.bairro);
-            _this.city.val(json.localidade);
-            _this.state.val(json.uf);
-        } else {
-            setInputs("");
+        if ("erro" in json) {
             setWarningMessage("CEP não encontrado.");
+            return;
         }
+        _this.address.val(json.logradouro);
+        _this.province.val(json.bairro);
+        _this.city.val(json.localidade);
+        _this.state.val(json.uf);
     }
 
-    var setInputs = function(string) {
-        _this.reference.find('.js-set').val(string);
+    var setLoading = function() {
+        setWarningMessage("");
+        _this.reference.find('.js-set').val("...");
+    }
+
+    var clearFields = function() {
+        _this.reference.find('.js-set').val("");
     }
 
     var validatePostalCode = function() {
@@ -54,6 +55,7 @@ function PostalCodeUtils() {
     }
 
     var setWarningMessage = function(string) {
+        clearFields();
         _this.reference.find(".js-postal-code-warning").text(string);
     }
 }
