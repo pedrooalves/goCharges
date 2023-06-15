@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="main" />
-    <title>Minha Conta</title>
+    <title>Minha conta</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
