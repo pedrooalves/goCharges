@@ -28,8 +28,4 @@ class Payment extends BaseEntity {
     public Boolean canConfirm() {
         return this.status == PaymentStatus.PENDING && !this.deleted
     }
-
-    public Boolean canDelete() {
-        return !this.deleted
-    }
 }
