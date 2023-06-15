@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <title>Login</title>
+    <title>Entrar</title>
 </head>
 <body>
     <form action='${request.contextPath}/login/authenticate' method='POST' id='frmLogar' name='frmLogar'>

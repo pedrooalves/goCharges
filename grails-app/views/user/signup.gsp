@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Login</title>
+    <title>Criar conta</title>
 </head>
 <body>
 <g:form method='POST' id='signUp' name='signUp' url="[controller: 'user', action: 'save']">

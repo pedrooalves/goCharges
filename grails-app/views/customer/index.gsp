@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <title>Cadastro de Customer</title>
+    <title>Cadastro de conta</title>
 </head>
 <body>
     <div class="container my-3 col-12 row justify-content-between">
         <section class="col-4">
-            <h1 class="display-4">Cadastrar</h1>
+            <h1 class="display-4">Cadastrar conta</h1>
 
             <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'save']">
                 <div class="form-group">
