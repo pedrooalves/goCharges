@@ -1,6 +1,6 @@
 function PostalCodeUtils() {
     var _this = this;
-    _this.reference = $(".js-person-create-form");
+    _this.reference = $(".js-person-address-form");
     _this.postalCodeInput = _this.reference.find(".js-postal-code");
     _this.postalCodeWarning = _this.reference.find(".js-postal-code-warning");
     _this.address = _this.reference.find(".js-address");
@@ -46,10 +46,7 @@ function PostalCodeUtils() {
     }
 
     var setInputs = function(string) {
-        _this.address.val(string);
-        _this.province.val(string);
-        _this.city.val(string);
-        _this.state.val(string);
+        _this.reference.find('.js-set').val(string);
     }
 
     var validateCep = function() {
