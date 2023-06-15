@@ -88,11 +88,11 @@
             </div>
 
             <div class="navbar d-flex justify-content-space-between">
-                <a href="/"><input class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar"/></a>
-                <input class="btn bg-gogreen text-white" type="submit" name="buttonRegister" value="Cadastrar"/>
+                <a href="/" class="btn btn-outline-secondary" style="text-decoration: none" type="button">Cancelar</a>
+                <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
     </div>
-    <asset:javascript src="postalCodeUtils.js"/>
+    <asset:javascript src="postal-code-utils.js"/>
 </body>
 </html>
