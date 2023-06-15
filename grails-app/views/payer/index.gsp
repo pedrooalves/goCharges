@@ -14,7 +14,7 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                        <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payer', action: 'index']" method="POST">
+                        <g:form class="d-flex justify-content-center col" url="[controller: 'payer', action: 'index']" method="POST">
                             <select name="deletedOnly">
                                 <option type="text" value="">Exibir somente pagadores ativos</option>
                                 <option type="text" value="true">Exibir somente pagadores inativos</option>
@@ -54,7 +54,7 @@
                             </button>
                         </g:form>
 
-                        <g:if test="${payer.deleted == false}">
+                        <g:if test="${payer.canDelete()}">
                             <g:form name="deleteButton" url="[controller: 'payer', action: 'delete']" method="POST">
                                 <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
