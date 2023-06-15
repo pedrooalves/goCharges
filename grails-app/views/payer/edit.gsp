@@ -64,6 +64,7 @@
                             <input class="form-control" type="text" name="complement"
                                    placeholder="Ex: Bloco 00, Apartamento 00" value="${payer.complement}"/>
                         </div>
+
                         <div class="col">
                             <label class="mb-1">Bairro</label>
                             <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
@@ -77,6 +78,7 @@
                             <input class="form-control" type="text" name="city" placeholder="Ex: Salvador"
                                    value="${payer.city}"/>
                         </div>
+
                         <div class="col">
                             <label for="state-select" class="mb-1">Estado</label> <br/>
                             <g:select name="state" id="state-select" class="form-select" data-constraint="select"
