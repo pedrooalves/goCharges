@@ -19,9 +19,9 @@
 
                             <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
 
-                            <input class="col ml-3" name="cpfCnpj[ilike]" value="" placeholder="CPF / CNPJ">
+                            <input class="col ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
 
-                            <input class="col ml-3" name="mobilePhone[ilike]" value="" placeholder="Celular">
+                            <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
                             <input class="col ml-3" name="city[ilike]" value="" placeholder="Cidade">
 

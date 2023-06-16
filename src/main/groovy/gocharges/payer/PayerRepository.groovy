@@ -15,10 +15,9 @@ class PayerRepository {
                 eq("cpfCnpj", search.cpfCnpj)
             }
 
-            if (search.containsKey("cpfCnpj[ilike]")) {
-                ilike("cpfCnpj", "%${search.get("cpfCnpj[ilike]")}%")
+            if (search.containsKey("cpfCnpj[like]")) {
+                like("cpfCnpj", "%" + search.get("cpfCnpj[like]") + "%")
             }
-
 
             if (search.containsKey("email")) {
                 eq("email", search.email)
@@ -50,8 +49,8 @@ class PayerRepository {
                 ilike("name", "%${search.get("name[ilike]")}%")
             }
 
-            if (search.containsKey("mobilePhone[ilike]")) {
-                ilike("mobilePhone", "%${search.get("mobilePhone[ilike]")}%")
+            if (search.containsKey("mobilePhone[like]")) {
+                like("mobilePhone", "%${search.get("mobilePhone[like]")}%")
             }
 
             if (search.containsKey("city[ilike]")) {
