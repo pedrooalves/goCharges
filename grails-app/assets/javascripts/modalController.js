@@ -10,7 +10,7 @@ function ModalController() {
 
     _this.setConfirmReceivedInCashModal = function() {
         _this.confirmReceivedInCashButton.on("click", function() {
-           _this.reference.find(".js-confirm-received-in-cash-modal-btn-value").val(this.value)
+           _this.reference.find(".js-confirm-received-in-cash-modal-btn-value").val(this.value);
         });
     };
 
