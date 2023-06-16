@@ -14,8 +14,6 @@ class PayerController extends BaseController {
         String deletedOnly = params.deletedOnly
         if (deletedOnly && !Boolean.valueOf(deletedOnly)) params.put("includeDeleted", true)
 
-        while(params.values().remove(""));
-
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
         render(view: "index", model: [payerList: payerList])
