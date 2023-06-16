@@ -1,4 +1,4 @@
-<div class="modal fade" id="receivedInCashModal" tabindex="-1" role="dialog" aria-labelledby="receivedInCashModal">
+<div class="modal fade js-confirm-received-in-cash-modal" id="receivedInCashModal" tabindex="-1" role="dialog" aria-labelledby="receivedInCashModal">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,9 +14,11 @@
                     Cancelar
                 </button>
 
-                <a class="btn btn-primary text-decoration-none js-confirm-received-in-cash-anchor" role="button">
-                    Confirmar
-                </a>
+                <g:form url="[controller: 'payment', action: 'confirmReceivedInCash']" method="PUT">
+                    <button class="btn btn-primary js-confirm-received-in-cash-modal-btn-value" type="submit" name="id">
+                        Confirmar
+                    </button>
+                </g:form>
             </div>
         </div>
     </div>

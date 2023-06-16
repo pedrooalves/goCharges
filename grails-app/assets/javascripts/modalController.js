@@ -3,15 +3,14 @@ function ModalController() {
     _this.reference = $(".js-payment-list-container");
     _this.confirmReceivedInCashButton = _this.reference.find(".js-btn-confirm-received-in-cash");
 
-
     _this.init = function() {
         _this.setConfirmReceivedInCashButton()
-        _this.setConfirmReceivedInCashModalAnchor()
+        _this.setConfirmReceivedInCashModal()
     };
 
-    _this.setConfirmReceivedInCashModalAnchor = function() {
+    _this.setConfirmReceivedInCashModal = function() {
         _this.confirmReceivedInCashButton.on("click", function() {
-           _this.reference.find(".js-confirm-received-in-cash-anchor").attr("href", `/payment/confirmReceivedInCash/${this.value}`);
+           _this.reference.find(".js-confirm-received-in-cash-modal-btn-value").val(this.value)
         });
     };
 
