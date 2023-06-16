@@ -52,14 +52,6 @@ class PayerRepository {
             if (search.containsKey("mobilePhone[like]")) {
                 like("mobilePhone", "%${search.get("mobilePhone[like]")}%")
             }
-
-            if (search.containsKey("city[ilike]")) {
-                ilike("city", "%${search.get("city[ilike]")}%")
-            }
-
-            if (search.containsKey("state[ilike]")) {
-                ilike("state", "%${search.get("state[ilike]")}%")
-            }
         }
         return query
     }

@@ -23,10 +23,6 @@
 
                             <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
-                            <input class="col ml-3" name="city[ilike]" value="" placeholder="Cidade">
-
-                            <input class="col ml-3" name="state[ilike]" value="" placeholder="Estado">
-
                             <select class="ml-3" name="deletedOnly">
                                 <option value="">Exibir somente pagadores ativos</option>
                                 <option value="true">Exibir somente pagadores inativos</option>
