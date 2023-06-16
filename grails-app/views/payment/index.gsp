@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentBillingType"%>
+<%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <html>
 <head>
     <meta name="layout" content="main"/>
@@ -14,29 +16,27 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                     <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <select class="ml-3" name="billingType">
-                            <option value="">Selecione um tipo de recebimento</option>
-                            <option value="BANK_SLIP">Boleto</option>
-                            <option value="DEBIT_CARD">Cartão de Débito</option>
-                            <option value="PIX">Pix</option>
-                        </select><br/>
-                        <select class="ml-3" name="status">
-                            <option value="">Selecione um status</option>
-                            <option value="PENDING">Pendente</option>
-                            <option value="OVERDUE">Vencida</option>
-                            <option value="RECEIVED">Recebida</option>
-                        </select><br/>
+                        <g:select name="billingType" data-constraint="select"
+                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Forma de pagamento']}"
+                                  optionValue="name"/>
+
+                        <g:select class="ml-3" name="status" data-constraint="select"
+                                  from="${PaymentStatus.values()}" noSelection="${['': 'Forma de pagamento']}"
+                                  optionValue="name"/>
+
                         <select class="ml-3" name="payerId">
                             <option value="">Selecione um pagador</option>
                             <g:each var="payer" in="${payerList}">
                                 <option value="${payer.id}">${payer.name}</option>
                             </g:each>
                         </select><br/>
+
                         <select class="ml-3" name="deletedOnly">
                             <option value="">Exibir somente cobranças ativas</option>
                             <option value="true">Exibir somente cobranças inativas</option>
                             <option value="false">Exibir todas as cobranças</option>
                         </select><br/>
+
                         <button class="btn btn-outline-primary ml-3">Buscar</button>
                     </g:form>
                 </nav>
@@ -46,10 +46,10 @@
                 </div>
 
                 <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>
+                    <h1 class="col-3 fw-bold text-center">Forma de Pagamento</h1>
                     <h1 class="col fw-bold text-center">Valor</h1>
                     <h1 class="col fw-bold text-center">Data de Vencimento</h1>
-                    <h1 class="col fw-bold text-center">Status</h1>
+                    <h1 class="col fw-bold text-center">Situação</h1>
                     <h1 class="col fw-bold text-center">Pagador</h1>
                 </div>
 
