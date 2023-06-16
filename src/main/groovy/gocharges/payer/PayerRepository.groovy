@@ -24,7 +24,7 @@ class PayerRepository {
             }
 
             if (search.containsKey("email[ilike]")) {
-                ilike("email", "%${search.get("email[ilike]")}%")
+                ilike("email", "%" + search.get("email[ilike]") + "%")
             }
 
             if (Boolean.valueOf(search.deletedOnly)) {
@@ -46,11 +46,11 @@ class PayerRepository {
             }
 
             if (search.containsKey("name[ilike]")) {
-                ilike("name", "%${search.get("name[ilike]")}%")
+                ilike("name", "%" + search.get("name[ilike]") + "%")
             }
 
             if (search.containsKey("mobilePhone[like]")) {
-                like("mobilePhone", "%${search.get("mobilePhone[like]")}%")
+                like("mobilePhone", "%" + search.get("mobilePhone[like]") + "%")
             }
         }
         return query
