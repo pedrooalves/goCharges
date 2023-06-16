@@ -20,7 +20,7 @@ class PaymentController extends BaseController {
 
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
-        List<Payer> payerList = payerService.list(params, customer)
+        List<Payer> payerList = payerService.list([includeDeleted: true], customer)
 
         render(view: "index", model: [paymentList: paymentList, payerList: payerList])
     }

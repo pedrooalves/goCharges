@@ -1,6 +1,5 @@
 package gocharges.payment
 
-import gocharges.Payer
 import gocharges.Payment
 import gocharges.payer.PayerRepository
 import gocharges.payment.enums.PaymentBillingType
@@ -29,15 +28,15 @@ class PaymentRepository {
                 le("dueDate", search.get("dueDate[le]"))
             }
 
-            if(search.containsKey("billingType")) {
+            if (search.containsKey("billingType")) {
                 eq("billingType", PaymentBillingType.valueOf(search.billingType.toString()))
             }
 
-            if(search.containsKey("payerId")) {
-                eq("payer", PayerRepository.query([id: search.payerId] + [customer: search.customer]).get())
+            if (search.containsKey("payerId")) {
+                eq("payer", PayerRepository.query([id: search.payerId, ignoreCustomer: true, includeDeleted: true]).get())
             }
 
-            if(search.containsKey("customer")) {
+            if (search.containsKey("customer")) {
                 eq("customer", search.customer)
             }
 
