@@ -1,5 +1,10 @@
 html, body {
     height: 100vh;
+    background-color: white;
+}
+
+.main-container {
+    height: 100%;
 }
 
 .bg-gogreen {
