@@ -1,26 +1,26 @@
 <%@ page import="shared.enums.State"%>
-<g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
+<g:form class="card-body" name="customerForm" url="[controller: '${controller}', action: '${action}']">
     <h1 class="display-4">${formTitle}</h1>
 
     <div class="form-group">
         <label>Nome</label>
-        <input class="form-control" type="text" name="name" placeholder="Ex: João da Silva" value=""/>
+        <input class="form-control js-name" type="text" name="name" placeholder="Ex: João da Silva" value="${person?.name}"/>
     </div>
 
-    <div class="form-group" hidden>
+    <div class="form-group">
         <label>E-mail</label>
-        <input class="form-control" readonly type="email" name="email" value="${userEmail}"/>
+        <input class="form-control js-email" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="${person?.email}"/>
     </div>
 
     <div class="form-group">
         <label>Celular</label>
-        <input class="form-control" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value=""/>
+        <input class="form-control js-mobilePhone" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value="${person?.mobilePhone}"/>
     </div>
 
     <div class="form-group">
         <label>CPF / CNPJ</label>
-        <input class="form-control" type="text" pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" name="cpfCnpj"
-               placeholder="000.000.000-00" value=""/>
+        <input class="form-control js-cpf-cnpj" type="text" pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}" name="cpfCnpj"
+               placeholder="000.000.000-00" value="${person?.cpfCnpj}"/>
     </div>
 
     <div class="js-postal-code-container">
@@ -30,7 +30,7 @@
             <div class="col">
                 <label class="mb-1">CEP</label>
                 <input class="form-control js-postal-code" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
-                       placeholder="00000-000" value=""/>
+                       placeholder="00000-000" value="${person?.postalCode}"/>
             </div>
             <div class="d-flex align-items-end col">
                 <a href="https://buscacepinter.correios.com.br/" target="_blank" class="btn btn-outline-dark"
@@ -45,36 +45,36 @@
         <div class="form-row mb-3">
             <div class="col">
                 <label class="mb-1">Rua</label>
-                <input class="form-control js-address js-set" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value=""/>
+                <input class="form-control js-address js-set" type="text" name="address" placeholder="Ex: Rua Maria de Souza" value="${person?.address}"/>
             </div>
             <div class="col">
                 <label class="mb-1">Número</label>
-                <input class="form-control" type="text" name="addressNumber" placeholder="00000" value=""/>
+                <input class="form-control js-address-number" type="text" name="addressNumber" placeholder="00000" value="${person?.addressNumber}"/>
             </div>
         </div>
 
         <div class="form-row mb-3">
             <div class="col">
                 <label class="mb-1">Complemento</label>
-                <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
-                       value=""/>
+                <input class="form-control js-complement" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
+                       value="${person?.complement}"/>
             </div>
             <div class="col">
                 <label class="mb-1">Bairro</label>
                 <input class="form-control js-province js-set" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
-                       value=""/>
+                       value="${person?.province}"/>
             </div>
         </div>
 
         <div class="form-row mb-3">
             <div class="col">
                 <label class="mb-1">Cidade</label>
-                <input class="form-control js-city js-set" type="text" name="city" placeholder="Ex: Salvador" value=""/>
+                <input class="form-control js-city js-set" type="text" name="city" placeholder="Ex: Salvador" value="${person?.city}"/>
             </div>
             <div class="col">
                 <label class="mb-1">Estado</label> <br/>
-                <g:select class="form-select js-state js-set" name="state" data-constraint="select"
-                          from="${State.values()}" noSelection="${['': 'Selecione um estado']}" optionValue="name"/>
+                <g:select class="form-select js-state js-set" name="state" data-constraint="select" from="${State.values()}"
+                          noSelection="${['': 'Selecione um estado']}" optionValue="name" value="${person?.state}"/>
             </div>
         </div>
     </div>
@@ -85,3 +85,4 @@
     </div>
 </g:form>
 <asset:javascript src="postal-code-utils.js"/>
+<asset:javascript src="person-form-controller.js"/>
