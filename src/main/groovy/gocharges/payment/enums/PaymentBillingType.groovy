@@ -3,7 +3,7 @@ package gocharges.payment.enums
 public enum PaymentBillingType {
 
     BANK_SLIP("Boleto"),
-    DEBIT_CARD("Cartão de Débito"),
+    CREDIT_CARD("Cartão de Crédito"),
     PIX("Pix")
 
     String name
