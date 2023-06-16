@@ -55,10 +55,10 @@
 
                 <g:each var="payment" in="${paymentList}">
                     <ul class="list-group list-group-horizontal mb-1 mb-1 justify-content-between">
-                        <li class="custom-list-item col-3">${payment.billingType}</li>
+                        <li class="custom-list-item col-3">${payment.billingType.name}</li>
                         <li class="custom-list-item col">${payment.value}</li>
                         <li class="custom-list-item col"><formatTagLib:brazilDate date="${payment.dueDate}"/></li>
-                        <li class="custom-list-item col">${payment.status}</li>
+                        <li class="custom-list-item col">${payment.status.name}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
                         <g:if test="${payment.canConfirm()}">
