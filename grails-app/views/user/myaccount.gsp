@@ -13,7 +13,7 @@
                     <span class="h2">Informações</span>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <a class="update-tab border-right border-dark pr-3 nav-link js-link-tab active" href="#">Dados Cadastrais</a>
+                    <a class="update-tab border-right border-dark pr-3 nav-link js-link-tab active" href="#">Dados Comerciais</a>
                     <a class="update-tab pl-3 nav-link js-link-tab" href="#">Senha</a>
                 </div>
                 <div class="js-form">
