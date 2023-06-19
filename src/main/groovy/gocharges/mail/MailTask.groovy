@@ -19,7 +19,7 @@ class MailTask implements Runnable {
         mailService.sendMail {
             to mailRecipient
             subject mailSubject
-            html(view: "/emails/emailTemplate", model: [recipientName: mailRecipient, mailBody: mailBody, mailSubject: mailSubject])
+            html(view: "/emails/emailTemplate", model: [recipientEmail: mailRecipient, mailBody: mailBody, mailSubject: mailSubject])
         }
     }
 }
