@@ -1,23 +1,24 @@
 function PersonFormController() {
     var _this = this;
-    _this.reference = $(".js-customer-create");
+    _this.reference = $(".js-customer-update");
 
     _this.init = function() {
         var postalCodeUtils = new PostalCodeUtils();
         postalCodeUtils.init();
 
-        _this.buildCustomerCreateEmail();
+        _this.hideEmailInput();
     }
 
-    _this.buildCustomerCreateEmail = function() {
-        if (_this.isCustomerCreate()) {
-            var email = _this.reference.find(".js-email")
-            email.attr("readonly", true);
+    _this.hideEmailInput = function() {
+        if (_this.isCustomerUpdate()) {
+            var email = _this.reference.find(".js-email-div");
+            email.attr("hidden", true);
+            email.find(".js-email").attr("readonly", true);
         }
     }
 
-    _this.isCustomerCreate = function() {
-        return _this.reference.length > 0
+    _this.isCustomerUpdate = function() {
+        return _this.reference.length > 0;
     }
 }
 
