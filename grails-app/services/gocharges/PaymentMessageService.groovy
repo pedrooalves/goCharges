@@ -28,7 +28,7 @@ class PaymentMessageService {
     }
 
     public void onReceivedInCash(Payment payment) {
-        String mailSubject = "Cobrança paga em dinheiro"
+        String mailSubject = "Pagamento realizado em dinheiro"
 
         Map customerMailParams = [
                 recipient: payment.customer.email,
