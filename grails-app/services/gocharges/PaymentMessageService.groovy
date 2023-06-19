@@ -13,15 +13,17 @@ class PaymentMessageService {
         String mailSubject = "Nova Cobrança"
 
         Map customerMailParams = [
+                recipientName: payment.customer.name,
                 recipient: payment.customer.email,
                 mailSubject: mailSubject,
-                mailBody: "Cobrança criada no valor de R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} para ${payment.payer.name}",
+                mailBody: "Cobrança criada no valor de R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} para ${payment.payer.name}"
         ]
 
         Map payerMailParams = [
+                recipientName: payment.payer.name,
                 recipient: payment.payer.email,
                 mailSubject: mailSubject,
-                mailBody: "Uma cobrança no valor R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} foi criada em seu nome por ${payment.customer.name}",
+                mailBody: "Uma cobrança no valor R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} foi criada em seu nome por ${payment.customer.name}"
         ]
 
         sendMail(customerMailParams, payerMailParams)
@@ -31,15 +33,17 @@ class PaymentMessageService {
         String mailSubject = "Pagamento realizado em dinheiro"
 
         Map customerMailParams = [
+                recipientName: payment.customer.name,
                 recipient: payment.customer.email,
                 mailSubject: mailSubject,
-                mailBody: "Você confirmou o recimento em dinheiro da cobrança ${payment.publicId} em ${Utils.getBrazilDateFormat(payment.paymentDate)}.",
+                mailBody: "Você confirmou o recimento em dinheiro da cobrança ${payment.publicId} em ${Utils.getBrazilDateFormat(payment.paymentDate)}."
         ]
 
         Map payerMailParams = [
+                recipientName: payment.payer.name,
                 recipient: payment.payer.email,
                 mailSubject: mailSubject,
-                mailBody: "O pagamento em dinheiro da cobrança ${payment.publicId} foi realizado com sucesso.",
+                mailBody: "O pagamento em dinheiro da cobrança ${payment.publicId} foi realizado com sucesso."
         ]
 
         sendMail(customerMailParams, payerMailParams)
@@ -49,12 +53,14 @@ class PaymentMessageService {
         String mailSubject = "Cobrança vencida"
 
         Map customerMailParams = [
+                recipientName: payment.customer.name,
                 recipient: payment.customer.email,
                 mailSubject: mailSubject,
-                mailBody: "Sua cobrança ${payment.publicId} para ${payment.payer.name} está vencida.",
+                mailBody: "Sua cobrança ${payment.publicId} para ${payment.payer.name} está vencida."
         ]
 
         Map payerMailParams = [
+                recipientName: payment.payer.name,
                 recipient: payment.payer.email,
                 mailSubject: mailSubject,
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} está vencida"
@@ -67,12 +73,14 @@ class PaymentMessageService {
         String mailSubject = "Cobrança removida"
 
         Map customerMailParams = [
+                recipientName: payment.customer.name,
                 recipient: payment.customer.email,
                 mailSubject: mailSubject,
                 mailBody: "Você removeu a cobrança ${payment.publicId} criada para ${payment.payer.name}.",
         ]
 
         Map payerMailParams = [
+                recipientName: payment.payer.name,
                 recipient: payment.payer.email,
                 mailSubject: mailSubject,
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} foi removida."

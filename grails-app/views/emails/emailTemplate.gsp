@@ -128,7 +128,7 @@
             <div class="card">
                 <div>
                     <div class="text-gogreen">
-                        <h2 class="ml-5">Olá, ${recipientEmail}!</h2>
+                        <h2 class="ml-5">Olá, ${recipientName}!</h2>
                     </div>
                     <table>
                         <tbody>
