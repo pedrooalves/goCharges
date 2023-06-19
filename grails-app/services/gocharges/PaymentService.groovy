@@ -51,6 +51,7 @@ class PaymentService {
 
         payment.deleted = true
         payment.save(failOnError: true)
+        paymentMessageService.onDelete(payment)
     }
 
     public void confirmReceivedInCash(Long id, Customer customer) {
@@ -63,6 +64,7 @@ class PaymentService {
         payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
+        paymentMessageService.onReceivedInCash(payment)
     }
 
     public static void validate(Map params) {
@@ -87,6 +89,7 @@ class PaymentService {
                     Payment payment = Payment.get(id)
                     payment.status = PaymentStatus.OVERDUE
                     payment.save(failOnError: true)
+                    paymentMessageService.onOverdue(payment)
                 } catch (Exception exception) {
                     status.setRollbackOnly()
                 }
