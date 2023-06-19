@@ -12,7 +12,8 @@ function MyAccountController() {
     }
 
     _this.buildForm = function(tab) {
-        console.log(tab.href.split("#")[1]);
+        _this.reference.find(".js-set-hidden").hide();
+        _this.reference.find(`.js-${tab.getAttribute("data-type")}`).show();
     }
 }
 
