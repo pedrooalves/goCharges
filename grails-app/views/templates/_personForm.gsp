@@ -1,5 +1,5 @@
 <%@ page import="shared.enums.State"%>
-<g:form class="card-body" name="customerForm" url="[controller: '${controller}', action: '${action}']">
+<g:form class="card-body" name="customerForm" url='[controller: "${controller}", action: "${action}"]'>
     <h1 class="display-4">${formTitle}</h1>
 
     <div class="form-group">
