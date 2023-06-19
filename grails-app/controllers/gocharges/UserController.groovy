@@ -1,15 +1,13 @@
 package gocharges
 
-import gocharges.auth.User
+import gocharges.controller.base.BaseController
 import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
 import shared.FlashMessageType
-import grails.plugin.springsecurity.SpringSecurityService
 
-class UserController {
+class UserController extends BaseController {
 
     UserService userService
-    SpringSecurityService springSecurityService
 
     public index() {
 
@@ -47,14 +45,7 @@ class UserController {
     }
 
     public myAccount() {
-        User user = springSecurityService.getCurrentUser()
-
-        if (chainModel) {
-            Map validation = chainModel.validation
-            render(view: "myaccount", model: [user: user, validation: validation])
-        } else {
-            render(view: "myaccount", model: [user: user])
-        }
+        render(view: "myaccount", model: [person: getCurrentCustomer()])
     }
 
     public update() {
