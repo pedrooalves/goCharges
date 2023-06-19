@@ -52,13 +52,17 @@ class UserService {
 
     private void validateSave(UserAdapter adapter) {
         validateUsername(adapter)
-        if (adapter.password != adapter.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
-        if (!adapter.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
+        validatePassword(adapter)
         if (UserRepository.query([username: adapter.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
     }
 
     private void validateUsername(UserAdapter adapter) {
         if (!adapter.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
+    }
+
+    private void validatePassword(UserAdapter adapter) {
+        if (!adapter.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
+        if (adapter.password != adapter.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
     }
 
     private void validateUpdate(User user, UserAdapter adapter) {
@@ -73,6 +77,16 @@ class UserService {
         validateUpdate(user, adapter)
 
         user.username = adapter.username
+
+        return user.save(failOnError: true)
+    }
+
+    public User changePassword(User user, UserAdapter adapter, String currentPassword) {
+        validatePassword(adapter)
+
+        if (!springSecurityService.passwordEncoder.matches(currentPassword, user.password)) throw new BusinessException("Senha incorreta")
+
+        user.password = adapter.password
 
         return user.save(failOnError: true)
     }

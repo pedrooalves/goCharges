@@ -71,4 +71,24 @@ class UserController extends BaseController {
             redirect(action: "myAccount")
         }
     }
+
+    public changePassword() {
+        try {
+            UserAdapter adapter = new UserAdapter(params)
+            String currentPassword = params.currentPassword
+            userService.changePassword(getCurrentUser(), adapter, currentPassword)
+
+            flash.message = "Senha alterada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (BusinessException businessException) {
+            flash.message = businessException.getMessage()
+            flash.type = FlashMessageType.ERROR
+        } catch (Exception exception) {
+            flash.message = "Erro inesperado, tente novamente mais tarde"
+            flash.type = FlashMessageType.ERROR
+            log.info("UserController.changePassword >> Erro ao alterar senha com os seguintes dados: ${params}")
+        } finally {
+            redirect(action: "myAccount")
+        }
+    }
 }
