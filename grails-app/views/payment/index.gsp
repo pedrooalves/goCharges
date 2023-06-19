@@ -4,11 +4,14 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Cadastro de Payment</title>
+    <asset:javascript src="modalController.js"/>
 </head>
 <body>
-    <div class="container col-12">
+    <div class="container col-12 js-payment-list-container">
         <div class="card-body row">
             <div class="col">
+                <g:render template="/modal/templates/confirmReceivedInCashModal"/>
+
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
 
@@ -37,11 +40,9 @@
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
                         <g:if test="${payment.status == PaymentStatus.PENDING}">
-                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="PUT">
-                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
-                                    <asset:image src="cash-stack.svg"/>
-                                </button>
-                            </g:form>
+                            <button class="btn btn-outline-dark ml-3 js-btn-confirm-received-in-cash" type="button" value="${payment.id}">
+                                <asset:image src="cash-stack.svg"/>
+                            </button>
                         </g:if>
 
                         <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="PUT">

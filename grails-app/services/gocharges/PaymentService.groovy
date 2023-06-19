@@ -5,6 +5,7 @@ import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
+import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 import shared.Utils
@@ -39,7 +40,7 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if (!payment.payer) throw new BusinessException("Pagador não encontrado")
+        if (!payment.payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
 
         return payment.save(failOnError: true)
     }
@@ -47,25 +48,27 @@ class PaymentService {
     public void delete(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException("Cobrança não encontrada")
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
 
         payment.deleted = true
         payment.save(failOnError: true)
     }
 
-    public void confirm(Long id, Customer customer) {
+    public void confirmReceivedInCash(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException("Cobrança não encontrada")
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
+        if (payment.status != PaymentStatus.PENDING) throw new BusinessException(Utils.getMessageProperty("default.not.pending.payment.message", null))
 
         payment.status = PaymentStatus.RECEIVED
+        payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
     }
 
     public static void validate(Map params) {
         if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Pagador"))
-        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Método de pagamento"))
+        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Forma de pagamento"))
         if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Data de vencimento"))
         if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Valor"))
     }
