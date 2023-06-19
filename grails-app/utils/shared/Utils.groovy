@@ -3,6 +3,7 @@ package shared
 import grails.util.Holders
 
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 
 public class Utils {
 
@@ -23,5 +24,11 @@ public class Utils {
         numberFormat.setMinimumFractionDigits(2)
 
         return numberFormat.format(value)
+    }
+
+    public static getBrazilDateFormat(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy")
+
+        return simpleDateFormat.format(date)
     }
 }
