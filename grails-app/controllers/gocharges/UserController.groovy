@@ -1,6 +1,7 @@
 package gocharges
 
 import gocharges.controller.base.BaseController
+import gocharges.customer.CustomerAdapter
 import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
 import shared.FlashMessageType
@@ -8,6 +9,7 @@ import shared.FlashMessageType
 class UserController extends BaseController {
 
     UserService userService
+    CustomerService customerService
 
     public index() {
 
@@ -50,10 +52,11 @@ class UserController extends BaseController {
 
     public update() {
         try {
-            UserAdapter adapter = new UserAdapter(params)
-            Long id = Long.valueOf(params.id)
-            String currentPassword = params.currentPassword
-            userService.update(id, adapter, currentPassword)
+            UserAdapter userAdapter = new UserAdapter([username: params.email])
+            userService.update(getCurrentUser(), userAdapter)
+
+            CustomerAdapter customerAdapter = new CustomerAdapter(params)
+            customerService.update(getCurrentCustomer(), customerAdapter)
 
             flash.message = "Informações salvas com sucesso"
             flash.type = FlashMessageType.SUCCESS

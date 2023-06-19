@@ -43,26 +43,24 @@ class CustomerService {
         if (!adapter.state) throw new BusinessException(Utils.getMessageProperty("default.null.message", "estado"))
     }
 
-    private void validateEmailInUse(Long customerId, String emailToValidate) {
-        Boolean emailInUse = CustomerRepository.query([email: emailToValidate, includeDeleted: true, "id[ne]": customerId]).get().asBoolean()
+    private void validateEmailInUse(Customer customer, CustomerAdapter adapter) {
+        Boolean emailInUse = CustomerRepository.query([email: adapter.email, includeDeleted: true, "id[ne]": customer.id]).get().asBoolean()
         if (emailInUse) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
     }
 
-    private void validateCpfCnpjInUse(String cpfCnpjToValidate) {
-        Boolean cpfCnpjInUse = CustomerRepository.query([cpfCnpj: cpfCnpjToValidate, includeDeleted: true]).get().asBoolean()
+    private void validateCpfCnpjInUse(Customer customer, CustomerAdapter adapter) {
+        Boolean cpfCnpjInUse = CustomerRepository.query([cpfCnpj: adapter.cpfCnpj, includeDeleted: true, "id[ne]": customer.id]).get().asBoolean()
         if (cpfCnpjInUse) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "CPF/CNPJ"))
     }
 
     private void validateUpdate(Customer customer, CustomerAdapter adapter) {
         validateNotNull(adapter)
         CpfCnpjUtils.validate(adapter.cpfCnpj)
-        validateCpfCnpjInUse(adapter.cpfCnpj)
-        validateEmailInUse(customer.id, adapter.email)
+        validateCpfCnpjInUse(customer, adapter)
+        validateEmailInUse(customer, adapter)
     }
 
-    public Customer update(CustomerAdapter adapter, Customer customer) {
-        validateUpdate(customer, adapter)
-
+    public Customer update(Customer customer, CustomerAdapter adapter) {
         validateUpdate(customer, adapter)
 
         customer.name = adapter.name
