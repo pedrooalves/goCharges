@@ -18,7 +18,7 @@
                 <td class="border border-dark">${payer.mobilePhone}</td>
                 <td class="border border-dark">${payer.address}</td>
                 <td class="row d-flex justify-content-center">
-                    <g:render class="col-6" template="/templates/payerActions" model="${[payer: payer]}"/>
+                    <g:render template="/templates/payerActions" model="${[payer: payer]}"/>
                 </td>
             </tr>
         </g:each>
