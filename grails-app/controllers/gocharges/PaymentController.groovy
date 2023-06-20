@@ -1,7 +1,6 @@
 package gocharges
 
 import gocharges.controller.base.BaseController
-import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payment.PaymentRepository
 import gocharges.payment.adapter.PaymentAdapter
@@ -33,13 +32,8 @@ class PaymentController extends BaseController {
 
             flash.message = "Cobrança criada com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PaymentController.save >> Erro em criar cobrança com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "create"
             chain(action: action, model: [paramsId: params.id])
@@ -64,13 +58,8 @@ class PaymentController extends BaseController {
 
             flash.message = "Cobrança alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PaymentController.update >> Erro em atualizar cobrança com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "edit"
             chain(action: action, model: [paramsId: params.id])
@@ -84,13 +73,8 @@ class PaymentController extends BaseController {
 
             flash.message = "Cobrança removida com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PaymentController.delete >> Erro em remover cobrança com o seguinte id: ${params.id}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "index")
         }
@@ -103,13 +87,8 @@ class PaymentController extends BaseController {
 
             flash.message = "Pagamento confirmado com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde."
-            flash.type = FlashMessageType.ERROR
-            log.info("PaymentController.confirmReceivedInCash >> Erro em confirmar pagamento em dinheiro com o seguinte id: ${params.id}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "index")
         }
