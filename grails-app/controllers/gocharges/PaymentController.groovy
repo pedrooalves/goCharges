@@ -33,7 +33,7 @@ class PaymentController extends BaseController {
     public save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            Payment payment = paymentService.save(paymentAdapter, getCurrentCustomer())
+            paymentService.save(paymentAdapter, getCurrentCustomer())
 
             flash.message = "Cobrança criada com sucesso"
             flash.type = FlashMessageType.SUCCESS
@@ -100,12 +100,12 @@ class PaymentController extends BaseController {
         }
     }
 
-    public confirm() {
+    public confirmReceivedInCash() {
         try {
             Long id = Long.valueOf(params.id)
-            paymentService.confirm(id, getCurrentCustomer())
+            paymentService.confirmReceivedInCash(id, getCurrentCustomer())
 
-            flash.message = "Cobrança confirmada com sucesso"
+            flash.message = "Pagamento confirmado com sucesso"
             flash.type = FlashMessageType.SUCCESS
         } catch (BusinessException businessException) {
             flash.message = businessException.getMessage()
@@ -113,7 +113,7 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             flash.message = "Erro inesperado, tente novamente mais tarde."
             flash.type = FlashMessageType.ERROR
-            log.info("PaymentController.confirm >> Erro ao confirmar cobrança com o seguinte id: ${params.id}")
+            log.info("PaymentController.confirmReceivedInCash >> Erro em confirmar pagamento em dinheiro com o seguinte id: ${params.id}")
         } finally {
             redirect(action: "index")
         }
