@@ -1,11 +1,11 @@
 <table>
     <thead>
         <tr>
-            <th class="h3" scope="col">Forma de Pagamento</th>
-            <th class="h3" scope="col">Valor</th>
-            <th class="h3" scope="col">Data de Vencimento</th>
-            <th class="h3" scope="col">Situação</th>
-            <th class="h3" scope="col">Pagador</th>
+            <th class="h4" scope="col">Forma de Pagamento</th>
+            <th class="h4" scope="col">Valor</th>
+            <th class="h4" scope="col">Data de Vencimento</th>
+            <th class="h4" scope="col">Situação</th>
+            <th class="h4" scope="col">Pagador</th>
         </tr>
     </thead>
     <tbody>
