@@ -4,7 +4,8 @@ public enum PaymentBillingType {
 
     BANK_SLIP("Boleto"),
     CREDIT_CARD("Cartão de Crédito"),
-    PIX("Pix")
+    PIX("Pix"),
+    CASH("Dinheiro")
 
     String name
 
