@@ -1,7 +1,6 @@
 package gocharges.payment
 
 import gocharges.Payment
-import gocharges.payer.PayerRepository
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.DetachedCriteria
@@ -33,7 +32,7 @@ class PaymentRepository {
             }
 
             if (search.containsKey("payerId")) {
-                eq("payer", PayerRepository.query([id: search.payerId, ignoreCustomer: true, includeDeleted: true]).get())
+                eq("payer.id", Long.valueOf(search.payerId))
             }
 
             if (search.containsKey("customer")) {
