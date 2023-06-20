@@ -47,7 +47,7 @@
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
                         <g:if test="${payment.canConfirm()}">
-                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirm']" method="POST">
+                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirmReceivedInCash']" method="POST">
                                 <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                     <asset:image src="cash-stack.svg"/>
                                 </button>
