@@ -5,6 +5,7 @@ import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
 import gocharges.payment.adapter.PaymentAdapter
+import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
 import shared.Utils
@@ -53,12 +54,14 @@ class PaymentService {
         payment.save(failOnError: true)
     }
 
-    public void confirm(Long id, Customer customer) {
+    public void confirmReceivedInCash(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
         if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
+        if (payment.status != PaymentStatus.PENDING) throw new BusinessException(Utils.getMessageProperty("default.not.pending.payment.message", null))
 
         payment.status = PaymentStatus.RECEIVED
+        payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
     }
@@ -72,7 +75,12 @@ class PaymentService {
 
     public void setAsOverdue() {
         Date today = new Date()
-        List<Long> paymentIdList = PaymentRepository.query(["dueDate[le]": today, status: PaymentStatus.PENDING, includeDeleted: true, ignoreCustomer: true]).property("id").list()
+        List<Long> paymentIdList = PaymentRepository.query([
+                "dueDate[le]": today,
+                status: PaymentStatus.PENDING,
+                includeDeleted: true,
+                ignoreCustomer: true
+        ]).property("id").list()
 
         for (Long id : paymentIdList) {
             Payment.withNewTransaction { status ->
