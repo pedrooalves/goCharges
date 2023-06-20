@@ -20,7 +20,7 @@ class PaymentController extends BaseController {
         render(view: "index", model: [paymentList: paymentList, payerList: payerList])
     }
 
-    def Map create() {
+    def create() {
         List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
 
         render(view: "create", model: [payerList: payerList])
