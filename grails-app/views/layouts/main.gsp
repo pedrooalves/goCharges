@@ -20,15 +20,6 @@
 
 <body class="js-main-container">
 
-<g:if test="${flash?.message}">
-    <div class="toast js-feedback-toast ${flash.type == FlashMessageType.SUCCESS ? 'bg-success' : 'bg-danger'}"
-         style="position: absolute; top: 0; right: 0;" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
-        <div class="toast-body text-white font-weight-bold">
-            ${flash.message}
-        </div>
-    </div>
-</g:if>
-
 <nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
     <div class="container-fluid justify-content-space-between">
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
@@ -46,6 +37,10 @@
         </sec:ifLoggedIn>
     </div>
 </nav>
+
+<g:if test="${flash?.message}">
+    <g:render template="/toast/templates/feedbackToast"/>
+</g:if>
 
 <g:layoutBody/>
 
