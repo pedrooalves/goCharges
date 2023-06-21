@@ -89,7 +89,7 @@ class PaymentMessageService {
         sendMail(customerMailParams, payerMailParams)
     }
 
-    public void sendMail(Map<String, Object> customerMailParams, Map<String, Object> payerMailParams) {
+    private void sendMail(Map<String, Object> customerMailParams, Map<String, Object> payerMailParams) {
         MailTask customerTask = new MailTask(customerMailParams, this.mailService)
         MailTask payerTask = new MailTask(payerMailParams, this.mailService)
         Thread sendCustomerMail = new Thread(customerTask)
