@@ -6,7 +6,7 @@ import gocharges.exception.BusinessException
 import grails.plugin.springsecurity.SpringSecurityService
 import shared.FlashMessageType
 
-public abstract class BaseController {
+abstract class BaseController {
 
     SpringSecurityService springSecurityService
 

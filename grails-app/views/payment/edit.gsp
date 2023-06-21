@@ -3,13 +3,13 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payment</title>
+    <title>Atualizar cobrança</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3">
         <div>
             <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
-                <h1 class="display-4">Editar Cobrança</h1>
+                <h1 class="display-4">Atualizar cobrança</h1>
             </div>
 
             <div class="card">

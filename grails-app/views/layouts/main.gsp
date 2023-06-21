@@ -10,14 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
-    <asset:javascript src="jquery-3.5.1.js" />
+    <asset:javascript src="jquery-3.5.1.js"/>
     <asset:stylesheet src="application.css"/>
     <asset:stylesheet src="gocharges.css"/>
 
+    <asset:javascript src="toastController.js"/>
     <g:layoutHead/>
 </head>
 
-<body>
+<body class="js-main-container">
+
 <nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
     <div class="container-fluid justify-content-space-between">
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
@@ -37,9 +39,7 @@
 </nav>
 
 <g:if test="${flash?.message}">
-    <div class="${flash.type == FlashMessageType.SUCCESS ? 'alert alert-success' : 'alert alert-danger'}" role="alert">
-        ${flash.message}
-    </div>
+    <g:render template="/toast/templates/feedbackToast"/>
 </g:if>
 
 <g:layoutBody/>

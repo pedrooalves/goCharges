@@ -3,13 +3,13 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Listagem de Payer</title>
+    <title>Atualizar pagador</title>
 </head>
 <body>
     <div class="container d-flex justify-content-center mb-3 col-12">
         <div class="col-6">
             <div class="card mb-3 mt-3 p-3 bg-gogreen text-center text-white">
-                <h1 class="display-4">Editar Pagador</h1>
+                <h1 class="display-4">Atualizar pagador</h1>
             </div>
 
             <div class="card">
@@ -64,6 +64,7 @@
                             <input class="form-control" type="text" name="complement"
                                    placeholder="Ex: Bloco 00, Apartamento 00" value="${payer.complement}"/>
                         </div>
+
                         <div class="col">
                             <label class="mb-1">Bairro</label>
                             <input class="form-control" type="text" name="province" placeholder="Ex: Jardim Campos Elíseos"
@@ -77,6 +78,7 @@
                             <input class="form-control" type="text" name="city" placeholder="Ex: Salvador"
                                    value="${payer.city}"/>
                         </div>
+
                         <div class="col">
                             <label for="state-select" class="mb-1">Estado</label> <br/>
                             <g:select name="state" id="state-select" class="form-select" data-constraint="select"

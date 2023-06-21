@@ -10,18 +10,18 @@ class UserController extends BaseController {
     UserService userService
     SpringSecurityService springSecurityService
 
-    public index() {
+    def index() {
     }
 
-    public login() {
+    def login() {
         render(view: "login")
     }
 
-    public signUp() {
+    def signUp() {
         render(view: "signup")
     }
 
-    public save() {
+    def save() {
         try {
             UserAdapter adapter = new UserAdapter(params)
             userService.save(adapter)
@@ -37,11 +37,12 @@ class UserController extends BaseController {
         }
     }
 
-    public myAccount() {
+    def myAccount() {
         render(view: "myaccount", model: [user: getCurrentUser()])
+
     }
 
-    public update() {
+    def update() {
         try {
             UserAdapter adapter = new UserAdapter(params)
             Long id = Long.valueOf(params.id)

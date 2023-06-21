@@ -9,17 +9,17 @@ class PayerController extends BaseController {
 
     PayerService payerService
 
-    public index() {
+    def index() {
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
         render(view: "index", model: [payerList: payerList])
     }
 
-    public create() {
+    def create() {
         render(view: "create")
     }
 
-    public save() {
+    def save() {
         try {
             PayerAdapter payerAdapter = new PayerAdapter(params)
             payerService.save(payerAdapter, getCurrentCustomer())
@@ -33,7 +33,7 @@ class PayerController extends BaseController {
         }
     }
 
-    public delete() {
+    def delete() {
         try {
             Long id = Long.valueOf(params.id)
             payerService.delete(id, getCurrentCustomer())
@@ -47,7 +47,7 @@ class PayerController extends BaseController {
         }
     }
 
-    public update() {
+    def update() {
         try {
             PayerAdapter adapter = new PayerAdapter(params)
             Long id = Long.valueOf(params.id)
@@ -62,7 +62,7 @@ class PayerController extends BaseController {
         }
     }
 
-    public edit() {
+    def edit() {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
