@@ -4,7 +4,7 @@ import gocharges.Customer
 import gocharges.auth.User
 import grails.plugin.springsecurity.SpringSecurityService
 
-public abstract class BaseController {
+abstract class BaseController {
 
     SpringSecurityService springSecurityService
 
