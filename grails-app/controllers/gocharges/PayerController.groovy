@@ -110,7 +110,7 @@ class PayerController extends BaseController {
     def show() {
         try{
             Long id = Long.valueOf(params.id)
-            Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
+            Payer payer = payerService.get([id: id, includeDeleted: true], getCurrentCustomer())
 
             render(view: "show", model: [payer: payer])
         } catch (Exception exception) {
