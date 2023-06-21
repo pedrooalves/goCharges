@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <title>Login</title>
+    <title>Entrar</title>
 </head>
 <body>
-    <form action='${request.contextPath}/login/authenticate' method='POST' id='frmLogar' name='frmLogar'>
+    <form action='${request.contextPath}/login/authenticate' method='POST' id='login' name='login'>
         <p>
-            E-mail
+            <label>E-mail</label>
             <input type='text' name='username' id='username' />
         </p>
         <p>
-            Senha
+            <label>Senha</label>
             <input type='password' name='password' id='password' />
         </p>
         <input type="submit" value="Entrar" />
