@@ -135,7 +135,12 @@ class PaymentController extends BaseController {
             flash.type = FlashMessageType.ERROR
             log.info("PaymentController.restore >> Erro ao restaurar cobrança com o seguinte id: ${params.id}")
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
+    }
+
+    public show() {
+        Payment payment = PaymentRepository.query([id: 1, ignoreCustomer: true]).get()
+        render(view: "show", model: [payment: payment])
     }
 }

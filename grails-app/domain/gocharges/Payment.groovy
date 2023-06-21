@@ -28,4 +28,8 @@ class Payment extends BaseEntity {
     public Boolean canConfirm() {
         return this.status == PaymentStatus.PENDING && !this.deleted
     }
+
+    public Boolean isPaid() {
+        return this.status == PaymentStatus.RECEIVED || this.status == PaymentStatus.CONFIRMED
+    }
 }
