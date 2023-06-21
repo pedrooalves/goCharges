@@ -114,7 +114,13 @@ class PaymentController extends BaseController {
     }
 
     public show() {
-        Payment payment = PaymentRepository.query([id: 1, ignoreCustomer: true]).get()
-        render(view: "show", model: [payment: payment])
+        println(params)
+        try {
+            Payment payment = paymentService.getPayment(params, getCurrentCustomer())
+            return[payment: payment]
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+            redirect(action: "index")
+        }
     }
 }
