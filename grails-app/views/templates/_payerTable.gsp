@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <g:each var="payer" in="${payerList}">
-            <tr class="border border-dark js-table-row" data-url="/payer/show">
+            <tr class="border border-dark js-table-row" value="${payer.id}">
                 <td class="border border-dark">${payer.name}</td>
                 <td class="border border-dark">${payer.email}</td>
                 <td class="border border-dark">${payer.cpfCnpj}</td>
