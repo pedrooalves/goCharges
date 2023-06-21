@@ -26,7 +26,10 @@
             </div>
 
             <div>
-                <a href="/"><input class="btn btn-outline-secondary" type="button" name="cancelButton" value="Cancelar"/></a>
+                <a href="/">
+                    <input class="btn btn-outline-secondary" type="button" name="cancelButton" value="Cancelar"/>
+                </a>
+
                 <input class="btn bg-gogreen text-white" type="submit" value="Cadastrar"/>
             </div>
         </g:form>

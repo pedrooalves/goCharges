@@ -19,6 +19,7 @@
                 <label>Senha</label>
                 <input class="form-control" type="password" id="password" name="password"/>
             </div>
+
             <input class="btn bg-gogreen text-white" type="submit" value="Entrar"/>
         </form>
     </div>
