@@ -106,4 +106,15 @@ class PayerController extends BaseController {
             redirect(action: "index")
         }
     }
+
+    def show() {
+        try{
+            Long id = Long.valueOf(params.id)
+            Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
+
+            render(view: "show", model: [payer: payer])
+        } catch (Exception exception) {
+            redirect(action: "index")
+        }
+    }
 }
