@@ -2,7 +2,6 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
-import gocharges.exception.BusinessException
 import shared.FlashMessageType
 
 class CustomerController extends BaseController {
@@ -34,13 +33,8 @@ class CustomerController extends BaseController {
 
             flash.message = "Conta alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("CustomerController.update >> Erro em atualizar customer com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             redirect(controller: "dashboard", action: "index")
         }
@@ -53,13 +47,8 @@ class CustomerController extends BaseController {
 
             flash.message = "Conta removida com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("CustomerController.delete >> Erro em remover customer com o seguinte id: ${params.id}")
+            exceptionHandler(exception)
         } finally {
             redirect(view: "index")
         }

@@ -13,8 +13,13 @@
         <div class="border bg-light w-50">
             <div class="d-flex justify-content-between px-4 m-4">
                 <asset:image src="gocharges.png" alt="goCharges Logo"/>
-                </a>
-                <h1 class="font-weight-bold"> Comprovante de pagamento </h1>
+
+                <div class="text-right">
+                    <h1 class="font-weight-bold"> Comprovante de pagamento </h1>
+                    <p style="font-size: 0.9rem">
+                        gerado em <formatTagLib:brazilDate date="${payment.paymentDate}"/> às <formatTagLib:time date="${payment.paymentDate}"/>
+                    </p>
+                </div>
             </div>
 
             <div class="border-top border-bottom p-3">
