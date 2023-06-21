@@ -1,6 +1,8 @@
 package gocharges
 
-class Notification {
+import gocharges.domain.base.BaseEntity
+
+class Notification extends BaseEntity {
 
     Customer customer
     Payment payment
