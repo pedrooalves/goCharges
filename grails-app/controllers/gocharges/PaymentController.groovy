@@ -12,7 +12,7 @@ class PaymentController extends BaseController {
     PaymentService paymentService
     PayerService payerService
 
-    public index() {
+    def index() {
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
         List<Payer> payerList = payerService.list(params, customer)
@@ -20,13 +20,13 @@ class PaymentController extends BaseController {
         render(view: "index", model: [paymentList: paymentList, payerList: payerList])
     }
 
-    public Map create() {
+    def create() {
         List<Payer> payerList = PayerRepository.query([customer: getCurrentCustomer()]).list()
 
         render(view: "create", model: [payerList: payerList])
     }
 
-    public save() {
+    def save() {
         try {
             PaymentAdapter paymentAdapter = new PaymentAdapter(params)
             paymentService.save(paymentAdapter, getCurrentCustomer())
@@ -46,7 +46,7 @@ class PaymentController extends BaseController {
         }
     }
 
-    public edit() {
+    def edit() {
         String paramsId = params.id ? params.id : chainModel?.paramsId
         Long id = Long.valueOf(paramsId)
         params.remove("id")
@@ -56,7 +56,7 @@ class PaymentController extends BaseController {
         render(view: "edit", model: [payment: payment, payerList: payerList])
     }
 
-    public update() {
+    def update() {
         try {
             PaymentAdapter adapter = new PaymentAdapter(params)
             Long id = Long.valueOf(params.id)
@@ -77,7 +77,7 @@ class PaymentController extends BaseController {
         }
     }
 
-    public delete() {
+    def delete() {
         try {
             Long id = Long.valueOf(params.id)
             paymentService.delete(id, getCurrentCustomer())
@@ -96,7 +96,7 @@ class PaymentController extends BaseController {
         }
     }
 
-    public confirmReceivedInCash() {
+    def confirmReceivedInCash() {
         try {
             Long id = Long.valueOf(params.id)
             paymentService.confirmReceivedInCash(id, getCurrentCustomer())
