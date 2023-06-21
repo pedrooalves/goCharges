@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cadastro de Payment</title>
+    <title>Listagem de cobranças</title>
     <asset:javascript src="modalController.js"/>
 </head>
 <body>
