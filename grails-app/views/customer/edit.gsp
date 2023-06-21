@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Atualizar Customer</title>
+    <title>Atualizar dados</title>
 </head>
 <body>
 <div class="container my-8 d-flex justify-center">
     <div class="container w-50">
-        <h1 class="display-4">Atualizar</h1>
+        <h1 class="display-4">Atualizar dados</h1>
 
         <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']" method="PUT">
             <div class="form-group">

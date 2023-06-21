@@ -8,7 +8,7 @@
 <body>
     <div class="container my-8 d-flex justify-content-center col">
         <g:form class="card-body col-6" name="payerForm" url="[controller: 'payer', action: 'save']">
-            <h1 class="display-4">Novo Pagador</h1>
+            <h1 class="display-4">Adicionar pagador</h1>
 
             <div class="form-group">
                 <label>Nome</label>

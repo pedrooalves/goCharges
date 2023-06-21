@@ -8,6 +8,10 @@ class FormatTagLib {
 
     static namespace = "formatTagLib"
 
+    def time = { Map attrs ->
+        out << dateNotation("HH:mm", attrs.date)
+    }
+
     def brazilDate = { Map attrs ->
         out << dateNotation("dd/MM/yyyy", attrs.date)
     }
