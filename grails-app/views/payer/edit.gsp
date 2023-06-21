@@ -104,6 +104,6 @@
             </div>
         </div>
     </div>
-<asset:javascript src="postal-code-utils.js"/>
+    <asset:javascript src="postal-code-utils.js"/>
 </body>
 </html>
