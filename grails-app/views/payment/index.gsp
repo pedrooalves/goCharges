@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Tipo de Recebimento</h1>
+                    <h1 class="col-3 fw-bold text-center">Forma de pagamento</h1>
                     <h1 class="col fw-bold text-center">Valor</h1>
                     <h1 class="col fw-bold text-center">Data de Vencimento</h1>
                     <h1 class="col fw-bold text-center">Status</h1>
@@ -33,7 +33,9 @@
                     <ul class="list-group list-group-horizontal mb-1 mb-1 justify-content-between">
                         <li class="custom-list-item col-3">${payment.billingType}</li>
                         <li class="custom-list-item col">${payment.value}</li>
-                        <li class="custom-list-item col"><formatTagLib:brazilDate date="${payment.dueDate}"/></li>
+                        <li class="custom-list-item col">
+                            <formatTagLib:brazilDate date="${payment.dueDate}"/>
+                        </li>
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
