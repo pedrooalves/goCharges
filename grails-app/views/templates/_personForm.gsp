@@ -7,7 +7,7 @@
         <input class="form-control js-name" type="text" name="name" placeholder="Ex: João da Silva" value="${person?.name}"/>
     </div>
 
-    <div class="form-group js-email-div">
+    <div class="form-group">
         <label>E-mail</label>
         <input class="form-control js-email" type="email" name="email" placeholder="Ex: joao.silva@email.com" value="${person?.email}"/>
     </div>
