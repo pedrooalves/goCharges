@@ -9,7 +9,7 @@
     <div class="container d-flex justify-content-center mb-3 col-12">
         <div class="col-6">
             <div class="card mb-3 mt-3 p-3 bg-gogreen text-center text-white">
-                <h1 class="display-4">Editar Pagador</h1>
+                <h1 class="display-4">Atualizar pagador</h1>
             </div>
 
             <div class="card">
@@ -72,7 +72,7 @@
                             <div class="col">
                                 <label class="mb-1">Complemento</label>
                                 <input class="form-control" type="text" name="complement" placeholder="Ex: Bloco 00, Apartamento 00"
-                                       value=""/>
+                                       value="${payer.complement}"/>
                             </div>
                             <div class="col">
                                 <label class="mb-1">Bairro</label>
