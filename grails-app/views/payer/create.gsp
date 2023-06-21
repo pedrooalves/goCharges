@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container my-8 d-flex justify-center col-6 main-container">
-        <g:render class="" template="/templates/personForm" model="[formTitle: 'Adicionar Pagador', controller: 'payer', action: 'save']"/>
+        <g:render class="" template="/templates/personForm" model="[formTitle: 'Adicionar pagador', controller: 'payer', action: 'save']"/>
     </div>
 </body>
 </html>

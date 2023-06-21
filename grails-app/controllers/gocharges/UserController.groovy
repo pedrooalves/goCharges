@@ -2,7 +2,6 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
-import gocharges.exception.BusinessException
 import gocharges.auth.user.adapter.UserAdapter
 import shared.FlashMessageType
 
@@ -11,19 +10,18 @@ class UserController extends BaseController {
     UserService userService
     CustomerService customerService
 
-    public index() {
-
+    def index() {
     }
 
-    public login() {
+    def login() {
         render(view: "login")
     }
 
-    public signUp() {
+    def signUp() {
         render(view: "signup")
     }
 
-    public save() {
+    def save() {
         try {
             UserAdapter adapter = new UserAdapter(params)
             userService.save(adapter)
@@ -32,25 +30,18 @@ class UserController extends BaseController {
             flash.type = FlashMessageType.SUCCESS
 
             redirect(action: "login")
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
-
-            redirect(action: "signUp")
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("UserController.save >> Erro em criar user com os seguintes dados: ${params}")
+            exceptionHandler(exception)
 
             redirect(action: "signUp")
         }
     }
 
-    public myAccount() {
+    def myAccount() {
         render(view: "myaccount", model: [person: getCurrentCustomer()])
     }
 
-    public update() {
+    def update() {
         try {
             UserAdapter userAdapter = new UserAdapter([username: params.email])
             userService.update(getCurrentUser(), userAdapter)
@@ -60,19 +51,14 @@ class UserController extends BaseController {
 
             flash.message = "Informações salvas com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("UserController.update >> Erro em atualizar user com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "myAccount")
         }
     }
 
-    public changePassword() {
+    def changePassword() {
         try {
             UserAdapter adapter = new UserAdapter(params)
             String currentPassword = params.currentPassword
@@ -80,13 +66,8 @@ class UserController extends BaseController {
 
             flash.message = "Senha alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("UserController.changePassword >> Erro ao alterar senha com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "myAccount")
         }
