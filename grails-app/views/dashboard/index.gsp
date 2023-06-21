@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cadastro de Customer</title>
+    <title>Resumo</title>
 </head>
 <body>
     <div class="container px-4">
