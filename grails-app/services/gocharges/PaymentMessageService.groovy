@@ -26,7 +26,7 @@ class PaymentMessageService {
                 mailBody: "Uma cobrança no valor R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} foi criada em seu nome por ${payment.customer.name}"
         ]
 
-        sendMail(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams, payerMailParams)
     }
 
     public void onReceivedInCash(Payment payment) {
@@ -46,7 +46,7 @@ class PaymentMessageService {
                 mailBody: "O pagamento em dinheiro da cobrança ${payment.publicId} foi realizado com sucesso."
         ]
 
-        sendMail(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams, payerMailParams)
     }
 
     public void onOverdue(Payment payment) {
@@ -66,7 +66,7 @@ class PaymentMessageService {
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} está vencida"
         ]
 
-        sendMail(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams, payerMailParams)
     }
 
     public void onDelete(Payment payment) {
@@ -86,10 +86,10 @@ class PaymentMessageService {
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} foi removida."
         ]
 
-        sendMail(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams, payerMailParams)
     }
 
-    private void sendMail(Map<String, Object> customerMailParams, Map<String, Object> payerMailParams) {
+    private void buildMailTask(Map<String, Object> customerMailParams, Map<String, Object> payerMailParams) {
         MailTask customerTask = new MailTask(customerMailParams, this.mailService)
         MailTask payerTask = new MailTask(payerMailParams, this.mailService)
         Thread sendCustomerMail = new Thread(customerTask)
