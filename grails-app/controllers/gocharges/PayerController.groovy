@@ -1,7 +1,6 @@
 package gocharges
 
 import gocharges.controller.base.BaseController
-import gocharges.exception.BusinessException
 import gocharges.payer.PayerRepository
 import gocharges.payer.adapter.PayerAdapter
 import shared.FlashMessageType
@@ -27,13 +26,8 @@ class PayerController extends BaseController {
 
             flash.message = "Pagador criado com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PayerController.save >> Erro em criar pagador com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "index")
         }
@@ -46,13 +40,8 @@ class PayerController extends BaseController {
 
             flash.message = "Pagador removido com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PayerController.delete >> Erro em remover pagador com o seguinte id: ${params.id}")
+            exceptionHandler(exception)
         } finally {
             redirect(view: "index")
         }
@@ -66,13 +55,8 @@ class PayerController extends BaseController {
 
             flash.message = "Pagador alterado com sucesso"
             flash.type = FlashMessageType.SUCCESS
-        } catch (BusinessException businessException) {
-            flash.message = businessException.getMessage()
-            flash.type = FlashMessageType.ERROR
         } catch (Exception exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-            log.info("PayerController.update >> Erro em atualizar pagador com os seguintes dados: ${params}")
+            exceptionHandler(exception)
         } finally {
             redirect(action: "index")
         }
