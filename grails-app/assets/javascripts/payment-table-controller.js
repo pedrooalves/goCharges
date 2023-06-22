@@ -5,7 +5,7 @@ function PaymentTableController() {
 
     _this.init = function() {
         _this.rowList.on("click", function() {
-            $.post(this.getAttribute("data-url"), {id: this.getAttribute("data-id")});
+            window.open(this.getAttribute("data-url"), "_self")
         });
     }
 }
