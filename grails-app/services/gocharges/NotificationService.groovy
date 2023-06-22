@@ -16,8 +16,8 @@ class NotificationService {
         notification.save(failOnError: true)
     }
 
-    public List<Notification> list(Customer customer) {
-        return NotificationRepository.query(customer: customer).order("dateCreated", "desc").list()
+    public List<Notification> list(Map params, Customer customer) {
+        return NotificationRepository.query(params + [customer: customer]).order("dateCreated", "desc").list()
     }
 
     public void overduePayment(Payment payment) {
