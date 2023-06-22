@@ -27,6 +27,5 @@ class NotificationService {
         notification.payment = payment
 
         notification.save(failOnError: true)
-
     }
 }
