@@ -8,15 +8,15 @@
     <div class="container col-12" style="height: 100%">
         <div class="card-body row">
             <div class="col 6">
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center align-items-center">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
                     <h1>Pagadores</h1>
-                </div>
 
-                <div class="navbar navbar-light d-flex justify-content-end">
                     <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-primary">Adicionar Pagador</button>
+                        <button class="btn btn-gogreen">Adicionar Pagador</button>
                     </a>
                 </div>
+
+
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Nome</h1>

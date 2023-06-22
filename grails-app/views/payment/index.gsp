@@ -17,7 +17,7 @@
 
                     <a class="d-flex align-items-center text-decoration-none"
                        href="${createLink(controller:'payment', action:'create')}">
-                        <button class="btn btn-primary">Nova Cobrança</button>
+                        <button class="btn btn-gogreen">Nova Cobrança</button>
                     </a>
                 </div>
 
