@@ -9,12 +9,7 @@ function PayerTableController() {
 
     _this.setTableRow = function() {
         _this.tableRow.on("click", function() {
-        var url = "/payer/show"
-            $.ajax({
-                method: "GET",
-                url: url,
-                data: {id: "1"}
-              });
+            $.post(this.getAttribute("data-url"), {id: this.getAttribute("data-id")})
         })
     }
 }

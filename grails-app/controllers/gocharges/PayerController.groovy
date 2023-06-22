@@ -87,6 +87,7 @@ class PayerController extends BaseController {
     }
 
     def show() {
+        println(params)
         try{
             Long id = Long.valueOf(params.id)
             Payer payer = payerService.get([id: id, includeDeleted: true], getCurrentCustomer())
