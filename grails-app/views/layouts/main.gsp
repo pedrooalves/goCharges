@@ -30,8 +30,8 @@
                 </div>
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
-                <div>
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image src="bell.svg"/></a>
+                <div class="js-notification-container">
+                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image class="js-notification" src="bell.svg"/></a>
                     <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
                     <a class="btn btn-lg bg-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
@@ -79,5 +79,6 @@
         <g:message code="spinner.alt" default="Loading&hellip;"/>
     </div>
     <asset:javascript src="application.js"/>
+    <asset:javascript src="main-controller.js"/>
 </body>
 </html>
