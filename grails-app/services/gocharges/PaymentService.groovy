@@ -14,6 +14,7 @@ import shared.Utils
 class PaymentService {
 
     PaymentMessageService paymentMessageService
+    NotificationService notificationService
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
@@ -64,6 +65,7 @@ class PaymentService {
         payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
+        notificationService.confirmPayment(payment)
     }
 
     public static void validate(Map params) {

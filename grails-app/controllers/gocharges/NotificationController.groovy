@@ -7,7 +7,7 @@ class NotificationController extends BaseController {
     NotificationService notificationService
 
     def index() {
-        List<Notification> notificationList = NotificationService.list(getCurrentCustomer())
-        render(view: "index")
+        List<Notification> notificationList = notificationService.list(getCurrentCustomer())
+        render(view: "index", model: [notificationList: notificationList])
     }
 }
