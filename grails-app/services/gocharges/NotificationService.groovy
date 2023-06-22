@@ -17,6 +17,16 @@ class NotificationService {
     }
 
     public List<Notification> list(Customer customer) {
-        return NotificationRepository.query(customer: customer).list()
+        return NotificationRepository.query(customer: customer).order("dateCreated", "desc").list()
+    }
+
+    public void overduePayment(Payment payment) {
+        Notification notification = new Notification()
+        notification.notificationType = NotificationType.OVERDUE
+        notification.customer = payment.customer
+        notification.payment = payment
+
+        notification.save(failOnError: true)
+
     }
 }

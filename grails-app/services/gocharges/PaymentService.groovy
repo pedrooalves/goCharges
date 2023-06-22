@@ -90,6 +90,7 @@ class PaymentService {
                     Payment payment = Payment.get(id)
                     payment.status = PaymentStatus.OVERDUE
                     payment.save(failOnError: true)
+                    notificationService.overduePayment(payment)
                 } catch (Exception exception) {
                     status.setRollbackOnly()
                 }
