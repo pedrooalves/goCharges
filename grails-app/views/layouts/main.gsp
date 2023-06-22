@@ -20,7 +20,6 @@
 </head>
 
 <body class="js-main-container">
-
     <nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
         <div class="container-fluid justify-content-space-between">
             <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
@@ -79,7 +78,6 @@
     <div id="spinner" class="spinner" style="display:none;">
         <g:message code="spinner.alt" default="Loading&hellip;"/>
     </div>
-
     <asset:javascript src="application.js"/>
 </body>
 </html>
