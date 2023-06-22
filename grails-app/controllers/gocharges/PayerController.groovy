@@ -10,8 +10,7 @@ class PayerController extends BaseController {
     PayerService payerService
 
     def index() {
-        String deletedOnly = params.deletedOnly
-        if (deletedOnly && !Boolean.valueOf(deletedOnly)) params.put("includeDeleted", true)
+        if (params.deletedOnly) params.put("includeDeleted", true)
 
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
