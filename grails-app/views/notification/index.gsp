@@ -3,7 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Notificações</title>
-    <asset:javascript src="notificationController.js" />
 </head>
 <body>
     <div class="container col-12 main-container js-notification-index-container" >
@@ -34,5 +33,6 @@
             </div>
         </div>
     </div>
+    <asset:javascript src="notification-controller.js" />
 </body>
 </html>
