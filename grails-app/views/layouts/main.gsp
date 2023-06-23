@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%@ page import="shared.FlashMessageType" %>
-<%@ page import="gocharges.NotificationController" %>
+<%@ page import="shared.FlashMessageType"%>
+<%@ page import="shared.NotificationType"%>
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -13,9 +13,8 @@
 
     <asset:javascript src="jquery-3.5.1.js"/>
     <asset:stylesheet src="application.css"/>
+    <asset:stylesheet src="notificationDropdown.css"/>
     <asset:stylesheet src="gocharges.css"/>
-
-    <asset:javascript src="toastController.js"/>
     <g:layoutHead/>
 </head>
 
@@ -30,8 +29,15 @@
                 </div>
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
-                <div>
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image class="js-bell" src="bell.svg"/></a>
+                <div class="row">
+                    <div class="dropdown">
+                        <a class="btn btn-lg bg-gogreen mr-3 js-btn-notification" href="/notification/index">
+                            <asset:image class="js-notification" src="bell.svg"/>
+                        </a>
+
+                        <div class="js-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        </div>
+                    </div>
                     <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
                     <a class="btn btn-lg bg-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
@@ -78,7 +84,9 @@
     <div id="spinner" class="spinner" style="display:none;">
         <g:message code="spinner.alt" default="Loading&hellip;"/>
     </div>
+
+    <asset:javascript src="mainController.js"/>
+    <asset:javascript src="toastController.js"/>
     <asset:javascript src="application.js"/>
-    <asset:javascript src="main-controller.js"/>
 </body>
 </html>
