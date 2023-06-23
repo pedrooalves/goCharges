@@ -111,4 +111,13 @@ class PayerService {
     public List<Payer> list(Map params, Customer customer) {
         return PayerRepository.query(params + [customer: customer]).list()
     }
+
+    public Payer restore(Long id, Customer customer) {
+        Payer payer = PayerRepository.query([id: id, customer: customer, deletedOnly: true]).get()
+
+        if (!payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+
+        payer.deleted = false
+        return payer.save(failOnError: true)
+    }
 }
