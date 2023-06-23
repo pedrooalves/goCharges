@@ -5,14 +5,13 @@ function MainController() {
 
     _this.init = function() {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/notification/hasUnreadNotifications",
             dataType: "json",
             success: (data) => {
                 if (data.length > 0) {
                     _this.notification.attr("src", "/assets/bell-active.svg")
                 }
-            console.log(data.length)
             }
         });
     }
