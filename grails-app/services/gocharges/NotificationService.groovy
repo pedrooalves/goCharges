@@ -29,11 +29,9 @@ class NotificationService {
         notification.save(failOnError: true)
     }
 
-    public void markAsRead(String[] idList, Customer customer) {
-        idList.each { idStr ->
-            Notification notification = NotificationRepository.query([id: idStr, customer: customer]).get()
-            notification.isRead = true
-            notification.save(failOnError: true)
-        }
+    public void markAsRead(String idStr, Customer customer) {
+        Notification notification = NotificationRepository.query([id: idStr, customer: customer]).get()
+        notification.isRead = true
+        notification.save(failOnError: true)
     }
 }

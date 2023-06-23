@@ -28,13 +28,10 @@ function NotificationController() {
     };
 
     _this.markAs = function () {
-        var selectedNotificationList = [];
         _this.reference.find(".js-checkbox:checked").each(function() {
-            selectedNotificationList.push(this.value)
+            $.post("/notification/markAsRead", {id: this.value});
         });
-        $.post("/notification/markAsRead", {idList: selectedNotificationList}, function(data) {
-            location.reload();
-        });
+        location.reload();
     }
 }
 
