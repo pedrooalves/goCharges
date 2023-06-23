@@ -15,11 +15,20 @@
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
                         <g:form class="d-flex justify-content-center col" url="[controller: 'payer', action: 'index']" method="POST">
-                            <select name="deletedOnly">
-                                <option type="text" value="">Exibir somente pagadores ativos</option>
-                                <option type="text" value="true">Exibir somente pagadores inativos</option>
-                                <option type="text" value="false">Exibir todos os pagadores</option>
+                            <input class="col" name="name[ilike]" value="" placeholder="Nome">
+
+                            <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
+
+                            <input class="col ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
+
+                            <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
+
+                            <select class="ml-3" name="deletedOnly">
+                                <option value="">Exibir somente pagadores ativos</option>
+                                <option value="true">Exibir somente pagadores inativos</option>
+                                <option value="false">Exibir todos os pagadores</option>
                             </select><br/>
+
                             <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                         </g:form>
                 </nav>
@@ -46,21 +55,21 @@
                         <li class="custom-list-item col">${payer.mobilePhone}</li>
                         <li class="custom-list-item col">${payer.address}</li>
 
-                        <g:form name="updateButton" url="[controller: 'payer', action: 'edit']" method="POST">
+                        <g:form url="[controller: 'payer', action: 'edit']" method="POST">
                             <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-dark ml-3">
                                 <asset:image src="pencil.svg"/>
                             </button>
                         </g:form>
 
                         <g:if test="${payer.canDelete()}">
-                            <g:form name="deleteButton" url="[controller: 'payer', action: 'delete']" method="POST">
+                            <g:form url="[controller: 'payer', action: 'delete']" method="POST">
                                 <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
                                     <asset:image src="trash.svg"/>
                                 </button>
                             </g:form>
                         </g:if>
                         <g:else>
-                            <g:form name="restoreButton" url="[controller: 'payer', action: 'restore']" method="POST">
+                            <g:form url="[controller: 'payer', action: 'restore']" method="POST">
                                 <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
                                     <asset:image src="restore.svg"/>
                                 </button>
