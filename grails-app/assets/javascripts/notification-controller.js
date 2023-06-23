@@ -31,7 +31,7 @@ function NotificationController() {
         _this.reference.find(".js-checkbox:checked").each(function() {
             $.post("/notification/markAsRead", {id: this.value});
         });
-        setInterval(function() {
+        setTimeout(function() {
             location.reload(true)
         }, 100);
     }
