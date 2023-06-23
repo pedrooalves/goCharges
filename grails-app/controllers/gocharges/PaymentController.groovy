@@ -12,8 +12,7 @@ class PaymentController extends BaseController {
     PayerService payerService
 
     def index() {
-        String deletedOnly = params.deletedOnly
-        if (deletedOnly && !Boolean.valueOf(deletedOnly)) {
+        if (params.deletedOnly) {
             params.put("includeDeleted", true)
         }
 
