@@ -12,7 +12,6 @@ function MainController() {
                 if (data.length > 0) {
                     _this.notification.attr("src", "/assets/bell-active.svg")
                 }
-            console.log(data.length)
             }
         });
     }
