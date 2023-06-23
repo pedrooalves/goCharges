@@ -9,9 +9,9 @@
             <th class="h4 text-center" scope="col">Ações</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="js-body">
         <g:each var="payment" in="${paymentList}">
-            <tr class="border border-dark col">
+            <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-row" >
                 <td class="border border-dark">${payment.billingType.name}</td>
                 <td class="border border-dark">${payment.value}</td>
                 <td class="border border-dark"><formatTagLib:brazilDate date="${payment.dueDate}"/></td>
@@ -24,3 +24,4 @@
         </g:each>
     </tbody>
 </table>
+<asset:javascript src="payment-table-controller.js"/>
