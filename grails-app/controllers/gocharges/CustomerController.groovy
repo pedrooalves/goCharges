@@ -15,14 +15,14 @@ class CustomerController extends BaseController {
     }
 
     def create() {
-        Customer customer = getCurrentCustomer()
-        render(view: "create", model: [person: customer])
+        String userEmail = getCurrentCustomer().email
+        render(view: "create", model: [userEmail: userEmail])
     }
 
     def edit() {
         Customer customer = getCurrentCustomer()
 
-        render(view: "edit", model: [person: customer])
+        render(view: "edit", model: [customer: customer])
     }
 
     def update() {
