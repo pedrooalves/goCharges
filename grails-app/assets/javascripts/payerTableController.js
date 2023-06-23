@@ -9,7 +9,7 @@ function PayerTableController() {
 
     _this.setTableRow = function() {
         _this.tableRow.on("click", function() {
-            window.open(url, target)
+            window.open(this.getAttribute("data-url"), "_self")
         })
     }
 }
