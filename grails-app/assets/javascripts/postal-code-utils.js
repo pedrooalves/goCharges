@@ -59,8 +59,3 @@ function PostalCodeUtils() {
         _this.reference.find(".js-postal-code-warning").text(string);
     }
 }
-
-$(document).ready(function(){
-    var postalCodeUtils = new PostalCodeUtils();
-    postalCodeUtils.init();
-});
