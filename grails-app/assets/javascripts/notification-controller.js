@@ -11,7 +11,7 @@ function NotificationController() {
         });
 
         _this.mark.on("click", function() {
-            _this.markAs();
+            _this.markAsRead();
         });
 
         _this.bindSelectAllCheckBox();
@@ -27,11 +27,13 @@ function NotificationController() {
         });
     };
 
-    _this.markAs = function () {
+    _this.markAsRead = function () {
         _this.reference.find(".js-checkbox:checked").each(function() {
             $.post("/notification/markAsRead", {id: this.value});
         });
-        location.reload();
+        setInterval(function() {
+            location.reload(true)
+        }, 100);
     }
 }
 

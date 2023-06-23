@@ -18,16 +18,9 @@
                         <button class="btn btn-outline-secondary mr-5 js-mark-as-read">Marcar</button>
                     </div>
                     <g:each var="notification" in="${notificationList}">
-                        <div class="d-flex row rounded border pl-5 pt-2 pb-1">
+                        <div class="d-flex row rounded border pl-5 pt-2 pb-1" >
                             <input class="mr-2 js-checkbox" type="checkbox" value="${notification.id}">
-                            <div class="d-flex flex-column ml-2 js-notification" data-url="/payment/show/${notification.payment.id}" style="cursor: pointer">
-                                <span class="h5 font-weight-bold">
-                                    <formatTagLib:notificationTypeTitle notificationType="${notification.notificationType}" payment="${notification.payment}"/>
-                                </span>
-                                <span class="h6">
-                                    <formatTagLib:notificationTypeMessage notificationType="${notification.notificationType}" payment="${notification.payment}"/>
-                                </span>
-                            </div>
+                            <g:render template="/templates/notification" model="${[notification: notification]}"/>
                         </div>
                     </g:each>
                 </div>
