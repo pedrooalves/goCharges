@@ -94,6 +94,7 @@ class PayerController extends BaseController {
 
             render(view: "show", model: [payer: payer])
         } catch (Exception exception) {
+            exceptionHandler(exception)
             redirect(action: "index")
         }
     }

@@ -9,7 +9,7 @@ function PayerTableController() {
 
     _this.setTableRow = function() {
         _this.tableRow.on("click", function() {
-            $.post(this.getAttribute("data-url"), {id: this.getAttribute("data-id")})
+            window.open(url, target)
         })
     }
 }
