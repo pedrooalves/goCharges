@@ -19,7 +19,7 @@
                     <g:each var="notification" in="${notificationList}">
                         <div class="d-flex row rounded border pl-5 pt-2 pb-1">
                             <input class="mr-2" type="checkbox">
-                            <div class="d-flex flex-column ml-2 js-notification" data-url="/payment/show/${notification.payment.id}" style="cursor: pointer">
+                            <div class="d-flex flex-column ml-2 js-notification" data-url="/payment/show/${notification.id}" style="cursor: pointer">
                                 <span class="h5 font-weight-bold">
                                     ${notification.title}
                                 </span>
