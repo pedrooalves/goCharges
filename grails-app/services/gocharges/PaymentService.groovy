@@ -40,7 +40,7 @@ class PaymentService {
         payment.dueDate = adapter.dueDate
         payment.value = adapter.value
 
-        if (!payment.payer) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Pagador"))
+        if (!payment.payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
 
         return payment.save(failOnError: true)
     }
@@ -48,7 +48,7 @@ class PaymentService {
     public void delete(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
         payment.deleted = true
         payment.save(failOnError: true)
@@ -57,7 +57,7 @@ class PaymentService {
     public void confirmReceivedInCash(Long id, Customer customer) {
         Payment payment = PaymentRepository.query([id: id, customer: customer]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
         if (payment.status != PaymentStatus.PENDING) throw new BusinessException(Utils.getMessageProperty("default.not.pending.payment.message", null))
 
         payment.status = PaymentStatus.RECEIVED
@@ -67,10 +67,10 @@ class PaymentService {
     }
 
     public static void validate(Map params) {
-        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Pagador"))
-        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Forma de pagamento"))
-        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Data de vencimento"))
-        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "Valor"))
+        if (!params.payerId) throw new BusinessException(Utils.getMessageProperty("default.null.message", "pagador"))
+        if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "forma de pagamento"))
+        if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "data de vencimento"))
+        if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "valor"))
     }
 
     public void setAsOverdue() {
@@ -98,8 +98,17 @@ class PaymentService {
     public Payment buildReceipt(String publicId) {
         Payment payment = PaymentRepository.query([publicId: publicId, ignoreCustomer: true]).get()
 
-        if (!payment) throw new BusinessException(Utils.getMessageProperty("default.not.found.message", "Cobrança"))
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
         return payment
+    }
+
+    public Payment restore(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer, deletedOnly: true]).get()
+
+        if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
+
+        payment.deleted = false
+        return payment.save(failOnError: true)
     }
 }

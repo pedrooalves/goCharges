@@ -11,14 +11,23 @@
         <div class="card-body row">
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
-
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-center text-white rounded d-flex justify-content-between">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
                     <h1>Cobranças</h1>
+                </div>
 
-                    <a class="d-flex align-items-center text-decoration-none"
-                       href="${createLink(controller:'payment', action:'create')}">
-                        <button class="btn btn-primary">Nova Cobrança</button>
-                    </a>
+                <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
+                    <g:form class="d-flex justify-content-center col" url="[controller: 'payment', action: 'index']" method="POST">
+                        <select name="deletedOnly">
+                            <option type="text" value="">Exibir somente cobranças ativas</option>
+                            <option type="text" value="true">Exibir somente cobranças inativas</option>
+                            <option type="text" value="false">Exibir todas as cobranças</option>
+                        </select><br/>
+                        <button class="btn btn-outline-primary ml-3">Buscar</button></a>
+                    </g:form>
+                </nav>
+
+                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
+                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
                 </div>
 
                 <div class="row col-11">
@@ -39,13 +48,15 @@
                         <li class="custom-list-item col">${payment.status}</li>
                         <li class="custom-list-item col">${payment.payer.name}</li>
 
-                        <g:if test="${payment.status == PaymentStatus.PENDING}">
-                            <button class="btn btn-outline-dark ml-3 js-btn-confirm-received-in-cash" type="button" value="${payment.id}">
-                                <asset:image src="cash-stack.svg"/>
-                            </button>
+                        <g:if test="${payment.canConfirm()}">
+                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirmReceivedInCash']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
+                                    <asset:image src="cash-stack.svg"/>
+                                </button>
+                            </g:form>
                         </g:if>
 
-                        <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="PUT">
+                        <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
                             <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
                                 <asset:image src="pencil.svg"/>
                             </button>
@@ -53,18 +64,26 @@
 
                         <g:if test="${payment.status == PaymentStatus.RECEIVED}">
                             <g:form name="receiptButton" url="[controller: 'paymentReceipt', action: 'index']" method="GET">
-                                <button type="submit" name="publicId" value="${payment.publicId}"
-                                        class="btn btn-outline-dark ml-3">
+                                <button type="submit" name="publicId" value="${payment.publicId}" class="btn btn-outline-dark ml-3">
                                     <asset:image src="receipt.svg"/>
                                 </button>
                             </g:form>
                         </g:if>
 
-                        <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="DELETE">
-                            <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
-                                <asset:image src="trash.svg"/>
-                            </button>
-                        </g:form>
+                        <g:if test="${payment.canDelete()}">
+                            <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
+                                    <asset:image src="trash.svg"/>
+                                </button>
+                            </g:form>
+                        </g:if>
+                        <g:else>
+                            <g:form name="restoreButton" url="[controller: 'payment', action: 'restore']" method="POST">
+                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-primary ml-3">
+                                    <asset:image src="restore.svg"/>
+                                </button>
+                            </g:form>
+                        </g:else>
                     </ul>
                 </g:each>
             </div>
