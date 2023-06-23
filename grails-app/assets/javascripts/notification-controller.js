@@ -3,12 +3,18 @@ function NotificationController() {
     _this.reference = $(".js-notification-index-container");
     _this.selectAllCheckbox = _this.reference.find(".js-select-all");
     _this.notificationList = _this.reference.find(".js-notification");
+    _this.mark = _this.reference.find(".js-mark-as-read");
 
     _this.init = function() {
         _this.notificationList.on("click", function() {
             window.open(this.getAttribute("data-url"), "_self")
         });
-        _this.bindSelectAllCheckBox()
+
+        _this.mark.on("click", function() {
+            _this.markAs();
+        });
+
+        _this.bindSelectAllCheckBox();
     };
 
     _this.bindSelectAllCheckBox = function() {
@@ -20,6 +26,16 @@ function NotificationController() {
             });
         });
     };
+
+    _this.markAs = function () {
+        var selectedNotificationList = [];
+        _this.reference.find(".js-checkbox:checked").each(function() {
+            selectedNotificationList.push(this.value)
+        });
+        $.post("/notification/markAsRead", {idList: selectedNotificationList}, function(data) {
+            location.reload();
+        });
+    }
 }
 
 $(document).ready(function() {

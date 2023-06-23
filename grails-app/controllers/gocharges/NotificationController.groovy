@@ -17,4 +17,13 @@ class NotificationController extends BaseController {
         List<Notification> notificationList = notificationService.list([unreadOnly: true], getCurrentCustomer())
         render(notificationList as JSON, status: HttpStatus.OK)
     }
+
+    public markAsRead() {
+        try {
+            notificationService.markAsRead(params.get("idList[]"), getCurrentCustomer())
+            render([Message: "hello"] as JSON, status: HttpStatus.OK)
+        } catch (Exception exception) {
+            println(exception.getMessage())
+        }
+    }
 }
