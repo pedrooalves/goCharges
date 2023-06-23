@@ -30,8 +30,8 @@
                 </div>
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
-                <div class="js-notification-container">
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image class="js-notification" src="bell.svg"/></a>
+                <div>
+                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image class="js-bell" src="bell.svg"/></a>
                     <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
                     <a class="btn btn-lg bg-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>

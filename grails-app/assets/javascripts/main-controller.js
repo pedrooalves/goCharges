@@ -1,7 +1,7 @@
 function MainController() {
     _this = this;
     _this.reference = $(".js-main-container");
-    _this.notification = _this.reference.find(".js-notification");
+    _this.notification = _this.reference.find(".js-bell");
 
     _this.init = function() {
         $.ajax({
