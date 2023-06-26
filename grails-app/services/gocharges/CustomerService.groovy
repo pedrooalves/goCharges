@@ -64,7 +64,6 @@ class CustomerService {
         validateUpdate(customer, adapter)
 
         customer.name = adapter.name
-        customer.email = adapter.email
         customer.cpfCnpj = adapter.cpfCnpj
         customer.mobilePhone = adapter.mobilePhone
         customer.postalCode = adapter.postalCode

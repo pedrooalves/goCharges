@@ -1,29 +1,27 @@
 package gocharges.mail
 
-import gocharges.Payment
-
 class MailTask implements Runnable {
 
-    Payment payment
     Object mailService
+    String mailRecipientName
+    String mailRecipient
     String mailBody
     String mailSubject
 
     MailTask(Map<String, Object> mailParams, Object mailService) {
-        this.payment = mailParams.payment
         this.mailService = mailService
-        this.mailBody = mailParams.mailBody.toString()
+        this.mailRecipientName = mailParams.recipientName
+        this.mailRecipient = mailParams.recipient
         this.mailSubject = mailParams.mailSubject
+        this.mailBody = mailParams.mailBody
     }
 
     @Override
     void run() {
-        String payerName = payment.payer.name
-
         mailService.sendMail {
-            to payment.payer.email
+            to mailRecipient
             subject mailSubject
-            html(view: "/emails/emailTemplate", model: [payerName: payerName, mailBody: mailBody, mailSubject: mailSubject])
+            html(view: "/emails/emailTemplate", model: [recipientName: mailRecipientName, mailBody: mailBody, mailSubject: mailSubject])
         }
     }
 }

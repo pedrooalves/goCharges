@@ -21,7 +21,7 @@
                     </select>
                 </div>
 
-                <a class="d-flex align-items-center text-decoration-none btn btn-primary"
+                <a class="d-flex align-items-center text-decoration-none btn btn-gogreen"
                    href="${createLink(controller:'payer', action:'create')}">
                     Novo Pagador
                 </a>
@@ -45,9 +45,11 @@
                 <input class="form-control" type="text" name="value" value=""/><br/>
             </div>
 
-            <div class="navbar d-flex justify-content-space-between">
-                <a href="/payment" class="text-decoration-none btn btn-outline-secondary" type="button">Cancelar</a>
-                <button type="submit" class="btn bg-gogreen text-white ml-3">Cadastrar</button>
+            <div class="d-flex justify-content-between">
+                <a class="text-decoration-none btn btn-outline-secondary" href="/payment">
+                    Cancelar
+                </a>
+                <input class="btn btn-gogreen" type="submit" value="Cadastrar"/>
             </div>
         </g:form>
     </div>
