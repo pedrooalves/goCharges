@@ -20,19 +20,19 @@
 
 <body class="js-main-container">
 
-<nav class="navbar sidebar-content navbar-expand-lg navbar-dark navbar-static-top row" role="navigation">
+<nav class="navbar sidebar-content navbar-expand-lg navbar-dark bg-dark navbar-static-top row" role="navigation">
     <div class="container-fluid justify-content-space-between">
         <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
         <sec:ifNotLoggedIn>
             <div>
                 <a class="btn btn-gogreen mr-3" href="/user/login">Login</a>
-                <a class="btn btn-gogreen mr-3 " href="/user/signUp">Cadastrar</a>
+                <a class="btn btn-gogreen mr-3" href="/user/signUp">Cadastrar</a>
             </div>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
             <div>
                 <a class="btn btn-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
-                <a class="btn btn-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
+                <a class="btn btn-gogreen mr-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
             </div>
         </sec:ifLoggedIn>
     </div>
