@@ -51,34 +51,18 @@ class UserService {
     }
 
     private void validateSave(UserAdapter adapter) {
-        validateUsername(adapter)
+        validateEmail(adapter)
         validatePassword(adapter)
         if (UserRepository.query([username: adapter.username]).get()) throw new BusinessException(Utils.getMessageProperty("default.not.unique.message", "e-mail"))
     }
 
-    private void validateUsername(UserAdapter adapter) {
+    private void validateEmail(UserAdapter adapter) {
         if (!adapter.username) throw new BusinessException(Utils.getMessageProperty("default.null.message", "e-mail"))
     }
 
     private void validatePassword(UserAdapter adapter) {
         if (!adapter.password) throw new BusinessException(Utils.getMessageProperty("default.null.message", "senha"))
         if (adapter.password != adapter.confirmPassword) throw new BusinessException(Utils.getMessageProperty("default.password.doesnt.match.message", null))
-    }
-
-    private void validateUpdate(User user, UserAdapter adapter) {
-        validateUsername(adapter)
-
-        Boolean hasUserWithSameEmail = UserRepository.query([username: adapter.username, includeDeleted: true, "id[ne]": user.id])
-                .get().asBoolean()
-        if (hasUserWithSameEmail) throw new BusinessException("E-mail já em uso!")
-    }
-
-    public User update(User user, UserAdapter adapter) {
-        validateUpdate(user, adapter)
-
-        user.username = adapter.username
-
-        return user.save(failOnError: true)
     }
 
     public User changePassword(User user, UserAdapter adapter, String currentPassword) {

@@ -8,7 +8,7 @@
         </g:form>
     </g:if>
 
-    <g:if test="${payment.status == PaymentStatus.RECEIVED}">
+    <g:if test="${payment.status.isReceived()}">
         <g:form name="receiptButton" url="[controller: 'paymentReceipt', action: 'index']" method="GET">
             <button type="submit" name="publicId" value="${payment.publicId}" class="btn btn-outline-success ml-3">
                 <asset:image src="receipt.svg"/>
