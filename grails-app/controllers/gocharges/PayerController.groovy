@@ -69,7 +69,7 @@ class PayerController extends BaseController {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
-        render(view: "edit", model: [person: payer])
+        render(view: "edit", model: [payer: payer])
     }
 
     public restore() {

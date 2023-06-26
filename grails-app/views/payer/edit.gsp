@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container my-8 d-flex justify-center col-6 main-container">
-        <g:render class="" template="/templates/personForm" model='[formTitle: "Atualizar Pagador", controller: "payer", action: "update", payerId: "${person.id}"]'/>
+        <g:render template="/payer/templates/update/form"/>
     </div>
 </body>
 </html>
