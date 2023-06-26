@@ -34,7 +34,7 @@
                             <asset:image class="js-notification" src="bell.svg"/>
                         </a>
 
-                        <div class="js-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="js-dropdown dropdown-menu navbar-dark" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
                     <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
