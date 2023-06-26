@@ -11,13 +11,13 @@ function PersonFormController() {
 
     _this.buildCustomerCreateEmail = function() {
         if (_this.isCustomerCreate()) {
-            var email = _this.reference.find(".js-email")
+            var email = _this.reference.find(".js-email");
             email.attr("readonly", true);
         }
     }
 
     _this.isCustomerCreate = function() {
-        return _this.reference.length > 0
+        return _this.reference.length > 0;
     }
 }
 
