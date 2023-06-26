@@ -6,6 +6,17 @@ html, body {
     background-color: #88B337;
 }
 
+.btn-gogreen {
+    background-color: #88B337;
+    color: white;
+    min-width: 5rem;
+}
+
+.btn-gogreen:hover {
+    background-color: #6b962a;
+    color: white;
+}
+
 .custom-list-item {
     position: relative;
     display: block;

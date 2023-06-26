@@ -13,8 +13,13 @@
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
 
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
+
+                    <a class="d-flex align-items-center text-decoration-none"
+                       href="${createLink(controller:'payment', action:'create')}">
+                        <button class="btn btn-gogreen">Nova Cobrança</button>
+                    </a>
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
@@ -44,12 +49,8 @@
                     </g:form>
                 </nav>
 
-                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
-                </div>
-
                 <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Forma de Pagamento</h1>
+                    <h1 class="col-3 fw-bold text-center">Forma de pagamento</h1>
                     <h1 class="col fw-bold text-center">Valor</h1>
                     <h1 class="col fw-bold text-center">Data de Vencimento</h1>
                     <h1 class="col fw-bold text-center">Situação</h1>
