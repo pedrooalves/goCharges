@@ -13,13 +13,13 @@
                     <span class="h2">Informações</span>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <a class="update-tab border-right border-dark pr-3 nav-link js-link-tab active h5" data-type="person" href="#">Dados Comerciais</a>
+                    <a class="update-tab border-right border-dark pr-3 nav-link js-link-tab active h5" data-type="person" href="#">Dados comerciais</a>
                     <a class="update-tab pl-3 nav-link js-link-tab h5" data-type="password" href="#">Senha</a>
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="col-6">
                         <div class="js-person js-set-hidden">
-                            <g:render template="/templates/personForm" model="[formTitle: 'Dados Comerciais', controller: 'user', action: 'update']"/>
+                            <g:render template="/templates/personForm" model="[formTitle: 'Dados comerciais', controller: 'user', action: 'update']"/>
                         </div>
                         <div class="js-password js-set-hidden" style="display: none">
                             <div class="d-flex justify-content-center">
