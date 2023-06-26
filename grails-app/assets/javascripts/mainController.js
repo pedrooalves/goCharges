@@ -40,7 +40,14 @@ function MainController() {
     }
 
     _this.setNotificationDropdownContent = function(notificationItem) {
-        _this.notificationDropdown.append(``)
+        _this.notificationDropdown.append(`
+            <span class="h5 font-weight-bold">
+                ${notificationItem.title}
+            </span>
+            <span class="h6">
+                ${notificationItem.message}
+            </span>
+        `)
     }
 }
 
