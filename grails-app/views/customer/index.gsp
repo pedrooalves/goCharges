@@ -23,12 +23,6 @@
 
                     <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
-                    <select class="ml-3" name="deletedOnly">
-                        <option value="">Exibir somente clientes ativos</option>
-                        <option value="true">Exibir somente clientes inativos</option>
-                        <option value="false">Exibir todos os clientes</option>
-                    </select><br/>
-
                     <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                 </g:form>
             </nav>
