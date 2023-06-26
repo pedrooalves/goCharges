@@ -49,11 +49,7 @@
                     </g:form>
                 </nav>
 
-                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
-                </div>
-
-                <g:render template="/templates/paymentTable" model="${[paymentList: paymentList]}"/>
+                <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
 
             </div>
         </div>
