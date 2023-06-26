@@ -11,14 +11,14 @@
     </thead>
     <tbody class="js-body">
         <g:each var="payment" in="${paymentList}">
-            <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-row" >
+            <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-row">
                 <td class="border border-dark">${payment.billingType.name}</td>
                 <td class="border border-dark">${payment.value}</td>
                 <td class="border border-dark"><formatTagLib:brazilDate date="${payment.dueDate}"/></td>
                 <td class="border border-dark">${payment.status.name}</td>
                 <td class="border border-dark">${payment.payer.name}</td>
                 <td class="d-flex justify-content-center">
-                    <g:render template="/templates/paymentActions" model="${[payment: payment]}"/>
+                    <g:render template="/payment/templates/actions" model="${[payment: payment]}"/>
                 </td>
             </tr>
         </g:each>

@@ -1,6 +1,5 @@
 package gocharges
 
-import gocharges.mail.MailBuilder
 import gocharges.payment.PaymentRepository
 import gocharges.payer.PayerRepository
 import gocharges.exception.BusinessException
@@ -26,7 +25,7 @@ class PaymentService {
         payment.customer = customer
 
         payment.save(failOnError: true)
-        paymentMessageService.sendMail(MailBuilder.buildNewPaymentMessage(payment, customer))
+        paymentMessageService.onSave(payment)
         return payment
     }
 
@@ -53,6 +52,7 @@ class PaymentService {
 
         payment.deleted = true
         payment.save(failOnError: true)
+        paymentMessageService.onDelete(payment)
     }
 
     public void confirmReceivedInCash(Long id, Customer customer) {
@@ -65,7 +65,7 @@ class PaymentService {
         payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
-        notificationService.confirmPayment(payment)
+        paymentMessageService.onReceivedInCash(payment)
     }
 
     public static void validate(Map params) {
@@ -90,6 +90,7 @@ class PaymentService {
                     Payment payment = Payment.get(id)
                     payment.status = PaymentStatus.OVERDUE
                     payment.save(failOnError: true)
+                    paymentMessageService.onOverdue(payment)
                 } catch (Exception exception) {
                     status.setRollbackOnly()
                 }

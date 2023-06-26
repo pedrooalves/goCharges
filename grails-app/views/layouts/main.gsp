@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>
-        <g:layoutTitle default="Grails"/>
+        <g:layoutTitle default="goCharges"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
@@ -25,15 +25,15 @@
             <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
             <sec:ifNotLoggedIn>
                 <div>
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/user/login">Login</a>
-                    <a class="btn btn-lg bg-gogreen mr-3 " href="/user/signUp">Cadastrar</a>
+                    <a class="btn btn-gogreen mr-3" href="/user/login">Login</a>
+                    <a class="btn btn-gogreen mr-3" href="/user/signUp">Cadastrar</a>
                 </div>
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
                 <div>
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/notification/index"><asset:image src="bell.svg"/></a>
-                    <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
-                    <a class="btn btn-lg bg-gogreen mr-3 " href='${request.contextPath}/logoff' method='POST'>Sair</a>
+                    <a class="btn btn-gogreen mr-3" href="/notification/index"><asset:image src="bell.svg"/></a>
+                    <a class="btn btn-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
+                    <a class="btn btn-gogreen mr-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
             </sec:ifLoggedIn>
         </div>
