@@ -44,10 +44,10 @@ function NotificationDropdownController() {
         _this.notificationDropdown.append(`
             <a class="text-decoration-none" href="/payment/show/${notificationItem.id}">
                 <div class="d-flex flex-column px-2 mb-4 bg-white rounded-lg mx-2" style="cursor: pointer">
-                    <span class="h7 font-weight-bold text-dark">
+                    <span class="font-weight-bold text-dark" style="font-size: 1rem;">
                         ${notificationItem.title}
                     </span>
-                    <span class="h7 text-dark">
+                    <span class="text-dark" style="font-size: 1rem;">
                         ${notificationItem.message}
                     </span>
                 </div>
