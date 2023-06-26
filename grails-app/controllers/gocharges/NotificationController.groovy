@@ -20,7 +20,6 @@ class NotificationController extends BaseController {
 
     public markAsRead() {
         try {
-            println(params)
             notificationService.markAsRead(params.id, getCurrentCustomer())
             render([Message: "Notification marked as read successfully"] as JSON, status: HttpStatus.OK)
         } catch (Exception exception) {
