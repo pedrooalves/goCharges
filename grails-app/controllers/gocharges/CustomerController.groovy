@@ -9,9 +9,9 @@ class CustomerController extends BaseController {
     CustomerService customerService
 
     def index() {
-        List<Customer> customerList = customerService.list()
+        List<Customer> customerList = customerService.list(params)
 
-        render(view: "index", model: [customers: customerList])
+        render(view: "index", model: [customerList: customerList])
     }
 
     def create() {

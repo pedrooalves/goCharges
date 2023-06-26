@@ -82,7 +82,7 @@ class CustomerService {
         return customer.save(failOnError: true)
     }
 
-    public List<Customer> list() {
-        return CustomerRepository.query([includeDeleted: false]).list()
+    public List<Customer> list(Map params) {
+        return CustomerRepository.query(params).list()
     }
 }
