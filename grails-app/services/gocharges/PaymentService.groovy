@@ -25,6 +25,7 @@ class PaymentService {
         payment.customer = customer
 
         payment.save(failOnError: true)
+        notificationService.confirmPayment(payment)
         paymentMessageService.onSave(payment)
         return payment
     }
