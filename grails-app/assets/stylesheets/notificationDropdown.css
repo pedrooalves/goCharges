@@ -5,3 +5,7 @@
 .dropdown>.dropdown-toggle:active {
     pointer-events: none;
 }
+
+.dropdown-menu {
+    width: 280px;
+}

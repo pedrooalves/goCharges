@@ -41,12 +41,11 @@ function MainController() {
 
     _this.setNotificationDropdownContent = function(notificationItem) {
         _this.notificationDropdown.append(`
-            <span class="h5 font-weight-bold">
-                ${notificationItem.title}
-            </span>
-            <span class="h6">
-                ${notificationItem.message}
-            </span>
+            <div class="d-flex flex-column px-2 mb-4 bg-gogreen" style="cursor: pointer">
+                <span class="h7">
+                    ${notificationItem.message}
+                </span>
+            </div>
         `)
     }
 }
