@@ -1,14 +1,12 @@
 package gocharges
 
 import gocharges.controller.base.BaseController
-import gocharges.customer.CustomerAdapter
 import gocharges.auth.user.adapter.UserAdapter
 import shared.FlashMessageType
 
 class UserController extends BaseController {
 
     UserService userService
-    CustomerService customerService
 
     def index() {
     }
@@ -38,24 +36,7 @@ class UserController extends BaseController {
     }
 
     def myAccount() {
-        render(view: "myaccount", model: [person: getCurrentCustomer()])
-    }
-
-    def update() {
-        try {
-            UserAdapter userAdapter = new UserAdapter([username: params.email])
-            userService.update(getCurrentUser(), userAdapter)
-
-            CustomerAdapter customerAdapter = new CustomerAdapter(params)
-            customerService.update(getCurrentCustomer(), customerAdapter)
-
-            flash.message = "Informações salvas com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "myAccount")
-        }
+        render(view: "myaccount", model: [customer: getCurrentCustomer()])
     }
 
     def changePassword() {

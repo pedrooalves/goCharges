@@ -15,8 +15,12 @@
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
 
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
+
+                    <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payment', action:'create')}">
+                        <button class="btn btn-gogreen">Adicionar cobrança</button>
+                    </a>
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
@@ -46,12 +50,12 @@
                     </g:form>
                 </nav>
 
-                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
-                </div>
-
-                <g:render template="/templates/paymentTable" model="${[paymentList: paymentList]}"/>
-
+                <g:if test="${paymentList}">
+                    <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
+                </g:if>
+                <g:else>
+                    <g:render template="/payment/templates/emptyState"/>
+                </g:else>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@
                 <td class="border border-dark">${payment.status.name}</td>
                 <td class="border border-dark">${payment.payer.name}</td>
                 <td class="d-flex justify-content-center">
-                    <g:render template="/templates/paymentActions" model="${[payment: payment]}"/>
+                    <g:render template="/payment/templates/actions" model="${[payment: payment]}"/>
                 </td>
             </tr>
         </g:each>
