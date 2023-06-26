@@ -12,4 +12,8 @@ public enum PaymentStatus {
     PaymentStatus(String name) {
         this.name = name
     }
+
+    public Boolean isReceived() {
+        return [PaymentStatus.RECEIVED].contains(this)
+    }
 }
