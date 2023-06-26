@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <%@ page import="gocharges.payment.enums.PaymentBillingType"%>
-<html lang="en">
+<html lang="en" xmlns:g="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de pagadores</title>
@@ -15,7 +15,7 @@
                     <h1>Pagadores</h1>
 
                     <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-gogreen">Adicionar Pagador</button>
+                        <button class="btn btn-gogreen">Adicionar pagador</button>
                     </a>
                 </div>
 
@@ -46,8 +46,12 @@
                     </g:form>
                 </nav>
 
-                <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
-
+                <g:if test="${payerList}">
+                    <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
+                </g:if>
+                <g:else>
+                    <g:render template="/payer/templates/emptyState"/>
+                </g:else>
             </div>
         </div>
     </div>
