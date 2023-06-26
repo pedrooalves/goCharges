@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page import="gocharges.payment.enums.PaymentStatus"%>
+<%@ page import="gocharges.payment.enums.PaymentBillingType"%>
 <html lang="en">
 <head>
     <meta name="layout" content="main"/>
@@ -43,10 +45,6 @@
                         <button class="btn btn-outline-primary ml-3">Buscar</button>
                     </g:form>
                 </nav>
-
-                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
-                </div>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Nome</h1>

@@ -13,7 +13,7 @@
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
 
-                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-center">
+                <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
 
                     <a class="d-flex align-items-center text-decoration-none"
