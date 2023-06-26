@@ -19,13 +19,13 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-6">
                         <div class="js-person js-set-hidden">
-                            <g:render template="/templates/personForm" model="[formTitle: 'Dados comerciais', controller: 'user', action: 'update']"/>
+                            <g:render template="/customer/templates/update/form" model="[formTitle: 'Dados comerciais', controller: 'user', action: 'update']"/>
                         </div>
                         <div class="js-password js-set-hidden" style="display: none">
                             <div class="d-flex justify-content-center">
                                 <h3>Para alterar a senha de acesso, informe sua senha atual e a nova senha.</h3>
                             </div>
-                            <g:render template="/templates/changePassword"/>
+                            <g:render template="/user/templates/changePassword"/>
                         </div>
                     </div>
                 </div>
