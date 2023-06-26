@@ -26,7 +26,8 @@ class PaymentMessageService {
                 mailBody: "Uma cobrança no valor R\$ ${Utils.getCurrencyWithoutMonetarySimbol(payment.value)} foi criada em seu nome por ${payment.customer.name}"
         ]
 
-        buildMailTask(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams)
+        buildMailTask(payerMailParams)
     }
 
     public void onReceivedInCash(Payment payment) {
@@ -46,7 +47,8 @@ class PaymentMessageService {
                 mailBody: "O pagamento em dinheiro da cobrança ${payment.publicId} foi realizado com sucesso."
         ]
 
-        buildMailTask(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams)
+        buildMailTask(payerMailParams)
     }
 
     public void onOverdue(Payment payment) {
@@ -66,7 +68,8 @@ class PaymentMessageService {
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} está vencida"
         ]
 
-        buildMailTask(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams)
+        buildMailTask(payerMailParams)
     }
 
     public void onDelete(Payment payment) {
@@ -86,16 +89,13 @@ class PaymentMessageService {
                 mailBody: "A cobrança ${payment.publicId} criada em seu nome por ${payment.customer.name} foi removida."
         ]
 
-        buildMailTask(customerMailParams, payerMailParams)
+        buildMailTask(customerMailParams)
+        buildMailTask(payerMailParams)
     }
 
-    private void buildMailTask(Map<String, Object> customerMailParams, Map<String, Object> payerMailParams) {
-        MailTask customerTask = new MailTask(customerMailParams, this.mailService)
-        MailTask payerTask = new MailTask(payerMailParams, this.mailService)
-        Thread sendCustomerMail = new Thread(customerTask)
-        Thread sendPayerMail = new Thread(payerTask)
-
-        sendCustomerMail.start()
-        sendPayerMail.start()
+    private void buildMailTask(Map<String, Object> mailParams) {
+        MailTask task = new MailTask(mailParams, this.mailService)
+        Thread sendMail = new Thread(task)
+        sendMail.start()
     }
 }
