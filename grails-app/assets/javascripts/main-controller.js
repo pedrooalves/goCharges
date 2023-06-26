@@ -5,7 +5,7 @@ function MainController() {
 
     _this.init = function() {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/notification/hasUnreadNotifications",
             dataType: "json",
             success: (data) => {
