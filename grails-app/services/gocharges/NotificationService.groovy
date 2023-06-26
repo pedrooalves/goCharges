@@ -36,17 +36,19 @@ class NotificationService {
         notification.save(failOnError: true)
     }
 
-    public ArrayList buildNotification(Customer customer) {
-        List<Notification> notificationList = list([unreadOnly: true], customer)
+    public ArrayList buildNotification(Map params, Customer customer) {
+        List<Notification> notificationList = list(params, customer)
         ArrayList formattedNotificationList = []
 
         for (Notification notification : notificationList) {
              Map formattedNotification  = [
-                id: notification.payment.id,
+                id: notification.id,
+                paymentId: notification.payment.id,
+                isRead: notification.isRead,
                 title: Utils.getMessageProperty("NotificationType.title.${notification.notificationType.toString()}",null),
                 message: Utils.getMessageProperty("NotificationType.message.${notification.notificationType.toString()}",
                         new String[] {notification.payment.payer.name, Utils.getCurrencyWithoutMonetarySimbol(notification.payment.value)}),
-                date: Utils.getBrazilDateFormat(notification.dateCreated)
+                date: Utils.getBrazilDateFormat(notification.dateCreated),
             ]
 
             formattedNotificationList.push(formattedNotification)
