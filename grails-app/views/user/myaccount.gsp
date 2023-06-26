@@ -19,7 +19,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-6">
                         <div class="js-person js-set-hidden">
-                            <g:render template="/customer/templates/update/form" model="[formTitle: 'Dados comerciais', controller: 'user', action: 'update']"/>
+                            <g:render template="/customer/templates/update/form"/>
                         </div>
                         <div class="js-password js-set-hidden" style="display: none">
                             <div class="d-flex justify-content-center">
