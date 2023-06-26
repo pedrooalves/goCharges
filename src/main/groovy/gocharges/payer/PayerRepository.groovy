@@ -15,8 +15,16 @@ class PayerRepository {
                 eq("cpfCnpj", search.cpfCnpj)
             }
 
+            if (search.containsKey("cpfCnpj[like]")) {
+                like("cpfCnpj", "%" + search.get("cpfCnpj[like]") + "%")
+            }
+
             if (search.containsKey("email")) {
                 eq("email", search.email)
+            }
+
+            if (search.containsKey("email[ilike]")) {
+                ilike("email", "%" + search.get("email[ilike]") + "%")
             }
 
             if (Boolean.valueOf(search.deletedOnly)) {
@@ -35,6 +43,14 @@ class PayerRepository {
 
             if (search.containsKey("customer")) {
                 eq("customer", search.customer)
+            }
+
+            if (search.containsKey("name[ilike]")) {
+                ilike("name", "%" + search.get("name[ilike]") + "%")
+            }
+
+            if (search.containsKey("mobilePhone[like]")) {
+                like("mobilePhone", "%" + search.get("mobilePhone[like]") + "%")
             }
         }
         return query

@@ -24,4 +24,8 @@ class Payment extends BaseEntity {
         value(blank: false, nullable: false)
         paymentDate(nullable: true)
     }
+
+    public Boolean canConfirm() {
+        return this.status == PaymentStatus.PENDING && !this.deleted
+    }
 }

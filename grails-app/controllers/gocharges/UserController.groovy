@@ -3,12 +3,10 @@ package gocharges
 import gocharges.controller.base.BaseController
 import gocharges.auth.user.adapter.UserAdapter
 import shared.FlashMessageType
-import grails.plugin.springsecurity.SpringSecurityService
 
 class UserController extends BaseController {
 
     UserService userService
-    SpringSecurityService springSecurityService
 
     def index() {
     }

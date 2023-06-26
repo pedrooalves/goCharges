@@ -12,9 +12,13 @@ class PaymentController extends BaseController {
     PayerService payerService
 
     def index() {
+        if (params.deletedOnly) {
+            params.put("includeDeleted", true)
+        }
+
         Customer customer = getCurrentCustomer()
         List<Payment> paymentList = paymentService.list(params, customer)
-        List<Payer> payerList = payerService.list(params, customer)
+        List<Payer> payerList = payerService.list([includeDeleted: true], customer)
 
         render(view: "index", model: [paymentList: paymentList, payerList: payerList])
     }
@@ -91,6 +95,20 @@ class PaymentController extends BaseController {
             exceptionHandler(exception)
         } finally {
             redirect(action: "index")
+        }
+    }
+
+    def restore() {
+        try {
+            Long id = Long.valueOf(params.id)
+            paymentService.restore(id, getCurrentCustomer())
+
+            flash.message = "Cobrança restaurada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+        } finally {
+            redirect(view: "index")
         }
     }
 }

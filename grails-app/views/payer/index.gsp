@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de pagadores</title>
+    <asset:javascript src="goCharges.js" />
 </head>
 <body>
     <div class="container col-12" style="height: 100%">
@@ -16,7 +17,36 @@
                     </a>
                 </div>
 
+                <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
+                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
+                        <g:select name="billingType" data-constraint="select"
+                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Forma de pagamento']}"
+                                  optionValue="name"/>
 
+                        <g:select class="ml-3" name="status" data-constraint="select"
+                                  from="${PaymentStatus.values()}" noSelection="${['': 'Forma de pagamento']}"
+                                  optionValue="name"/>
+
+                        <select class="ml-3" name="payerId">
+                            <option value="">Selecione um pagador</option>
+                            <g:each var="payer" in="${payerList}">
+                                <option value="${payer.id}">${payer.name}</option>
+                            </g:each>
+                        </select><br/>
+
+                        <select class="ml-3" name="deletedOnly">
+                            <option value="">Exibir somente cobranças ativas</option>
+                            <option value="true">Exibir somente cobranças inativas</option>
+                            <option value="false">Exibir todas as cobranças</option>
+                        </select><br/>
+
+                        <button class="btn btn-outline-primary ml-3">Buscar</button>
+                    </g:form>
+                </nav>
+
+                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
+                    <a href="${createLink(action:'create', controller:'payment')}"><button class="btn btn-outline-primary mb-2">Adicionar cobrança</button></a>
+                </div>
 
                 <div class="row col-11">
                     <h1 class="col-3 fw-bold text-center">Nome</h1>
@@ -34,17 +64,26 @@
                         <li class="custom-list-item col">${payer.mobilePhone}</li>
                         <li class="custom-list-item col">${payer.address}</li>
 
-                        <g:form name="updateButton" url="[controller: 'payer', action: 'edit']" method="POST">
+                        <g:form url="[controller: 'payer', action: 'edit']" method="POST">
                             <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-dark ml-3">
                                 <asset:image src="pencil.svg"/>
                             </button>
                         </g:form>
 
-                        <g:form name="deleteButton" url="[controller: 'payer', action: 'delete']" method="POST">
-                            <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
-                                <asset:image src="trash.svg"/>
-                            </button>
-                        </g:form>
+                        <g:if test="${payer.canDelete()}">
+                            <g:form url="[controller: 'payer', action: 'delete']" method="POST">
+                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
+                                    <asset:image src="trash.svg"/>
+                                </button>
+                            </g:form>
+                        </g:if>
+                        <g:else>
+                            <g:form url="[controller: 'payer', action: 'restore']" method="POST">
+                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
+                                    <asset:image src="restore.svg"/>
+                                </button>
+                            </g:form>
+                        </g:else>
                     </ul>
                 </g:each>
             </div>

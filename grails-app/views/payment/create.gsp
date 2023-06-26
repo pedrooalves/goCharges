@@ -46,7 +46,7 @@
             </div>
 
             <div class="d-flex justify-content-between">
-                <a class="text-decoration-none btn btn-outline-secondary" href="${createLink(controller:'payment', action:'index')}">
+                <a class="text-decoration-none btn btn-outline-secondary" href="/payment">
                     Cancelar
                 </a>
                 <input class="btn btn-gogreen" type="submit" value="Cadastrar"/>

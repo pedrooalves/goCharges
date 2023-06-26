@@ -11,4 +11,8 @@ public abstract class BaseEntity {
     static mapping = {
         tablePerHierarchy false
     }
+
+    public Boolean canDelete() {
+        return !this.deleted
+    }
 }

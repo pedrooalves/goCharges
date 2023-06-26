@@ -10,6 +10,8 @@ class PayerController extends BaseController {
     PayerService payerService
 
     def index() {
+        if (params.deletedOnly) params.put("includeDeleted", true)
+
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
         render(view: "index", model: [payerList: payerList])
@@ -43,7 +45,7 @@ class PayerController extends BaseController {
         } catch (Exception exception) {
             exceptionHandler(exception)
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
         }
     }
 
@@ -67,5 +69,19 @@ class PayerController extends BaseController {
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
 
         render(view: "edit", model: [payer: payer])
+    }
+
+    public restore() {
+        try {
+            Long id = Long.valueOf(params.id)
+            payerService.restore(id, getCurrentCustomer())
+
+            flash.message = "Pagador restaurado com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+        } finally {
+            redirect(action: "index")
+        }
     }
 }
