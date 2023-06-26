@@ -46,13 +46,7 @@
                     </g:form>
                 </nav>
 
-                <div class="navbar navbar-expand navbar-secondary d-flex justify-content-end col mb-3">
-                    <a href="${createLink(action:'create', controller:'payer')}">
-                        <button class="btn btn-outline-primary mb-2">Adicionar pagador</button>
-                    </a>
-                </div>
-
-                <g:render template="/templates/payerTable" model="${[payerList: payerList]}"/>
+                <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
 
             </div>
         </div>
