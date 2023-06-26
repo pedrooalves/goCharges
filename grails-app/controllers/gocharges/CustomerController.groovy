@@ -2,6 +2,7 @@ package gocharges
 
 import gocharges.controller.base.BaseController
 import gocharges.customer.CustomerAdapter
+import gocharges.customer.CustomerRepository
 import shared.FlashMessageType
 
 class CustomerController extends BaseController {
@@ -20,9 +21,23 @@ class CustomerController extends BaseController {
     }
 
     def edit() {
-        Customer customer = getCurrentCustomer()
+        Long id = Long.valueOf(params.id)
+        Customer customer = CustomerRepository.query([id: id]).get()
 
-        render(view: "edit", model: [person: customer])
+        render(view: "edit", model: [customer: customer])
+    }
+
+    def updateByAdmin() {
+        try {
+            CustomerAdapter adapter = convertToAdapter(params)
+            flash.message = "Conta alterada com sucesso"
+            flash.type = FlashMessageType.SUCCESS
+
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+        } finally {
+            redirect(controller: "customer", action: "index")
+        }
     }
 
     def update() {
