@@ -29,7 +29,7 @@
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
                 <div class="row">
-                    <div class="dropdown">
+                    <div class="js-notification-container dropdown">
                         <a class="btn btn-lg bg-gogreen mr-3 js-btn-notification" href="/notification/index">
                             <asset:image class="js-notification" src="bell.svg"/>
                         </a>
@@ -84,7 +84,7 @@
         <g:message code="spinner.alt" default="Loading&hellip;"/>
     </div>
 
-    <asset:javascript src="mainController.js"/>
+    <asset:javascript src="notificationDropdownController.js"/>
     <asset:javascript src="toastController.js"/>
     <asset:javascript src="application.js"/>
 </body>

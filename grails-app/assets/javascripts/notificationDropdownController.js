@@ -1,5 +1,5 @@
-function MainController() {
-    _this = this;
+function NotificationDropdownController() {
+    var _this = this;
     _this.reference = $(".js-main-container");
     _this.notification = _this.reference.find(".js-notification");
     _this.notificationDropdown = _this.reference.find(".js-dropdown");
@@ -8,6 +8,7 @@ function MainController() {
     _this.getUserNotification();
     _this.bindNotificationContainer();
     _this.bindNotificationButton();
+    _this.bindNotification();
     }
 
     _this.getUserNotification = function() {
@@ -17,7 +18,6 @@ function MainController() {
             dataType: "json",
             success: (data) => {
                 if (data.length < 1) {
-                    return
                 }
 
                 _this.notification.attr("src", "/assets/bell-active.svg")
@@ -25,6 +25,7 @@ function MainController() {
                 for (const item of data) {
                     _this.setNotificationDropdownContent(item)
                 }
+                console.log("acabou de mandar")
             }
         });
     };
@@ -37,23 +38,25 @@ function MainController() {
        var notificationButton = _this.reference.find(".js-btn-notification")
        notificationButton.attr("data-mdb-toggle", "dropdown");
        notificationButton.attr("aria-expanded", false);
-    }
+    };
 
     _this.setNotificationDropdownContent = function(notificationItem) {
         _this.notificationDropdown.append(`
-            <div class="d-flex flex-column px-2 mb-4 bg-white rounded-lg mx-2" style="cursor: pointer">
-                <span class="h7 font-weight-bold">
-                    ${notificationItem.title}
-                </span>
-                <span class="h7">
-                    ${notificationItem.message}
-                </span>
-            </div>
+            <a class="text-decoration-none" href="/payment/show/${notificationItem.id}">
+                <div class="d-flex flex-column px-2 mb-4 bg-white rounded-lg mx-2" style="cursor: pointer">
+                    <span class="h7 font-weight-bold text-dark">
+                        ${notificationItem.title}
+                    </span>
+                    <span class="h7 text-dark">
+                        ${notificationItem.message}
+                    </span>
+                </div>
+            </a>
         `)
-    }
+    };
 }
 
 $(document).ready(function(){
-    var mainController = new MainController();
-    mainController.init();
+    var notificationDropdownController = new NotificationDropdownController();
+    notificationDropdownController.init();
 });
