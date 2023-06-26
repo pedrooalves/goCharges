@@ -18,6 +18,7 @@ grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
 
 grails.plugin.springsecurity.interceptUrlMap = [
 		[pattern: '/customer/index',               access: ['ROLE_ADMIN']],
+		[pattern: '/customer/show/**',               access: ['ROLE_ADMIN']],
 		[pattern: '/customer/create',               access: ['permitAll']],
 		[pattern: '/paymentReceipt/**',               access: ['permitAll']],
 		[pattern: '/payer/**',               access: ['ROLE_ADMIN', 'ROLE_USER']],
