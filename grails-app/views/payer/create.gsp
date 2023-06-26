@@ -87,9 +87,9 @@
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-between mt-5">
-                <a href="/payer" class="text-decoration-none btn btn-outline-secondary" type="button">Cancelar</a>
-                <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
+            <div class="row d-flex justify-content-between">
+                <a href="/payer" class="text-decoration-none btn btn-outline-secondary pt-2" type="button">Cancelar</a>
+                <button class="btn btn-gogreen text-white" type="submit">Cadastrar</button>
             </div>
         </g:form>
     </div>

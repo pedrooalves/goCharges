@@ -96,7 +96,7 @@
 
                     <div class="navbar d-flex justify-content-space-between">
                         <a href="/payer" class="text-decoration-none btn btn-outline-secondary" type="button">Cancelar</a>
-                        <button type="submit" name="id" value="${payer.id}" class="btn bg-gogreen text-white ml-3">
+                        <button type="submit" name="id" value="${payer.id}" class="btn btn-gogreen ml-3">
                             Salvar
                         </button>
                     </div>
