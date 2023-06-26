@@ -14,6 +14,18 @@ class CustomerController extends BaseController {
         render(view: "index", model: [customerList: customerList])
     }
 
+    def show() {
+        try{
+            Long id = Long.valueOf(params.id)
+            Customer customer = customerService.get([id: id])
+
+            render(view: "show", model: [customer: customer])
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+            redirect(action: "index")
+        }
+    }
+
     def create() {
         Customer customer = getCurrentCustomer()
         render(view: "create", model: [customer: customer])

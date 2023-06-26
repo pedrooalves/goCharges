@@ -84,4 +84,12 @@ class CustomerService {
     public List<Customer> list(Map params) {
         return CustomerRepository.query(params).list()
     }
+
+    public Customer get(Map params) {
+        Customer customer = CustomerRepository.query(params).get()
+
+        if (!customer) throw new BusinessException(Utils.getMessageProperty("customer.not.found.message", null))
+
+        return customer
+    }
 }

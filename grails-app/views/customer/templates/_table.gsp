@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <g:each var="customer" in="${customerList}">
-            <tr class="border border-dark">
+            <tr class="border border-dark js-table-row" data-url="/customer/show/${customer.id}">
                 <td class="border border-dark">${customer.name}</td>
                 <td class="border border-dark">${customer.email}</td>
                 <td class="border border-dark">${customer.cpfCnpj}</td>
