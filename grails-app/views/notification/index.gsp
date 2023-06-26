@@ -12,7 +12,7 @@
                 <div class="border rounded col js-my-account">
                     <g:each var="notification" in="${notificationList}">
                         <div class="d-flex row rounded border pl-5 pt-2 pb-1" >
-                            <g:render template="/templates/notification" model="${[notification: notification]}"/>
+                            <g:render template="/notification/templates/notification" model="${[notification: notification]}"/>
                         </div>
                     </g:each>
                 </div>
