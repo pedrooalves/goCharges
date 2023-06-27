@@ -20,29 +20,22 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <g:select name="billingType" data-constraint="select"
-                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Forma de pagamento']}"
-                                  optionValue="name"/>
+                    <g:form class="d-flex justify-content-center col" url="[controller: 'payer', action: 'index']" method="POST">
+                        <input class="col" name="name[ilike]" value="" placeholder="Nome">
 
-                        <g:select class="ml-3" name="status" data-constraint="select"
-                                  from="${PaymentStatus.values()}" noSelection="${['': 'Forma de pagamento']}"
-                                  optionValue="name"/>
+                        <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
 
-                        <select class="ml-3" name="payerId">
-                            <option value="">Selecione um pagador</option>
-                            <g:each var="payer" in="${payerList}">
-                                <option value="${payer.id}">${payer.name}</option>
-                            </g:each>
-                        </select><br/>
+                        <input class="col ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
+
+                        <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
                         <select class="ml-3" name="deletedOnly">
-                            <option value="">Exibir somente cobranças ativas</option>
-                            <option value="true">Exibir somente cobranças inativas</option>
-                            <option value="false">Exibir todas as cobranças</option>
+                            <option value="">Exibir somente pagadores ativos</option>
+                            <option value="true">Exibir somente pagadores inativos</option>
+                            <option value="false">Exibir todos os pagadores</option>
                         </select><br/>
 
-                        <button class="btn btn-outline-primary ml-3">Buscar</button>
+                        <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                     </g:form>
                 </nav>
 
