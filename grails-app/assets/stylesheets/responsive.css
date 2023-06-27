@@ -48,42 +48,42 @@ width: 100%;
 
 @media (min-width: 992px) {
     .index-container {
-      flex-direction: row;
+        flex-direction: row;
     }
 
     .index-title {
-    font-size: 2rem;
+        font-size: 2rem;
     }
 
     .index-subtitle {
-    font-size: 1.25rem;
+        font-size: 1.25rem;
     }
 }
 
 @media (min-width: 1140px) {
     .index-container {
-      flex-direction: row;
+        flex-direction: row;
     }
 
     .index-title {
-    font-size: 3rem;
+        font-size: 3rem;
     }
 
     .index-subtitle {
-    font-size: 1.5rem;
+        font-size: 1.5rem;
     }
 }
 
 @media (min-width: 1928px) {
     .index-container {
-      flex-direction: row;
+        flex-direction: row;
     }
 
     .index-title {
-    font-size: 4rem;
+        font-size: 4rem;
     }
 
     .index-subtitle {
-    font-size: 2rem;
+        font-size: 2rem;
     }
 }
