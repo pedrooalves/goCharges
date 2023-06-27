@@ -117,8 +117,8 @@ class PaymentService {
         return payment.save(failOnError: true)
     }
 
-    public getPayment(Map params, Customer customer) {
-        Payment payment = PaymentRepository.query([id: params.id, customer: customer, includeDeleted: true]).get()
+    public get(Long id, Customer customer) {
+        Payment payment = PaymentRepository.query([id: id, customer: customer, includeDeleted: true]).get()
 
         if (!payment) throw new BusinessException(Utils.getMessageProperty("payment.not.found.message", null))
 
