@@ -112,9 +112,11 @@ class PaymentController extends BaseController {
         }
     }
 
-    public show() {
+    def show() {
         try {
-            Payment payment = paymentService.getPayment(params, getCurrentCustomer())
+            Long id = Long.valueOf(params.id)
+            Payment payment = paymentService.get(id, getCurrentCustomer())
+
             render(view: "show", model: [payment: payment])
         } catch (Exception exception) {
             exceptionHandler(exception)

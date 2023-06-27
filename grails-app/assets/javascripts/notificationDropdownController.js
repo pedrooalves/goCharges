@@ -15,10 +15,11 @@ function NotificationDropdownController() {
     _this.getUserNotification = function() {
         $.ajax({
             type: "GET",
-            url: "/notification/hasUnreadNotifications",
+            url: "/notification/getLastUnreadNotificationList",
             dataType: "json",
             success: (data) => {
                 if (data.length < 1) {
+                    return
                 }
 
                 _this.notification.attr("src", "/assets/bell-active.svg")
@@ -41,7 +42,7 @@ function NotificationDropdownController() {
 
     _this.setNotificationDropdownContent = function(notificationItem) {
         _this.notificationDropdownMenu.append(`
-            <a class="text-decoration-none" href="/payment/show/${notificationItem.id}">
+            <a class="text-decoration-none" href="/notification/show/${notificationItem.id}">
                 <div class="d-flex flex-column px-2 mb-4 bg-white rounded-lg mx-2" style="cursor: pointer">
                     <span class="font-weight-bold text-dark" style="font-size: 1rem;">
                         ${notificationItem.title}
