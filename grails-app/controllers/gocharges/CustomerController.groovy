@@ -29,7 +29,7 @@ class CustomerController extends BaseController {
         try {
             CustomerAdapter adapter = convertToAdapter(params)
 
-            customerService.update(adapter, getCurrentCustomer())
+            customerService.update(getCurrentCustomer(), adapter)
 
             flash.message = "Conta alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS

@@ -36,17 +36,16 @@ class UserController extends BaseController {
     }
 
     def myAccount() {
-        render(view: "myaccount", model: [person: getCurrentCustomer()])
+        render(view: "myaccount", model: [customer: getCurrentCustomer()])
     }
 
-    def update() {
+    def changePassword() {
         try {
             UserAdapter adapter = new UserAdapter(params)
-            Long id = Long.valueOf(params.id)
             String currentPassword = params.currentPassword
-            userService.update(id, adapter, currentPassword)
+            userService.changePassword(getCurrentUser(), adapter, currentPassword)
 
-            flash.message = "Informações salvas com sucesso"
+            flash.message = "Senha alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
         } catch (Exception exception) {
             exceptionHandler(exception)
