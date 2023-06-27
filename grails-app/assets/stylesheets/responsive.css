@@ -44,7 +44,7 @@
     width: 100%;
 }
 
-.myaccount-form {
+.create-form {
     width: 100%;
 }
 
@@ -101,7 +101,7 @@
         width: 70%;
     }
 
-    .myaccount-form {
+    .create-form {
         width: 50%;
     }
 }

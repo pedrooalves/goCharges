@@ -5,7 +5,7 @@
     <title>Dados comerciais</title>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center col-6 main-container js-customer-create">
+    <div class="container d-flex justify-center create-form main-container js-customer-create">
         <g:render template="/customer/templates/update/form"/>
     </div>
 </body>

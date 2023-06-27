@@ -17,7 +17,7 @@
                     <a class="update-tab pl-3 nav-link js-link-tab h5" data-type="password" href="#">Senha</a>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <div class="myaccount-form">
+                    <div class="create-form">
                         <div class="js-person js-set-hidden">
                             <g:render template="/customer/templates/update/form"/>
                         </div>
