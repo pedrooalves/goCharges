@@ -20,7 +20,7 @@
 </head>
 <body class="js-main-container">
     <nav class="navbar sidebar-content navbar-expand-lg navbar-dark bg-dark navbar-static-top row" role="navigation">
-        <div class="container-fluid  main-header">
+        <div class="container-fluid main-header">
             <a href="/">
                 <p class="display-4 text-white text-logo">GoCharges</p>
             </a>
