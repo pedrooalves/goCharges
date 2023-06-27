@@ -32,6 +32,6 @@
             </div>
         </div>
     </div>
-    <asset:javascript src="my-account-controller.js"/>
+    <asset:javascript src="myAccountController.js"/>
 </body>
 </html>
