@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <%@ page import="gocharges.payment.enums.PaymentBillingType"%>
-<html lang="en">
+<html lang="en" xmlns:g="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de pagadores</title>
@@ -15,75 +15,36 @@
                     <h1>Pagadores</h1>
 
                     <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-gogreen">Adicionar Pagador</button>
+                        <button class="btn btn-gogreen">Adicionar pagador</button>
                     </a>
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <g:select name="billingType" data-constraint="select"
-                                  from="${PaymentBillingType.values()}" noSelection="${['': 'Forma de pagamento']}"
-                                  optionValue="name"/>
+                    <g:form class="d-flex justify-content-center col" url="[controller: 'payer', action: 'index']" method="POST">
+                        <input class="col" name="name[ilike]" value="" placeholder="Nome">
 
-                        <g:select class="ml-3" name="status" data-constraint="select"
-                                  from="${PaymentStatus.values()}" noSelection="${['': 'Forma de pagamento']}"
-                                  optionValue="name"/>
+                        <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
 
-                        <select class="ml-3" name="payerId">
-                            <option value="">Selecione um pagador</option>
-                            <g:each var="payer" in="${payerList}">
-                                <option value="${payer.id}">${payer.name}</option>
-                            </g:each>
-                        </select><br/>
+                        <input class="col ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
+
+                        <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
                         <select class="ml-3" name="deletedOnly">
-                            <option value="">Exibir somente cobranças ativas</option>
-                            <option value="true">Exibir somente cobranças inativas</option>
-                            <option value="false">Exibir todas as cobranças</option>
+                            <option value="">Exibir somente pagadores ativos</option>
+                            <option value="true">Exibir somente pagadores inativos</option>
+                            <option value="false">Exibir todos os pagadores</option>
                         </select><br/>
 
-                        <button class="btn btn-outline-primary ml-3">Buscar</button>
+                        <button class="btn btn-outline-primary ml-3">Buscar</button></a>
                     </g:form>
                 </nav>
 
-                <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Nome</h1>
-                    <h1 class="col fw-bold text-center">E-mail</h1>
-                    <h1 class="col fw-bold text-center">Cpf ou Cnpj</h1>
-                    <h1 class="col fw-bold text-center">Celular</h1>
-                    <h1 class="col fw-bold text-center">Endereço</h1>
-                </div>
-
-                <g:each var="payer" in="${payerList}">
-                    <ul class="list-group list-group-horizontal mb-1 mb-1">
-                        <li class="custom-list-item col-3">${payer.name}</li>
-                        <li class="custom-list-item col">${payer.email}</li>
-                        <li class="custom-list-item col">${payer.cpfCnpj}</li>
-                        <li class="custom-list-item col">${payer.mobilePhone}</li>
-                        <li class="custom-list-item col">${payer.address}</li>
-
-                        <g:form url="[controller: 'payer', action: 'edit']" method="POST">
-                            <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-dark ml-3">
-                                <asset:image src="pencil.svg"/>
-                            </button>
-                        </g:form>
-
-                        <g:if test="${payer.canDelete()}">
-                            <g:form url="[controller: 'payer', action: 'delete']" method="POST">
-                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
-                                    <asset:image src="trash.svg"/>
-                                </button>
-                            </g:form>
-                        </g:if>
-                        <g:else>
-                            <g:form url="[controller: 'payer', action: 'restore']" method="POST">
-                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
-                                    <asset:image src="restore.svg"/>
-                                </button>
-                            </g:form>
-                        </g:else>
-                    </ul>
-                </g:each>
+                <g:if test="${payerList}">
+                    <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
+                </g:if>
+                <g:else>
+                    <g:render template="/payer/templates/emptyState"/>
+                </g:else>
             </div>
         </div>
     </div>
