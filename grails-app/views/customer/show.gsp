@@ -37,6 +37,9 @@
                     </div>
                     <div>
                         <div class="p-3">
+                            <p class="font-weight-bold mr-2">Status</p>
+                            <p class="mb-2">${customer.status?.name}</p>
+
                             <p class="font-weight-bold mr-2">Endereço</p>
                             <p class="mb-2">${customer.address}, ${customer.addressNumber}</p>
 
