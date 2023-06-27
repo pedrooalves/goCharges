@@ -29,12 +29,12 @@
             </sec:ifNotLoggedIn>
             <sec:ifLoggedIn>
                 <div class="row">
-                    <div class="js-notification-container dropdown">
+                    <div class="js-notification-container">
                         <a class="btn btn-lg bg-gogreen mr-3 js-btn-notification" href="/notification/index">
                             <asset:image class="js-notification" src="bell.svg"/>
                         </a>
 
-                        <div class="js-dropdown dropdown-menu navbar-dark" aria-labelledby="dropdownMenuButton">
+                        <div class="js-dropdown-menu dropdown-menu navbar-dark" aria-labelledby="dropdownMenuButton">
                         </div>
                     </div>
                     <a class="btn btn-lg bg-gogreen mr-3" href="/user/myAccount">Minha Conta</a>

@@ -2,7 +2,8 @@ function NotificationDropdownController() {
     var _this = this;
     _this.reference = $(".js-main-container");
     _this.notification = _this.reference.find(".js-notification");
-    _this.notificationDropdown = _this.reference.find(".js-dropdown");
+    _this.notificationContainer = _this.reference.find(".js-notification-container");
+    _this.notificationDropdownMenu = _this.reference.find(".js-dropdown-menu");
 
     _this.init = function() {
     _this.getUserNotification();
@@ -21,17 +22,15 @@ function NotificationDropdownController() {
                 }
 
                 _this.notification.attr("src", "/assets/bell-active.svg")
-
                 for (const item of data) {
                     _this.setNotificationDropdownContent(item)
                 }
-                console.log("acabou de mandar")
             }
         });
     };
 
     _this.bindNotificationContainer = function() {
-        _this.notification.addClass("dropdown");
+        _this.notificationContainer.addClass("dropdown");
     };
 
     _this.bindNotificationButton = function() {
@@ -41,7 +40,7 @@ function NotificationDropdownController() {
     };
 
     _this.setNotificationDropdownContent = function(notificationItem) {
-        _this.notificationDropdown.append(`
+        _this.notificationDropdownMenu.append(`
             <a class="text-decoration-none" href="/payment/show/${notificationItem.id}">
                 <div class="d-flex flex-column px-2 mb-4 bg-white rounded-lg mx-2" style="cursor: pointer">
                     <span class="font-weight-bold text-dark" style="font-size: 1rem;">
