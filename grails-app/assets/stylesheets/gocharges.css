@@ -16,7 +16,7 @@ html, body {
 }
 
 .text-logo {
-    font-family: homenajeregular, sans-serif;
+    font-family: 'homenajeregular', sans-serif;
 }
 
 .gogreen {
@@ -69,4 +69,15 @@ html, body {
 
 .index-container {
     min-height: 80%;
+}
+
+.index-title {
+    font-family: Sora, sans-serif;
+    user-select: none;
+}
+
+.index-subtitle {
+    font-size: 1.5rem;
+    color: grey;
+    user-select: none;
 }

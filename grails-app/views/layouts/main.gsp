@@ -20,7 +20,9 @@
 <body class="js-main-container">
     <nav class="navbar sidebar-content navbar-expand-lg navbar-dark bg-dark navbar-static-top row" role="navigation">
         <div class="container-fluid justify-content-space-between">
-            <p class="display-4 text-white text-logo">GoCharges</p>
+            <a href="/">
+                <p class="display-4 text-white text-logo">GoCharges</p>
+            </a>
             <sec:ifNotLoggedIn>
                 <div>
                     <a class="btn btn-gogreen mr-3" href="/user/login">Login</a>
