@@ -1,5 +1,10 @@
 html, body {
-    height: 100vh;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.main-container {
+    min-height: 100%;
 }
 
 .bg-gogreen {
@@ -23,6 +28,19 @@ html, body {
     padding: 0.3rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.update-tab {
+    text-decoration: none;
+    color: grey;
+}
+
+.update-tab.active {
+    color: black;
+}
+
+.update-tab:hover {
+    color: black;
 }
 
 .link-gogreen {
