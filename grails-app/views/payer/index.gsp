@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <%@ page import="gocharges.payment.enums.PaymentBillingType"%>
-<html lang="en">
+<html lang="en" xmlns:g="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de pagadores</title>
@@ -15,7 +15,7 @@
                     <h1>Pagadores</h1>
 
                     <a class="d-flex justify-content-center text-decoration-none" href="${createLink(controller:'payer', action:'create')}">
-                        <button class="btn btn-gogreen">Adicionar Pagador</button>
+                        <button class="btn btn-gogreen">Adicionar pagador</button>
                     </a>
                 </div>
 
@@ -46,44 +46,12 @@
                     </g:form>
                 </nav>
 
-                <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Nome</h1>
-                    <h1 class="col fw-bold text-center">E-mail</h1>
-                    <h1 class="col fw-bold text-center">Cpf ou Cnpj</h1>
-                    <h1 class="col fw-bold text-center">Celular</h1>
-                    <h1 class="col fw-bold text-center">Endereço</h1>
-                </div>
-
-                <g:each var="payer" in="${payerList}">
-                    <ul class="list-group list-group-horizontal mb-1 mb-1">
-                        <li class="custom-list-item col-3">${payer.name}</li>
-                        <li class="custom-list-item col">${payer.email}</li>
-                        <li class="custom-list-item col">${payer.cpfCnpj}</li>
-                        <li class="custom-list-item col">${payer.mobilePhone}</li>
-                        <li class="custom-list-item col">${payer.address}</li>
-
-                        <g:form url="[controller: 'payer', action: 'edit']" method="POST">
-                            <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-dark ml-3">
-                                <asset:image src="pencil.svg"/>
-                            </button>
-                        </g:form>
-
-                        <g:if test="${payer.canDelete()}">
-                            <g:form url="[controller: 'payer', action: 'delete']" method="POST">
-                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
-                                    <asset:image src="trash.svg"/>
-                                </button>
-                            </g:form>
-                        </g:if>
-                        <g:else>
-                            <g:form url="[controller: 'payer', action: 'restore']" method="POST">
-                                <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-primary ml-3">
-                                    <asset:image src="restore.svg"/>
-                                </button>
-                            </g:form>
-                        </g:else>
-                    </ul>
-                </g:each>
+                <g:if test="${payerList}">
+                    <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
+                </g:if>
+                <g:else>
+                    <g:render template="/payer/templates/emptyState"/>
+                </g:else>
             </div>
         </div>
     </div>

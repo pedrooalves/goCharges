@@ -16,9 +16,8 @@
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
 
-                    <a class="d-flex align-items-center text-decoration-none"
-                       href="${createLink(controller:'payment', action:'create')}">
-                        <button class="btn btn-gogreen">Nova Cobrança</button>
+                    <a class="d-flex align-items-center text-decoration-none" href="${createLink(controller:'payment', action:'create')}">
+                        <button class="btn btn-gogreen">Adicionar cobrança</button>
                     </a>
                 </div>
 
@@ -49,60 +48,12 @@
                     </g:form>
                 </nav>
 
-                <div class="row col-11">
-                    <h1 class="col-3 fw-bold text-center">Forma de pagamento</h1>
-                    <h1 class="col fw-bold text-center">Valor</h1>
-                    <h1 class="col fw-bold text-center">Data de Vencimento</h1>
-                    <h1 class="col fw-bold text-center">Situação</h1>
-                    <h1 class="col fw-bold text-center">Pagador</h1>
-                </div>
-
-                <g:each var="payment" in="${paymentList}">
-                    <ul class="list-group list-group-horizontal mb-1 mb-1 justify-content-between">
-                        <li class="custom-list-item col-3">${payment.billingType.name}</li>
-                        <li class="custom-list-item col">${payment.value}</li>
-                        <li class="custom-list-item col"><formatTagLib:brazilDate date="${payment.dueDate}"/></li>
-                        <li class="custom-list-item col">${payment.status.name}</li>
-                        <li class="custom-list-item col">${payment.payer.name}</li>
-
-                        <g:if test="${payment.canConfirm()}">
-                            <g:form name="confirmButton" url="[controller: 'payment', action: 'confirmReceivedInCash']" method="POST">
-                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
-                                    <asset:image src="cash-stack.svg"/>
-                                </button>
-                            </g:form>
-                        </g:if>
-
-                        <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
-                            <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
-                                <asset:image src="pencil.svg"/>
-                            </button>
-                        </g:form>
-
-                        <g:if test="${payment.status == PaymentStatus.RECEIVED}">
-                            <g:form name="receiptButton" url="[controller: 'paymentReceipt', action: 'index']" method="GET">
-                                <button type="submit" name="publicId" value="${payment.publicId}" class="btn btn-outline-dark ml-3">
-                                    <asset:image src="receipt.svg"/>
-                                </button>
-                            </g:form>
-                        </g:if>
-
-                        <g:if test="${payment.canDelete()}">
-                            <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
-                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
-                                    <asset:image src="trash.svg"/>
-                                </button>
-                            </g:form>
-                        </g:if>
-                        <g:else>
-                            <g:form name="restoreButton" url="[controller: 'payment', action: 'restore']" method="POST">
-                                <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-primary ml-3">
-                                    <asset:image src="restore.svg"/>
-                                </button>
-                            </g:form>
-                        </g:else>
-                    </ul>
-                </g:each>
+                <g:if test="${paymentList}">
+                    <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
+                </g:if>
+                <g:else>
+                    <g:render template="/payment/templates/emptyState"/>
+                </g:else>
             </div>
         </div>
     </div>
