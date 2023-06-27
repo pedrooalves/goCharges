@@ -6,7 +6,7 @@ function MainController() {
     _this.init = function() {
         $.ajax({
             type: "GET",
-            url: "/notification/hasUnreadNotifications",
+            url: "/notification/getLastUnreadNotificationList",
             dataType: "json",
             success: (data) => {
                 if (data.length > 0) {
