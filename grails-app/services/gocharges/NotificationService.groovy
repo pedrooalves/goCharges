@@ -18,7 +18,7 @@ class NotificationService {
     }
 
     public List<Notification> list(Map params, Customer customer) {
-        return NotificationRepository.query([customer: customer]).order("dateCreated", "desc").list()
+        return NotificationRepository.query(params + [customer: customer]).order("dateCreated", "desc").list()
     }
 
     public void overduePayment(Payment payment) {
@@ -48,5 +48,14 @@ class NotificationService {
         }
 
         return formattedNotificationList
+    }
+
+    public Notification markAsRead(Long id, customer) {
+        Notification notification = NotificationRepository.query([id: id, customer: customer]).get()
+
+        notification.isRead = true
+        notification.save(failOnError: true)
+
+        return notification
     }
 }

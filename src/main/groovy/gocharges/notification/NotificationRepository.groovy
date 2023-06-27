@@ -11,6 +11,10 @@ class NotificationRepository {
                 throw new RuntimeException("O atributo customer é obrigatório para executar a consulta.")
             }
 
+            if (search.containsKey("id")) {
+                eq("id", Long.valueOf(search.id))
+            }
+
             if (Boolean.valueOf(search.unreadOnly)) {
                 eq("isRead", false)
             }
