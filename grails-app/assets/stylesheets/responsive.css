@@ -3,6 +3,8 @@
     flex-direction: column;
 }
 
+
+
 .index-container {
   display: flex;
   flex-direction: column;
@@ -22,6 +24,11 @@ margin-top: 2rem;
 
 .index-banner {
 width: 100%;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (min-width: 400px) {
@@ -44,6 +51,10 @@ width: 100%;
     .index-text {
         width: 70%;
     }
+
+    .default-form {
+        width: 60%;
+    }
 }
 
 @media (min-width: 992px) {
@@ -58,6 +69,10 @@ width: 100%;
         .index-subtitle {
         font-size: 1.25rem;
         }
+
+        .default-form {
+            width: 40%;
+        }
 }
 
 @media (min-width: 1140px) {
@@ -71,6 +86,10 @@ width: 100%;
 
         .index-subtitle {
         font-size: 1.5rem;
+        }
+
+        .default-form {
+            width: 30%;
         }
 }
 

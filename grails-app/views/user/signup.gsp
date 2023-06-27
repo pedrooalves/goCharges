@@ -5,9 +5,8 @@
     <title>Criar conta</title>
 </head>
 <body>
-    <div class="container my-5" style="width: 20%;">
+    <div class="container my-5 default-form">
         <g:form method='POST' id='signUp' name='signUp' url="[controller: 'user', action: 'save']">
-
             <h1 class="mb-3" style="font-size: 2rem;">Criar conta</h1>
 
             <div class="form-group">
@@ -25,7 +24,7 @@
                 <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"/>
             </div>
 
-            <div>
+            <div class="form-buttons">
                 <a href="/">
                     <input class="btn btn-outline-secondary" type="button" name="cancelButton" value="Cancelar"/>
                 </a>
