@@ -52,10 +52,6 @@
     .button-list {
         margin-right: 1.5rem;
     }
-
-    .text-logo {
-        margin-left: 1rem;
-    }
 }
 
 @media (min-width: 700px) {
@@ -77,6 +73,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+    }
+
+    .text-logo {
+        margin-left: 1rem;
     }
 }
 
