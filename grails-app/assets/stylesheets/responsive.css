@@ -31,6 +31,12 @@ width: 100%;
     justify-content: space-between;
 }
 
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media (min-width: 400px) {
     .main-header {
         display: flex;
@@ -54,6 +60,12 @@ width: 100%;
 
     .default-form {
         width: 60%;
+    }
+
+    .dashboard {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
     }
 }
 
