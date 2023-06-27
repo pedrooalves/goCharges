@@ -35,13 +35,12 @@
     align-items: center;
 }
 
-@media (min-width: 400px) {
-    .main-header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+.button-list {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
 
+@media (min-width: 400px) {
     .button-list {
         margin-right: 1.5rem;
     }
@@ -52,6 +51,12 @@
 }
 
 @media (min-width: 700px) {
+    .main-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     .index-text {
         width: 70%;
     }
