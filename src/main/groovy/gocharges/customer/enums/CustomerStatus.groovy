@@ -10,4 +10,8 @@ public enum CustomerStatus {
     CustomerStatus(String name) {
         this.name = name
     }
+
+    public boolean isActive() {
+        return [CustomerStatus.ACTIVE].contains(this)
+    }
 }
