@@ -1,5 +1,10 @@
 html, body {
     min-height: 100vh;
+    background-color: white;
+}
+
+.main-container {
+    min-height: 100%;
 }
 
 @font-face {
@@ -12,10 +17,6 @@ html, body {
 
 .text-logo {
     font-family: homenajeregular, sans-serif;
-}
-
-.main-container {
-    min-height: 100%;
 }
 
 .gogreen {
@@ -43,6 +44,19 @@ html, body {
     padding: 0.3rem 1.25rem;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.update-tab {
+    text-decoration: none;
+    color: grey;
+}
+
+.update-tab.active {
+    color: black;
+}
+
+.update-tab:hover {
+    color: black;
 }
 
 .link-gogreen {
