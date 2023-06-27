@@ -108,7 +108,17 @@ class PaymentController extends BaseController {
         } catch (Exception exception) {
             exceptionHandler(exception)
         } finally {
-            redirect(view: "index")
+            redirect(action: "index")
+        }
+    }
+
+    public show() {
+        try {
+            Payment payment = paymentService.getPayment(params, getCurrentCustomer())
+            render(view: "show", model: [payment: payment])
+        } catch (Exception exception) {
+            exceptionHandler(exception)
+            redirect(action: "index")
         }
     }
 }

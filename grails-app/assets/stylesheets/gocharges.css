@@ -43,6 +43,23 @@ html, body {
     color: black;
 }
 
+table thead tr th {
+    padding: 1rem;
+    color: white;
+    background: #343A40;
+}
+
+table thead tr th:hover {
+    background: #43494E;
+    cursor: pointer;
+}
+
+table tbody tr:hover {
+    background: #43494E;
+    color: white;
+    cursor: pointer;
+}
+
 .link-gogreen {
     position: relative;
 }
