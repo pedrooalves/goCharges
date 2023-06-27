@@ -40,6 +40,14 @@
     margin-bottom: .5rem;
 }
 
+.myaccount-div {
+    width: 100%;
+}
+
+.myaccount-form {
+    width: 100%;
+}
+
 @media (min-width: 400px) {
     .button-list {
         margin-right: 1.5rem;
@@ -87,6 +95,14 @@
 
     .default-form {
         width: 40%;
+    }
+
+    .myaccount-div {
+        width: 70%;
+    }
+
+    .myaccount-form {
+        width: 50%;
     }
 }
 
