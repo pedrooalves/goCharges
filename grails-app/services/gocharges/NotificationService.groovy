@@ -18,7 +18,7 @@ class NotificationService {
     }
 
     public List<Notification> list(Map params, Customer customer) {
-        return NotificationRepository.query(params + [customer: customer]).order("dateCreated", "desc").list()
+        return NotificationRepository.query([customer: customer]).order("dateCreated", "desc").list()
     }
 
     public void overduePayment(Payment payment) {
@@ -36,7 +36,8 @@ class NotificationService {
 
         for (Notification notification : notificationList) {
              Map formattedNotification  = [
-                id: notification.payment.id,
+                id: notification.id,
+                paymentId: notification.payment.id,
                 title: Utils.getMessageProperty("NotificationType.title.${notification.notificationType.toString()}",null),
                 message: Utils.getMessageProperty("NotificationType.message.${notification.notificationType.toString()}",
                         new String[] {notification.payment.payer.name, Utils.getCurrencyWithoutMonetarySimbol(notification.payment.value)}),

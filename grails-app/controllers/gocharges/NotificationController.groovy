@@ -13,7 +13,7 @@ class NotificationController extends BaseController {
         render(view: "index", model: [notificationList: notificationList])
     }
 
-    public hasUnreadNotifications() {
+    def getLastUnreadNotificationList() {
         ArrayList notificationList = notificationService.buildNotification(getCurrentCustomer())
         render(notificationList as JSON, status: HttpStatus.OK)
     }
