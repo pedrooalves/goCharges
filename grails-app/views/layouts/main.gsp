@@ -38,9 +38,9 @@
                         <a href="" class="link-gogreen ml-3">Clientes</a>
                     </sec:ifAnyGranted>
                 </div>
-                <div>
-                    <a class="btn btn-gogreen mr-3" href="/user/myAccount">Minha Conta</a>
-                    <a class="btn btn-gogreen mr-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
+                <div class="button-list">
+                    <a class="btn btn-gogreen" href="/user/myAccount">Minha Conta</a>
+                    <a class="btn btn-gogreen ml-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
             </sec:ifLoggedIn>
         </div>
