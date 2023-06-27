@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="shared.enums.State"%>
 <html>
 <head>
     <meta name="layout" content="main"/>

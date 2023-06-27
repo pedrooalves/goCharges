@@ -36,8 +36,7 @@ class UserController extends BaseController {
     }
 
     def myAccount() {
-        render(view: "myaccount", model: [user: getCurrentUser()])
-
+        render(view: "myaccount", model: [person: getCurrentCustomer()])
     }
 
     def update() {

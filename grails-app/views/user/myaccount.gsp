@@ -5,43 +5,33 @@
     <title>Minha conta</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-center mb-3">
-        <div>
-            <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
-                <h1 class="display-4">Editar dados</h1>
-            </div>
-
-            <div class="card">
-                <g:form class="card-body mb-3" name="userForm" url="[controller: 'user', action: 'update']">
-                    <div class="form-group mb-3">
-                        <label class="mb-2 fw-bold">Alterar e-mail</label>
-                        <input class="form-control" type="email" name="username" value="${user.username}" /><br/>
+    <div class="container d-flex justify-content-start col-10 mb-3 main-container">
+        <div class="col-12">
+            <h1 class="display-4 mb-4">Minha conta</h1>
+            <div class="border rounded col js-my-account">
+                <div class="row d-flex justify-content-center rounded border">
+                    <span class="h2">Informações</span>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <a class="update-tab border-right border-dark pr-3 nav-link js-link-tab active h5" data-type="person" href="#">Dados comerciais</a>
+                    <a class="update-tab pl-3 nav-link js-link-tab h5" data-type="password" href="#">Senha</a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-6">
+                        <div class="js-person js-set-hidden">
+                            <g:render template="/customer/templates/update/form" model="[formTitle: 'Dados comerciais', controller: 'user', action: 'update']"/>
+                        </div>
+                        <div class="js-password js-set-hidden" style="display: none">
+                            <div class="d-flex justify-content-center">
+                                <h3>Para alterar a senha de acesso, informe sua senha atual e a nova senha.</h3>
+                            </div>
+                            <g:render template="/user/templates/changePassword"/>
+                        </div>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Senha atual</label>
-                        <input class="form-control" type="password" name="currentPassword" value="" /><br/>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Nova senha</label>
-                        <input class="form-control" type="password" name="password" value="" /><br >
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Confirmar nova senha</label>
-                        <input class="form-control" type="password" name="confirmPassword" value="" /><br/>
-                    </div>
-
-                    <div class="navbar d-flex justify-content-space-between">
-                        <a href="/"><input href="/" class="btn btn-outline-secondary" type="button" name="buttonCancelar" value="Cancelar" /></a>
-                        <button type="submit" name="id" value="${user.id}" class="btn bg-gogreen text-white ml-3">
-                            Salvar
-                        </button>
-                    </div>
-                </g:form>
+                </div>
             </div>
         </div>
     </div>
+    <asset:javascript src="my-account-controller.js"/>
 </body>
 </html>
