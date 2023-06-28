@@ -22,40 +22,43 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <g:form class="d-flex justify-content-center col" name="status" url="[controller: 'payment', action: 'index']" method="POST">
-                        <g:select name="billingType" data-constraint="select"
+                    <div class="d-flex justify-content-center col js-filter-list" data-url="/payment">
+                        <g:select class="js-filter" name="billingType" data-constraint="select"
                                   from="${PaymentBillingType.values()}" noSelection="${['': 'Forma de pagamento']}"
                                   optionValue="name"/>
 
-                        <g:select class="ml-3" name="status" data-constraint="select"
+                        <g:select class="js-filter ml-3" name="status" data-constraint="select"
                                   from="${PaymentStatus.values()}" noSelection="${['': 'Forma de pagamento']}"
                                   optionValue="name"/>
 
-                        <select class="ml-3" name="payerId">
+                        <select class="js-filter ml-3" name="payerId">
                             <option value="">Selecione um pagador</option>
                             <g:each var="payer" in="${payerList}">
                                 <option value="${payer.id}">${payer.name}</option>
                             </g:each>
                         </select><br/>
 
-                        <select class="ml-3" name="deletedOnly">
+                        <select class="js-filter ml-3" name="deletedOnly">
                             <option value="">Exibir somente cobranças ativas</option>
                             <option value="true">Exibir somente cobranças inativas</option>
                             <option value="false">Exibir todas as cobranças</option>
                         </select><br/>
 
-                        <button class="btn btn-outline-primary ml-3">Buscar</button>
-                    </g:form>
+                        <button class="btn btn-outline-primary js-filter-search ml-3">Buscar</button>
+                    </div>
                 </nav>
 
-                <g:if test="${paymentList}">
-                    <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
-                </g:if>
-                <g:else>
-                    <g:render template="/payment/templates/emptyState"/>
-                </g:else>
+                <div class="js-table">
+                    <g:if test="${paymentList}">
+                        <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
+                    </g:if>
+                    <g:else>
+                        <g:render template="/payment/templates/emptyState"/>
+                    </g:else>
+                </div>
             </div>
         </div>
     </div>
+    <asset:javascript src="filterController.js"/>
 </body>
 </html>
