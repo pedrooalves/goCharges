@@ -39,12 +39,14 @@
                     </g:form>
                 </nav>
 
-                <g:if test="${payerList}">
-                    <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
-                </g:if>
-                <g:else>
-                    <g:render template="/payer/templates/emptyState"/>
-                </g:else>
+                <div class="js-table">
+                    <g:if test="${payerList}">
+                        <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
+                    </g:if>
+                    <g:else>
+                        <g:render template="/payer/templates/emptyState"/>
+                    </g:else>
+                </div>
             </div>
         </div>
     </div>
