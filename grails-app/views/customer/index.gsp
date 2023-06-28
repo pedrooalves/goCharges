@@ -60,7 +60,9 @@
                         <li class="custom-list-item col">${customer.name}</li>
                         <li class="custom-list-item col">${customer.email}</li>
                         <li class="custom-list-item col">${customer.mobilePhone}</li>
-                        <li class="custom-list-item col">${customer.CpfCnpj}</li>
+                        <li class="custom-list-item col">
+                            <formatTagLib:cpfCnpj cpfCnpj="${customer.cpfCnpj}"/>
+                        </li>
                         <li class="custom-list-item col">${customer.address}</li>
 
                         <g:form name="customerUpdate" url="[controller: 'customer', action: 'edit']" method="GET">
