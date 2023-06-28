@@ -12,12 +12,8 @@ class PaymentController extends BaseController {
     PayerService payerService
 
     def index() {
-        if (params.deletedOnly) {
-            params.put("includeDeleted", true)
-        }
-
         Customer customer = getCurrentCustomer()
-        List<Payment> paymentList = paymentService.list(params, customer)
+        List<Payment> paymentList = paymentService.list([includeDeleted: false], customer)
         List<Payer> payerList = payerService.list([includeDeleted: true], customer)
 
         render(view: "index", model: [paymentList: paymentList, payerList: payerList])

@@ -49,12 +49,7 @@
                 </nav>
 
                 <div class="js-table">
-                    <g:if test="${paymentList}">
-                        <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
-                    </g:if>
-                    <g:else>
-                        <g:render template="/payment/templates/emptyState"/>
-                    </g:else>
+                    <g:render template="/payment/templates/table" model="${[paymentList: paymentList]}"/>
                 </div>
             </div>
         </div>
