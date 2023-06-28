@@ -13,7 +13,9 @@
             <tr class="border border-dark">
                 <td class="border border-dark">${payer.name}</td>
                 <td class="border border-dark">${payer.email}</td>
-                <td class="border border-dark">${payer.cpfCnpj}</td>
+                <td class="border border-dark">
+                    <formatTagLib:cpfCnpj cpfCnpj="${payer.cpfCnpj}"/>
+                </td>
                 <td class="border border-dark">${payer.mobilePhone}</td>
                 <td class="row d-flex justify-content-center">
                     <g:render template="/payer/templates/actions" model="${[payer: payer]}"/>

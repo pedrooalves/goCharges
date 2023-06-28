@@ -1,6 +1,8 @@
 package gocharges
 
 import shared.Utils
+
+import javax.swing.text.MaskFormatter
 import java.sql.Timestamp
 import java.text.NumberFormat
 
@@ -36,6 +38,21 @@ class FormatTagLib {
         }
 
         out << numberFormat.format(attrs.value)
+    }
+
+    def cpfCnpj = { Map attrs ->
+        MaskFormatter cpfFormat = new MaskFormatter("###.###.###-##")
+        MaskFormatter cnpjFormat = new MaskFormatter("##.###.###/####-##")
+        cpfFormat.setValueContainsLiteralCharacters(false)
+        cnpjFormat.setValueContainsLiteralCharacters(false)
+
+        if (attrs.cpfCnpj.length() == 11) {
+            return out << cpfFormat.valueToString(attrs.cpfCnpj)
+        }
+
+        if (attrs.cpfCnpj.length() == 14) {
+            out << cnpjFormat.valueToString(attrs.cpfCnpj)
+        }
     }
 
     private String dateNotation(String format, Timestamp date) {
