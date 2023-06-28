@@ -10,11 +10,17 @@ class PayerController extends BaseController {
     PayerService payerService
 
     def index() {
+        List<Payer> payerList = payerService.list(params, getCurrentCustomer())
+
+        render(view: "index", model: [payerList: payerList])
+    }
+
+    def filterSearch() {
         if (params.deletedOnly) params.put("includeDeleted", true)
 
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
 
-        render(view: "index", model: [payerList: payerList])
+        render(template: "/payer/templates/table", model: [payerList: payerList])
     }
 
     def create() {

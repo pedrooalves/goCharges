@@ -20,33 +20,31 @@
                 </div>
 
                 <nav class="navbar navbar-expand navbar-light bg-light col mb-3">
-                    <g:form class="d-flex justify-content-center col" url="[controller: 'payer', action: 'index']" method="POST">
-                        <input class="col" name="name[ilike]" value="" placeholder="Nome">
+                    <div class="d-flex justify-content-center col js-filter-list" data-url="/payer">
+                        <input class="col js-filter" name="name[ilike]" value="" placeholder="Nome">
 
-                        <input class="col ml-3" name="email[ilike]" value="" placeholder="E-mail">
+                        <input class="col js-filter ml-3" name="email[ilike]" value="" placeholder="E-mail">
 
-                        <input class="col ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
+                        <input class="col js-filter ml-3" name="cpfCnpj[like]" value="" placeholder="CPF / CNPJ">
 
-                        <input class="col ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
+                        <input class="col js-filter ml-3" name="mobilePhone[like]" value="" placeholder="Celular">
 
-                        <select class="ml-3" name="deletedOnly">
+                        <select class="js-filter ml-3" name="deletedOnly">
                             <option value="">Exibir somente pagadores ativos</option>
                             <option value="true">Exibir somente pagadores inativos</option>
                             <option value="false">Exibir todos os pagadores</option>
                         </select><br/>
 
-                        <button class="btn btn-outline-primary ml-3">Buscar</button></a>
-                    </g:form>
+                        <button class="btn btn-outline-primary js-filter-search ml-3">Buscar</button></a>
+                    </div>
                 </nav>
 
-                <g:if test="${payerList}">
+                <div class="js-table">
                     <g:render template="/payer/templates/table" model="${[payerList: payerList]}"/>
-                </g:if>
-                <g:else>
-                    <g:render template="/payer/templates/emptyState"/>
-                </g:else>
+                </div>
             </div>
         </div>
     </div>
+    <asset:javascript src="filterController.js"/>
 </body>
 </html>
