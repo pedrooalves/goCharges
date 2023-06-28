@@ -3,10 +3,6 @@
     flex-direction: column;
 }
 
-* {
-    border: 1px solid red;
-}
-
 .index-container {
     display: flex;
     flex-direction: column;
@@ -72,6 +68,12 @@ table {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+
+.default-action-row, .payment-action-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 }
 
 @media (min-width: 360px) {
@@ -168,6 +170,15 @@ table {
     .default-form {
         width: 30%;
     }
+
+    .default-action-row {
+        justify-content: center;
+    }
+
+    .payment-action-row {
+        padding-left: 2rem;
+        justify-content: center;
+    }
 }
 
 @media (min-width: 1928px) {
@@ -181,5 +192,9 @@ table {
 
     .index-subtitle {
         font-size: 2rem;
+    }
+
+    .payment-action-row {
+        padding-left: 0;
     }
 }

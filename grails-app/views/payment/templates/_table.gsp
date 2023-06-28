@@ -17,8 +17,10 @@
                 <td class="border border-dark"><formatTagLib:brazilDate date="${payment.dueDate}"/></td>
                 <td class="border border-dark">${payment.status.name}</td>
                 <td class="border border-dark">${payment.payer.name}</td>
-                <td class="d-flex justify-content-center">
-                    <g:render template="/payment/templates/actions" model="${[payment: payment]}"/>
+                <td class="payment-action-row">
+                    <div class="d-flex flex-row justify-content-end col-6" >
+                        <g:render template="/payment/templates/actions" model="${[payment: payment]}"/>
+                    </div>
                 </td>
             </tr>
         </g:each>

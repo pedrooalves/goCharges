@@ -1,5 +1,5 @@
 <g:form url="[controller: 'payer', action: 'edit']" method="POST">
-    <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-warning ml-3">
+    <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-warning">
         <asset:image src="pencil.svg"/>
     </button>
 </g:form>

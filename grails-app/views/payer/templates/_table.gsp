@@ -15,7 +15,7 @@
                 <td class="border border-dark">${payer.email}</td>
                 <td class="border border-dark">${payer.cpfCnpj}</td>
                 <td class="border border-dark">${payer.mobilePhone}</td>
-                <td class="row d-flex justify-content-center">
+                <td class="default-action-row">
                     <g:render template="/payer/templates/actions" model="${[payer: payer]}"/>
                 </td>
             </tr>
