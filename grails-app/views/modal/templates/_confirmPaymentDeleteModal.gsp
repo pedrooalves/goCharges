@@ -1,12 +1,12 @@
-<div class="modal fade js-confirm-received-in-cash-modal js-modal" id="receivedInCashModal" tabindex="-1" role="dialog" aria-labelledby="receivedInCashModal">
+<div class="modal fade js-confirm-delete-modal js-modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="font-weight-bold">Confirmar recebimento em dinheiro</h2>
+                <h2 class="font-weight-bold">Confirmar exclusão de cobrança</h2>
             </div>
 
             <div class="modal-body">
-                <h2 class="text-center">Deseja confirmar que o pagamento desta cobrança foi feito em dinheiro?</h2>
+                <h2 class="text-center">Deseja confirmar a remoção desta cobrança?</h2>
             </div>
 
             <div class="modal-footer">
@@ -14,7 +14,7 @@
                     Cancelar
                 </button>
 
-                <g:form url="[controller: 'payment', action: 'confirmReceivedInCash']" method="PUT">
+                <g:form url="[controller: 'payment', action: 'delete']" method="PUT">
                     <button class="btn btn-primary js-btn-modal-value" type="submit" name="id">
                         Confirmar
                     </button>
