@@ -13,7 +13,7 @@
         <g:each var="payment" in="${paymentList}">
             <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-row">
                 <td class="border border-dark">${payment.billingType.name}</td>
-                <td class="border border-dark">${payment.value}</td>
+            <td class="border border-dark">${payment.value}</td>
                 <td class="border border-dark"><formatTagLib:brazilDate date="${payment.dueDate}"/></td>
                 <td class="border border-dark">${payment.status.name}</td>
                 <td class="border border-dark">${payment.payer.name}</td>
