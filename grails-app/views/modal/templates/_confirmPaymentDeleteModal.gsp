@@ -15,7 +15,7 @@
                 </button>
 
                 <g:form url="[controller: 'payment', action: 'delete']" method="PUT">
-                    <button class="btn btn-primary js-btn-modal-value" type="submit" name="id">
+                    <button class="btn btn-gogreen js-btn-modal-value" type="submit" name="id">
                         Confirmar
                     </button>
                 </g:form>
