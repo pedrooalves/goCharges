@@ -5,7 +5,7 @@ function ModalController() {
     _this.confirmReceivedInCashButton = _this.reference.find(".js-btn-confirm-received-in-cash");
     _this.confirmDeleteButton = _this.reference.find(".js-btn-confirm-delete")
 
-    var paymentTableController = new PaymentTableController();
+    var tableController = new TableController();
 
     _this.init = function() {
         _this.setModalOpenButton()
@@ -22,7 +22,7 @@ function ModalController() {
 
     _this.handleModalClose = function() {
         _this.reference.find(".js-modal").on("hide.bs.modal", function() {
-            paymentTableController.bindTableRow();
+            tableController.bindTableRow();
         })
     }
 
@@ -33,7 +33,7 @@ function ModalController() {
 
     _this.bindOpenModal = function() {
         _this.openModalButton.on("click", function() {
-            paymentTableController.disableTableOnClickEvent();
+            tableController.unbindTableRow();
             $(this.getAttribute("data-target")).find(".js-btn-modal-value").val(this.value);
         });
     };

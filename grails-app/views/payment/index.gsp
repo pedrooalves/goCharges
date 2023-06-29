@@ -10,7 +10,7 @@
     <asset:javascript src="modalController.js"/>
 </head>
 <body>
-    <div class="container col-12 js-list-container">
+    <div class="container col-12 js-list-container js-container">
         <div class="card-body row">
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
