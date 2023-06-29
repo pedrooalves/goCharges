@@ -11,6 +11,8 @@
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
     <asset:javascript src="jquery-3.5.1.js"/>
+    <asset:javascript src="jquery.mask.min.js"/>
+
     <asset:stylesheet src="application.css"/>
     <asset:stylesheet src="gocharges.css"/>
 

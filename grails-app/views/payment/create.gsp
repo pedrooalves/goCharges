@@ -6,7 +6,7 @@
     <title>Adicionar cobrança</title>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center w-25">
+    <div class="container my-8 d-flex justify-center w-25 js-container">
         <g:form class="card-body" name="paymentForm" url="[controller: 'payment', action: 'save']">
             <h1 class="display-4">Nova cobrança</h1>
 
@@ -42,7 +42,7 @@
 
             <div class="form-group mb-3">
                 <label class="mb-2">Valor</label>
-                <input class="form-control" type="text" name="value" value=""/><br/>
+                <input class="form-control js-value-input" type="text" name="value" value=""/><br/>
             </div>
 
             <div class="d-flex justify-content-between">
@@ -53,5 +53,7 @@
             </div>
         </g:form>
     </div>
+
+    <asset:javascript src="inputMaskController.js"/>
 </body>
 </html>

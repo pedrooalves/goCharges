@@ -14,12 +14,12 @@
 
     <div class="form-group">
         <label>Celular</label>
-        <input class="form-control js-mobilePhone" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value="${payer.mobilePhone}"/>
+        <input class="form-control js-mobilePhone js-mobile-phone-input" type="text" name="mobilePhone" placeholder="(00) 00000-0000" value="${payer.mobilePhone}"/>
     </div>
 
     <div class="form-group">
         <label>CPF / CNPJ</label>
-        <input class="form-control js-cpf-cnpj" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="${payer.cpfCnpj}"/>
+        <input class="form-control js-cpf-cnpj js-cpf-cnpj-input" type="text" name="cpfCnpj" placeholder="000.000.000-00" value="${formatTagLib.cpfCnpj(cpfCnpj: payer.cpfCnpj)}"/>
     </div>
 
     <div class="js-postal-code-container">
@@ -28,7 +28,7 @@
         <div class="form-row mb-2">
             <div class="col">
                 <label class="mb-1">CEP</label>
-                <input class="form-control js-postal-code" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
+                <input class="form-control js-postal-code js-postal-code-input" type="text" pattern="\d{5}-?\d{3}" name="postalCode"
                        placeholder="00000-000" value="${payer.postalCode}"/>
             </div>
             <div class="d-flex align-items-end col">
@@ -85,3 +85,4 @@
 </g:form>
 <asset:javascript src="postal-code-utils.js"/>
 <asset:javascript src="person-form-controller.js"/>
+<asset:javascript src="inputMaskController.js"/>

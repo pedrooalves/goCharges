@@ -46,6 +46,8 @@ class FormatTagLib {
         cpfFormat.setValueContainsLiteralCharacters(false)
         cnpjFormat.setValueContainsLiteralCharacters(false)
 
+        if (!attrs.cpfCnpj) return
+
         if (attrs.cpfCnpj.length() == 11) {
             return out << cpfFormat.valueToString(attrs.cpfCnpj)
         }

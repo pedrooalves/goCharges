@@ -6,7 +6,7 @@
     <title>Atualizar cobrança</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-center mb-3">
+    <div class="container d-flex justify-content-center mb-3 js-container">
         <div>
             <div class="card mb-3 mt-3 p-5 bg-gogreen text-center text-white">
                 <h1 class="display-4">Atualizar cobrança</h1>
@@ -39,7 +39,8 @@
 
                     <div class="form-group mb-3">
                         <label for="value" class="mb-2">Valor</label>
-                        <input class="form-control" id="value" type="text" name="value" value="${payment.value}"/><br/>
+                        <input class="form-control js-value-input" id="value" type="text" name="value"
+                               value="${formatTagLib.currencyWithoutMonetarySimbol(value: payment.value)}"/><br/>
                     </div>
 
                     <div class="navbar d-flex justify-content-space-between">
@@ -53,5 +54,7 @@
             </div>
         </div>
     </div>
+
+    <asset:javascript src="inputMaskController.js"/>
 </body>
 </html>
