@@ -33,10 +33,10 @@ class CustomerController extends BaseController {
 
             flash.message = "Conta alterada com sucesso"
             flash.type = FlashMessageType.SUCCESS
+
+            redirect(controller: "dashboard", action: "index")
         } catch (Exception exception) {
             exceptionHandler(exception)
-        } finally {
-            redirect(controller: "dashboard", action: "index")
         }
     }
 
