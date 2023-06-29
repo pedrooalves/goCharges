@@ -59,3 +59,11 @@ table tbody tr:hover {
     color: white;
     cursor: pointer;
 }
+
+.link-gogreen {
+    position: relative;
+}
+
+.link-gogreen:hover {
+    top: -2px;
+}
