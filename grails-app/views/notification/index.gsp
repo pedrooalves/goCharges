@@ -10,23 +10,9 @@
             <div class="col 6">
                 <h1 class="display-4 mb-4">Notificações</h1>
                 <div class="border rounded col js-my-account">
-                    <div class="row d-flex text-center rounded border">
-                        <div class="pl-5 pt-2 pb-1">
-                            <input class="mr-2 js-select-all" type="checkbox">
-                            <span class="h4">Selecionar todas</span>
-                        </div>
-                    </div>
                     <g:each var="notification" in="${notificationList}">
-                        <div class="d-flex row rounded border pl-5 pt-2 pb-1">
-                            <input class="mr-2" type="checkbox">
-                            <div class="d-flex flex-column ml-2 js-notification" data-url="/payment/show/${notification.id}" style="cursor: pointer">
-                                <span class="h5 font-weight-bold">
-                                    ${notification.title}
-                                </span>
-                                <span class="h6">
-                                    ${notification.message}
-                                </span>
-                            </div>
+                        <div class="d-flex row rounded border pl-5 pt-2 pb-1" >
+                            <g:render template="/notification/templates/notification" model="${[notification: notification]}"/>
                         </div>
                     </g:each>
                 </div>

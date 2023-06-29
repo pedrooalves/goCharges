@@ -18,6 +18,10 @@ class NotificationRepository {
             if (search.containsKey("customer")) {
                 eq("customer", search.customer)
             }
+
+            if (search.containsKey("id")) {
+                eq("id", Long.valueOf(search.id))
+            }
         }
         return query
     }
