@@ -32,7 +32,7 @@ function InputMasKController() {
     };
 
     _this.setValueMask = function() {
-        _this.valueInput.mask('000.000.000.000.000,00', {reverse: true});
+        _this.valueInput.mask('0000000000,00', {reverse: true});
     };
 };
 

@@ -18,6 +18,6 @@ class PaymentAdapter {
         this.payerId = Long.valueOf(params.payerId)
         this.billingType = PaymentBillingType.valueOf(params.billingType)
         this.dueDate = CustomDateUtils.fromString(params.dueDate)
-        this.value = new BigDecimal(params.value)
+        this.value = new BigDecimal(params.value.replace(",", "."))
     }
 }
