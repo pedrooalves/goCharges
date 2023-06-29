@@ -1,8 +1,8 @@
 <div class="d-flex flex-column ml-2 js-notification js-read-${notification.isRead}" data-url="/payment/show/${notification.paymentId}" data-id="${notification.id}"  style="cursor: pointer">
     <span class="h5">
-        ${notification.title}
+        <formatTagLib:notificationTypeTitle notificationType="${notification.notificationType}" payment="${notification.payment}"/>
     </span>
     <span class="h6">
-        ${notification.message}
+        <formatTagLib:notificationTypeMessage notificationType="${notification.notificationType}" payment="${notification.payment}"/>
     </span>
 </div>

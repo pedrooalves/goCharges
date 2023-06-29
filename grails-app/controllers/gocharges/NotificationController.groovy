@@ -14,16 +14,16 @@ class NotificationController extends BaseController {
     }
 
     def getLastUnreadNotificationList() {
-        ArrayList notificationList = notificationService.buildNotification(getCurrentCustomer())
+        ArrayList notificationList = notificationService.buildNotification([unreadOnly: true], getCurrentCustomer())
         render(notificationList as JSON, status: HttpStatus.OK)
     }
 
     public markAsRead() {
         try {
-            notificationService.markAsRead(params.id, getCurrentCustomer())
+            notificationService.markAsRead(Long.valueOf(params.id), getCurrentCustomer())
             render([Message: "Notification marked as read successfully"] as JSON, status: HttpStatus.OK)
         } catch (Exception exception) {
-            println(exception.getMessage())
+            exceptionHandler(exception)
         }
     }
 }

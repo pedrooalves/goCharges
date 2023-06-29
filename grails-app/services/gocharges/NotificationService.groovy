@@ -30,10 +30,12 @@ class NotificationService {
         notification.save(failOnError: true)
     }
 
-    public void markAsRead(String idStr, Customer customer) {
-        Notification notification = NotificationRepository.query([id: idStr, customer: customer]).get()
+    public Notification markAsRead(Long id, Customer customer) {
+        Notification notification = NotificationRepository.query([id: id, customer: customer]).get()
         notification.isRead = true
         notification.save(failOnError: true)
+
+        return notification
     }
 
     public ArrayList buildNotification(Map params, Customer customer) {
