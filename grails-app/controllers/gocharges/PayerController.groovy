@@ -13,7 +13,6 @@ class PayerController extends BaseController {
         if (params.deletedOnly) params.put("includeDeleted", true)
 
         List<Payer> payerList = payerService.list(params, getCurrentCustomer())
-
         render(view: "index", model: [payerList: payerList])
     }
 
@@ -22,66 +21,45 @@ class PayerController extends BaseController {
     }
 
     def save() {
-        try {
-            PayerAdapter payerAdapter = new PayerAdapter(params)
-            payerService.save(payerAdapter, getCurrentCustomer())
+        PayerAdapter payerAdapter = new PayerAdapter(params)
+        payerService.save(payerAdapter, getCurrentCustomer())
 
-            flash.message = "Pagador criado com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Pagador criado com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def delete() {
-        try {
-            Long id = Long.valueOf(params.id)
-            payerService.delete(id, getCurrentCustomer())
+        Long id = Long.valueOf(params.id)
+        payerService.delete(id, getCurrentCustomer())
 
-            flash.message = "Pagador removido com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Pagador removido com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def update() {
-        try {
-            PayerAdapter adapter = new PayerAdapter(params)
-            Long id = Long.valueOf(params.id)
-            payerService.update(id, adapter, getCurrentCustomer())
+        PayerAdapter adapter = new PayerAdapter(params)
+        Long id = Long.valueOf(params.id)
+        payerService.update(id, adapter, getCurrentCustomer())
 
-            flash.message = "Pagador alterado com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Pagador alterado com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def edit() {
         Long id = Long.valueOf(params.id)
         Payer payer = PayerRepository.query([id: id, customer: getCurrentCustomer()]).get()
-
         render(view: "edit", model: [payer: payer])
     }
 
-    public restore() {
-        try {
-            Long id = Long.valueOf(params.id)
-            payerService.restore(id, getCurrentCustomer())
+    def restore() {
+        Long id = Long.valueOf(params.id)
+        payerService.restore(id, getCurrentCustomer())
 
-            flash.message = "Pagador restaurado com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Pagador restaurado com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 }

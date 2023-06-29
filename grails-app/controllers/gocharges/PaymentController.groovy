@@ -30,18 +30,12 @@ class PaymentController extends BaseController {
     }
 
     def save() {
-        try {
-            PaymentAdapter paymentAdapter = new PaymentAdapter(params)
-            paymentService.save(paymentAdapter, getCurrentCustomer())
+        PaymentAdapter paymentAdapter = new PaymentAdapter(params)
+        paymentService.save(paymentAdapter, getCurrentCustomer())
 
-            flash.message = "Cobrança criada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "create"
-            chain(action: action, model: [paramsId: params.id])
-        }
+        flash.message = "Cobrança criada com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def edit() {
@@ -55,70 +49,44 @@ class PaymentController extends BaseController {
     }
 
     def update() {
-        try {
-            PaymentAdapter adapter = new PaymentAdapter(params)
-            Long id = Long.valueOf(params.id)
-            paymentService.update(id, adapter, getCurrentCustomer())
+        PaymentAdapter adapter = new PaymentAdapter(params)
+        Long id = Long.valueOf(params.id)
+        paymentService.update(id, adapter, getCurrentCustomer())
 
-            flash.message = "Cobrança alterada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            String action = (flash.type == FlashMessageType.SUCCESS) ? "index" : "edit"
-            chain(action: action, model: [paramsId: params.id])
-        }
+        flash.message = "Cobrança alterada com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def delete() {
-        try {
-            Long id = Long.valueOf(params.id)
-            paymentService.delete(id, getCurrentCustomer())
+        Long id = Long.valueOf(params.id)
+        paymentService.delete(id, getCurrentCustomer())
 
-            flash.message = "Cobrança removida com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Cobrança removida com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def confirmReceivedInCash() {
-        try {
-            Long id = Long.valueOf(params.id)
-            paymentService.confirmReceivedInCash(id, getCurrentCustomer())
+        Long id = Long.valueOf(params.id)
+        paymentService.confirmReceivedInCash(id, getCurrentCustomer())
 
-            flash.message = "Pagamento confirmado com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Pagamento confirmado com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
     def restore() {
-        try {
-            Long id = Long.valueOf(params.id)
-            paymentService.restore(id, getCurrentCustomer())
+        Long id = Long.valueOf(params.id)
+        paymentService.restore(id, getCurrentCustomer())
 
-            flash.message = "Cobrança restaurada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "index")
-        }
+        flash.message = "Cobrança restaurada com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "index")
     }
 
-    public show() {
-        try {
-            Payment payment = paymentService.getPayment(params, getCurrentCustomer())
-            render(view: "show", model: [payment: payment])
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-            redirect(action: "index")
-        }
+    def show() {
+        Payment payment = paymentService.getPayment(params, getCurrentCustomer())
+        render(view: "show", model: [payment: payment])
     }
 }
