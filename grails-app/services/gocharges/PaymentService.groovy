@@ -13,6 +13,7 @@ import shared.Utils
 class PaymentService {
 
     PaymentMessageService paymentMessageService
+    NotificationService notificationService
 
     public Payment save(PaymentAdapter adapter, Customer customer) {
         Payment payment = new Payment()
@@ -24,6 +25,7 @@ class PaymentService {
         payment.customer = customer
 
         payment.save(failOnError: true)
+        notificationService.confirmPayment(payment)
         paymentMessageService.onSave(payment)
         return payment
     }

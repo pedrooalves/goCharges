@@ -11,7 +11,7 @@
     </thead>
     <tbody class="js-body">
         <g:each var="payment" in="${paymentList}">
-            <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-row">
+            <tr data-url="/payment/show/${payment.id}" class="border border-dark col js-table-row" >
                 <td class="border border-dark">${payment.billingType.name}</td>
                 <td class="border border-dark">${payment.value}</td>
                 <td class="border border-dark"><formatTagLib:brazilDate date="${payment.dueDate}"/></td>
@@ -24,4 +24,3 @@
         </g:each>
     </tbody>
 </table>
-<asset:javascript src="payment-table-controller.js"/>

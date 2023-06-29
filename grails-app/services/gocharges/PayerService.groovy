@@ -120,4 +120,12 @@ class PayerService {
         payer.deleted = false
         return payer.save(failOnError: true)
     }
+
+    public Payer get(Map params, Customer customer) {
+        Payer payer = PayerRepository.query(params + [customer: customer]).get()
+
+        if (!payer) throw new BusinessException(Utils.getMessageProperty("payer.not.found.message", null))
+
+        return payer
+    }
 }
