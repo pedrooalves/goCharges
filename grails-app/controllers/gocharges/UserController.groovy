@@ -53,4 +53,11 @@ class UserController extends BaseController {
             redirect(action: "myAccount")
         }
     }
+
+    def error() {
+        flash.message = "Não foi possível encontrar um usuário com essas credenciais"
+        flash.type = FlashMessageType.ERROR
+
+        redirect(uri: request.getHeader('referer') )
+    }
 }

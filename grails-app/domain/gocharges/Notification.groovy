@@ -8,7 +8,7 @@ class Notification extends BaseEntity {
     NotificationType notificationType
     Customer customer
     Payment payment
-    Boolean unread = true
+    Boolean isRead = false
 
     static constraints = {
         notificationType(nullable: false, blank:false)
