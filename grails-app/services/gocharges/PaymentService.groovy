@@ -7,6 +7,7 @@ import gocharges.payment.adapter.PaymentAdapter
 import gocharges.payment.enums.PaymentBillingType
 import gocharges.payment.enums.PaymentStatus
 import grails.gorm.transactions.Transactional
+import shared.CustomDateUtils
 import shared.Utils
 
 @Transactional
@@ -75,6 +76,7 @@ class PaymentService {
         if (!params.billingType) throw new BusinessException(Utils.getMessageProperty("default.null.message", "forma de pagamento"))
         if (!params.dueDate) throw new BusinessException(Utils.getMessageProperty("default.null.message", "data de vencimento"))
         if (!params.value) throw new BusinessException(Utils.getMessageProperty("default.null.message", "valor"))
+        if (CustomDateUtils.fromString(params.dueDate) < new Date()) throw new BusinessException(Utils.getMessageProperty("due.date.before.today.message", null))
     }
 
     public void setAsOverdue() {
