@@ -16,11 +16,11 @@
         </g:form>
     </g:if>
 
-    <g:form name="updateButton" url="[controller: 'payment', action: 'edit']" method="POST">
-        <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-warning ml-3">
+    <a href="${createLink(action: 'edit', id: payment.id)}">
+        <button type="submit" name="id" class="btn btn-outline-warning ml-3">
             <asset:image src="pencil.svg"/>
         </button>
-    </g:form>
+    </a>
 
     <g:if test="${payment.canDelete()}">
         <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">

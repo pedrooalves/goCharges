@@ -20,19 +20,12 @@ class UserController extends BaseController {
     }
 
     def save() {
-        try {
-            UserAdapter adapter = new UserAdapter(params)
-            userService.save(adapter)
+        UserAdapter adapter = new UserAdapter(params)
+        userService.save(adapter)
 
-            flash.message = "Conta criada com sucesso."
-            flash.type = FlashMessageType.SUCCESS
-
-            redirect(action: "login")
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-
-            redirect(action: "signUp")
-        }
+        flash.message = "Conta criada com sucesso."
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "login")
     }
 
     def myAccount() {
@@ -40,17 +33,12 @@ class UserController extends BaseController {
     }
 
     def changePassword() {
-        try {
-            UserAdapter adapter = new UserAdapter(params)
-            String currentPassword = params.currentPassword
-            userService.changePassword(getCurrentUser(), adapter, currentPassword)
+        UserAdapter adapter = new UserAdapter(params)
+        String currentPassword = params.currentPassword
+        userService.changePassword(getCurrentUser(), adapter, currentPassword)
 
-            flash.message = "Senha alterada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(action: "myAccount")
-        }
+        flash.message = "Senha alterada com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(action: "myAccount")
     }
 }

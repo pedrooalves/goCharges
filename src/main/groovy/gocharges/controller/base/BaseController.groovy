@@ -18,16 +18,15 @@ abstract class BaseController {
         return (User) springSecurityService.getCurrentUser()
     }
 
-    def exceptionHandler(Exception exception) {
-        if (exception instanceof BusinessException) {
-            flash.message = exception.getMessage()
-            flash.type = FlashMessageType.ERROR
-            return
-        }
+    def handleBusinessException(BusinessException businessException) {
+        flash.message = businessException.getMessage()
+        flash.type = FlashMessageType.ERROR
+        redirect(uri: request.getHeader('referer'))
+    }
 
-        if (exception instanceof Exception) {
-            flash.message = "Erro inesperado, tente novamente mais tarde"
-            flash.type = FlashMessageType.ERROR
-        }
+    def handleException(Exception exception) {
+        flash.message = "Erro inesperado, tente novamente mais tarde"
+        flash.type = FlashMessageType.ERROR
+        redirect(uri: request.getHeader('referer'))
     }
 }

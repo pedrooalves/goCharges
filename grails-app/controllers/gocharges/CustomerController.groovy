@@ -10,7 +10,6 @@ class CustomerController extends BaseController {
 
     def index() {
         List<Customer> customerList = customerService.list()
-
         render(view: "index", model: [customers: customerList])
     }
 
@@ -21,37 +20,26 @@ class CustomerController extends BaseController {
 
     def edit() {
         Customer customer = getCurrentCustomer()
-
         render(view: "edit", model: [customer: customer])
     }
 
     def update() {
-        try {
-            CustomerAdapter adapter = convertToAdapter(params)
+        CustomerAdapter adapter = convertToAdapter(params)
 
-            customerService.update(getCurrentCustomer(), adapter)
+        customerService.update(getCurrentCustomer(), adapter)
 
-            flash.message = "Conta alterada com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(controller: "dashboard", action: "index")
-        }
+        flash.message = "Conta alterada com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(controller: "dashboard", action: "index")
     }
 
     def delete() {
-        try {
-            Long id = Long.valueOf(params.id)
-            customerService.delete(id)
+        Long id = Long.valueOf(params.id)
+        customerService.delete(id)
 
-            flash.message = "Conta removida com sucesso"
-            flash.type = FlashMessageType.SUCCESS
-        } catch (Exception exception) {
-            exceptionHandler(exception)
-        } finally {
-            redirect(view: "index")
-        }
+        flash.message = "Conta removida com sucesso"
+        flash.type = FlashMessageType.SUCCESS
+        redirect(view: "index")
     }
 
     private CustomerAdapter convertToAdapter(Map params) {
