@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>
-        <g:layoutTitle default="goCharges"/>
+        <g:layoutTitle default="GoCharges"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
@@ -21,7 +21,9 @@
 <body class="js-main-container">
     <nav class="navbar sidebar-content navbar-expand-lg navbar-dark bg-dark navbar-static-top row" role="navigation">
         <div class="container-fluid justify-content-space-between">
-            <a class="navbar-brand" href="/#"><asset:image src="gocharges.png" alt="Grails Logo"/></a>
+            <a href="/">
+                <p class="display-4 text-white text-logo">GoCharges</p>
+            </a>
             <sec:ifNotLoggedIn>
                 <div>
                     <a class="btn btn-gogreen mr-3" href="/user/login">Login</a>

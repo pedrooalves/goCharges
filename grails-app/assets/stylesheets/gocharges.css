@@ -7,6 +7,22 @@ html, body {
     min-height: 100%;
 }
 
+@font-face {
+    font-family: 'homenajeregular';
+    src: url('/assets/fonts/homenaje-regular-webfont.woff2') format('woff2'),
+         url('/assets/fonts/homenaje-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.text-logo {
+    font-family: 'homenajeregular', sans-serif;
+}
+
+.gogreen {
+    color: #88B337;
+}
+
 .bg-gogreen {
     background-color: #88B337;
 }
@@ -66,4 +82,19 @@ table tbody tr:hover {
 
 .link-gogreen:hover {
     top: -2px;
+}
+
+.index-container {
+    min-height: 80%;
+}
+
+.index-title {
+    font-family: Sora, sans-serif;
+    user-select: none;
+}
+
+.index-subtitle {
+    font-size: 1.5rem;
+    color: grey;
+    user-select: none;
 }
