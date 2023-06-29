@@ -1,6 +1,6 @@
 function ModalController() {
     var _this = this;
-    _this.reference = $(".js-list-container");
+    _this.reference = $(".js-container");
     _this.openModalButton = _this.reference.find(".js-btn-open-modal");
     _this.confirmReceivedInCashButton = _this.reference.find(".js-btn-confirm-received-in-cash");
     _this.confirmDeleteButton = _this.reference.find(".js-btn-confirm-delete")
