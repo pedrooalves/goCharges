@@ -19,6 +19,6 @@
             </div>
         </div>
     </div>
-    <asset:javascript src="notification-controller.js" />
+    <asset:javascript src="notificationController.js" />
 </body>
 </html>

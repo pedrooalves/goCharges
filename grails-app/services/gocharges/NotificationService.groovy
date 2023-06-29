@@ -48,7 +48,7 @@ class NotificationService {
                 title: Utils.getMessageProperty("NotificationType.title.${notification.notificationType.toString()}",null),
                 message: Utils.getMessageProperty("NotificationType.message.${notification.notificationType.toString()}",
                         new String[] {notification.payment.payer.name, Utils.getCurrencyWithoutMonetarySimbol(notification.payment.value)}),
-                date: Utils.getBrazilDateFormat(notification.dateCreated),
+                date: Utils.getBrazilDateFormat(notification.dateCreated)
             ]
 
             formattedNotificationList.push(formattedNotification)
