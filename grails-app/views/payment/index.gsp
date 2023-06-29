@@ -10,10 +10,11 @@
     <asset:javascript src="modalController.js"/>
 </head>
 <body>
-    <div class="container col-12 js-payment-list-container js-container">
+    <div class="container col-12 js-list-container js-container">
         <div class="card-body row">
             <div class="col">
                 <g:render template="/modal/templates/confirmReceivedInCashModal"/>
+                <g:render template="/modal/templates/confirmPaymentDeleteModal"/>
 
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between">
                     <h1>Cobranças</h1>
