@@ -25,7 +25,6 @@ class PaymentService {
         payment.customer = customer
 
         payment.save(failOnError: true)
-        notificationService.confirmPayment(payment)
         paymentMessageService.onSave(payment)
         return payment
     }
@@ -66,6 +65,8 @@ class PaymentService {
         payment.billingType = PaymentBillingType.CASH
         payment.paymentDate = new Date()
         payment.save(failOnError: true)
+
+        notificationService.confirmPayment(payment)
         paymentMessageService.onReceivedInCash(payment)
     }
 
@@ -92,6 +93,7 @@ class PaymentService {
                     payment.status = PaymentStatus.OVERDUE
                     payment.save(failOnError: true)
                     paymentMessageService.onOverdue(payment)
+                    notificationService.overduePayment(payment)
                 } catch (Exception exception) {
                     status.setRollbackOnly()
                 }
