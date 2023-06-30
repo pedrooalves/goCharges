@@ -1,5 +1,5 @@
 function MyAccountController() {
-    _this = this;
+    var _this = this;
     _this.reference = $(".js-my-account");
     _this.tabs = _this.reference.find(".js-link-tab");
 
