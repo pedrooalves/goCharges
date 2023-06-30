@@ -44,7 +44,7 @@
     width: 100%;
 }
 
-.create-form {
+.create-form, .edit-form {
     width: 100%;
 }
 
@@ -167,7 +167,7 @@ table {
         width: 70%;
     }
 
-    .create-form {
+    .create-form, .edit-form {
         width: 50%;
     }
 

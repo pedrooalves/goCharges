@@ -6,7 +6,7 @@
     <title>Adicionar pagador</title>
 </head>
 <body>
-    <div class="container my-8 d-flex justify-center col-6 main-container">
+    <div class="container d-flex justify-center create-form main-container">
         <g:render template="/payer/templates/create/form"/>
     </div>
 </body>
