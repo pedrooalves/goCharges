@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page import="shared.FlashMessageType" %>
+<%@ page import="gocharges.NotificationController" %>
 <html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -39,7 +40,8 @@
                     </sec:ifAnyGranted>
                 </div>
                 <div class="button-list">
-                    <a class="btn btn-gogreen" href="/user/myAccount">Minha Conta</a>
+                    <a class="btn btn-gogreen" href="/notification/index"><asset:image class="js-bell" src="bell.svg"/></a>
+                    <a class="btn btn-gogreen ml-3" href="/user/myAccount">Minha Conta</a>
                     <a class="btn btn-gogreen ml-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
             </sec:ifLoggedIn>
@@ -53,5 +55,6 @@
     <g:layoutBody/>
 
     <asset:javascript src="application.js"/>
+    <asset:javascript src="mainController.js"/>
 </body>
 </html>
