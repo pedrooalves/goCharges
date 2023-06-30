@@ -70,6 +70,10 @@ table {
     text-align: center;
 }
 
+.pagination-bar {
+    padding-left: 12rem;
+}
+
 .default-action-row, .payment-action-row {
     display: flex;
     flex-direction: row;
@@ -81,6 +85,10 @@ table {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .pagination-bar {
+        padding-left: 8rem;
     }
 }
 
@@ -111,6 +119,10 @@ table {
 
     .text-logo {
         margin-left: 1rem;
+    }
+
+    .pagination-bar {
+        padding-left: 0;
     }
 }
 
