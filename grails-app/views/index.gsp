@@ -15,17 +15,17 @@
 </head>
 <body>
 <div class="d-flex align-items-center index-container">
-    <div class="col-6 d-flex justify-content-center">
-        <div class="col-8">
+    <div class="col-lg-6 d-flex justify-content-center index-text">
+        <div class="col-lg-8">
             <h2 class="display-4 index-title"><span class="gogreen font-weight-bold">Simplifique</span> suas cobranças e melhore o controle financeiro do seu negócio</h2>
             <p class="index-subtitle">Tenha total controle sobre seus recebimentos e otimize o tempo de sua equipe financeira</p>
-            <div class="d-flex justify-content-center col-10">
+            <div class="d-flex justify-content-center col-lg-10">
                 <a class="btn btn-gogreen btn-lg mt-5 text-decoration-none" href="/user/signUp">Criar conta agora</a>
             </div>
         </div>
     </div>
-    <div class="col-6 d-flex justify-content-center">
-        <asset:image src="banner.png"/>
+    <div class="col-lg-6 d-flex justify-content-center index-image-div">
+        <asset:image class="index-banner" src="banner.png"/>
     </div>
 </div>
 </body>
