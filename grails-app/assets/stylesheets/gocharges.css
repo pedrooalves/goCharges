@@ -98,3 +98,8 @@ table tbody tr:hover {
     color: grey;
     user-select: none;
 }
+
+.pagination-active {
+    background-color: #999999;
+    font-weight: bold;
+}
