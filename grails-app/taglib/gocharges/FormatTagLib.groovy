@@ -41,4 +41,14 @@ class FormatTagLib {
     private String dateNotation(String format, Timestamp date) {
         return g.formatDate(format: format, date: date)
     }
+
+    def notificationTypeTitle = { Map attrs ->
+        String messageCode = "NotificationType.title." + attrs.notificationType.toString()
+        out << Utils.getMessageProperty(messageCode, null)
+    }
+
+    def notificationTypeMessage = { Map attrs ->
+        String messageCode = "NotificationType.message." + attrs.notificationType.toString()
+        out << Utils.getMessageProperty(messageCode, new String[] {attrs.payment.payer.name, currencyWithoutMonetarySimbol([value: attrs.payment.value])})
+    }
 }
