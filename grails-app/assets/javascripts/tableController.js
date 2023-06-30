@@ -39,7 +39,7 @@ function TableController() {
 
         _this.pagination.append('<li class="page-item"><a class="page-link js-next" href="#">Próximo</a></li>');
         _this.next = _this.reference.find(".js-next");
-        if (_this.numPages < 2) _this.next.css("cursor", "not-allowed");
+        if (Math.ceil(_this.numPages) < 2) _this.next.css("cursor", "not-allowed");
 
         _this.tableRow.hide();
         _this.tableRow.slice(0, _this.rowsShown).show();
