@@ -24,11 +24,49 @@
     width: 100%;
 }
 
-@media (min-width: 400px) {
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-list {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.myaccount-div {
+    width: 100%;
+}
+
+.create-form {
+    width: 100%;
+}
+
+@media (min-width: 700px) {
     .main-header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .index-text {
+        width: 70%;
+    }
+
+    .default-form {
+        width: 60%;
+    }
+
+    .dashboard {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
     }
 
     .button-list {
@@ -37,12 +75,6 @@
 
     .text-logo {
         margin-left: 1rem;
-    }
-}
-
-@media (min-width: 700px) {
-    .index-text {
-        width: 70%;
     }
 }
 
@@ -58,6 +90,18 @@
     .index-subtitle {
         font-size: 1.25rem;
     }
+
+    .default-form {
+        width: 40%;
+    }
+
+    .myaccount-div {
+        width: 70%;
+    }
+
+    .create-form {
+        width: 50%;
+    }
 }
 
 @media (min-width: 1140px) {
@@ -71,6 +115,10 @@
 
     .index-subtitle {
         font-size: 1.5rem;
+    }
+
+    .default-form {
+        width: 30%;
     }
 }
 

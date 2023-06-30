@@ -1,6 +1,6 @@
 <%@ page import="shared.enums.State"%>
 <g:form class="card-body" name="customerForm" url="[controller: 'customer', action: 'update']">
-    <h1 class="display-4">Dados comerciais</h1>
+    <h1 class="h1">Dados comerciais</h1>
 
     <div class="form-group">
         <label>Nome</label>
@@ -60,12 +60,12 @@
 
         <div class="form-row mb-3">
             <div class="col">
-                <label class="mb-1">Cidade</label>
+                <label class="mb-1 col">Cidade</label>
                 <input class="form-control js-city js-set" type="text" name="city" placeholder="Ex: Salvador" value="${customer?.city}"/>
             </div>
             <div class="col">
                 <label class="mb-1">Estado</label> <br/>
-                <g:select class="form-select js-state js-set" name="state" data-constraint="select" from="${State.values()}"
+                <g:select class="form-select col js-state js-set" name="state" data-constraint="select" from="${State.values()}"
                           noSelection="${['': 'Selecione um estado']}" optionValue="name" value="${customer?.state}"/>
             </div>
         </div>

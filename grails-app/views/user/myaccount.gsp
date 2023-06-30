@@ -5,8 +5,8 @@
     <title>Minha conta</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-start col-10 mb-3 main-container">
-        <div class="col-12">
+    <div class="container d-flex justify-content-center col mb-3 main-container">
+        <div class="myaccount-div">
             <h1 class="display-4 mb-4">Minha conta</h1>
             <div class="border rounded col js-my-account">
                 <div class="row d-flex justify-content-center rounded border">
@@ -17,7 +17,7 @@
                     <a class="update-tab pl-3 nav-link js-link-tab h5" data-type="password" href="#">Senha</a>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <div class="col-6">
+                    <div class="create-form">
                         <div class="js-person js-set-hidden">
                             <g:render template="/customer/templates/update/form"/>
                         </div>
