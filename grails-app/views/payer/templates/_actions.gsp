@@ -5,11 +5,9 @@
 </g:form>
 
 <g:if test="${payer.canDelete()}">
-    <g:form url="[controller: 'payer', action: 'delete']" method="POST">
-        <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3">
-            <asset:image src="trash.svg"/>
-        </button>
-    </g:form>
+    <button type="submit" name="id" value="${payer.id}" class="btn btn-outline-danger ml-3 js-btn-confirm-delete js-btn-open-modal">
+        <asset:image src="trash.svg"/>
+    </button>
 </g:if>
 <g:else>
     <g:form url="[controller: 'payer', action: 'restore']" method="POST">

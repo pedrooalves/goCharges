@@ -7,12 +7,14 @@
     <title>Listagem de pagadores</title>
 
     <asset:javascript src="tableController.js"/>
-    <asset:javascript src="goCharges.js"/>
+    <asset:javascript src="modalController.js"/>
 </head>
 <body>
     <div class="container col-12 js-container" style="height: 100%">
         <div class="card-body row">
             <div class="col 6">
+                <g:render template="/modal/templates/confirmPayerDeleteModal"/>
+
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
                     <h1>Pagadores</h1>
 
