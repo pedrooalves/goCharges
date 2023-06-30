@@ -44,6 +44,7 @@
                     <a class="btn btn-gogreen ml-3" href="/user/myAccount">Minha Conta</a>
                     <a class="btn btn-gogreen ml-3" href='${request.contextPath}/logoff' method='POST'>Sair</a>
                 </div>
+                <asset:javascript src="notificationDropdownController.js"/>
             </sec:ifLoggedIn>
         </div>
     </nav>
@@ -55,6 +56,5 @@
     <g:layoutBody/>
 
     <asset:javascript src="application.js"/>
-    <asset:javascript src="mainController.js"/>
 </body>
 </html>
