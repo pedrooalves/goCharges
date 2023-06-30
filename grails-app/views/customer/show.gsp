@@ -5,16 +5,17 @@
     <title>Detalhes da conta</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-start col-10 mb-3 main-container">
+    <div class="container d-flex justify-content-start default-details mb-3 main-container">
         <div class="col-12 pt-5">
             <div class="border rounded col">
                 <div class="row d-flex justify-content-center rounded border">
-                    <span class="h2">Detalhes da conta</span>
+                    <span class="h2"><p class="text-center">Detalhes da conta</p></span>
                 </div>
-                <div class="d-flex justify-content-center py-3">
+                <div class="d-flex details-card">
+                    <div class="details-info">
                         <g:if test="${customer.status.isActive()}">
-                            <div class="d-flex justify-content-between col-5">
-                                <div class="p-3">
+                            <div>
+                                <div class="pt-3">
                                     <p class="font-weight-bold mr-2">Nome</p>
                                     <p class="mb-2">${customer.name}</p>
 
@@ -36,7 +37,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="p-3">
+                                <div class="pt-3">
                                     <p class="font-weight-bold mr-2">Status</p>
                                     <p class="mb-2">${customer.status.name}</p>
 
@@ -71,6 +72,7 @@
                             </div>
                         </g:else>
                     </div>
+                </div>
             </div>
         </div>
     </div>
