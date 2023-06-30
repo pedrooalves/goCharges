@@ -5,10 +5,12 @@
 <head>
     <meta name="layout" content="main"/>
     <title>Listagem de pagadores</title>
-    <asset:javascript src="goCharges.js" />
+
+    <asset:javascript src="tableController.js"/>
+    <asset:javascript src="goCharges.js"/>
 </head>
 <body>
-    <div class="container col-12" style="height: 100%">
+    <div class="container col-12 js-container" style="height: 100%">
         <div class="card-body row">
             <div class="col 6">
                 <div class="mt-3 mb-1 p-2 px-4 bg-secondary text-white rounded d-flex justify-content-between align-items-center">
