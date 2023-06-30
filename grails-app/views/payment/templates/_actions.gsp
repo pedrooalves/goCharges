@@ -1,10 +1,8 @@
 <%@ page import="gocharges.payment.enums.PaymentStatus"%>
 <g:if test="${payment.canConfirm()}">
-    <g:form name="confirmButton" url="[controller: 'payment', action: 'confirmReceivedInCash']" method="POST">
-        <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3">
-            <asset:image src="cash-stack.svg"/>
-        </button>
-    </g:form>
+    <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-dark ml-3 js-btn-confirm-received-in-cash js-btn-open-modal">
+        <asset:image src="cash-stack.svg"/>
+    </button>
 </g:if>
 
 <g:if test="${payment.status.isReceived()}">
@@ -22,11 +20,9 @@
 </g:form>
 
 <g:if test="${payment.canDelete()}">
-    <g:form name="deleteButton" url="[controller: 'payment', action: 'delete']" method="POST">
-        <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3">
-            <asset:image src="trash.svg"/>
-        </button>
-    </g:form>
+    <button type="submit" name="id" value="${payment.id}" class="btn btn-outline-danger ml-3 js-btn-confirm-delete js-btn-open-modal">
+        <asset:image src="trash.svg"/>
+    </button>
 </g:if>
 <g:else>
     <g:form name="restoreButton" url="[controller: 'payment', action: 'restore']" method="POST">

@@ -76,5 +76,5 @@
         <button class="btn bg-gogreen text-white" type="submit">Cadastrar</button>
     </div>
 </g:form>
-<asset:javascript src="postal-code-utils.js"/>
-<asset:javascript src="person-form-controller.js"/>
+<asset:javascript src="postalCodeUtils.js"/>
+<asset:javascript src="personFormController.js"/>
