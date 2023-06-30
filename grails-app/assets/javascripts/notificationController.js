@@ -5,21 +5,18 @@ function NotificationController() {
     _this.notificationList = _this.reference.find(".js-notification");
 
     _this.init = function() {
+        _this.highlightNotifications();
+
         _this.notificationList.on("click", function() {
-            window.open(this.getAttribute("data-url"), "_self")
-        });
-        _this.bindSelectAllCheckBox()
-    };
-
-    _this.bindSelectAllCheckBox = function() {
-        _this.selectAllCheckbox.on("click", function() {
-            var selected = this.checked;
-
-            $(":checkbox").each(function() {
-                this.checked = selected;
-            });
+            $.post("/notification/markAsRead", {id: this.getAttribute("data-id")});
+            window.open(this.getAttribute("data-url"), "_self");
         });
     };
+
+    _this.highlightNotifications = function() {
+        _this.reference.find(".js-read-false").find("span").addClass("font-weight-bold");
+        _this.reference.find(".js-read-true").find("span").addClass("text-muted");
+    }
 }
 
 $(document).ready(function() {

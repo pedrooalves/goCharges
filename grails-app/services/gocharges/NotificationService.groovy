@@ -18,7 +18,7 @@ class NotificationService {
     }
 
     public List<Notification> list(Map params, Customer customer) {
-        return NotificationRepository.query([customer: customer]).order("dateCreated", "desc").list()
+        return NotificationRepository.query(params + [customer: customer]).order("dateCreated", "desc").list()
     }
 
     public void overduePayment(Payment payment) {
@@ -30,14 +30,23 @@ class NotificationService {
         notification.save(failOnError: true)
     }
 
-    public ArrayList buildNotification(Customer customer) {
-        List<Notification> notificationList = list([unreadOnly: true], customer)
+    public Notification markAsRead(Long id, Customer customer) {
+        Notification notification = NotificationRepository.query([id: id, customer: customer]).get()
+        notification.isRead = true
+        notification.save(failOnError: true)
+
+        return notification
+    }
+
+    public ArrayList buildNotification(Map params, Customer customer) {
+        List<Notification> notificationList = list(params, customer)
         ArrayList formattedNotificationList = []
 
         for (Notification notification : notificationList) {
              Map formattedNotification  = [
                 id: notification.id,
                 paymentId: notification.payment.id,
+                isRead: notification.isRead,
                 title: Utils.getMessageProperty("NotificationType.title.${notification.notificationType.toString()}",null),
                 message: Utils.getMessageProperty("NotificationType.message.${notification.notificationType.toString()}",
                         new String[] {notification.payment.payer.name, Utils.getCurrencyWithoutMonetarySimbol(notification.payment.value)}),
