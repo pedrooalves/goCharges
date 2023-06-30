@@ -12,4 +12,13 @@ class CustomDateUtils {
             return null
         }
     }
+
+    public static String getCurrentDate() {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
+            return simpleDateFormat.format(new Date())
+        } catch (Exception exception) {
+            println(exception.getMessage())
+        }
+    }
 }
