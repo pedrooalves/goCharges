@@ -11,7 +11,7 @@
                 <h1 class="display-4 mb-4">Notificações</h1>
                 <div class="border rounded col js-my-account">
                     <g:each var="notification" in="${notificationList}">
-                        <div class="d-flex row rounded border pl-5 pt-2 pb-1" >
+                        <div class="d-flex row rounded border pl-3 pt-2 pb-1" >
                             <g:render template="/notification/templates/notification" model="${[notification: notification]}"/>
                         </div>
                     </g:each>

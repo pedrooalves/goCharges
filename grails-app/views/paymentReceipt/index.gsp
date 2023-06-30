@@ -10,8 +10,8 @@
 </head>
 <body>
     <div class="container d-flex justify-content-center mt-5">
-        <div class="border bg-light w-50">
-            <div class="d-flex justify-content-between px-4 m-4">
+        <div class="border bg-light overflow-auto" style="width: 555px;">
+            <div class="d-flex justify-content-between px-4 m-4" style="width: 511px;">
                 <asset:image src="gocharges.png" alt="goCharges Logo"/>
 
                 <div class="text-right">
