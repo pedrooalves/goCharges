@@ -36,7 +36,7 @@
                     <a href="/payer" class="link-gogreen">Pagadores</a>
                     <a href="/payment" class="link-gogreen ml-3">Cobranças</a>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
-                        <a href="" class="link-gogreen ml-3">Clientes</a>
+                        <a href="/customer" class="link-gogreen ml-3">Clientes</a>
                     </sec:ifAnyGranted>
                 </div>
                 <div class="button-list">
