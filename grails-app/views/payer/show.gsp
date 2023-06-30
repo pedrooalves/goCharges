@@ -12,7 +12,7 @@
                     <span class="h2"><p class="text-center">Detalhes do pagador</p></span>
                 </div>
                 <div class="d-flex details-card">
-                    <div class="payer-details-info">
+                    <div class="details-info">
                         <div>
                             <div class="pt-3">
                                 <p class="font-weight-bold mr-2">Nome</p>

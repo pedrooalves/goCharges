@@ -84,7 +84,7 @@ table {
     width: 100%;
 }
 
-.payer-details-info {
+.details-info {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -133,7 +133,7 @@ table {
         justify-content: center;
     }
 
-    .payer-details-info {
+    .details-info {
         flex-direction: row;
         justify-content: space-between;
         width: 80%;
@@ -185,7 +185,7 @@ table {
         margin-left: 1rem;
     }
 
-    .payer-details-info {
+    .details-info {
         width: 60%;
     }
 }
