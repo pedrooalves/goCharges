@@ -80,6 +80,16 @@ table {
     justify-content: end;
 }
 
+.default-details {
+    width: 100%;
+}
+
+.details-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 @media (min-width: 360px) {
     .domain-title {
         flex-direction: row;
@@ -93,12 +103,6 @@ table {
 }
 
 @media (min-width: 700px) {
-    .main-header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
     .index-text {
         width: 70%;
     }
@@ -124,9 +128,25 @@ table {
     .pagination-bar {
         padding-left: 0;
     }
+
+    .details-card {
+        justify-content: center;
+    }
+
+    .details-info {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 80%;
+    }
 }
 
 @media (min-width: 992px) {
+    .main-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     .index-container {
         flex-direction: row;
     }
@@ -163,6 +183,10 @@ table {
     .filter {
         margin-top: 0;
         margin-left: 1rem;
+    }
+
+    .details-info {
+        width: 60%;
     }
 }
 

@@ -5,16 +5,16 @@
     <title>Detalhes do pagador</title>
 </head>
 <body>
-    <div class="container d-flex justify-content-start col-10 mb-3 main-container">
+    <div class="container d-flex justify-content-start default-details mb-3 main-container">
         <div class="col-12 pt-5">
             <div class="border rounded col">
                 <div class="row d-flex justify-content-center rounded border">
-                    <span class="h2">Detalhes do pagador</span>
+                    <span class="h2"><p class="text-center">Detalhes do pagador</p></span>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <div class="d-flex justify-content-between col-5">
+                <div class="d-flex details-card">
+                    <div class="details-info">
                         <div>
-                            <div class="p-3">
+                            <div class="pt-3">
                                 <p class="font-weight-bold mr-2">Nome</p>
                                 <p class="mb-2">${payer.name}</p>
 
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="p-3">
+                            <div class="pt-3">
                                 <p class="font-weight-bold mr-2">Endereço</p>
                                 <p class="mb-2">${payer.address}, ${payer.addressNumber}</p>
 
